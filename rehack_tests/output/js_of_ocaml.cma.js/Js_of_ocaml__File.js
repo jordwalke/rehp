@@ -33,9 +33,9 @@ var cst_load = string__0("load");
 var cst_loadend = string__0("loadend");
 var Js_of_ocaml_Typed_array = require("./Js_of_ocaml__Typed_array.js");
 var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
-var Pervasives = require("../stdlib.cma.js/Pervasives.js");
-var List = require("../stdlib.cma.js/List.js");
-var Array = require("../stdlib.cma.js/Array.js");
+var Stdlib = require("../stdlib.cma.js/Stdlib.js");
+var Stdlib_list = require("../stdlib.cma.js/Stdlib__list.js");
+var Stdlib_array = require("../stdlib.cma.js/Stdlib__array.js");
 var Js_of_ocaml_Dom = require("./Js_of_ocaml__Dom.js");
 var c_ = [0,string__0("transparent")];
 var d_ = [0,string__0("native")];
@@ -78,7 +78,7 @@ function make_blob_options(contentType, endings) {
     u_
   );
   return options ?
-    runtime["caml_js_object"](call1(Array[12], options)) :
+    runtime["caml_js_object"](call1(Stdlib_array[12], options)) :
     Js_of_ocaml_Js[3];
 }
 
@@ -107,8 +107,8 @@ function blob_from_any(contentType, endings, l) {
     var b = param[2];
     return b;
   }
-  var l__0 = call2(List[17], n_, l);
-  return blob_raw(contentType, endings, call1(Array[12], l__0));
+  var l__0 = call2(Stdlib_list[17], n_, l);
+  return blob_raw(contentType, endings, call1(Stdlib_array[12], l__0));
 }
 
 function filename(file) {
@@ -120,7 +120,7 @@ function filename(file) {
   var m_ = function(t4, param) {return t4.fileName;}(file, l_);
   var match__0 = call1(Js_of_ocaml_Js[6][10], m_);
   if (match__0) {var name__0 = match__0[1];return name__0;}
-  return call1(Pervasives[2], cst_can_t_retrieve_file_name_not_implemented);
+  return call1(Stdlib[2], cst_can_t_retrieve_file_name_not_implemented);
 }
 
 function e_(x) {return call1(caml_get_public_method(x, 1012572826, 72), x);}

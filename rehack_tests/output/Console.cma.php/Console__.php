@@ -15,7 +15,7 @@ final class Console__ {
     
     ;
     
-    $Console = Vector{0, 0, 0, 0} as dynamic;
+    $Console = Vector{0} as dynamic;
     
     return($Console);
 

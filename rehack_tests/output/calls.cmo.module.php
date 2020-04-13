@@ -29,7 +29,7 @@ final class Calls {
     $cst_two__0 = $string("two");
     $cst_hi = $string("hi");
     $cst_Second_Part_Of_Tuple = $string("Second Part Of Tuple:");
-    $Pervasives = Pervasives::get();
+    $Stdlib = Stdlib::get();
     $c_ = Vector{0, 100, 0} as dynamic;
     $a_ = Vector{0, 100, 0} as dynamic;
     $foo = "foo";
@@ -183,9 +183,9 @@ SomeUtilityClass::foo($cst_fix, $cst_me)
       $str = $match[2];
       $f__0 = $match[1];
       $f_ = $call2($f__0, 0, 0);
-      $g_ = $call1($Pervasives[21], $f_);
-      $h_ = $call2($Pervasives[16], $str, $g_);
-      $call1($Pervasives[30], $h_);
+      $g_ = $call1($Stdlib[33], $f_);
+      $h_ = $call2($Stdlib[28], $str, $g_);
+      $call1($Stdlib[42], $h_);
     }
     
     $Calls = Vector{

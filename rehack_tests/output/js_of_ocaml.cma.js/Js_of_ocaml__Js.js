@@ -26,9 +26,9 @@ var cst_parseFloat = string("parseFloat");
 var cst_parseInt = string("parseInt");
 var cst_Js_of_ocaml_Js_Error = string("Js_of_ocaml__Js.Error");
 var cst_jsError = string("jsError");
-var Pervasives = require("../stdlib.cma.js/Pervasives.js");
-var Callback = require("../stdlib.cma.js/Callback.js");
-var Printexc = require("../stdlib.cma.js/Printexc.js");
+var Stdlib = require("../stdlib.cma.js/Stdlib.js");
+var Stdlib_callback = require("../stdlib.cma.js/Stdlib__callback.js");
+var Stdlib_printexc = require("../stdlib.cma.js/Stdlib__printexc.js");
 var global = joo_global_object;
 var Unsafe = [0,global];
 var null__0 = null;
@@ -195,7 +195,7 @@ function m_(x) {return call1(caml_get_public_method(x, 37651177, 9), x);}
 var n_ = Unsafe[1];
 var error_constr = function(t10, param) {return t10.Error;}(n_, m_);
 
-call2(Callback[2], cst_jsError, [0,Error,{}]);
+call2(Stdlib_callback[2], cst_jsError, [0,Error,{}]);
 
 var raise_js_error = (function (exn) { throw exn });
 
@@ -252,14 +252,14 @@ function parseInt(s) {
   function D_(x) {return call1(caml_get_public_method(x, -697166212, 18), x);}
   var E_ = Unsafe[1];
   var s__0 = function(t19, param) {return t19.parseInt;}(E_, D_)(s);
-  return isNaN(s__0) ? call1(Pervasives[2], cst_parseInt) : s__0;
+  return isNaN(s__0) ? call1(Stdlib[2], cst_parseInt) : s__0;
 }
 
 function parseFloat(s) {
   function B_(x) {return call1(caml_get_public_method(x, 746065001, 19), x);}
   var C_ = Unsafe[1];
   var s__0 = function(t20, param) {return t20.parseFloat;}(C_, B_)(s);
-  return isNaN(s__0) ? call1(Pervasives[2], cst_parseFloat) : s__0;
+  return isNaN(s__0) ? call1(Stdlib[2], cst_parseFloat) : s__0;
 }
 
 function q_(param) {
@@ -276,7 +276,7 @@ function q_(param) {
   return 0;
 }
 
-call1(Printexc[8], q_);
+call1(Stdlib_printexc[8], q_);
 
 function r_(e) {
   if (e instanceof array_constructor) {return 0;}
@@ -287,7 +287,7 @@ function r_(e) {
   ];
 }
 
-call1(Printexc[8], r_);
+call1(Stdlib_printexc[8], r_);
 
 function string_of_error(e) {
   function y_(x) {return call1(caml_get_public_method(x, 946786476, 22), x);}

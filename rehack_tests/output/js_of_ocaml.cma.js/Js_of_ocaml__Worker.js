@@ -29,8 +29,8 @@ var cst_Worker_import_scripts_is_undefined = string(
   "Worker.import_scripts is undefined"
 );
 var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
-var Pervasives = require("../stdlib.cma.js/Pervasives.js");
-var Array = require("../stdlib.cma.js/Array.js");
+var Stdlib = require("../stdlib.cma.js/Stdlib.js");
+var Stdlib_array = require("../stdlib.cma.js/Stdlib__array.js");
 
 function a_(x) {return call1(caml_get_public_method(x, -324422083, 210), x);}
 
@@ -47,10 +47,10 @@ function import_scripts(scripts) {
   var o_ = Js_of_ocaml_Js[3];
   function p_(x) {return call1(caml_get_public_method(x, 815769891, 211), x);}
   var q_ = Js_of_ocaml_Js[50][1];
-  if (function(t4, param) {return t4.importScripts;}(q_, p_) === o_) {call1(Pervasives[1], cst_Worker_import_scripts_is_undefined);}
-  var r_ = call1(Array[12], scripts);
+  if (function(t4, param) {return t4.importScripts;}(q_, p_) === o_) {call1(Stdlib[1], cst_Worker_import_scripts_is_undefined);}
+  var r_ = call1(Stdlib_array[12], scripts);
   function s_(s) {return s.toString();}
-  var t_ = call2(Array[15], s_, r_);
+  var t_ = call2(Stdlib_array[15], s_, r_);
   function u_(x) {return call1(caml_get_public_method(x, 815769891, 212), x);}
   var v_ = Js_of_ocaml_Js[50][1];
   return runtime["caml_js_fun_call"](
@@ -63,7 +63,7 @@ function set_onmessage(handler) {
   var h_ = Js_of_ocaml_Js[3];
   function i_(x) {return call1(caml_get_public_method(x, 610977416, 213), x);}
   var j_ = Js_of_ocaml_Js[50][1];
-  if (function(t8, param) {return t8.onmessage;}(j_, i_) === h_) {call1(Pervasives[1], cst_Worker_onmessage_is_undefined);}
+  if (function(t8, param) {return t8.onmessage;}(j_, i_) === h_) {call1(Stdlib[1], cst_Worker_onmessage_is_undefined);}
   function js_handler(ev) {
     function n_(x) {
       return call1(caml_get_public_method(x, -1033677270, 214), x);
@@ -82,7 +82,7 @@ function post_message(msg) {
     return call1(caml_get_public_method(x, -699849401, 216), x);
   }
   var e_ = Js_of_ocaml_Js[50][1];
-  if (function(t11, param) {return t11.postMessage;}(e_, d_) === c_) {call1(Pervasives[1], cst_Worker_onmessage_is_undefined__0);}
+  if (function(t11, param) {return t11.postMessage;}(e_, d_) === c_) {call1(Stdlib[1], cst_Worker_onmessage_is_undefined__0);}
   function f_(x) {
     return call1(caml_get_public_method(x, -699849401, 217), x);
   }

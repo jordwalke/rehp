@@ -129,7 +129,7 @@ final class Js_of_ocaml__Dom_svg {
       "Js_of_ocaml__Dom_svg.SVGError"
     );
     $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
-    $Not_found = Not_found::get();
+    $Stdlib = Stdlib::get();
     $xmlns = "http://www.w3.org/2000/svg";
     $SVGError = Vector{
       248,
@@ -326,10 +326,10 @@ final class Js_of_ocaml__Dom_svg {
     $getElementById = (dynamic $id) : dynamic ==> {
       $i_ = (dynamic $e) : dynamic ==> {
         if (instance_of($e, $svg_element)) {return $e;}
-        throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
+        throw $caml_wrap_thrown_exception($Stdlib[8]) as \Throwable;
       };
       $j_ = (dynamic $param) : dynamic ==> {
-        throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
+        throw $caml_wrap_thrown_exception($Stdlib[8]) as \Throwable;
       };
       $k_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -332188296, 298), $x);

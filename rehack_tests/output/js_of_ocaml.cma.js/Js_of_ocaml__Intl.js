@@ -43,8 +43,7 @@ var shared = [
 ];
 var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
 var CamlinternalOO = require("../stdlib.cma.js/CamlinternalOO.js");
-var a_ = [0,string("_type"),string("localeMatcher")];
-var b_ = [
+var a_ = [
   0,
   string("year"),
   string("weekday"),
@@ -61,6 +60,7 @@ var b_ = [
   string("era"),
   string("day")
 ];
+var b_ = [0,string("_type"),string("localeMatcher")];
 var c_ = [
   0,
   string("useGrouping"),
@@ -74,8 +74,7 @@ var c_ = [
   string("currencyDisplay"),
   string("currency")
 ];
-var d_ = [0,string("localeMatcher"),string("_type")];
-var e_ = [
+var d_ = [
   0,
   string("usage"),
   string("sensitivity"),
@@ -84,6 +83,7 @@ var e_ = [
   string("ignorePunctuation"),
   string("caseFirst")
 ];
+var e_ = [0,string("localeMatcher"),string("_type")];
 var f_ = [
   0,
   string("hour"),
@@ -146,7 +146,7 @@ function options(param) {
     if (! j_[1]) {
       var bw_ = call1(CamlinternalOO[16], shared);
       var bx_ = call2(CamlinternalOO[3], bw_, cst__0);
-      var by_ = call2(CamlinternalOO[8], bw_, e_);
+      var by_ = call2(CamlinternalOO[8], bw_, d_);
       var bz_ = by_[1];
       var bA_ = by_[2];
       var bB_ = by_[3];
@@ -214,7 +214,7 @@ function options__0(param) {
     if (! k_[1]) {
       var aS_ = call1(CamlinternalOO[16], f_);
       var aT_ = call2(CamlinternalOO[3], aS_, cst__1);
-      var aU_ = call2(CamlinternalOO[8], aS_, b_);
+      var aU_ = call2(CamlinternalOO[8], aS_, a_);
       var aV_ = aU_[1];
       var aW_ = aU_[2];
       var aX_ = aU_[3];
@@ -448,9 +448,9 @@ var m_ = [0,0,0,0];
 function options__2(param) {
   function F_(self, localeMatcher, type) {
     if (! m_[1]) {
-      var I_ = call1(CamlinternalOO[16], a_);
+      var I_ = call1(CamlinternalOO[16], b_);
       var J_ = call2(CamlinternalOO[3], I_, cst__3);
-      var K_ = call2(CamlinternalOO[8], I_, d_);
+      var K_ = call2(CamlinternalOO[8], I_, e_);
       var L_ = K_[1];
       var M_ = K_[2];
       var N_ = function(self_5) {var env = self_5[J_ + 1];return env[1];};

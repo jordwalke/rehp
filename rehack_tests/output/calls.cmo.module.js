@@ -33,7 +33,7 @@ var cst_two = string("two");
 var cst_two__0 = string("two");
 var cst_hi = string("hi");
 var cst_Second_Part_Of_Tuple = string("Second Part Of Tuple:");
-var Pervasives = require("Pervasives.js");
+var Stdlib = require("Stdlib.js");
 var c_ = [0,100,0];
 var a_ = [0,100,0];
 var foo = "foo";
@@ -173,9 +173,9 @@ if (z) {
   var str = match[2];
   var f__0 = match[1];
   var f_ = call2(f__0, 0, 0);
-  var g_ = call1(Pervasives[21], f_);
-  var h_ = call2(Pervasives[16], str, g_);
-  call1(Pervasives[30], h_);
+  var g_ = call1(Stdlib[33], f_);
+  var h_ = call2(Stdlib[28], str, g_);
+  call1(Stdlib[42], h_);
 }
 
 var Calls = [

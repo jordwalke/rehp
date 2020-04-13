@@ -12,11 +12,11 @@ final class MyLib__ {
   public static function get() : Vector<dynamic> {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
-    $MyLib = Vector{0, 0} as dynamic;
+    $MyLib = Vector{0} as dynamic;
     
     return($MyLib);
 
   }
 
 }
-/*____hashes flags: 1314811087 bytecode: 4096869352 debug-data: 495304789 primitives: 1058613066*/
+/*____hashes flags: 1314811087 bytecode: 4725860563 debug-data: 129913994 primitives: 1058613066*/

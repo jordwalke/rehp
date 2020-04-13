@@ -110,12 +110,10 @@ var cst_Ff_Ii_Ll_Ee = string(
   "^([Ff][Ii][Ll][Ee])://([^\\?#]*)(\\?([^#]*))?(#(.*))?$"
 );
 var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
-var Failure = require("../runtime/Failure.js");
+var Stdlib = require("../stdlib.cma.js/Stdlib.js");
 var CamlinternalOO = require("../stdlib.cma.js/CamlinternalOO.js");
-var Pervasives = require("../stdlib.cma.js/Pervasives.js");
-var List = require("../stdlib.cma.js/List.js");
-var String = require("../stdlib.cma.js/String.js");
-var Not_found = require("../runtime/Not_found.js");
+var Stdlib_list = require("../stdlib.cma.js/Stdlib__list.js");
+var Stdlib_string = require("../stdlib.cma.js/Stdlib__string.js");
 var Js_of_ocaml_Regexp = require("./Js_of_ocaml__Regexp.js");
 var Js_of_ocaml_Dom_html = require("./Js_of_ocaml__Dom_html.js");
 var f_ = [0,string(""),0];
@@ -137,7 +135,7 @@ var a_ = [
 
 function split(c, s) {
   function cn_(x) {return call1(caml_get_public_method(x, 24046298, 241), x);}
-  var co_ = call2(String[1], 1, c).toString();
+  var co_ = call2(Stdlib_string[1], 1, c).toString();
   var cp_ = function(t1, t0, param) {return t1.split(t0);}(s, co_, cn_);
   return call1(Js_of_ocaml_Js[20], cp_);
 }
@@ -146,7 +144,7 @@ function split_2(c, s) {
   function cf_(x) {
     return call1(caml_get_public_method(x, -524334903, 242), x);
   }
-  var cg_ = call2(String[1], 1, c).toString();
+  var cg_ = call2(Stdlib_string[1], 1, c).toString();
   var index = function(t8, t7, param) {return t8.indexOf(t7);}(s, cg_, cf_);
   if (0 <= index) {
     var ch_ = function(x) {
@@ -272,13 +270,13 @@ var default_https_port = 443;
 function path_of_path_string(s) {
   var l = runtime["caml_ml_string_length"](s);
   function aux(i) {
-    try {var b7_ = call3(String[18], s, i, 47);var j = b7_;}
+    try {var b7_ = call3(Stdlib_string[18], s, i, 47);var j = b7_;}
     catch(b8_) {
       b8_ = runtime["caml_wrap_exception"](b8_);
-      if (b8_ !== Not_found) {throw caml_wrap_thrown_exception_reraise(b8_);}
+      if (b8_ !== Stdlib[8]) {throw caml_wrap_thrown_exception_reraise(b8_);}
       var j = l;
     }
-    var word = call3(String[4], s, i, j - i | 0);
+    var word = call3(Stdlib_string[4], s, i, j - i | 0);
     return l <= j ? [0,word,0] : [0,word,aux(j + 1 | 0)];
   }
   var a = aux(0);
@@ -297,12 +295,12 @@ function encode_arguments(l) {
     var v = param[2];
     var n = param[1];
     var b3_ = urlencode(0, v);
-    var b4_ = call2(Pervasives[16], cst__3, b3_);
+    var b4_ = call2(Stdlib[28], cst__3, b3_);
     var b5_ = urlencode(0, n);
-    return call2(Pervasives[16], b5_, b4_);
+    return call2(Stdlib[28], b5_, b4_);
   }
-  var b2_ = call2(List[17], b1_, l);
-  return call2(String[7], cst__4, b2_);
+  var b2_ = call2(Stdlib_list[17], b1_, l);
+  return call2(Stdlib_string[7], cst__4, b2_);
 }
 
 function decode_arguments_js_string(s) {
@@ -455,29 +453,29 @@ function string_of_url(param) {
       var host = match[1];
       if (caml_string_notequal(frag, cst__12)) {
         var aM_ = urlencode(0, frag);
-        var aN_ = call2(Pervasives[16], cst__13, aM_);
+        var aN_ = call2(Stdlib[28], cst__13, aM_);
       }
       else var aN_ = cst__20;
       if (args) {
         var aO_ = encode_arguments(args);
-        var aP_ = call2(Pervasives[16], cst__14, aO_);
+        var aP_ = call2(Stdlib[28], cst__14, aO_);
       }
       else var aP_ = cst__19;
-      var aQ_ = call2(Pervasives[16], aP_, aN_);
+      var aQ_ = call2(Stdlib[28], aP_, aN_);
       var aR_ = function(x) {return urlencode(0, x);};
-      var aS_ = call2(List[17], aR_, path);
-      var aT_ = call2(String[7], cst__15, aS_);
-      var aU_ = call2(Pervasives[16], aT_, aQ_);
-      var aV_ = call2(Pervasives[16], cst__16, aU_);
+      var aS_ = call2(Stdlib_list[17], aR_, path);
+      var aT_ = call2(Stdlib_string[7], cst__15, aS_);
+      var aU_ = call2(Stdlib[28], aT_, aQ_);
+      var aV_ = call2(Stdlib[28], cst__16, aU_);
       if (80 === port) var aW_ = cst__17;
       else {
-        var a0_ = call1(Pervasives[21], port);
-        var aW_ = call2(Pervasives[16], cst__18, a0_);
+        var a0_ = call1(Stdlib[33], port);
+        var aW_ = call2(Stdlib[28], cst__18, a0_);
       }
-      var aX_ = call2(Pervasives[16], aW_, aV_);
+      var aX_ = call2(Stdlib[28], aW_, aV_);
       var aY_ = urlencode(0, host);
-      var aZ_ = call2(Pervasives[16], aY_, aX_);
-      return call2(Pervasives[16], cst_http__1, aZ_);
+      var aZ_ = call2(Stdlib[28], aY_, aX_);
+      return call2(Stdlib[28], cst_http__1, aZ_);
     case 1:
       var match__0 = param[1];
       var frag__0 = match__0[6];
@@ -487,29 +485,29 @@ function string_of_url(param) {
       var host__0 = match__0[1];
       if (caml_string_notequal(frag__0, cst__21)) {
         var a1_ = urlencode(0, frag__0);
-        var a2_ = call2(Pervasives[16], cst__22, a1_);
+        var a2_ = call2(Stdlib[28], cst__22, a1_);
       }
       else var a2_ = cst__29;
       if (args__0) {
         var a3_ = encode_arguments(args__0);
-        var a4_ = call2(Pervasives[16], cst__23, a3_);
+        var a4_ = call2(Stdlib[28], cst__23, a3_);
       }
       else var a4_ = cst__28;
-      var a5_ = call2(Pervasives[16], a4_, a2_);
+      var a5_ = call2(Stdlib[28], a4_, a2_);
       var a6_ = function(x) {return urlencode(0, x);};
-      var a7_ = call2(List[17], a6_, path__0);
-      var a8_ = call2(String[7], cst__24, a7_);
-      var a9_ = call2(Pervasives[16], a8_, a5_);
-      var a__ = call2(Pervasives[16], cst__25, a9_);
+      var a7_ = call2(Stdlib_list[17], a6_, path__0);
+      var a8_ = call2(Stdlib_string[7], cst__24, a7_);
+      var a9_ = call2(Stdlib[28], a8_, a5_);
+      var a__ = call2(Stdlib[28], cst__25, a9_);
       if (443 === port__0) var ba_ = cst__26;
       else {
-        var be_ = call1(Pervasives[21], port__0);
-        var ba_ = call2(Pervasives[16], cst__27, be_);
+        var be_ = call1(Stdlib[33], port__0);
+        var ba_ = call2(Stdlib[28], cst__27, be_);
       }
-      var bb_ = call2(Pervasives[16], ba_, a__);
+      var bb_ = call2(Stdlib[28], ba_, a__);
       var bc_ = urlencode(0, host__0);
-      var bd_ = call2(Pervasives[16], bc_, bb_);
-      return call2(Pervasives[16], cst_https__1, bd_);
+      var bd_ = call2(Stdlib[28], bc_, bb_);
+      return call2(Stdlib[28], cst_https__1, bd_);
     default:
       var match__1 = param[1];
       var frag__1 = match__1[4];
@@ -517,20 +515,20 @@ function string_of_url(param) {
       var path__1 = match__1[1];
       if (caml_string_notequal(frag__1, cst__30)) {
         var bf_ = urlencode(0, frag__1);
-        var bg_ = call2(Pervasives[16], cst__31, bf_);
+        var bg_ = call2(Stdlib[28], cst__31, bf_);
       }
       else var bg_ = cst__35;
       if (args__1) {
         var bh_ = encode_arguments(args__1);
-        var bi_ = call2(Pervasives[16], cst__32, bh_);
+        var bi_ = call2(Stdlib[28], cst__32, bh_);
       }
       else var bi_ = cst__34;
-      var bj_ = call2(Pervasives[16], bi_, bg_);
+      var bj_ = call2(Stdlib[28], bi_, bg_);
       var bk_ = function(x) {return urlencode(0, x);};
-      var bl_ = call2(List[17], bk_, path__1);
-      var bm_ = call2(String[7], cst__33, bl_);
-      var bn_ = call2(Pervasives[16], bm_, bj_);
-      return call2(Pervasives[16], cst_file__1, bn_)
+      var bl_ = call2(Stdlib_list[17], bk_, path__1);
+      var bm_ = call2(Stdlib_string[7], cst__33, bl_);
+      var bn_ = call2(Stdlib[28], bm_, bj_);
+      return call2(Stdlib[28], cst_file__1, bn_)
     }
 }
 
@@ -694,7 +692,7 @@ var port = function(param) {
   }
   catch(af_) {
     af_ = runtime["caml_wrap_exception"](af_);
-    if (af_[1] === Failure) {return 0;}
+    if (af_[1] === Stdlib[7]) {return 0;}
     throw caml_wrap_thrown_exception_reraise(af_);
   }
 }(u_

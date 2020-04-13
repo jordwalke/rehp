@@ -23,9 +23,9 @@ function call2(f, a0, a1) {
 
 var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
 var Assert_failure = require("../runtime/Assert_failure.js");
-var Not_found = require("../runtime/Not_found.js");
+var Stdlib = require("../stdlib.cma.js/Stdlib.js");
 var Js_of_ocaml_Import = require("./Js_of_ocaml__Import.js");
-var List = require("../stdlib.cma.js/List.js");
+var Stdlib_list = require("../stdlib.cma.js/Stdlib__list.js");
 var a_ = [0,string("lib/js_of_ocaml/dom.ml"),351,67];
 
 function list_of_nodeList(nodeList) {
@@ -54,7 +54,7 @@ function list_of_nodeList(nodeList) {
         var i__0 = i__2;
         continue;
       }
-      return call1(List[9], acc__0);
+      return call1(Stdlib_list[9], acc__0);
     }
   }
   return add_item(0, 0);
@@ -221,7 +221,7 @@ function invoke_handler(f, this__0, event) {return f.call(this__0, event);}
 
 function eventTarget(e) {
   function H_(param) {
-    function Q_(param) {throw caml_wrap_thrown_exception(Not_found);}
+    function Q_(param) {throw caml_wrap_thrown_exception(Stdlib[8]);}
     function R_(x) {
       return call1(caml_get_public_method(x, -1021537224, 38), x);
     }

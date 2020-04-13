@@ -14,7 +14,7 @@ final class Js_of_ocaml__MutationObserver {
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $caml_get_public_method = $runtime["caml_get_public_method"];
-    $Array = Array_::get();
+    $Stdlib_array = Stdlib__array::get();
     $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
     $empty_mutation_observer_init = (dynamic $param) : dynamic ==> {
       return darray[];
@@ -118,7 +118,7 @@ final class Js_of_ocaml__MutationObserver {
           $f_ = (dynamic $x) : dynamic ==> {
             return $call1($caml_get_public_method($x, -116981516, 275), $x);
           };
-          $g_ = $runtime["caml_js_from_array"]($call1($Array[12], $l));
+          $g_ = $runtime["caml_js_from_array"]($call1($Stdlib_array[12], $l));
           return ((dynamic $t5, dynamic $t4, dynamic $param) : dynamic ==> {
              $t5->attributeFilter = $t4;
              return 0;

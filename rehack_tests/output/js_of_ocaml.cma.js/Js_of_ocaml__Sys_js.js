@@ -22,13 +22,13 @@ function call2(f, a0, a1) {
 
 var cst = string("");
 var cst__0 = string("+");
-var Pervasives = require("../stdlib.cma.js/Pervasives.js");
+var Stdlib = require("../stdlib.cma.js/Stdlib.js");
 var Js_of_ocaml_Lib_version = require("./Js_of_ocaml__Lib_version.js");
 
 function update_file(name, content) {
-  var oc = call1(Pervasives[48], name);
-  call2(Pervasives[54], oc, content);
-  return call1(Pervasives[64], oc);
+  var oc = call1(Stdlib[60], name);
+  call2(Stdlib[66], oc, content);
+  return call1(Stdlib[76], oc);
 }
 
 function set_channel_flusher(out_channel, f) {
@@ -56,12 +56,8 @@ function unmount(path) {return runtime["caml_unmount"](path);}
 
 if (runtime["caml_string_equal"](Js_of_ocaml_Lib_version[2], cst)) var js_of_ocaml_version = Js_of_ocaml_Lib_version[1];
 else {
-  var c_ = call2(Pervasives[16], cst__0, Js_of_ocaml_Lib_version[2]);
-  var js_of_ocaml_version = call2(
-    Pervasives[16],
-    Js_of_ocaml_Lib_version[1],
-    c_
-  );
+  var c_ = call2(Stdlib[28], cst__0, Js_of_ocaml_Lib_version[2]);
+  var js_of_ocaml_version = call2(Stdlib[28], Js_of_ocaml_Lib_version[1], c_);
 }
 
 function a_(g_, f_) {return runtime["caml_create_file"](g_, f_);}

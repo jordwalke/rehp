@@ -102,12 +102,10 @@ final class Js_of_ocaml__Url {
       "^([Ff][Ii][Ll][Ee])://([^\\?#]*)(\\?([^#]*))?(#(.*))?\\$"
     );
     $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
-    $Failure = Failure::get();
+    $Stdlib = Stdlib::get();
     $CamlinternalOO = CamlinternalOO::get();
-    $Pervasives = Pervasives::get();
-    $List = List_::get();
-    $String = String_::get();
-    $Not_found = Not_found::get();
+    $Stdlib_list = Stdlib__list::get();
+    $Stdlib_string = Stdlib__string::get();
     $Js_of_ocaml_Regexp = Js_of_ocaml__Regexp::get();
     $Js_of_ocaml_Dom_html = Js_of_ocaml__Dom_html::get();
     $f_ = Vector{0, $string(""), 0} as dynamic;
@@ -130,7 +128,7 @@ final class Js_of_ocaml__Url {
       $cn_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 24046298, 241), $x);
       };
-      $co_ = $call2($String[1], 1, $c)->toString();
+      $co_ = $call2($Stdlib_string[1], 1, $c)->toString();
       $cp_ = ((dynamic $t1, dynamic $t0, dynamic $param) : dynamic ==> {return $t1->split($t0);
        })($s, $co_, $cn_);
       return $call1($Js_of_ocaml_Js[20], $cp_);
@@ -139,7 +137,7 @@ final class Js_of_ocaml__Url {
       $cf_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -524334903, 242), $x);
       };
-      $cg_ = $call2($String[1], 1, $c)->toString();
+      $cg_ = $call2($Stdlib_string[1], 1, $c)->toString();
       $index = ((dynamic $t8, dynamic $t7, dynamic $param) : dynamic ==> {return $t8->indexOf($t7);
        })($s, $cg_, $cf_);
       if (0 <= $index) {
@@ -267,15 +265,15 @@ final class Js_of_ocaml__Url {
       $aux = new Ref();
       $l = $runtime["caml_ml_string_length"]($s);
       $aux->contents = (dynamic $i) : dynamic ==> {
-        try {$b7_ = $call3($String[18], $s, $i, 47);$j = $b7_;}
+        try {$b7_ = $call3($Stdlib_string[18], $s, $i, 47);$j = $b7_;}
         catch(\Throwable $b8_) {
           $b8_ = $runtime["caml_wrap_exception"]($b8_);
-          if ($b8_ !== $Not_found) {
+          if ($b8_ !== $Stdlib[8]) {
             throw $caml_wrap_thrown_exception_reraise($b8_) as \Throwable;
           }
           $j = $l;
         }
-        $word = $call3($String[4], $s, $i, (int) ($j - $i));
+        $word = $call3($Stdlib_string[4], $s, $i, (int) ($j - $i));
         return $l <= $j
           ? Vector{0, $word, 0}
           : (Vector{0, $word, $aux->contents((int) ($j + 1))});
@@ -295,12 +293,12 @@ final class Js_of_ocaml__Url {
         $v = $param[2];
         $n = $param[1];
         $b3_ = $urlencode(0, $v);
-        $b4_ = $call2($Pervasives[16], $cst__3, $b3_);
+        $b4_ = $call2($Stdlib[28], $cst__3, $b3_);
         $b5_ = $urlencode(0, $n);
-        return $call2($Pervasives[16], $b5_, $b4_);
+        return $call2($Stdlib[28], $b5_, $b4_);
       };
-      $b2_ = $call2($List[17], $b1_, $l);
-      return $call2($String[7], $cst__4, $b2_);
+      $b2_ = $call2($Stdlib_list[17], $b1_, $l);
+      return $call2($Stdlib_string[7], $cst__4, $b2_);
     };
     $decode_arguments_js_string = (dynamic $s) : dynamic ==> {
       $aux = new Ref();
@@ -485,29 +483,29 @@ final class Js_of_ocaml__Url {
           $host = $match[1];
           if ($caml_string_notequal($frag, $cst__12)) {
             $aM_ = $urlencode(0, $frag);
-            $aN_ = $call2($Pervasives[16], $cst__13, $aM_);
+            $aN_ = $call2($Stdlib[28], $cst__13, $aM_);
           }
           else {$aN_ = $cst__20;}
           if ($args) {
             $aO_ = $encode_arguments($args);
-            $aP_ = $call2($Pervasives[16], $cst__14, $aO_);
+            $aP_ = $call2($Stdlib[28], $cst__14, $aO_);
           }
           else {$aP_ = $cst__19;}
-          $aQ_ = $call2($Pervasives[16], $aP_, $aN_);
+          $aQ_ = $call2($Stdlib[28], $aP_, $aN_);
           $aR_ = (dynamic $x) : dynamic ==> {return $urlencode(0, $x);};
-          $aS_ = $call2($List[17], $aR_, $path);
-          $aT_ = $call2($String[7], $cst__15, $aS_);
-          $aU_ = $call2($Pervasives[16], $aT_, $aQ_);
-          $aV_ = $call2($Pervasives[16], $cst__16, $aU_);
+          $aS_ = $call2($Stdlib_list[17], $aR_, $path);
+          $aT_ = $call2($Stdlib_string[7], $cst__15, $aS_);
+          $aU_ = $call2($Stdlib[28], $aT_, $aQ_);
+          $aV_ = $call2($Stdlib[28], $cst__16, $aU_);
           if (80 === $port) {$aW_ = $cst__17;}
           else {
-            $a0_ = $call1($Pervasives[21], $port);
-            $aW_ = $call2($Pervasives[16], $cst__18, $a0_);
+            $a0_ = $call1($Stdlib[33], $port);
+            $aW_ = $call2($Stdlib[28], $cst__18, $a0_);
           }
-          $aX_ = $call2($Pervasives[16], $aW_, $aV_);
+          $aX_ = $call2($Stdlib[28], $aW_, $aV_);
           $aY_ = $urlencode(0, $host);
-          $aZ_ = $call2($Pervasives[16], $aY_, $aX_);
-          return $call2($Pervasives[16], $cst_http__1, $aZ_);
+          $aZ_ = $call2($Stdlib[28], $aY_, $aX_);
+          return $call2($Stdlib[28], $cst_http__1, $aZ_);
         // FALLTHROUGH
         case 1:
           $match__0 = $param[1];
@@ -518,29 +516,29 @@ final class Js_of_ocaml__Url {
           $host__0 = $match__0[1];
           if ($caml_string_notequal($frag__0, $cst__21)) {
             $a1_ = $urlencode(0, $frag__0);
-            $a2_ = $call2($Pervasives[16], $cst__22, $a1_);
+            $a2_ = $call2($Stdlib[28], $cst__22, $a1_);
           }
           else {$a2_ = $cst__29;}
           if ($args__0) {
             $a3_ = $encode_arguments($args__0);
-            $a4_ = $call2($Pervasives[16], $cst__23, $a3_);
+            $a4_ = $call2($Stdlib[28], $cst__23, $a3_);
           }
           else {$a4_ = $cst__28;}
-          $a5_ = $call2($Pervasives[16], $a4_, $a2_);
+          $a5_ = $call2($Stdlib[28], $a4_, $a2_);
           $a6_ = (dynamic $x) : dynamic ==> {return $urlencode(0, $x);};
-          $a7_ = $call2($List[17], $a6_, $path__0);
-          $a8_ = $call2($String[7], $cst__24, $a7_);
-          $a9_ = $call2($Pervasives[16], $a8_, $a5_);
-          $a__ = $call2($Pervasives[16], $cst__25, $a9_);
+          $a7_ = $call2($Stdlib_list[17], $a6_, $path__0);
+          $a8_ = $call2($Stdlib_string[7], $cst__24, $a7_);
+          $a9_ = $call2($Stdlib[28], $a8_, $a5_);
+          $a__ = $call2($Stdlib[28], $cst__25, $a9_);
           if (443 === $port__0) {$ba_ = $cst__26;}
           else {
-            $be_ = $call1($Pervasives[21], $port__0);
-            $ba_ = $call2($Pervasives[16], $cst__27, $be_);
+            $be_ = $call1($Stdlib[33], $port__0);
+            $ba_ = $call2($Stdlib[28], $cst__27, $be_);
           }
-          $bb_ = $call2($Pervasives[16], $ba_, $a__);
+          $bb_ = $call2($Stdlib[28], $ba_, $a__);
           $bc_ = $urlencode(0, $host__0);
-          $bd_ = $call2($Pervasives[16], $bc_, $bb_);
-          return $call2($Pervasives[16], $cst_https__1, $bd_);
+          $bd_ = $call2($Stdlib[28], $bc_, $bb_);
+          return $call2($Stdlib[28], $cst_https__1, $bd_);
         // FALLTHROUGH
         default:
           $match__1 = $param[1];
@@ -549,20 +547,20 @@ final class Js_of_ocaml__Url {
           $path__1 = $match__1[1];
           if ($caml_string_notequal($frag__1, $cst__30)) {
             $bf_ = $urlencode(0, $frag__1);
-            $bg_ = $call2($Pervasives[16], $cst__31, $bf_);
+            $bg_ = $call2($Stdlib[28], $cst__31, $bf_);
           }
           else {$bg_ = $cst__35;}
           if ($args__1) {
             $bh_ = $encode_arguments($args__1);
-            $bi_ = $call2($Pervasives[16], $cst__32, $bh_);
+            $bi_ = $call2($Stdlib[28], $cst__32, $bh_);
           }
           else {$bi_ = $cst__34;}
-          $bj_ = $call2($Pervasives[16], $bi_, $bg_);
+          $bj_ = $call2($Stdlib[28], $bi_, $bg_);
           $bk_ = (dynamic $x) : dynamic ==> {return $urlencode(0, $x);};
-          $bl_ = $call2($List[17], $bk_, $path__1);
-          $bm_ = $call2($String[7], $cst__33, $bl_);
-          $bn_ = $call2($Pervasives[16], $bm_, $bj_);
-          return $call2($Pervasives[16], $cst_file__1, $bn_);
+          $bl_ = $call2($Stdlib_list[17], $bk_, $path__1);
+          $bm_ = $call2($Stdlib_string[7], $cst__33, $bl_);
+          $bn_ = $call2($Stdlib[28], $bm_, $bj_);
+          return $call2($Stdlib[28], $cst_file__1, $bn_);
         }
     };
     $m_ = (dynamic $x) : dynamic ==> {
@@ -775,7 +773,7 @@ final class Js_of_ocaml__Url {
        }
        catch(\Throwable $af_) {
          $af_ = $runtime["caml_wrap_exception"]($af_);
-         if ($af_[1] === $Failure) {return 0;}
+         if ($af_[1] === $Stdlib[7]) {return 0;}
          throw $caml_wrap_thrown_exception_reraise($af_) as \Throwable;
        }
      })($u_);

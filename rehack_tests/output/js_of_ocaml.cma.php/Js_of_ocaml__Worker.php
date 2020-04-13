@@ -26,8 +26,8 @@ final class Js_of_ocaml__Worker {
       "Worker.import_scripts is undefined"
     );
     $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
-    $Pervasives = Pervasives::get();
-    $Array = Array_::get();
+    $Stdlib = Stdlib::get();
+    $Stdlib_array = Stdlib__array::get();
     $a_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, -324422083, 210), $x);
     };
@@ -51,10 +51,10 @@ final class Js_of_ocaml__Worker {
         ((dynamic $t4, dynamic $param) : dynamic ==> {
            return $t4->importScripts;
          })($q_, $p_) === $o_
-      ) {$call1($Pervasives[1], $cst_Worker_import_scripts_is_undefined);}
-      $r_ = $call1($Array[12], $scripts);
+      ) {$call1($Stdlib[1], $cst_Worker_import_scripts_is_undefined);}
+      $r_ = $call1($Stdlib_array[12], $scripts);
       $s_ = (dynamic $s) : dynamic ==> {return $s->toString();};
-      $t_ = $call2($Array[15], $s_, $r_);
+      $t_ = $call2($Stdlib_array[15], $s_, $r_);
       $u_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, 815769891, 212), $x);
       };
@@ -74,7 +74,7 @@ final class Js_of_ocaml__Worker {
       $j_ = $Js_of_ocaml_Js[50][1];
       if (
         ((dynamic $t8, dynamic $param) : dynamic ==> {return $t8->onmessage;})($j_, $i_) === $h_
-      ) {$call1($Pervasives[1], $cst_Worker_onmessage_is_undefined);}
+      ) {$call1($Stdlib[1], $cst_Worker_onmessage_is_undefined);}
       $js_handler = (dynamic $ev) : dynamic ==> {
         $n_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, -1033677270, 214), $x);
@@ -104,7 +104,7 @@ final class Js_of_ocaml__Worker {
         ((dynamic $t11, dynamic $param) : dynamic ==> {
            return $t11->postMessage;
          })($e_, $d_) === $c_
-      ) {$call1($Pervasives[1], $cst_Worker_onmessage_is_undefined__0);}
+      ) {$call1($Stdlib[1], $cst_Worker_onmessage_is_undefined__0);}
       $f_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -699849401, 217), $x);
       };

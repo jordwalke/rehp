@@ -22,7 +22,7 @@ var caml_wrap_thrown_exception_reraise = runtime
 var cst_CamlinternalLazy_Undefined = runtime["caml_new_string"](
   "CamlinternalLazy.Undefined"
 );
-var Obj = require("./Obj.js");
+var Stdlib_obj = require("./Stdlib__obj.js");
 var Undefined = [
   248,
   cst_CamlinternalLazy_Undefined,
@@ -38,7 +38,7 @@ function force_lazy_block(blk) {
   try {
     result = call1(closure, 0);
     blk[1] = result;
-    caml_obj_set_tag(blk, Obj[10]);
+    caml_obj_set_tag(blk, Stdlib_obj[10]);
     return result;
   }
   catch(e) {
@@ -53,20 +53,22 @@ function force_val_lazy_block(blk) {
   blk[1] = raise_undefined;
   var result = call1(closure, 0);
   blk[1] = result;
-  caml_obj_set_tag(blk, Obj[10]);
+  caml_obj_set_tag(blk, Stdlib_obj[10]);
   return result;
 }
 
 function force(lzv) {
   var t = caml_obj_tag(lzv);
-  return t === Obj[10] ? lzv[1] : t !== Obj[6] ? lzv : force_lazy_block(lzv);
+  return t === Stdlib_obj[10] ?
+    lzv[1] :
+    t !== Stdlib_obj[6] ? lzv : force_lazy_block(lzv);
 }
 
 function force_val(lzv) {
   var t = caml_obj_tag(lzv);
-  return t === Obj[10] ?
+  return t === Stdlib_obj[10] ?
     lzv[1] :
-    t !== Obj[6] ? lzv : force_val_lazy_block(lzv);
+    t !== Stdlib_obj[6] ? lzv : force_val_lazy_block(lzv);
 }
 
 var CamlinternalLazy = [

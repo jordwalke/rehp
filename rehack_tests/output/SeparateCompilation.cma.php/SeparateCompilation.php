@@ -16,12 +16,12 @@ final class SeparateCompilation {
     $SeparateCompilation_SeparateCompilationHelper = SeparateCompilation__SeparateCompilationHelper::get(
       
     );
-    $Pervasives = Pervasives::get();
+    $Stdlib = Stdlib::get();
     $MyLib = MyLib::get();
     
-    $call1($Pervasives[34], $SeparateCompilation_SeparateCompilationHelper[1]);
+    $call1($Stdlib[46], $SeparateCompilation_SeparateCompilationHelper[1]);
     
-    $call1($Pervasives[30], $runtime["caml_js_to_string"]($MyLib[2]));
+    $call1($Stdlib[42], $runtime["caml_js_to_string"]($MyLib[2]));
     
     $SeparateCompilation = Vector{0} as dynamic;
     
@@ -30,4 +30,4 @@ final class SeparateCompilation {
   }
 
 }
-/*____hashes flags: 1314811087 bytecode: 10647412249 debug-data: 389742017 primitives: 1058613066*/
+/*____hashes flags: 1314811087 bytecode: 10294615975 debug-data: 389742017 primitives: 1058613066*/

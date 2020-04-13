@@ -22,9 +22,9 @@ final class Js_of_ocaml__Js {
     $cst_parseInt = $string("parseInt");
     $cst_Js_of_ocaml_Js_Error = $string("Js_of_ocaml__Js.Error");
     $cst_jsError = $string("jsError");
-    $Pervasives = Pervasives::get();
-    $Callback = Callback::get();
-    $Printexc = Printexc::get();
+    $Stdlib = Stdlib::get();
+    $Stdlib_callback = Stdlib__callback::get();
+    $Stdlib_printexc = Stdlib__printexc::get();
     $global = joo_global_object;
     $Unsafe = Vector{0, $global} as dynamic;
     $null__0 = null;
@@ -218,7 +218,7 @@ final class Js_of_ocaml__Js {
        return $t10->Error;
      })($n_, $m_);
     
-    $call2($Callback[2], $cst_jsError, Vector{0, $Error, darray[]});
+    $call2($Stdlib_callback[2], $cst_jsError, Vector{0, $Error, darray[]});
     
     $raise_js_error = (function($exn) {throw $exn;});
     $o_ = (dynamic $x) : dynamic ==> {
@@ -296,7 +296,7 @@ final class Js_of_ocaml__Js {
       $s__0 = ((dynamic $t19, dynamic $param) : dynamic ==> {
          return $t19->parseInt;
        })($E_, $D_)($s);
-      return $isNaN($s__0) ? $call1($Pervasives[2], $cst_parseInt) : ($s__0);
+      return $isNaN($s__0) ? $call1($Stdlib[2], $cst_parseInt) : ($s__0);
     };
     $parseFloat = (dynamic $s) : dynamic ==> {
       $B_ = (dynamic $x) : dynamic ==> {
@@ -306,7 +306,7 @@ final class Js_of_ocaml__Js {
       $s__0 = ((dynamic $t20, dynamic $param) : dynamic ==> {
          return $t20->parseFloat;
        })($C_, $B_)($s);
-      return $isNaN($s__0) ? $call1($Pervasives[2], $cst_parseFloat) : ($s__0);
+      return $isNaN($s__0) ? $call1($Stdlib[2], $cst_parseFloat) : ($s__0);
     };
     $q_ = (dynamic $param) : dynamic ==> {
       if ($param[1] === $Error) {
@@ -326,7 +326,7 @@ final class Js_of_ocaml__Js {
       return 0;
     };
     
-    $call1($Printexc[8], $q_);
+    $call1($Stdlib_printexc[8], $q_);
     
     $r_ = (dynamic $e) : dynamic ==> {
       if (instance_of($e, $array_constructor)) {return 0;}
@@ -343,7 +343,7 @@ final class Js_of_ocaml__Js {
       };
     };
     
-    $call1($Printexc[8], $r_);
+    $call1($Stdlib_printexc[8], $r_);
     
     $string_of_error = (dynamic $e) : dynamic ==> {
       $y_ = (dynamic $x) : dynamic ==> {

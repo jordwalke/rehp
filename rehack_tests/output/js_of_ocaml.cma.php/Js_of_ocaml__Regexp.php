@@ -23,7 +23,7 @@ final class Js_of_ocaml__Regexp {
     $cst = $string("[\\][()\\\\|+*.?{}^\\$]");
     $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
     $Assert_failure = Assert_failure::get();
-    $Pervasives = Pervasives::get();
+    $Stdlib = Stdlib::get();
     $a_ = Vector{0, $string("lib/js_of_ocaml/regexp.ml"), 33, 64} as dynamic;
     $regexp = (dynamic $s) : dynamic ==> {
       $al_ = 0 as dynamic;
@@ -42,7 +42,7 @@ final class Js_of_ocaml__Regexp {
        })($ak_, $aj_, $ai_, $ah_);
     };
     $regexp_with_flag = (dynamic $s, dynamic $f) : dynamic ==> {
-      $ae_ = $call2($Pervasives[16], $cst_g, $f)->toString();
+      $ae_ = $call2($Stdlib[28], $cst_g, $f)->toString();
       $ad_ = 0 as dynamic;
       $af_ = $caml_jsbytes_of_string($s);
       $ag_ = $Js_of_ocaml_Js[11];

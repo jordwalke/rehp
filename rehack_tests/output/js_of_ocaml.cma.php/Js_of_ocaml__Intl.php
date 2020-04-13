@@ -34,8 +34,7 @@ final class Js_of_ocaml__Intl {
     } as dynamic;
     $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
     $CamlinternalOO = CamlinternalOO::get();
-    $a_ = Vector{0, $string("_type"), $string("localeMatcher")} as dynamic;
-    $b_ = Vector{
+    $a_ = Vector{
       0,
       $string("year"),
       $string("weekday"),
@@ -52,6 +51,7 @@ final class Js_of_ocaml__Intl {
       $string("era"),
       $string("day")
     } as dynamic;
+    $b_ = Vector{0, $string("_type"), $string("localeMatcher")} as dynamic;
     $c_ = Vector{
       0,
       $string("useGrouping"),
@@ -65,8 +65,7 @@ final class Js_of_ocaml__Intl {
       $string("currencyDisplay"),
       $string("currency")
     } as dynamic;
-    $d_ = Vector{0, $string("localeMatcher"), $string("_type")} as dynamic;
-    $e_ = Vector{
+    $d_ = Vector{
       0,
       $string("usage"),
       $string("sensitivity"),
@@ -75,6 +74,7 @@ final class Js_of_ocaml__Intl {
       $string("ignorePunctuation"),
       $string("caseFirst")
     } as dynamic;
+    $e_ = Vector{0, $string("localeMatcher"), $string("_type")} as dynamic;
     $f_ = Vector{
       0,
       $string("hour"),
@@ -140,7 +140,7 @@ final class Js_of_ocaml__Intl {
         if (! $j_[1]) {
           $bw_ = $call1($CamlinternalOO[16], $shared);
           $bx_ = $call2($CamlinternalOO[3], $bw_, $cst__0);
-          $by_ = $call2($CamlinternalOO[8], $bw_, $e_);
+          $by_ = $call2($CamlinternalOO[8], $bw_, $d_);
           $bz_ = $by_[1];
           $bA_ = $by_[2];
           $bB_ = $by_[3];
@@ -232,7 +232,7 @@ final class Js_of_ocaml__Intl {
         if (! $k_[1]) {
           $aS_ = $call1($CamlinternalOO[16], $f_);
           $aT_ = $call2($CamlinternalOO[3], $aS_, $cst__1);
-          $aU_ = $call2($CamlinternalOO[8], $aS_, $b_);
+          $aU_ = $call2($CamlinternalOO[8], $aS_, $a_);
           $aV_ = $aU_[1];
           $aW_ = $aU_[2];
           $aX_ = $aU_[3];
@@ -549,9 +549,9 @@ final class Js_of_ocaml__Intl {
     $options__2 = (dynamic $param) : dynamic ==> {
       $F_ = (dynamic $self, dynamic $localeMatcher, dynamic $type) : dynamic ==> {
         if (! $m_[1]) {
-          $I_ = $call1($CamlinternalOO[16], $a_);
+          $I_ = $call1($CamlinternalOO[16], $b_);
           $J_ = $call2($CamlinternalOO[3], $I_, $cst__3);
-          $K_ = $call2($CamlinternalOO[8], $I_, $d_);
+          $K_ = $call2($CamlinternalOO[8], $I_, $e_);
           $L_ = $K_[1];
           $M_ = $K_[2];
           $N_ = (dynamic $self_5) : dynamic ==> {

@@ -19,9 +19,9 @@ final class Js_of_ocaml__Dom {
     $caml_wrap_thrown_exception = $runtime["caml_wrap_thrown_exception"];
     $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
     $Assert_failure = Assert_failure::get();
-    $Not_found = Not_found::get();
+    $Stdlib = Stdlib::get();
     $Js_of_ocaml_Import = Js_of_ocaml__Import::get();
-    $List = List_::get();
+    $Stdlib_list = Stdlib__list::get();
     $a_ = Vector{0, $string("lib/js_of_ocaml/dom.ml"), 351, 67} as dynamic;
     $list_of_nodeList = (dynamic $nodeList) : dynamic ==> {
       $aj_ = (dynamic $x) : dynamic ==> {
@@ -53,7 +53,7 @@ final class Js_of_ocaml__Dom {
             $i__0 = $i__2;
             continue;
           }
-          return $call1($List[9], $acc__0);
+          return $call1($Stdlib_list[9], $acc__0);
         }
       };
       return $add_item(0, 0);
@@ -243,7 +243,7 @@ final class Js_of_ocaml__Dom {
     $eventTarget = (dynamic $e) : dynamic ==> {
       $H_ = (dynamic $param) : dynamic ==> {
         $Q_ = (dynamic $param) : dynamic ==> {
-          throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
+          throw $caml_wrap_thrown_exception($Stdlib[8]) as \Throwable;
         };
         $R_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, -1021537224, 38), $x);

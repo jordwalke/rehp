@@ -67,84 +67,82 @@ final class Strings {
     $cst_Nans_are_should_output_false = $string(
       "Nans are == (should output false):"
     );
-    $Pervasives = Pervasives::get();
-    $String = String_::get();
-    $Not_found = Not_found::get();
+    $Stdlib = Stdlib::get();
+    $Stdlib_string = Stdlib__string::get();
     $StringHelper = StringHelper::get();
-    $Failure = Failure::get();
     $r_ = Vector{0, 1, Vector{0, 2, Vector{0, 3, Vector{0, 4, 0}}}} as dynamic;
     $s_ = Vector{0, 1, Vector{0, 2, Vector{0, 3, Vector{0, 4, 0}}}} as dynamic;
     
-    $call1($Pervasives[34], $greeting);
+    $call1($Stdlib[46], $greeting);
     
-    $call1($Pervasives[34], $greeting__0);
+    $call1($Stdlib[46], $greeting__0);
     
-    $a_ = $call1($Pervasives[21], 2);
-    $b_ = $call2($Pervasives[16], $cst_String_length_should_be_two, $a_);
+    $a_ = $call1($Stdlib[33], 2);
+    $b_ = $call2($Stdlib[28], $cst_String_length_should_be_two, $a_);
     
-    $call1($Pervasives[34], $b_);
+    $call1($Stdlib[46], $b_);
     
-    $c_ = $call2($String[1], 1, 138);
-    $d_ = $call2($String[1], 1, 201);
-    $e_ = $call2($Pervasives[16], $d_, $c_);
+    $c_ = $call2($Stdlib_string[1], 1, 138);
+    $d_ = $call2($Stdlib_string[1], 1, 201);
+    $e_ = $call2($Stdlib[28], $d_, $c_);
     
-    $call1($Pervasives[34], $e_);
+    $call1($Stdlib[46], $e_);
     
     $caml_int_of_string($cst_1);
     
     $negativeOne = $caml_int_of_string($cst_6);
     $one = $caml_int_of_string($cst_1__0);
     $six = $caml_int_of_string($cst_6__0);
-    $index = $call2($String[14], $cst_as_df, 95);
-    $f_ = $call1($Pervasives[21], $index);
-    $g_ = $call2($Pervasives[16], $cst_index_from_string_with_char, $f_);
+    $index = $call2($Stdlib_string[14], $cst_as_df, 95);
+    $f_ = $call1($Stdlib[33], $index);
+    $g_ = $call2($Stdlib[28], $cst_index_from_string_with_char, $f_);
     
-    $call1($Pervasives[34], $g_);
+    $call1($Stdlib[46], $g_);
     
     $unicodeLength = 2 as dynamic;
     
-    try {$D_ = $call2($String[14], $cst_asdf, 95);$index__0 = $D_;}
+    try {$D_ = $call2($Stdlib_string[14], $cst_asdf, 95);$index__0 = $D_;}
     catch(\Throwable $G_) {
       $G_ = $runtime["caml_wrap_exception"]($G_);
-      if ($G_ !== $Not_found) {
+      if ($G_ !== $Stdlib[8]) {
         throw $caml_wrap_thrown_exception_reraise($G_) as \Throwable;
       }
       $h_ = -1 as dynamic;
       $index__0 = $h_;
     }
     
-    $i_ = $call1($Pervasives[21], $index__0);
-    $j_ = $call2($Pervasives[16], $cst_index_from_string_without_char, $i_);
+    $i_ = $call1($Stdlib[33], $index__0);
+    $j_ = $call2($Stdlib[28], $cst_index_from_string_without_char, $i_);
     
-    $call1($Pervasives[34], $j_);
+    $call1($Stdlib[46], $j_);
     
-    $call1($Pervasives[32], $index__0);
+    $call1($Stdlib[44], $index__0);
     
-    $call1($Pervasives[34], $cst_Prints_seven);
+    $call1($Stdlib[46], $cst_Prints_seven);
     
-    $call1($Pervasives[32], (int) ($one + $six));
+    $call1($Stdlib[44], (int) ($one + $six));
     
-    $call1($Pervasives[35], 0);
+    $call1($Stdlib[47], 0);
     
-    $call1($Pervasives[34], $cst_Prints_six);
+    $call1($Stdlib[46], $cst_Prints_six);
     
-    $call1($Pervasives[32], $six);
+    $call1($Stdlib[44], $six);
     
-    $call1($Pervasives[35], 0);
+    $call1($Stdlib[47], 0);
     
-    $call1($Pervasives[34], $cst_Prints_six__0);
+    $call1($Stdlib[46], $cst_Prints_six__0);
     
-    $call1($Pervasives[30], $cst_6__1);
+    $call1($Stdlib[42], $cst_6__1);
     
-    $call1($Pervasives[35], 0);
+    $call1($Stdlib[47], 0);
     
-    $call1($Pervasives[34], $StringHelper[1]);
+    $call1($Stdlib[46], $StringHelper[1]);
     
-    $call1($Pervasives[34], $cst_Reason_is_on);
+    $call1($Stdlib[46], $cst_Reason_is_on);
     
-    $k_ = $call1($String[12], $cst_trimmed_string);
+    $k_ = $call1($Stdlib_string[12], $cst_trimmed_string);
     
-    $call1($Pervasives[34], $k_);
+    $call1($Stdlib[46], $k_);
     
     $createIntFromString = (dynamic $ss) : dynamic ==> {
       return $caml_int_of_string($ss);
@@ -152,10 +150,10 @@ final class Strings {
     $myFunction = 
     (dynamic $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope__0) : dynamic ==> {
       $call1(
-        $Pervasives[30],
+        $Stdlib[42],
         $cst_The_variable_v_should_not_conflict_with_any_other_variables_in_scope
       );
-      return $call1($Pervasives[35], 0);
+      return $call1($Stdlib[47], 0);
     };
     
     $myFunction($cst_tmp);
@@ -163,7 +161,7 @@ final class Strings {
     try {$C_ = $createIntFromString($cst_WHEREAMI);$m_ = $C_;}
     catch(\Throwable $F_) {
       $F_ = $runtime["caml_wrap_exception"]($F_);
-      if ($F_[1] !== $Failure) {
+      if ($F_[1] !== $Stdlib[7]) {
         throw $caml_wrap_thrown_exception_reraise($F_) as \Throwable;
       }
       $l_ = 102 as dynamic;
@@ -172,19 +170,17 @@ final class Strings {
     
     if (102 === $m_) {
       $call1(
-        $Pervasives[30],
+        $Stdlib[42],
         $cst_Properly_caught_invalid_string_to_int_conversion
       );
-      $call1($Pervasives[35], 0);
+      $call1($Stdlib[47], 0);
     }
-    else {
-      $call1($Pervasives[2], $cst_Did_not_properly_catch_Failure_exception);
-    }
+    else {$call1($Stdlib[2], $cst_Did_not_properly_catch_Failure_exception);}
     
     try {$B_ = $createIntFromString($cst_20);$o_ = $B_;}
     catch(\Throwable $E_) {
       $E_ = $runtime["caml_wrap_exception"]($E_);
-      if ($E_[1] !== $Failure) {
+      if ($E_[1] !== $Stdlib[7]) {
         throw $caml_wrap_thrown_exception_reraise($E_) as \Throwable;
       }
       $n_ = 102 as dynamic;
@@ -192,18 +188,18 @@ final class Strings {
     }
     
     if (20 === $o_) {
-      $p_ = $call1($Pervasives[21], $o_);
+      $p_ = $call1($Stdlib[33], $o_);
       $q_ = $call2(
-        $Pervasives[16],
+        $Stdlib[28],
         $cst_Properly_caught_conversion_from_string_20_to_int,
         $p_
       );
-      $call1($Pervasives[30], $q_);
-      $call1($Pervasives[35], 0);
+      $call1($Stdlib[42], $q_);
+      $call1($Stdlib[47], 0);
     }
     else {
       $call1(
-        $Pervasives[2],
+        $Stdlib[2],
         $cst_Did_not_properly_catch_conversion_from_string_to_int
       );
     }
@@ -212,35 +208,35 @@ final class Strings {
     $myRefCellContents = $myRefCell[1];
     $one__0 = Vector{0, $r_} as dynamic;
     $two = Vector{0, $s_} as dynamic;
-    $t_ = $call1($Pervasives[18], $runtime["caml_equal"]($one__0, $two));
-    $u_ = $call2($Pervasives[16], $cst_ARE_T, $t_);
+    $t_ = $call1($Stdlib[30], $runtime["caml_equal"]($one__0, $two));
+    $u_ = $call2($Stdlib[28], $cst_ARE_T, $t_);
     
-    $call1($Pervasives[30], $u_);
+    $call1($Stdlib[42], $u_);
     
-    $call1($Pervasives[35], 0);
+    $call1($Stdlib[47], 0);
     
-    $v_ = $call1($Pervasives[18], $one__0 === $two ? 1 : (0));
-    $w_ = $call2($Pervasives[16], $cst_ARE_F, $v_);
+    $v_ = $call1($Stdlib[30], $one__0 === $two ? 1 : (0));
+    $w_ = $call2($Stdlib[28], $cst_ARE_F, $v_);
     
-    $call1($Pervasives[30], $w_);
+    $call1($Stdlib[42], $w_);
     
-    $call1($Pervasives[35], 0);
+    $call1($Stdlib[47], 0);
     
-    $n = $Pervasives[12];
-    $anotherName = $Pervasives[12];
-    $x_ = $call1($Pervasives[18], $n === $anotherName ? 1 : (0));
-    $y_ = $call2($Pervasives[16], $cst_Nans_are_should_output_true, $x_);
+    $n = $Stdlib[24];
+    $anotherName = $Stdlib[24];
+    $x_ = $call1($Stdlib[30], $n === $anotherName ? 1 : (0));
+    $y_ = $call2($Stdlib[28], $cst_Nans_are_should_output_true, $x_);
     
-    $call1($Pervasives[30], $y_);
+    $call1($Stdlib[42], $y_);
     
-    $call1($Pervasives[35], 0);
+    $call1($Stdlib[47], 0);
     
-    $z_ = $call1($Pervasives[18], $n === $anotherName ? 1 : (0));
-    $A_ = $call2($Pervasives[16], $cst_Nans_are_should_output_false, $z_);
+    $z_ = $call1($Stdlib[30], $n === $anotherName ? 1 : (0));
+    $A_ = $call2($Stdlib[28], $cst_Nans_are_should_output_false, $z_);
     
-    $call1($Pervasives[30], $A_);
+    $call1($Stdlib[42], $A_);
     
-    $call1($Pervasives[35], 0);
+    $call1($Stdlib[47], 0);
     
     $Strings = Vector{
       0,

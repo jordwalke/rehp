@@ -30,9 +30,9 @@ final class Js_of_ocaml__File {
     $cst_loadend = $string__0("loadend");
     $Js_of_ocaml_Typed_array = Js_of_ocaml__Typed_array::get();
     $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
-    $Pervasives = Pervasives::get();
-    $List = List_::get();
-    $Array = Array_::get();
+    $Stdlib = Stdlib::get();
+    $Stdlib_list = Stdlib__list::get();
+    $Stdlib_array = Stdlib__array::get();
     $Js_of_ocaml_Dom = Js_of_ocaml__Dom::get();
     $c_ = Vector{0, $string__0("transparent")} as dynamic;
     $d_ = Vector{0, $string__0("native")} as dynamic;
@@ -85,7 +85,7 @@ final class Js_of_ocaml__File {
         $u_
       );
       return $options
-        ? $runtime["caml_js_object"]($call1($Array[12], $options))
+        ? $runtime["caml_js_object"]($call1($Stdlib_array[12], $options))
         : ($Js_of_ocaml_Js[3]);
     };
     $blob_raw = (dynamic $contentType, dynamic $endings, dynamic $a) : dynamic ==> {
@@ -111,8 +111,12 @@ final class Js_of_ocaml__File {
         $b = $param[2];
         return $b;
       };
-      $l__0 = $call2($List[17], $n_, $l);
-      return $blob_raw($contentType, $endings, $call1($Array[12], $l__0));
+      $l__0 = $call2($Stdlib_list[17], $n_, $l);
+      return $blob_raw(
+        $contentType,
+        $endings,
+        $call1($Stdlib_array[12], $l__0)
+      );
     };
     $filename = (dynamic $file) : dynamic ==> {
       $j_ = (dynamic $x) : dynamic ==> {
@@ -129,10 +133,7 @@ final class Js_of_ocaml__File {
        })($file, $l_);
       $match__0 = $call1($Js_of_ocaml_Js[6][10], $m_);
       if ($match__0) {$name__0 = $match__0[1];return $name__0;}
-      return $call1(
-        $Pervasives[2],
-        $cst_can_t_retrieve_file_name_not_implemented
-      );
+      return $call1($Stdlib[2], $cst_can_t_retrieve_file_name_not_implemented);
     };
     $e_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, 1012572826, 72), $x);

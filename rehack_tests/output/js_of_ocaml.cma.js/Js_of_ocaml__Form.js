@@ -31,10 +31,10 @@ var cst_reset = string("reset");
 var cst_submit = string("submit");
 var cst_text = string("text");
 var Assert_failure = require("../runtime/Assert_failure.js");
-var List = require("../stdlib.cma.js/List.js");
+var Stdlib_list = require("../stdlib.cma.js/Stdlib__list.js");
 var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
 var Js_of_ocaml_Dom_html = require("./Js_of_ocaml__Dom_html.js");
-var Array = require("../stdlib.cma.js/Array.js");
+var Stdlib_array = require("../stdlib.cma.js/Stdlib__array.js");
 var f_ = [0,string("lib/js_of_ocaml/form.ml"),170,58];
 var e_ = [0,1];
 
@@ -135,8 +135,8 @@ function get_select_val(elt) {
       };
       var af_ = function(t10, param) {return t10.options;}(elt, ae_);
       var ag_ = function(t11, param) {return t11.length;}(af_, ad_);
-      var options = call2(Array[2], ag_, ac_);
-      var ah_ = call1(Array[11], options);
+      var options = call2(Stdlib_array[2], ag_, ac_);
+      var ah_ = call1(Stdlib_array[11], options);
       return filter_map(
         function(param) {
           if (param) {
@@ -237,8 +237,8 @@ function get_input_val(opt, elt) {
                 return call1(caml_get_public_method(x, 520590566, 201), x);
               };
               var W_ = function(t20, param) {return t20.length;}(list, V_);
-              var X_ = call2(Array[2], W_, U_);
-              var Y_ = call1(Array[11], X_);
+              var X_ = call2(Stdlib_array[2], W_, U_);
+              var Y_ = call1(Stdlib_array[11], X_);
               return filter_map(
                 function(f) {
                   var match = call1(Js_of_ocaml_Js[5][10], f);
@@ -310,8 +310,8 @@ function form_elements(get, form) {
     var F_ = function(t32, t31, param) {return t32.item(t31);}(E_, i, C_);
     return call1(Js_of_ocaml_Js[5][10], F_);
   }
-  var z_ = call2(Array[2], length, y_);
-  var elements = call1(Array[11], z_);
+  var z_ = call2(Stdlib_array[2], length, y_);
+  var elements = call1(Stdlib_array[11], z_);
   function A_(param) {
     if (param) {
       var v = param[1];
@@ -331,8 +331,8 @@ function form_elements(get, form) {
     }
     return 0;
   }
-  var B_ = call2(List[17], A_, elements);
-  var contents = call1(List[14], B_);
+  var B_ = call2(Stdlib_list[17], A_, elements);
+  var contents = call1(Stdlib_list[14], B_);
   return contents;
 }
 
@@ -376,7 +376,7 @@ function post_form_contents(form) {
   var contents = empty_form_contents(0);
   var k_ = form_elements(0, form);
   function l_(m_) {return append(contents, m_);}
-  call2(List[15], l_, k_);
+  call2(Stdlib_list[15], l_, k_);
   return contents;
 }
 
@@ -393,7 +393,7 @@ function get_form_contents(form) {
     }
     throw caml_wrap_thrown_exception([0,Assert_failure,f_]);
   }
-  return call2(List[17], h_, g_);
+  return call2(Stdlib_list[17], h_, g_);
 }
 
 var Js_of_ocaml_Form = [

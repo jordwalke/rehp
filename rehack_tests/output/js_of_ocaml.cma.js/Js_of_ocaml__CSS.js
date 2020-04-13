@@ -425,13 +425,11 @@ var cst_white = string("white");
 var cst_whitesmoke = string("whitesmoke");
 var cst_yellow = string("yellow");
 var cst_yellowgreen = string("yellowgreen");
-var Pervasives = require("../stdlib.cma.js/Pervasives.js");
-var Invalid_argument = require("../runtime/Invalid_argument.js");
+var Stdlib = require("../stdlib.cma.js/Stdlib.js");
 var Js_of_ocaml_Regexp = require("./Js_of_ocaml__Regexp.js");
-var Printf = require("../stdlib.cma.js/Printf.js");
-var Failure = require("../runtime/Failure.js");
+var Stdlib_printf = require("../stdlib.cma.js/Stdlib__printf.js");
 var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
-var List = require("../stdlib.cma.js/List.js");
+var Stdlib_list = require("../stdlib.cma.js/Stdlib__list.js");
 var b2_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
 var b3_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
 var b4_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
@@ -837,10 +835,10 @@ var bE_ = [0,255,255,0];
 var bF_ = [0,154,205,50];
 
 function string_of_name(param) {
-  var c3_ = param;
-  if (74 <= c3_) {
-    if (111 <= c3_) {
-      switch (c3_) {
+  var dc_ = param;
+  if (74 <= dc_) {
+    if (111 <= dc_) {
+      switch (dc_) {
         case 111:
           return cst_palevioletred;
         case 112:
@@ -915,7 +913,7 @@ function string_of_name(param) {
           return cst_yellowgreen
         }
     }
-    switch (c3_) {
+    switch (dc_) {
       case 74:
         return cst_lightpink;
       case 75:
@@ -992,8 +990,8 @@ function string_of_name(param) {
         return cst_paleturquoise
       }
   }
-  if (37 <= c3_) {
-    switch (c3_) {
+  if (37 <= dc_) {
+    switch (dc_) {
       case 37:
         return cst_darkslategrey;
       case 38:
@@ -1070,7 +1068,7 @@ function string_of_name(param) {
         return cst_lightgrey
       }
   }
-  switch (c3_) {
+  switch (dc_) {
     case 0:
       return cst_aliceblue;
     case 1:
@@ -1371,20 +1369,15 @@ function name_of_string(s) {
       }
     }
   }
-  throw caml_wrap_thrown_exception(
-          [
-            0,
-            Invalid_argument,
-            call2(Pervasives[16], s, cst_is_not_a_valid_color_name)
-          ]
-        );
+  var db_ = call2(Stdlib[28], s, cst_is_not_a_valid_color_name);
+  throw caml_wrap_thrown_exception([0,Stdlib[6],db_]);
 }
 
 function rgb_of_name(param) {
-  var c2_ = param;
-  if (74 <= c2_) {
-    if (111 <= c2_) {
-      switch (c2_) {
+  var da_ = param;
+  if (74 <= da_) {
+    if (111 <= da_) {
+      switch (da_) {
         case 111:
           return a7_;
         case 112:
@@ -1459,7 +1452,7 @@ function rgb_of_name(param) {
           return bF_
         }
     }
-    switch (c2_) {
+    switch (da_) {
       case 74:
         return aw_;
       case 75:
@@ -1536,8 +1529,8 @@ function rgb_of_name(param) {
         return a6_
       }
   }
-  if (37 <= c2_) {
-    switch (c2_) {
+  if (37 <= da_) {
+    switch (da_) {
       case 37:
         return L_;
       case 38:
@@ -1614,7 +1607,7 @@ function rgb_of_name(param) {
         return av_
       }
   }
-  switch (c2_) {
+  switch (da_) {
     case 0:
       return a_;
     case 1:
@@ -1712,40 +1705,40 @@ function string_of_t(param) {
       var b = match[3];
       var g = match[2];
       var r = match[1];
-      return call4(Printf[4], bG_, r, g, b);
+      return call4(Stdlib_printf[4], bG_, r, g, b);
     case 2:
       var match__0 = param[1];
       var b__0 = match__0[3];
       var g__0 = match__0[2];
       var r__0 = match__0[1];
-      return call4(Printf[4], bH_, r__0, g__0, b__0);
+      return call4(Stdlib_printf[4], bH_, r__0, g__0, b__0);
     case 3:
       var match__1 = param[1];
       var a = match__1[4];
       var b__1 = match__1[3];
       var g__1 = match__1[2];
       var r__1 = match__1[1];
-      return call5(Printf[4], bI_, r__1, g__1, b__1, a);
+      return call5(Stdlib_printf[4], bI_, r__1, g__1, b__1, a);
     case 4:
       var match__2 = param[1];
       var a__0 = match__2[4];
       var b__2 = match__2[3];
       var g__2 = match__2[2];
       var r__2 = match__2[1];
-      return call5(Printf[4], bJ_, r__2, g__2, b__2, a__0);
+      return call5(Stdlib_printf[4], bJ_, r__2, g__2, b__2, a__0);
     case 5:
       var match__3 = param[1];
       var l = match__3[3];
       var s = match__3[2];
       var h = match__3[1];
-      return call4(Printf[4], bK_, h, s, l);
+      return call4(Stdlib_printf[4], bK_, h, s, l);
     default:
       var match__4 = param[1];
       var a__1 = match__4[4];
       var l__0 = match__4[3];
       var s__0 = match__4[2];
       var h__0 = match__4[1];
-      return call5(Printf[4], bL_, h__0, s__0, l__0, a__1)
+      return call5(Stdlib_printf[4], bL_, h__0, s__0, l__0, a__1)
     }
 }
 
@@ -1754,105 +1747,95 @@ function hex_of_rgb(param) {
   var green = param[2];
   var red = param[1];
   function in_range(i) {
-    var cZ_ = i < 0 ? 1 : 0;
-    var c0_ = cZ_ ? cZ_ : 255 < i ? 1 : 0;
-    if (c0_) {
-      var c1_ = call1(Pervasives[21], i);
-      throw caml_wrap_thrown_exception(
-              [
-                0,
-                Invalid_argument,
-                call2(Pervasives[16], c1_, cst_is_out_of_valid_range)
-              ]
-            );
+    var c7_ = i < 0 ? 1 : 0;
+    var c8_ = c7_ ? c7_ : 255 < i ? 1 : 0;
+    if (c8_) {
+      var c9_ = call1(Stdlib[33], i);
+      var c__ = call2(Stdlib[28], c9_, cst_is_out_of_valid_range);
+      throw caml_wrap_thrown_exception([0,Stdlib[6],c__]);
     }
-    return c0_;
+    return c8_;
   }
   in_range(red);
   in_range(green);
   in_range(blue);
-  return call4(Printf[4], bM_, red, green, blue);
+  return call4(Stdlib_printf[4], bM_, red, green, blue);
 }
 
 function js_t_of_js_string(s) {
-  var cB_ = 0;
-  var cC_ = caml_jsbytes_of_string(cst_rgb_s_d_s_d_s_d);
-  var cD_ = Js_of_ocaml_Js[10];
-  var rgb_re = function(t23, t22, param) {return new t23(t22);}(cD_, cC_, cB_);
-  var cE_ = 0;
-  var cF_ = caml_jsbytes_of_string(cst_rgb_s_d_s_d_s_d__0);
-  var cG_ = Js_of_ocaml_Js[10];
-  var rgb_pct_re = function(t21, t20, param) {return new t21(t20);}(cG_, cF_, cE_
+  var cI_ = 0;
+  var cJ_ = caml_jsbytes_of_string(cst_rgb_s_d_s_d_s_d);
+  var cK_ = Js_of_ocaml_Js[10];
+  var rgb_re = function(t23, t22, param) {return new t23(t22);}(cK_, cJ_, cI_);
+  var cL_ = 0;
+  var cM_ = caml_jsbytes_of_string(cst_rgb_s_d_s_d_s_d__0);
+  var cN_ = Js_of_ocaml_Js[10];
+  var rgb_pct_re = function(t21, t20, param) {return new t21(t20);}(cN_, cM_, cL_
   );
-  var cH_ = 0;
-  var cI_ = caml_jsbytes_of_string(cst_rgba_s_d_s_d_s_d_d_d);
-  var cJ_ = Js_of_ocaml_Js[10];
-  var rgba_re = function(t19, t18, param) {return new t19(t18);}(cJ_, cI_, cH_
+  var cO_ = 0;
+  var cP_ = caml_jsbytes_of_string(cst_rgba_s_d_s_d_s_d_d_d);
+  var cQ_ = Js_of_ocaml_Js[10];
+  var rgba_re = function(t19, t18, param) {return new t19(t18);}(cQ_, cP_, cO_
   );
-  var cK_ = 0;
-  var cL_ = caml_jsbytes_of_string(cst_rgba_s_d_s_d_s_d_d_d__0);
-  var cM_ = Js_of_ocaml_Js[10];
-  var rgba_pct_re = function(t17, t16, param) {return new t17(t16);}(cM_, cL_, cK_
+  var cR_ = 0;
+  var cS_ = caml_jsbytes_of_string(cst_rgba_s_d_s_d_s_d_d_d__0);
+  var cT_ = Js_of_ocaml_Js[10];
+  var rgba_pct_re = function(t17, t16, param) {return new t17(t16);}(cT_, cS_, cR_
   );
-  var cN_ = 0;
-  var cO_ = caml_jsbytes_of_string(cst_hsl_s_d_s_d_s_d);
-  var cP_ = Js_of_ocaml_Js[10];
-  var hsl_re = function(t15, t14, param) {return new t15(t14);}(cP_, cO_, cN_);
-  var cQ_ = 0;
-  var cR_ = caml_jsbytes_of_string(cst_hsla_s_d_s_d_s_d_d_d);
-  var cS_ = Js_of_ocaml_Js[10];
-  var hsla_re = function(t13, t12, param) {return new t13(t12);}(cS_, cR_, cQ_
+  var cU_ = 0;
+  var cV_ = caml_jsbytes_of_string(cst_hsl_s_d_s_d_s_d);
+  var cW_ = Js_of_ocaml_Js[10];
+  var hsl_re = function(t15, t14, param) {return new t15(t14);}(cW_, cV_, cU_);
+  var cX_ = 0;
+  var cY_ = caml_jsbytes_of_string(cst_hsla_s_d_s_d_s_d_d_d);
+  var cZ_ = Js_of_ocaml_Js[10];
+  var hsla_re = function(t13, t12, param) {return new t13(t12);}(cZ_, cY_, cX_
   );
-  function cT_(x) {
+  function c0_(x) {
     return call1(caml_get_public_method(x, -856045486, 289), x);
   }
-  if (! (function(t1, t0, param) {return t1.test(t0);}(rgb_re, s, cT_) | 0)) {
-    var cU_ = function(x) {
+  if (! (function(t1, t0, param) {return t1.test(t0);}(rgb_re, s, c0_) | 0)) {
+    var c1_ = function(x) {
       return call1(caml_get_public_method(x, -856045486, 290), x);
     };
-    if (! (function(t3, t2, param) {return t3.test(t2);}(rgba_re, s, cU_) | 0)
+    if (! (function(t3, t2, param) {return t3.test(t2);}(rgba_re, s, c1_) | 0)
     ) {
-      var cV_ = function(x) {
+      var c2_ = function(x) {
         return call1(caml_get_public_method(x, -856045486, 291), x);
       };
       if (
       !
-      (function(t5, t4, param) {return t5.test(t4);}(rgb_pct_re, s, cV_) | 0)
+      (function(t5, t4, param) {return t5.test(t4);}(rgb_pct_re, s, c2_) | 0)
       ) {
-        var cW_ = function(x) {
+        var c3_ = function(x) {
           return call1(caml_get_public_method(x, -856045486, 292), x);
         };
         if (
         !
-        (function(t7, t6, param) {return t7.test(t6);}(rgba_pct_re, s, cW_) | 0)
+        (function(t7, t6, param) {return t7.test(t6);}(rgba_pct_re, s, c3_) | 0)
         ) {
-          var cX_ = function(x) {
+          var c4_ = function(x) {
             return call1(caml_get_public_method(x, -856045486, 293), x);
           };
           if (
           !
-          (function(t9, t8, param) {return t9.test(t8);}(hsl_re, s, cX_) | 0)
+          (function(t9, t8, param) {return t9.test(t8);}(hsl_re, s, c4_) | 0)
           ) {
-            var cY_ = function(x) {
+            var c5_ = function(x) {
               return call1(caml_get_public_method(x, -856045486, 294), x);
             };
             if (
             !
-            (function(t11, t10, param) {return t11.test(t10);}(hsla_re, s, cY_
+            (function(t11, t10, param) {return t11.test(t10);}(hsla_re, s, c5_
              ) | 0)
             ) {
-              if (call2(List[31], caml_js_to_string(s), bN_)) {return s;}
-              throw caml_wrap_thrown_exception(
-                      [
-                        0,
-                        Invalid_argument,
-                        call2(
-                          Pervasives[16],
-                          caml_js_to_string(s),
-                          cst_is_not_a_valid_color
-                        )
-                      ]
-                    );
+              if (call2(Stdlib_list[32], caml_js_to_string(s), bN_)) {return s;}
+              var c6_ = call2(
+                Stdlib[28],
+                caml_js_to_string(s),
+                cst_is_not_a_valid_color
+              );
+              throw caml_wrap_thrown_exception([0,Stdlib[6],c6_]);
             }
           }
         }
@@ -1871,18 +1854,13 @@ function js(c) {
 
 function ml(c) {
   var s = caml_js_to_string(c);
-  try {var cr_ = [0,name_of_string(s)];return cr_;}
-  catch(cs_) {
-    cs_ = runtime["caml_wrap_exception"](cs_);
-    if (cs_[1] === Invalid_argument) {
+  try {var cv_ = [0,name_of_string(s)];return cv_;}
+  catch(cw_) {
+    cw_ = runtime["caml_wrap_exception"](cw_);
+    if (cw_[1] === Stdlib[6]) {
       var fail = function(param) {
-        throw caml_wrap_thrown_exception(
-                [
-                  0,
-                  Invalid_argument,
-                  call2(Pervasives[16], s, cst_is_not_a_valid_color__0)
-                ]
-              );
+        var cH_ = call2(Stdlib[28], s, cst_is_not_a_valid_color__0);
+        throw caml_wrap_thrown_exception([0,Stdlib[6],cH_]);
       };
       var re_rgb = call1(Js_of_ocaml_Regexp[1], cst_rgba_d_d_d_d_d);
       var re_rgb_pct = call1(Js_of_ocaml_Regexp[1], cst_rgba_d_d_d_d_d__0);
@@ -1890,49 +1868,39 @@ function ml(c) {
       var i_of_s_o = function(param) {
         if (param) {
           var i = param[1];
-          try {var cz_ = runtime["caml_int_of_string"](i);return cz_;}
-          catch(cA_) {
-            cA_ = runtime["caml_wrap_exception"](cA_);
-            if (cA_[1] === Invalid_argument) var s = cA_[2];
+          try {var cF_ = runtime["caml_int_of_string"](i);return cF_;}
+          catch(cG_) {
+            cG_ = runtime["caml_wrap_exception"](cG_);
+            if (cG_[1] === Stdlib[6]) var s = cG_[2];
             else {
-              if (cA_[1] !== Failure) {
-                throw caml_wrap_thrown_exception_reraise(cA_);
+              if (cG_[1] !== Stdlib[7]) {
+                throw caml_wrap_thrown_exception_reraise(cG_);
               }
-              var s = cA_[2];
+              var s = cG_[2];
             }
-            var cx_ = call2(Pervasives[16], cst, s);
-            var cy_ = call2(Pervasives[16], i, cx_);
-            throw caml_wrap_thrown_exception(
-                    [
-                      0,
-                      Invalid_argument,
-                      call2(Pervasives[16], cst_color_conversion_error, cy_)
-                    ]
-                  );
+            var cC_ = call2(Stdlib[28], cst, s);
+            var cD_ = call2(Stdlib[28], i, cC_);
+            var cE_ = call2(Stdlib[28], cst_color_conversion_error, cD_);
+            throw caml_wrap_thrown_exception([0,Stdlib[6],cE_]);
           }
         }
         return fail(0);
       };
       var f_of_s = function(f) {
-        try {var cv_ = caml_float_of_string(f);return cv_;}
-        catch(cw_) {
-          cw_ = runtime["caml_wrap_exception"](cw_);
-          if (cw_[1] === Invalid_argument) var s = cw_[2];
+        try {var cA_ = caml_float_of_string(f);return cA_;}
+        catch(cB_) {
+          cB_ = runtime["caml_wrap_exception"](cB_);
+          if (cB_[1] === Stdlib[6]) var s = cB_[2];
           else {
-            if (cw_[1] !== Failure) {
-              throw caml_wrap_thrown_exception_reraise(cw_);
+            if (cB_[1] !== Stdlib[7]) {
+              throw caml_wrap_thrown_exception_reraise(cB_);
             }
-            var s = cw_[2];
+            var s = cB_[2];
           }
-          var ct_ = call2(Pervasives[16], cst__0, s);
-          var cu_ = call2(Pervasives[16], f, ct_);
-          throw caml_wrap_thrown_exception(
-                  [
-                    0,
-                    Invalid_argument,
-                    call2(Pervasives[16], cst_color_conversion_error__0, cu_)
-                  ]
-                );
+          var cx_ = call2(Stdlib[28], cst__0, s);
+          var cy_ = call2(Stdlib[28], f, cx_);
+          var cz_ = call2(Stdlib[28], cst_color_conversion_error__0, cy_);
+          throw caml_wrap_thrown_exception([0,Stdlib[6],cz_]);
         }
       };
       var match = call3(Js_of_ocaml_Regexp[7], re_rgb, s, 0);
@@ -1944,20 +1912,20 @@ function ml(c) {
         var alpha = call2(Js_of_ocaml_Regexp[11], r, 5);
         var match__0 = call2(Js_of_ocaml_Regexp[11], r, 1);
         if (match__0) {
-          var b__ = match__0[1];
-          if (! caml_string_notequal(b__, cst_rgb)) {
+          var cd_ = match__0[1];
+          if (! caml_string_notequal(cd_, cst_rgb)) {
             if (alpha) {return fail(0);}
-            var cd_ = i_of_s_o(blue);
-            var ce_ = i_of_s_o(green);
-            return [1,[0,i_of_s_o(red),ce_,cd_]];
+            var ch_ = i_of_s_o(blue);
+            var ci_ = i_of_s_o(green);
+            return [1,[0,i_of_s_o(red),ci_,ch_]];
           }
-          if (! caml_string_notequal(b__, cst_rgba)) {
+          if (! caml_string_notequal(cd_, cst_rgba)) {
             if (alpha) {
               var a = alpha[1];
-              var ca_ = f_of_s(a);
-              var cb_ = i_of_s_o(blue);
-              var cc_ = i_of_s_o(green);
-              return [3,[0,i_of_s_o(red),cc_,cb_,ca_]];
+              var ce_ = f_of_s(a);
+              var cf_ = i_of_s_o(blue);
+              var cg_ = i_of_s_o(green);
+              return [3,[0,i_of_s_o(red),cg_,cf_,ce_]];
             }
             return fail(0);
           }
@@ -1973,20 +1941,20 @@ function ml(c) {
         var alpha__0 = call2(Js_of_ocaml_Regexp[11], r__0, 5);
         var match__2 = call2(Js_of_ocaml_Regexp[11], r__0, 1);
         if (match__2) {
-          var cf_ = match__2[1];
-          if (! caml_string_notequal(cf_, cst_rgb__0)) {
+          var cj_ = match__2[1];
+          if (! caml_string_notequal(cj_, cst_rgb__0)) {
             if (alpha__0) {return fail(0);}
-            var cj_ = i_of_s_o(blue__0);
-            var ck_ = i_of_s_o(green__0);
-            return [2,[0,i_of_s_o(red__0),ck_,cj_]];
+            var cn_ = i_of_s_o(blue__0);
+            var co_ = i_of_s_o(green__0);
+            return [2,[0,i_of_s_o(red__0),co_,cn_]];
           }
-          if (! caml_string_notequal(cf_, cst_rgba__0)) {
+          if (! caml_string_notequal(cj_, cst_rgba__0)) {
             if (alpha__0) {
               var a__0 = alpha__0[1];
-              var cg_ = f_of_s(a__0);
-              var ch_ = i_of_s_o(blue__0);
-              var ci_ = i_of_s_o(green__0);
-              return [4,[0,i_of_s_o(red__0),ci_,ch_,cg_]];
+              var ck_ = f_of_s(a__0);
+              var cl_ = i_of_s_o(blue__0);
+              var cm_ = i_of_s_o(green__0);
+              return [4,[0,i_of_s_o(red__0),cm_,cl_,ck_]];
             }
             return fail(0);
           }
@@ -2002,20 +1970,20 @@ function ml(c) {
         var alpha__1 = call2(Js_of_ocaml_Regexp[11], r__1, 5);
         var match__4 = call2(Js_of_ocaml_Regexp[11], r__1, 1);
         if (match__4) {
-          var cl_ = match__4[1];
-          if (! caml_string_notequal(cl_, cst_hsl)) {
+          var cp_ = match__4[1];
+          if (! caml_string_notequal(cp_, cst_hsl)) {
             if (alpha__1) {return fail(0);}
-            var cp_ = i_of_s_o(blue__1);
-            var cq_ = i_of_s_o(green__1);
-            return [5,[0,i_of_s_o(red__1),cq_,cp_]];
+            var ct_ = i_of_s_o(blue__1);
+            var cu_ = i_of_s_o(green__1);
+            return [5,[0,i_of_s_o(red__1),cu_,ct_]];
           }
-          if (! caml_string_notequal(cl_, cst_hsla)) {
+          if (! caml_string_notequal(cp_, cst_hsla)) {
             if (alpha__1) {
               var a__1 = alpha__1[1];
-              var cm_ = f_of_s(a__1);
-              var cn_ = i_of_s_o(blue__1);
-              var co_ = i_of_s_o(green__1);
-              return [6,[0,i_of_s_o(red__1),co_,cn_,cm_]];
+              var cq_ = f_of_s(a__1);
+              var cr_ = i_of_s_o(blue__1);
+              var cs_ = i_of_s_o(green__1);
+              return [6,[0,i_of_s_o(red__1),cs_,cr_,cq_]];
             }
             return fail(0);
           }
@@ -2024,7 +1992,7 @@ function ml(c) {
       }
       return fail(0);
     }
-    throw caml_wrap_thrown_exception_reraise(cs_);
+    throw caml_wrap_thrown_exception_reraise(cw_);
   }
 }
 
@@ -2033,46 +2001,46 @@ function string_of_t__0(param) {
   else switch (param[0]) {
     case 0:
       var f = param[1];
-      return call3(Printf[4], bO_, f, cst_em);
+      return call3(Stdlib_printf[4], bO_, f, cst_em);
     case 1:
       var f__0 = param[1];
-      return call3(Printf[4], bP_, f__0, cst_ex);
+      return call3(Stdlib_printf[4], bP_, f__0, cst_ex);
     case 2:
       var f__1 = param[1];
-      return call3(Printf[4], bQ_, f__1, cst_px);
+      return call3(Stdlib_printf[4], bQ_, f__1, cst_px);
     case 3:
       var f__2 = param[1];
-      return call3(Printf[4], bR_, f__2, cst_gd);
+      return call3(Stdlib_printf[4], bR_, f__2, cst_gd);
     case 4:
       var f__3 = param[1];
-      return call3(Printf[4], bS_, f__3, cst_rem);
+      return call3(Stdlib_printf[4], bS_, f__3, cst_rem);
     case 5:
       var f__4 = param[1];
-      return call3(Printf[4], bT_, f__4, cst_vw);
+      return call3(Stdlib_printf[4], bT_, f__4, cst_vw);
     case 6:
       var f__5 = param[1];
-      return call3(Printf[4], bU_, f__5, cst_vh);
+      return call3(Stdlib_printf[4], bU_, f__5, cst_vh);
     case 7:
       var f__6 = param[1];
-      return call3(Printf[4], bV_, f__6, cst_vm);
+      return call3(Stdlib_printf[4], bV_, f__6, cst_vm);
     case 8:
       var f__7 = param[1];
-      return call3(Printf[4], bW_, f__7, cst_ch);
+      return call3(Stdlib_printf[4], bW_, f__7, cst_ch);
     case 9:
       var f__8 = param[1];
-      return call3(Printf[4], bX_, f__8, cst_mm);
+      return call3(Stdlib_printf[4], bX_, f__8, cst_mm);
     case 10:
       var f__9 = param[1];
-      return call3(Printf[4], bY_, f__9, cst_cm);
+      return call3(Stdlib_printf[4], bY_, f__9, cst_cm);
     case 11:
       var f__10 = param[1];
-      return call3(Printf[4], bZ_, f__10, cst_in);
+      return call3(Stdlib_printf[4], bZ_, f__10, cst_in);
     case 12:
       var f__11 = param[1];
-      return call3(Printf[4], b0_, f__11, cst_pt);
+      return call3(Stdlib_printf[4], b0_, f__11, cst_pt);
     default:
       var f__12 = param[1];
-      return call3(Printf[4], b1_, f__12, cst_pc)
+      return call3(Stdlib_printf[4], b1_, f__12, cst_pc)
     }
 }
 
@@ -2082,13 +2050,8 @@ function ml__0(t) {
   var s = caml_js_to_string(t);
   if (runtime["caml_string_equal"](s, cst_0__0)) {return 0;}
   function fail(param) {
-    throw caml_wrap_thrown_exception(
-            [
-              0,
-              Invalid_argument,
-              call2(Pervasives[16], s, cst_is_not_a_valid_length)
-            ]
-          );
+    var cc_ = call2(Stdlib[28], s, cst_is_not_a_valid_length);
+    throw caml_wrap_thrown_exception([0,Stdlib[6],cc_]);
   }
   var re = call1(Js_of_ocaml_Regexp[1], cst_d_d_s_S);
   var match = call3(Js_of_ocaml_Regexp[7], re, s, 0);
@@ -2097,45 +2060,40 @@ function ml__0(t) {
     var match__0 = call2(Js_of_ocaml_Regexp[11], r, 1);
     if (match__0) {
       var f = match__0[1];
-      try {var b8_ = caml_float_of_string(f);}
+      try {var ca_ = caml_float_of_string(f);}
       catch(exn) {
         exn = runtime["caml_wrap_exception"](exn);
-        if (exn[1] === Invalid_argument) {
+        if (exn[1] === Stdlib[6]) {
           var s__0 = exn[2];
-          throw caml_wrap_thrown_exception(
-                  [
-                    0,
-                    Invalid_argument,
-                    call2(Pervasives[16], cst_length_conversion_error, s__0)
-                  ]
-                );
+          var b__ = call2(Stdlib[28], cst_length_conversion_error, s__0);
+          throw caml_wrap_thrown_exception([0,Stdlib[6],b__]);
         }
         throw caml_wrap_thrown_exception_reraise(exn);
       }
-      var f__0 = b8_;
+      var f__0 = ca_;
     }
     else var f__0 = fail(0);
     var match__1 = call2(Js_of_ocaml_Regexp[11], r, 2);
     if (match__1) {
-      var b9_ = match__1[1];
-      var switch__0 = caml_string_compare(b9_, cst_pc__0);
+      var cb_ = match__1[1];
+      var switch__0 = caml_string_compare(cb_, cst_pc__0);
       if (0 <= switch__0) {
         if (! (0 < switch__0)) {return [13,f__0];}
-        if (! caml_string_notequal(b9_, cst_pt__0)) {return [12,f__0];}
-        if (! caml_string_notequal(b9_, cst_px__0)) {return [2,f__0];}
-        if (! caml_string_notequal(b9_, cst_rem__0)) {return [4,f__0];}
-        if (! caml_string_notequal(b9_, cst_vh__0)) {return [6,f__0];}
-        if (! caml_string_notequal(b9_, cst_vm__0)) {return [7,f__0];}
-        if (! caml_string_notequal(b9_, cst_vw__0)) {return [5,f__0];}
+        if (! caml_string_notequal(cb_, cst_pt__0)) {return [12,f__0];}
+        if (! caml_string_notequal(cb_, cst_px__0)) {return [2,f__0];}
+        if (! caml_string_notequal(cb_, cst_rem__0)) {return [4,f__0];}
+        if (! caml_string_notequal(cb_, cst_vh__0)) {return [6,f__0];}
+        if (! caml_string_notequal(cb_, cst_vm__0)) {return [7,f__0];}
+        if (! caml_string_notequal(cb_, cst_vw__0)) {return [5,f__0];}
       }
       else {
-        if (! caml_string_notequal(b9_, cst_ch__0)) {return [8,f__0];}
-        if (! caml_string_notequal(b9_, cst_cm__0)) {return [10,f__0];}
-        if (! caml_string_notequal(b9_, cst_em__0)) {return [0,f__0];}
-        if (! caml_string_notequal(b9_, cst_ex__0)) {return [1,f__0];}
-        if (! caml_string_notequal(b9_, cst_gd__0)) {return [3,f__0];}
-        if (! caml_string_notequal(b9_, cst_in__0)) {return [11,f__0];}
-        if (! caml_string_notequal(b9_, cst_mm__0)) {return [9,f__0];}
+        if (! caml_string_notequal(cb_, cst_ch__0)) {return [8,f__0];}
+        if (! caml_string_notequal(cb_, cst_cm__0)) {return [10,f__0];}
+        if (! caml_string_notequal(cb_, cst_em__0)) {return [0,f__0];}
+        if (! caml_string_notequal(cb_, cst_ex__0)) {return [1,f__0];}
+        if (! caml_string_notequal(cb_, cst_gd__0)) {return [3,f__0];}
+        if (! caml_string_notequal(cb_, cst_in__0)) {return [11,f__0];}
+        if (! caml_string_notequal(cb_, cst_mm__0)) {return [9,f__0];}
       }
       return fail(0);
     }
@@ -2150,16 +2108,16 @@ function string_of_t__1(param) {
   switch (param[0]) {
     case 0:
       var f = param[1];
-      return call3(Printf[4], b2_, f, cst_deg);
+      return call3(Stdlib_printf[4], b2_, f, cst_deg);
     case 1:
       var f__0 = param[1];
-      return call3(Printf[4], b3_, f__0, cst_grad);
+      return call3(Stdlib_printf[4], b3_, f__0, cst_grad);
     case 2:
       var f__1 = param[1];
-      return call3(Printf[4], b4_, f__1, cst_rad);
+      return call3(Stdlib_printf[4], b4_, f__1, cst_rad);
     default:
       var f__2 = param[1];
-      return call3(Printf[4], b5_, f__2, cst_turns)
+      return call3(Stdlib_printf[4], b5_, f__2, cst_turns)
     }
 }
 
@@ -2169,13 +2127,8 @@ function ml__1(j) {
   var s = caml_js_to_string(j);
   var re = call1(Js_of_ocaml_Regexp[1], cst_d_d_deg_grad_rad_turns);
   function fail(param) {
-    throw caml_wrap_thrown_exception(
-            [
-              0,
-              Invalid_argument,
-              call2(Pervasives[16], s, cst_is_not_a_valid_length__0)
-            ]
-          );
+    var b9_ = call2(Stdlib[28], s, cst_is_not_a_valid_length__0);
+    throw caml_wrap_thrown_exception([0,Stdlib[6],b9_]);
   }
   var match = call3(Js_of_ocaml_Regexp[7], re, s, 0);
   if (match) {
@@ -2183,31 +2136,26 @@ function ml__1(j) {
     var match__0 = call2(Js_of_ocaml_Regexp[11], r, 1);
     if (match__0) {
       var f = match__0[1];
-      try {var b6_ = caml_float_of_string(f);}
+      try {var b7_ = caml_float_of_string(f);}
       catch(exn) {
         exn = runtime["caml_wrap_exception"](exn);
-        if (exn[1] === Invalid_argument) {
+        if (exn[1] === Stdlib[6]) {
           var s__0 = exn[2];
-          throw caml_wrap_thrown_exception(
-                  [
-                    0,
-                    Invalid_argument,
-                    call2(Pervasives[16], cst_length_conversion_error__0, s__0)
-                  ]
-                );
+          var b6_ = call2(Stdlib[28], cst_length_conversion_error__0, s__0);
+          throw caml_wrap_thrown_exception([0,Stdlib[6],b6_]);
         }
         throw caml_wrap_thrown_exception_reraise(exn);
       }
-      var f__0 = b6_;
+      var f__0 = b7_;
     }
     else var f__0 = fail(0);
     var match__1 = call2(Js_of_ocaml_Regexp[11], r, 2);
     if (match__1) {
-      var b7_ = match__1[1];
-      if (! caml_string_notequal(b7_, cst_deg__0)) {return [0,f__0];}
-      if (! caml_string_notequal(b7_, cst_grad__0)) {return [1,f__0];}
-      if (! caml_string_notequal(b7_, cst_rad__0)) {return [2,f__0];}
-      if (! caml_string_notequal(b7_, cst_turns__0)) {return [3,f__0];}
+      var b8_ = match__1[1];
+      if (! caml_string_notequal(b8_, cst_deg__0)) {return [0,f__0];}
+      if (! caml_string_notequal(b8_, cst_grad__0)) {return [1,f__0];}
+      if (! caml_string_notequal(b8_, cst_rad__0)) {return [2,f__0];}
+      if (! caml_string_notequal(b8_, cst_turns__0)) {return [3,f__0];}
     }
     return fail(0);
   }

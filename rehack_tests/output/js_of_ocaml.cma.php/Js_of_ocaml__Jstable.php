@@ -17,9 +17,9 @@ final class Js_of_ocaml__Jstable {
     $caml_get_public_method = $runtime["caml_get_public_method"];
     $string = $runtime["caml_new_string"];
     $cst_Jstable_keys = $string("Jstable.keys");
-    $Pervasives = Pervasives::get();
+    $Stdlib = Stdlib::get();
     $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
-    $List = List_::get();
+    $Stdlib_list = Stdlib__list::get();
     $a_ = (dynamic $x) : dynamic ==> {
       return $call1($caml_get_public_method($x, 944440446, 277), $x);
     };
@@ -89,7 +89,7 @@ final class Js_of_ocaml__Jstable {
         $i = $g_;
         for (;;) {
           $j_ = (dynamic $param) : dynamic ==> {
-            return $call1($Pervasives[2], $cst_Jstable_keys);
+            return $call1($Stdlib[2], $cst_Jstable_keys);
           };
           $k_ = $call2($Js_of_ocaml_Js[16], $key_array, $i);
           $key = $call2($Js_of_ocaml_Js[6][8], $k_, $j_);
@@ -115,7 +115,7 @@ final class Js_of_ocaml__Jstable {
           break;
         }
       }
-      return $call1($List[9], $res[1]);
+      return $call1($Stdlib_list[9], $res[1]);
     };
     $Js_of_ocaml_Jstable = Vector{0, $create, $add, $remove, $find, $keys} as dynamic;
     

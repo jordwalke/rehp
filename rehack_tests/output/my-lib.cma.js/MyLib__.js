@@ -9,17 +9,14 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
-var MyLib = [0,0];
+var MyLib = [0];
 
 module.exports = MyLib;
 
 /*::type Exports = {
-  MyLibUtility: any,
 }*/
 /** @type {{
-  MyLibUtility: any,
 }} */
 module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
-module.exports.MyLibUtility = module.exports[1];
 
-/*____hashes flags: 589793685 bytecode: 4096869352 debug-data: 495304789 primitives: 1058613066*/
+/*____hashes flags: 589793685 bytecode: 4725860563 debug-data: 129913994 primitives: 1058613066*/

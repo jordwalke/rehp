@@ -133,7 +133,7 @@ var cst_altglyph = string("altglyph");
 var cst_a = string("a");
 var cst_Js_of_ocaml_Dom_svg_SVGError = string("Js_of_ocaml__Dom_svg.SVGError");
 var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
-var Not_found = require("../runtime/Not_found.js");
+var Stdlib = require("../stdlib.cma.js/Stdlib.js");
 var xmlns = "http://www.w3.org/2000/svg";
 var SVGError = [
   248,
@@ -299,9 +299,9 @@ var document = function(t4, param) {return t4.document;}(d_, c_);
 function getElementById(id) {
   function i_(e) {
     if (e instanceof svg_element) {return e;}
-    throw caml_wrap_thrown_exception(Not_found);
+    throw caml_wrap_thrown_exception(Stdlib[8]);
   }
-  function j_(param) {throw caml_wrap_thrown_exception(Not_found);}
+  function j_(param) {throw caml_wrap_thrown_exception(Stdlib[8]);}
   function k_(x) {
     return call1(caml_get_public_method(x, -332188296, 298), x);
   }

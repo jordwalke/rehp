@@ -410,13 +410,11 @@ final class Js_of_ocaml__CSS {
     $cst_whitesmoke = $string("whitesmoke");
     $cst_yellow = $string("yellow");
     $cst_yellowgreen = $string("yellowgreen");
-    $Pervasives = Pervasives::get();
-    $Invalid_argument = Invalid_argument::get();
+    $Stdlib = Stdlib::get();
     $Js_of_ocaml_Regexp = Js_of_ocaml__Regexp::get();
-    $Printf = Printf::get();
-    $Failure = Failure::get();
+    $Stdlib_printf = Stdlib__printf::get();
     $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
-    $List = List_::get();
+    $Stdlib_list = Stdlib__list::get();
     $b2_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
     $b3_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
     $b4_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
@@ -960,10 +958,10 @@ final class Js_of_ocaml__CSS {
     $bE_ = Vector{0, 255, 255, 0} as dynamic;
     $bF_ = Vector{0, 154, 205, 50} as dynamic;
     $string_of_name = (dynamic $param) : dynamic ==> {
-      $c3_ = $param;
-      if (74 <= $c3_) {
-        if (111 <= $c3_) {
-          switch($c3_) {
+      $dc_ = $param;
+      if (74 <= $dc_) {
+        if (111 <= $dc_) {
+          switch($dc_) {
             // FALLTHROUGH
             case 111:
               return $cst_palevioletred;
@@ -1074,7 +1072,7 @@ final class Js_of_ocaml__CSS {
               return $cst_yellowgreen;
             }
         }
-        switch($c3_) {
+        switch($dc_) {
           // FALLTHROUGH
           case 74:
             return $cst_lightpink;
@@ -1188,8 +1186,8 @@ final class Js_of_ocaml__CSS {
             return $cst_paleturquoise;
           }
       }
-      if (37 <= $c3_) {
-        switch($c3_) {
+      if (37 <= $dc_) {
+        switch($dc_) {
           // FALLTHROUGH
           case 37:
             return $cst_darkslategrey;
@@ -1303,7 +1301,7 @@ final class Js_of_ocaml__CSS {
             return $cst_lightgrey;
           }
       }
-      switch($c3_) {
+      switch($dc_) {
         // FALLTHROUGH
         case 0:
           return $cst_aliceblue;
@@ -1640,19 +1638,14 @@ final class Js_of_ocaml__CSS {
           }
         }
       }
-      throw $caml_wrap_thrown_exception(
-              Vector{
-                0,
-                $Invalid_argument,
-                $call2($Pervasives[16], $s, $cst_is_not_a_valid_color_name)
-              }
-            ) as \Throwable;
+      $db_ = $call2($Stdlib[28], $s, $cst_is_not_a_valid_color_name);
+      throw $caml_wrap_thrown_exception(Vector{0, $Stdlib[6], $db_}) as \Throwable;
     };
     $rgb_of_name = (dynamic $param) : dynamic ==> {
-      $c2_ = $param;
-      if (74 <= $c2_) {
-        if (111 <= $c2_) {
-          switch($c2_) {
+      $da_ = $param;
+      if (74 <= $da_) {
+        if (111 <= $da_) {
+          switch($da_) {
             // FALLTHROUGH
             case 111:
               return $a7_;
@@ -1763,7 +1756,7 @@ final class Js_of_ocaml__CSS {
               return $bF_;
             }
         }
-        switch($c2_) {
+        switch($da_) {
           // FALLTHROUGH
           case 74:
             return $aw_;
@@ -1877,8 +1870,8 @@ final class Js_of_ocaml__CSS {
             return $a6_;
           }
       }
-      if (37 <= $c2_) {
-        switch($c2_) {
+      if (37 <= $da_) {
+        switch($da_) {
           // FALLTHROUGH
           case 37:
             return $L_;
@@ -1992,7 +1985,7 @@ final class Js_of_ocaml__CSS {
             return $av_;
           }
       }
-      switch($c2_) {
+      switch($da_) {
         // FALLTHROUGH
         case 0:
           return $a_;
@@ -2126,14 +2119,14 @@ final class Js_of_ocaml__CSS {
           $b = $match[3];
           $g = $match[2];
           $r = $match[1];
-          return $call4($Printf[4], $bG_, $r, $g, $b);
+          return $call4($Stdlib_printf[4], $bG_, $r, $g, $b);
         // FALLTHROUGH
         case 2:
           $match__0 = $param[1];
           $b__0 = $match__0[3];
           $g__0 = $match__0[2];
           $r__0 = $match__0[1];
-          return $call4($Printf[4], $bH_, $r__0, $g__0, $b__0);
+          return $call4($Stdlib_printf[4], $bH_, $r__0, $g__0, $b__0);
         // FALLTHROUGH
         case 3:
           $match__1 = $param[1];
@@ -2141,7 +2134,7 @@ final class Js_of_ocaml__CSS {
           $b__1 = $match__1[3];
           $g__1 = $match__1[2];
           $r__1 = $match__1[1];
-          return $call5($Printf[4], $bI_, $r__1, $g__1, $b__1, $a);
+          return $call5($Stdlib_printf[4], $bI_, $r__1, $g__1, $b__1, $a);
         // FALLTHROUGH
         case 4:
           $match__2 = $param[1];
@@ -2149,14 +2142,14 @@ final class Js_of_ocaml__CSS {
           $b__2 = $match__2[3];
           $g__2 = $match__2[2];
           $r__2 = $match__2[1];
-          return $call5($Printf[4], $bJ_, $r__2, $g__2, $b__2, $a__0);
+          return $call5($Stdlib_printf[4], $bJ_, $r__2, $g__2, $b__2, $a__0);
         // FALLTHROUGH
         case 5:
           $match__3 = $param[1];
           $l = $match__3[3];
           $s = $match__3[2];
           $h = $match__3[1];
-          return $call4($Printf[4], $bK_, $h, $s, $l);
+          return $call4($Stdlib_printf[4], $bK_, $h, $s, $l);
         // FALLTHROUGH
         default:
           $match__4 = $param[1];
@@ -2164,7 +2157,7 @@ final class Js_of_ocaml__CSS {
           $l__0 = $match__4[3];
           $s__0 = $match__4[2];
           $h__0 = $match__4[1];
-          return $call5($Printf[4], $bL_, $h__0, $s__0, $l__0, $a__1);
+          return $call5($Stdlib_printf[4], $bL_, $h__0, $s__0, $l__0, $a__1);
         }
     };
     $hex_of_rgb = (dynamic $param) : dynamic ==> {
@@ -2172,93 +2165,88 @@ final class Js_of_ocaml__CSS {
       $green = $param[2];
       $red = $param[1];
       $in_range = (dynamic $i) : dynamic ==> {
-        $cZ_ = $i < 0 ? 1 : (0);
-        $c0_ = $cZ_ ? $cZ_ : (255 < $i ? 1 : (0));
-        if ($c0_) {
-          $c1_ = $call1($Pervasives[21], $i);
-          throw $caml_wrap_thrown_exception(
-                  Vector{
-                    0,
-                    $Invalid_argument,
-                    $call2($Pervasives[16], $c1_, $cst_is_out_of_valid_range)
-                  }
-                ) as \Throwable;
+        $c7_ = $i < 0 ? 1 : (0);
+        $c8_ = $c7_ ? $c7_ : (255 < $i ? 1 : (0));
+        if ($c8_) {
+          $c9_ = $call1($Stdlib[33], $i);
+          $c__ = $call2($Stdlib[28], $c9_, $cst_is_out_of_valid_range);
+          throw $caml_wrap_thrown_exception(Vector{0, $Stdlib[6], $c__}) as \Throwable;
         }
-        return $c0_;
+        return $c8_;
       };
       $in_range($red);
       $in_range($green);
       $in_range($blue);
-      return $call4($Printf[4], $bM_, $red, $green, $blue);
+      return $call4($Stdlib_printf[4], $bM_, $red, $green, $blue);
     };
     $js_t_of_js_string = (dynamic $s) : dynamic ==> {
-      $cB_ = 0 as dynamic;
-      $cC_ = $caml_jsbytes_of_string($cst_rgb_s_d_s_d_s_d);
-      $cD_ = $Js_of_ocaml_Js[10];
+      $cI_ = 0 as dynamic;
+      $cJ_ = $caml_jsbytes_of_string($cst_rgb_s_d_s_d_s_d);
+      $cK_ = $Js_of_ocaml_Js[10];
       $rgb_re = ((dynamic $t23, dynamic $t22, dynamic $param) : dynamic ==> {return new $t23($t22);
-       })($cD_, $cC_, $cB_);
-      $cE_ = 0 as dynamic;
-      $cF_ = $caml_jsbytes_of_string($cst_rgb_s_d_s_d_s_d__0);
-      $cG_ = $Js_of_ocaml_Js[10];
+       })($cK_, $cJ_, $cI_);
+      $cL_ = 0 as dynamic;
+      $cM_ = $caml_jsbytes_of_string($cst_rgb_s_d_s_d_s_d__0);
+      $cN_ = $Js_of_ocaml_Js[10];
       $rgb_pct_re = ((dynamic $t21, dynamic $t20, dynamic $param) : dynamic ==> {return new $t21($t20);
-       })($cG_, $cF_, $cE_);
-      $cH_ = 0 as dynamic;
-      $cI_ = $caml_jsbytes_of_string($cst_rgba_s_d_s_d_s_d_d_d);
-      $cJ_ = $Js_of_ocaml_Js[10];
+       })($cN_, $cM_, $cL_);
+      $cO_ = 0 as dynamic;
+      $cP_ = $caml_jsbytes_of_string($cst_rgba_s_d_s_d_s_d_d_d);
+      $cQ_ = $Js_of_ocaml_Js[10];
       $rgba_re = ((dynamic $t19, dynamic $t18, dynamic $param) : dynamic ==> {return new $t19($t18);
-       })($cJ_, $cI_, $cH_);
-      $cK_ = 0 as dynamic;
-      $cL_ = $caml_jsbytes_of_string($cst_rgba_s_d_s_d_s_d_d_d__0);
-      $cM_ = $Js_of_ocaml_Js[10];
+       })($cQ_, $cP_, $cO_);
+      $cR_ = 0 as dynamic;
+      $cS_ = $caml_jsbytes_of_string($cst_rgba_s_d_s_d_s_d_d_d__0);
+      $cT_ = $Js_of_ocaml_Js[10];
       $rgba_pct_re = ((dynamic $t17, dynamic $t16, dynamic $param) : dynamic ==> {return new $t17($t16);
-       })($cM_, $cL_, $cK_);
-      $cN_ = 0 as dynamic;
-      $cO_ = $caml_jsbytes_of_string($cst_hsl_s_d_s_d_s_d);
-      $cP_ = $Js_of_ocaml_Js[10];
+       })($cT_, $cS_, $cR_);
+      $cU_ = 0 as dynamic;
+      $cV_ = $caml_jsbytes_of_string($cst_hsl_s_d_s_d_s_d);
+      $cW_ = $Js_of_ocaml_Js[10];
       $hsl_re = ((dynamic $t15, dynamic $t14, dynamic $param) : dynamic ==> {return new $t15($t14);
-       })($cP_, $cO_, $cN_);
-      $cQ_ = 0 as dynamic;
-      $cR_ = $caml_jsbytes_of_string($cst_hsla_s_d_s_d_s_d_d_d);
-      $cS_ = $Js_of_ocaml_Js[10];
+       })($cW_, $cV_, $cU_);
+      $cX_ = 0 as dynamic;
+      $cY_ = $caml_jsbytes_of_string($cst_hsla_s_d_s_d_s_d_d_d);
+      $cZ_ = $Js_of_ocaml_Js[10];
       $hsla_re = ((dynamic $t13, dynamic $t12, dynamic $param) : dynamic ==> {return new $t13($t12);
-       })($cS_, $cR_, $cQ_);
-      $cT_ = (dynamic $x) : dynamic ==> {
+       })($cZ_, $cY_, $cX_);
+      $c0_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -856045486, 289), $x);
       };
       if (
         !
         (int)
         ((dynamic $t1, dynamic $t0, dynamic $param) : dynamic ==> {return $t1->test($t0);
-         })($rgb_re, $s, $cT_)
+         })($rgb_re, $s, $c0_)
       ) {
-        $cU_ = (dynamic $x) : dynamic ==> {
+        $c1_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, -856045486, 290), $x);
         };
         if (
           !
           (int)
           ((dynamic $t3, dynamic $t2, dynamic $param) : dynamic ==> {return $t3->test($t2);
-           })($rgba_re, $s, $cU_)
+           })($rgba_re, $s, $c1_)
         ) {
-          $cV_ = (dynamic $x) : dynamic ==> {
+          $c2_ = (dynamic $x) : dynamic ==> {
             return $call1($caml_get_public_method($x, -856045486, 291), $x);
           };
           if (
             !
             (int)
             ((dynamic $t5, dynamic $t4, dynamic $param) : dynamic ==> {return $t5->test($t4);
-             })($rgb_pct_re, $s, $cV_)
+             })($rgb_pct_re, $s, $c2_)
           ) {
-            $cW_ = (dynamic $x) : dynamic ==> {
+            $c3_ = (dynamic $x) : dynamic ==> {
               return $call1($caml_get_public_method($x, -856045486, 292), $x);
             };
             if (
               !
               (int)
               ((dynamic $t7, dynamic $t6, dynamic $param) : dynamic ==> {return $t7->test($t6);
-               })($rgba_pct_re, $s, $cW_)
+               })($rgba_pct_re, $s, $c3_)
             ) {
-              $cX_ = (dynamic $x) : dynamic ==> {
+              $c4_ = (dynamic $x) : dynamic ==> {
                 return $call1($caml_get_public_method($x, -856045486, 293), $x
                 );
               };
@@ -2266,9 +2254,9 @@ final class Js_of_ocaml__CSS {
                 !
                 (int)
                 ((dynamic $t9, dynamic $t8, dynamic $param) : dynamic ==> {return $t9->test($t8);
-                 })($hsl_re, $s, $cX_)
+                 })($hsl_re, $s, $c4_)
               ) {
-                $cY_ = (dynamic $x) : dynamic ==> {
+                $c5_ = (dynamic $x) : dynamic ==> {
                   return $call1(
                     $caml_get_public_method($x, -856045486, 294),
                     $x
@@ -2278,19 +2266,16 @@ final class Js_of_ocaml__CSS {
                   !
                   (int)
                   ((dynamic $t11, dynamic $t10, dynamic $param) : dynamic ==> {return $t11->test($t10);
-                   })($hsla_re, $s, $cY_)
+                   })($hsla_re, $s, $c5_)
                 ) {
-                  if ($call2($List[31], $caml_js_to_string($s), $bN_)) {return $s;}
+                  if ($call2($Stdlib_list[32], $caml_js_to_string($s), $bN_)) {return $s;}
+                  $c6_ = $call2(
+                    $Stdlib[28],
+                    $caml_js_to_string($s),
+                    $cst_is_not_a_valid_color
+                  );
                   throw $caml_wrap_thrown_exception(
-                          Vector{
-                            0,
-                            $Invalid_argument,
-                            $call2(
-                              $Pervasives[16],
-                              $caml_js_to_string($s),
-                              $cst_is_not_a_valid_color
-                            )
-                          }
+                          Vector{0, $Stdlib[6], $c6_}
                         ) as \Throwable;
                 }
               }
@@ -2309,18 +2294,13 @@ final class Js_of_ocaml__CSS {
     };
     $ml = (dynamic $c) : dynamic ==> {
       $s = $caml_js_to_string($c);
-      try {$cr_ = Vector{0, $name_of_string($s)} as dynamic;return $cr_;}
-      catch(\Throwable $cs_) {
-        $cs_ = $runtime["caml_wrap_exception"]($cs_);
-        if ($cs_[1] === $Invalid_argument) {
+      try {$cv_ = Vector{0, $name_of_string($s)} as dynamic;return $cv_;}
+      catch(\Throwable $cw_) {
+        $cw_ = $runtime["caml_wrap_exception"]($cw_);
+        if ($cw_[1] === $Stdlib[6]) {
           $fail = (dynamic $param) : dynamic ==> {
-            throw $caml_wrap_thrown_exception(
-                    Vector{
-                      0,
-                      $Invalid_argument,
-                      $call2($Pervasives[16], $s, $cst_is_not_a_valid_color__0)
-                    }
-                  ) as \Throwable;
+            $cH_ = $call2($Stdlib[28], $s, $cst_is_not_a_valid_color__0);
+            throw $caml_wrap_thrown_exception(Vector{0, $Stdlib[6], $cH_}) as \Throwable;
           };
           $re_rgb = $call1($Js_of_ocaml_Regexp[1], $cst_rgba_d_d_d_d_d);
           $re_rgb_pct = $call1($Js_of_ocaml_Regexp[1], $cst_rgba_d_d_d_d_d__0);
@@ -2328,50 +2308,39 @@ final class Js_of_ocaml__CSS {
           $i_of_s_o = (dynamic $param) : dynamic ==> {
             if ($param) {
               $i = $param[1];
-              try {$cz_ = $runtime["caml_int_of_string"]($i);return $cz_;}
-              catch(\Throwable $cA_) {
-                $cA_ = $runtime["caml_wrap_exception"]($cA_);
-                if ($cA_[1] === $Invalid_argument) {$s = $cA_[2];}
+              try {$cF_ = $runtime["caml_int_of_string"]($i);return $cF_;}
+              catch(\Throwable $cG_) {
+                $cG_ = $runtime["caml_wrap_exception"]($cG_);
+                if ($cG_[1] === $Stdlib[6]) {$s = $cG_[2];}
                 else {
-                  if ($cA_[1] !== $Failure) {
-                    throw $caml_wrap_thrown_exception_reraise($cA_) as \Throwable;
+                  if ($cG_[1] !== $Stdlib[7]) {
+                    throw $caml_wrap_thrown_exception_reraise($cG_) as \Throwable;
                   }
-                  $s = $cA_[2];
+                  $s = $cG_[2];
                 }
-                $cx_ = $call2($Pervasives[16], $cst, $s);
-                $cy_ = $call2($Pervasives[16], $i, $cx_);
-                throw $caml_wrap_thrown_exception(
-                        Vector{
-                          0,
-                          $Invalid_argument,
-                          $call2($Pervasives[16], $cst_color_conversion_error, $cy_)
-                        }
-                      ) as \Throwable;
+                $cC_ = $call2($Stdlib[28], $cst, $s);
+                $cD_ = $call2($Stdlib[28], $i, $cC_);
+                $cE_ = $call2($Stdlib[28], $cst_color_conversion_error, $cD_);
+                throw $caml_wrap_thrown_exception(Vector{0, $Stdlib[6], $cE_}) as \Throwable;
               }
             }
             return $fail(0);
           };
           $f_of_s = (dynamic $f) : dynamic ==> {
-            try {$cv_ = $caml_float_of_string($f);return $cv_;}
-            catch(\Throwable $cw_) {
-              $cw_ = $runtime["caml_wrap_exception"]($cw_);
-              if ($cw_[1] === $Invalid_argument) {$s = $cw_[2];}
+            try {$cA_ = $caml_float_of_string($f);return $cA_;}
+            catch(\Throwable $cB_) {
+              $cB_ = $runtime["caml_wrap_exception"]($cB_);
+              if ($cB_[1] === $Stdlib[6]) {$s = $cB_[2];}
               else {
-                if ($cw_[1] !== $Failure) {
-                  throw $caml_wrap_thrown_exception_reraise($cw_) as \Throwable;
+                if ($cB_[1] !== $Stdlib[7]) {
+                  throw $caml_wrap_thrown_exception_reraise($cB_) as \Throwable;
                 }
-                $s = $cw_[2];
+                $s = $cB_[2];
               }
-              $ct_ = $call2($Pervasives[16], $cst__0, $s);
-              $cu_ = $call2($Pervasives[16], $f, $ct_);
-              throw $caml_wrap_thrown_exception(
-                      Vector{
-                        0,
-                        $Invalid_argument,
-                        $call2($Pervasives[16], $cst_color_conversion_error__0, $cu_
-                        )
-                      }
-                    ) as \Throwable;
+              $cx_ = $call2($Stdlib[28], $cst__0, $s);
+              $cy_ = $call2($Stdlib[28], $f, $cx_);
+              $cz_ = $call2($Stdlib[28], $cst_color_conversion_error__0, $cy_);
+              throw $caml_wrap_thrown_exception(Vector{0, $Stdlib[6], $cz_}) as \Throwable;
             }
           };
           $match = $call3($Js_of_ocaml_Regexp[7], $re_rgb, $s, 0);
@@ -2383,22 +2352,22 @@ final class Js_of_ocaml__CSS {
             $alpha = $call2($Js_of_ocaml_Regexp[11], $r, 5);
             $match__0 = $call2($Js_of_ocaml_Regexp[11], $r, 1);
             if ($match__0) {
-              $b__ = $match__0[1];
-              if (! $caml_string_notequal($b__, $cst_rgb)) {
+              $cd_ = $match__0[1];
+              if (! $caml_string_notequal($cd_, $cst_rgb)) {
                 if ($alpha) {return $fail(0);}
-                $cd_ = $i_of_s_o($blue);
-                $ce_ = $i_of_s_o($green);
-                return Vector{1, Vector{0, $i_of_s_o($red), $ce_, $cd_}};
+                $ch_ = $i_of_s_o($blue);
+                $ci_ = $i_of_s_o($green);
+                return Vector{1, Vector{0, $i_of_s_o($red), $ci_, $ch_}};
               }
-              if (! $caml_string_notequal($b__, $cst_rgba)) {
+              if (! $caml_string_notequal($cd_, $cst_rgba)) {
                 if ($alpha) {
                   $a = $alpha[1];
-                  $ca_ = $f_of_s($a);
-                  $cb_ = $i_of_s_o($blue);
-                  $cc_ = $i_of_s_o($green);
+                  $ce_ = $f_of_s($a);
+                  $cf_ = $i_of_s_o($blue);
+                  $cg_ = $i_of_s_o($green);
                   return Vector{
                     3,
-                    Vector{0, $i_of_s_o($red), $cc_, $cb_, $ca_}
+                    Vector{0, $i_of_s_o($red), $cg_, $cf_, $ce_}
                   };
                 }
                 return $fail(0);
@@ -2415,22 +2384,22 @@ final class Js_of_ocaml__CSS {
             $alpha__0 = $call2($Js_of_ocaml_Regexp[11], $r__0, 5);
             $match__2 = $call2($Js_of_ocaml_Regexp[11], $r__0, 1);
             if ($match__2) {
-              $cf_ = $match__2[1];
-              if (! $caml_string_notequal($cf_, $cst_rgb__0)) {
+              $cj_ = $match__2[1];
+              if (! $caml_string_notequal($cj_, $cst_rgb__0)) {
                 if ($alpha__0) {return $fail(0);}
-                $cj_ = $i_of_s_o($blue__0);
-                $ck_ = $i_of_s_o($green__0);
-                return Vector{2, Vector{0, $i_of_s_o($red__0), $ck_, $cj_}};
+                $cn_ = $i_of_s_o($blue__0);
+                $co_ = $i_of_s_o($green__0);
+                return Vector{2, Vector{0, $i_of_s_o($red__0), $co_, $cn_}};
               }
-              if (! $caml_string_notequal($cf_, $cst_rgba__0)) {
+              if (! $caml_string_notequal($cj_, $cst_rgba__0)) {
                 if ($alpha__0) {
                   $a__0 = $alpha__0[1];
-                  $cg_ = $f_of_s($a__0);
-                  $ch_ = $i_of_s_o($blue__0);
-                  $ci_ = $i_of_s_o($green__0);
+                  $ck_ = $f_of_s($a__0);
+                  $cl_ = $i_of_s_o($blue__0);
+                  $cm_ = $i_of_s_o($green__0);
                   return Vector{
                     4,
-                    Vector{0, $i_of_s_o($red__0), $ci_, $ch_, $cg_}
+                    Vector{0, $i_of_s_o($red__0), $cm_, $cl_, $ck_}
                   };
                 }
                 return $fail(0);
@@ -2447,22 +2416,22 @@ final class Js_of_ocaml__CSS {
             $alpha__1 = $call2($Js_of_ocaml_Regexp[11], $r__1, 5);
             $match__4 = $call2($Js_of_ocaml_Regexp[11], $r__1, 1);
             if ($match__4) {
-              $cl_ = $match__4[1];
-              if (! $caml_string_notequal($cl_, $cst_hsl)) {
+              $cp_ = $match__4[1];
+              if (! $caml_string_notequal($cp_, $cst_hsl)) {
                 if ($alpha__1) {return $fail(0);}
-                $cp_ = $i_of_s_o($blue__1);
-                $cq_ = $i_of_s_o($green__1);
-                return Vector{5, Vector{0, $i_of_s_o($red__1), $cq_, $cp_}};
+                $ct_ = $i_of_s_o($blue__1);
+                $cu_ = $i_of_s_o($green__1);
+                return Vector{5, Vector{0, $i_of_s_o($red__1), $cu_, $ct_}};
               }
-              if (! $caml_string_notequal($cl_, $cst_hsla)) {
+              if (! $caml_string_notequal($cp_, $cst_hsla)) {
                 if ($alpha__1) {
                   $a__1 = $alpha__1[1];
-                  $cm_ = $f_of_s($a__1);
-                  $cn_ = $i_of_s_o($blue__1);
-                  $co_ = $i_of_s_o($green__1);
+                  $cq_ = $f_of_s($a__1);
+                  $cr_ = $i_of_s_o($blue__1);
+                  $cs_ = $i_of_s_o($green__1);
                   return Vector{
                     6,
-                    Vector{0, $i_of_s_o($red__1), $co_, $cn_, $cm_}
+                    Vector{0, $i_of_s_o($red__1), $cs_, $cr_, $cq_}
                   };
                 }
                 return $fail(0);
@@ -2472,7 +2441,7 @@ final class Js_of_ocaml__CSS {
           }
           return $fail(0);
         }
-        throw $caml_wrap_thrown_exception_reraise($cs_) as \Throwable;
+        throw $caml_wrap_thrown_exception_reraise($cw_) as \Throwable;
       }
     };
     $string_of_t__0 = (dynamic $param) : dynamic ==> {
@@ -2482,59 +2451,59 @@ final class Js_of_ocaml__CSS {
           // FALLTHROUGH
           case 0:
             $f = $param[1];
-            return $call3($Printf[4], $bO_, $f, $cst_em);
+            return $call3($Stdlib_printf[4], $bO_, $f, $cst_em);
           // FALLTHROUGH
           case 1:
             $f__0 = $param[1];
-            return $call3($Printf[4], $bP_, $f__0, $cst_ex);
+            return $call3($Stdlib_printf[4], $bP_, $f__0, $cst_ex);
           // FALLTHROUGH
           case 2:
             $f__1 = $param[1];
-            return $call3($Printf[4], $bQ_, $f__1, $cst_px);
+            return $call3($Stdlib_printf[4], $bQ_, $f__1, $cst_px);
           // FALLTHROUGH
           case 3:
             $f__2 = $param[1];
-            return $call3($Printf[4], $bR_, $f__2, $cst_gd);
+            return $call3($Stdlib_printf[4], $bR_, $f__2, $cst_gd);
           // FALLTHROUGH
           case 4:
             $f__3 = $param[1];
-            return $call3($Printf[4], $bS_, $f__3, $cst_rem);
+            return $call3($Stdlib_printf[4], $bS_, $f__3, $cst_rem);
           // FALLTHROUGH
           case 5:
             $f__4 = $param[1];
-            return $call3($Printf[4], $bT_, $f__4, $cst_vw);
+            return $call3($Stdlib_printf[4], $bT_, $f__4, $cst_vw);
           // FALLTHROUGH
           case 6:
             $f__5 = $param[1];
-            return $call3($Printf[4], $bU_, $f__5, $cst_vh);
+            return $call3($Stdlib_printf[4], $bU_, $f__5, $cst_vh);
           // FALLTHROUGH
           case 7:
             $f__6 = $param[1];
-            return $call3($Printf[4], $bV_, $f__6, $cst_vm);
+            return $call3($Stdlib_printf[4], $bV_, $f__6, $cst_vm);
           // FALLTHROUGH
           case 8:
             $f__7 = $param[1];
-            return $call3($Printf[4], $bW_, $f__7, $cst_ch);
+            return $call3($Stdlib_printf[4], $bW_, $f__7, $cst_ch);
           // FALLTHROUGH
           case 9:
             $f__8 = $param[1];
-            return $call3($Printf[4], $bX_, $f__8, $cst_mm);
+            return $call3($Stdlib_printf[4], $bX_, $f__8, $cst_mm);
           // FALLTHROUGH
           case 10:
             $f__9 = $param[1];
-            return $call3($Printf[4], $bY_, $f__9, $cst_cm);
+            return $call3($Stdlib_printf[4], $bY_, $f__9, $cst_cm);
           // FALLTHROUGH
           case 11:
             $f__10 = $param[1];
-            return $call3($Printf[4], $bZ_, $f__10, $cst_in);
+            return $call3($Stdlib_printf[4], $bZ_, $f__10, $cst_in);
           // FALLTHROUGH
           case 12:
             $f__11 = $param[1];
-            return $call3($Printf[4], $b0_, $f__11, $cst_pt);
+            return $call3($Stdlib_printf[4], $b0_, $f__11, $cst_pt);
           // FALLTHROUGH
           default:
             $f__12 = $param[1];
-            return $call3($Printf[4], $b1_, $f__12, $cst_pc);
+            return $call3($Stdlib_printf[4], $b1_, $f__12, $cst_pc);
           }
       }
     };
@@ -2545,13 +2514,8 @@ final class Js_of_ocaml__CSS {
       $s = $caml_js_to_string($t);
       if ($runtime["caml_string_equal"]($s, $cst_0__0)) {return 0;}
       $fail = (dynamic $param) : dynamic ==> {
-        throw $caml_wrap_thrown_exception(
-                Vector{
-                  0,
-                  $Invalid_argument,
-                  $call2($Pervasives[16], $s, $cst_is_not_a_valid_length)
-                }
-              ) as \Throwable;
+        $cc_ = $call2($Stdlib[28], $s, $cst_is_not_a_valid_length);
+        throw $caml_wrap_thrown_exception(Vector{0, $Stdlib[6], $cc_}) as \Throwable;
       };
       $re = $call1($Js_of_ocaml_Regexp[1], $cst_d_d_s_S);
       $match = $call3($Js_of_ocaml_Regexp[7], $re, $s, 0);
@@ -2560,45 +2524,40 @@ final class Js_of_ocaml__CSS {
         $match__0 = $call2($Js_of_ocaml_Regexp[11], $r, 1);
         if ($match__0) {
           $f = $match__0[1];
-          try {$b8_ = $caml_float_of_string($f);}
+          try {$ca_ = $caml_float_of_string($f);}
           catch(\Throwable $exn) {
             $exn = $runtime["caml_wrap_exception"]($exn);
-            if ($exn[1] === $Invalid_argument) {
+            if ($exn[1] === $Stdlib[6]) {
               $s__0 = $exn[2];
-              throw $caml_wrap_thrown_exception(
-                      Vector{
-                        0,
-                        $Invalid_argument,
-                        $call2($Pervasives[16], $cst_length_conversion_error, $s__0)
-                      }
-                    ) as \Throwable;
+              $b__ = $call2($Stdlib[28], $cst_length_conversion_error, $s__0);
+              throw $caml_wrap_thrown_exception(Vector{0, $Stdlib[6], $b__}) as \Throwable;
             }
             throw $caml_wrap_thrown_exception_reraise($exn) as \Throwable;
           }
-          $f__0 = $b8_;
+          $f__0 = $ca_;
         }
         else {$f__0 = $fail(0);}
         $match__1 = $call2($Js_of_ocaml_Regexp[11], $r, 2);
         if ($match__1) {
-          $b9_ = $match__1[1];
-          $switch__0 = $caml_string_compare($b9_, $cst_pc__0);
+          $cb_ = $match__1[1];
+          $switch__0 = $caml_string_compare($cb_, $cst_pc__0);
           if (0 <= $switch__0) {
             if (! (0 < $switch__0)) {return Vector{13, $f__0};}
-            if (! $caml_string_notequal($b9_, $cst_pt__0)) {return Vector{12, $f__0};}
-            if (! $caml_string_notequal($b9_, $cst_px__0)) {return Vector{2, $f__0};}
-            if (! $caml_string_notequal($b9_, $cst_rem__0)) {return Vector{4, $f__0};}
-            if (! $caml_string_notequal($b9_, $cst_vh__0)) {return Vector{6, $f__0};}
-            if (! $caml_string_notequal($b9_, $cst_vm__0)) {return Vector{7, $f__0};}
-            if (! $caml_string_notequal($b9_, $cst_vw__0)) {return Vector{5, $f__0};}
+            if (! $caml_string_notequal($cb_, $cst_pt__0)) {return Vector{12, $f__0};}
+            if (! $caml_string_notequal($cb_, $cst_px__0)) {return Vector{2, $f__0};}
+            if (! $caml_string_notequal($cb_, $cst_rem__0)) {return Vector{4, $f__0};}
+            if (! $caml_string_notequal($cb_, $cst_vh__0)) {return Vector{6, $f__0};}
+            if (! $caml_string_notequal($cb_, $cst_vm__0)) {return Vector{7, $f__0};}
+            if (! $caml_string_notequal($cb_, $cst_vw__0)) {return Vector{5, $f__0};}
           }
           else {
-            if (! $caml_string_notequal($b9_, $cst_ch__0)) {return Vector{8, $f__0};}
-            if (! $caml_string_notequal($b9_, $cst_cm__0)) {return Vector{10, $f__0};}
-            if (! $caml_string_notequal($b9_, $cst_em__0)) {return Vector{0, $f__0};}
-            if (! $caml_string_notequal($b9_, $cst_ex__0)) {return Vector{1, $f__0};}
-            if (! $caml_string_notequal($b9_, $cst_gd__0)) {return Vector{3, $f__0};}
-            if (! $caml_string_notequal($b9_, $cst_in__0)) {return Vector{11, $f__0};}
-            if (! $caml_string_notequal($b9_, $cst_mm__0)) {return Vector{9, $f__0};}
+            if (! $caml_string_notequal($cb_, $cst_ch__0)) {return Vector{8, $f__0};}
+            if (! $caml_string_notequal($cb_, $cst_cm__0)) {return Vector{10, $f__0};}
+            if (! $caml_string_notequal($cb_, $cst_em__0)) {return Vector{0, $f__0};}
+            if (! $caml_string_notequal($cb_, $cst_ex__0)) {return Vector{1, $f__0};}
+            if (! $caml_string_notequal($cb_, $cst_gd__0)) {return Vector{3, $f__0};}
+            if (! $caml_string_notequal($cb_, $cst_in__0)) {return Vector{11, $f__0};}
+            if (! $caml_string_notequal($cb_, $cst_mm__0)) {return Vector{9, $f__0};}
           }
           return $fail(0);
         }
@@ -2612,19 +2571,19 @@ final class Js_of_ocaml__CSS {
         // FALLTHROUGH
         case 0:
           $f = $param[1];
-          return $call3($Printf[4], $b2_, $f, $cst_deg);
+          return $call3($Stdlib_printf[4], $b2_, $f, $cst_deg);
         // FALLTHROUGH
         case 1:
           $f__0 = $param[1];
-          return $call3($Printf[4], $b3_, $f__0, $cst_grad);
+          return $call3($Stdlib_printf[4], $b3_, $f__0, $cst_grad);
         // FALLTHROUGH
         case 2:
           $f__1 = $param[1];
-          return $call3($Printf[4], $b4_, $f__1, $cst_rad);
+          return $call3($Stdlib_printf[4], $b4_, $f__1, $cst_rad);
         // FALLTHROUGH
         default:
           $f__2 = $param[1];
-          return $call3($Printf[4], $b5_, $f__2, $cst_turns);
+          return $call3($Stdlib_printf[4], $b5_, $f__2, $cst_turns);
         }
     };
     $js__1 = (dynamic $t) : dynamic ==> {
@@ -2634,13 +2593,8 @@ final class Js_of_ocaml__CSS {
       $s = $caml_js_to_string($j);
       $re = $call1($Js_of_ocaml_Regexp[1], $cst_d_d_deg_grad_rad_turns);
       $fail = (dynamic $param) : dynamic ==> {
-        throw $caml_wrap_thrown_exception(
-                Vector{
-                  0,
-                  $Invalid_argument,
-                  $call2($Pervasives[16], $s, $cst_is_not_a_valid_length__0)
-                }
-              ) as \Throwable;
+        $b9_ = $call2($Stdlib[28], $s, $cst_is_not_a_valid_length__0);
+        throw $caml_wrap_thrown_exception(Vector{0, $Stdlib[6], $b9_}) as \Throwable;
       };
       $match = $call3($Js_of_ocaml_Regexp[7], $re, $s, 0);
       if ($match) {
@@ -2648,35 +2602,30 @@ final class Js_of_ocaml__CSS {
         $match__0 = $call2($Js_of_ocaml_Regexp[11], $r, 1);
         if ($match__0) {
           $f = $match__0[1];
-          try {$b6_ = $caml_float_of_string($f);}
+          try {$b7_ = $caml_float_of_string($f);}
           catch(\Throwable $exn) {
             $exn = $runtime["caml_wrap_exception"]($exn);
-            if ($exn[1] === $Invalid_argument) {
+            if ($exn[1] === $Stdlib[6]) {
               $s__0 = $exn[2];
-              throw $caml_wrap_thrown_exception(
-                      Vector{
-                        0,
-                        $Invalid_argument,
-                        $call2(
-                          $Pervasives[16],
-                          $cst_length_conversion_error__0,
-                          $s__0
-                        )
-                      }
-                    ) as \Throwable;
+              $b6_ = $call2(
+                $Stdlib[28],
+                $cst_length_conversion_error__0,
+                $s__0
+              );
+              throw $caml_wrap_thrown_exception(Vector{0, $Stdlib[6], $b6_}) as \Throwable;
             }
             throw $caml_wrap_thrown_exception_reraise($exn) as \Throwable;
           }
-          $f__0 = $b6_;
+          $f__0 = $b7_;
         }
         else {$f__0 = $fail(0);}
         $match__1 = $call2($Js_of_ocaml_Regexp[11], $r, 2);
         if ($match__1) {
-          $b7_ = $match__1[1];
-          if (! $caml_string_notequal($b7_, $cst_deg__0)) {return Vector{0, $f__0};}
-          if (! $caml_string_notequal($b7_, $cst_grad__0)) {return Vector{1, $f__0};}
-          if (! $caml_string_notequal($b7_, $cst_rad__0)) {return Vector{2, $f__0};}
-          if (! $caml_string_notequal($b7_, $cst_turns__0)) {return Vector{3, $f__0};}
+          $b8_ = $match__1[1];
+          if (! $caml_string_notequal($b8_, $cst_deg__0)) {return Vector{0, $f__0};}
+          if (! $caml_string_notequal($b8_, $cst_grad__0)) {return Vector{1, $f__0};}
+          if (! $caml_string_notequal($b8_, $cst_rad__0)) {return Vector{2, $f__0};}
+          if (! $caml_string_notequal($b8_, $cst_turns__0)) {return Vector{3, $f__0};}
         }
         return $fail(0);
       }

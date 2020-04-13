@@ -12,8 +12,8 @@ final class Js_of_ocaml__Import {
   public static function get() : Vector<dynamic> {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
-    $String = String_::get();
-    $Char = Char::get();
+    $Stdlib_string = Stdlib__string::get();
+    $Stdlib_char = Stdlib__char::get();
     $Poly = Vector{0} as dynamic;
     $symbol = (dynamic $x, dynamic $y) : dynamic ==> {
       return $x < $y ? 1 : (0);
@@ -58,44 +58,47 @@ final class Js_of_ocaml__Import {
       $max,
       $min
     } as dynamic;
-    $make = $String[1];
-    $init = $String[2];
-    $copy = $String[3];
-    $sub = $String[4];
-    $fill = $String[5];
-    $blit = $String[6];
-    $concat = $String[7];
-    $iter = $String[8];
-    $iteri = $String[9];
-    $map = $String[10];
-    $mapi = $String[11];
-    $trim = $String[12];
-    $escaped = $String[13];
-    $index = $String[14];
-    $index_opt = $String[15];
-    $rindex = $String[16];
-    $rindex_opt = $String[17];
-    $index_from = $String[18];
-    $index_from_opt = $String[19];
-    $rindex_from = $String[20];
-    $rindex_from_opt = $String[21];
-    $contains = $String[22];
-    $contains_from = $String[23];
-    $rcontains_from = $String[24];
-    $uppercase = $String[25];
-    $lowercase = $String[26];
-    $capitalize = $String[27];
-    $uncapitalize = $String[28];
-    $uppercase_ascii = $String[29];
-    $lowercase_ascii = $String[30];
-    $capitalize_ascii = $String[31];
-    $uncapitalize_ascii = $String[32];
-    $compare__0 = $String[33];
-    $split_on_char = $String[35];
+    $make = $Stdlib_string[1];
+    $init = $Stdlib_string[2];
+    $copy = $Stdlib_string[3];
+    $sub = $Stdlib_string[4];
+    $fill = $Stdlib_string[5];
+    $blit = $Stdlib_string[6];
+    $concat = $Stdlib_string[7];
+    $iter = $Stdlib_string[8];
+    $iteri = $Stdlib_string[9];
+    $map = $Stdlib_string[10];
+    $mapi = $Stdlib_string[11];
+    $trim = $Stdlib_string[12];
+    $escaped = $Stdlib_string[13];
+    $index = $Stdlib_string[14];
+    $index_opt = $Stdlib_string[15];
+    $rindex = $Stdlib_string[16];
+    $rindex_opt = $Stdlib_string[17];
+    $index_from = $Stdlib_string[18];
+    $index_from_opt = $Stdlib_string[19];
+    $rindex_from = $Stdlib_string[20];
+    $rindex_from_opt = $Stdlib_string[21];
+    $contains = $Stdlib_string[22];
+    $contains_from = $Stdlib_string[23];
+    $rcontains_from = $Stdlib_string[24];
+    $uppercase = $Stdlib_string[25];
+    $lowercase = $Stdlib_string[26];
+    $capitalize = $Stdlib_string[27];
+    $uncapitalize = $Stdlib_string[28];
+    $uppercase_ascii = $Stdlib_string[29];
+    $lowercase_ascii = $Stdlib_string[30];
+    $capitalize_ascii = $Stdlib_string[31];
+    $uncapitalize_ascii = $Stdlib_string[32];
+    $compare__0 = $Stdlib_string[33];
+    $split_on_char = $Stdlib_string[35];
+    $to_seq = $Stdlib_string[36];
+    $to_seqi = $Stdlib_string[37];
+    $of_seq = $Stdlib_string[38];
     $equal__0 = (dynamic $x, dynamic $y) : dynamic ==> {
       return $runtime["caml_string_equal"]($x, $y);
     };
-    $String__0 = Vector{
+    $String = Vector{
       0,
       $make,
       $init,
@@ -131,19 +134,22 @@ final class Js_of_ocaml__Import {
       $uncapitalize_ascii,
       $compare__0,
       $split_on_char,
+      $to_seq,
+      $to_seqi,
+      $of_seq,
       $equal__0
     } as dynamic;
-    $chr = $Char[1];
-    $escaped__0 = $Char[2];
-    $lowercase__0 = $Char[3];
-    $uppercase__0 = $Char[4];
-    $lowercase_ascii__0 = $Char[5];
-    $uppercase_ascii__0 = $Char[6];
-    $compare__1 = $Char[7];
+    $chr = $Stdlib_char[1];
+    $escaped__0 = $Stdlib_char[2];
+    $lowercase__0 = $Stdlib_char[3];
+    $uppercase__0 = $Stdlib_char[4];
+    $lowercase_ascii__0 = $Stdlib_char[5];
+    $uppercase_ascii__0 = $Stdlib_char[6];
+    $compare__1 = $Stdlib_char[7];
     $equal__1 = (dynamic $x, dynamic $y) : dynamic ==> {
       return $x === $y ? 1 : (0);
     };
-    $Char__0 = Vector{
+    $Char = Vector{
       0,
       $chr,
       $escaped__0,
@@ -168,8 +174,8 @@ final class Js_of_ocaml__Import {
       0,
       $Poly,
       $Int_replace_polymorphic_compare,
-      $String__0,
-      $Char__0,
+      $String,
+      $Char,
       $symbol__5,
       $symbol__6,
       $symbol__7,

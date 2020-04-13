@@ -29,10 +29,10 @@ final class Js_of_ocaml__Form {
     $cst_submit = $string("submit");
     $cst_text = $string("text");
     $Assert_failure = Assert_failure::get();
-    $List = List_::get();
+    $Stdlib_list = Stdlib__list::get();
     $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
     $Js_of_ocaml_Dom_html = Js_of_ocaml__Dom_html::get();
-    $Array = Array_::get();
+    $Stdlib_array = Stdlib__array::get();
     $f_ = Vector{0, $string("lib/js_of_ocaml/form.ml"), 170, 58} as dynamic;
     $e_ = Vector{0, 1} as dynamic;
     $a_ = (dynamic $x) : dynamic ==> {
@@ -162,8 +162,8 @@ final class Js_of_ocaml__Form {
           $ag_ = ((dynamic $t11, dynamic $param) : dynamic ==> {
              return $t11->length;
            })($af_, $ad_);
-          $options = $call2($Array[2], $ag_, $ac_);
-          $ah_ = $call1($Array[11], $options);
+          $options = $call2($Stdlib_array[2], $ag_, $ac_);
+          $ah_ = $call1($Stdlib_array[11], $options);
           return $filter_map->contents(
             (dynamic $param) : dynamic ==> {
               if ($param) {
@@ -324,8 +324,8 @@ final class Js_of_ocaml__Form {
                   $W_ = ((dynamic $t20, dynamic $param) : dynamic ==> {
                      return $t20->length;
                    })($list, $V_);
-                  $X_ = $call2($Array[2], $W_, $U_);
-                  $Y_ = $call1($Array[11], $X_);
+                  $X_ = $call2($Stdlib_array[2], $W_, $U_);
+                  $Y_ = $call1($Stdlib_array[11], $X_);
                   return $filter_map->contents(
                     (dynamic $f) : dynamic ==> {
                       $match = $call1($Js_of_ocaml_Js[5][10], $f);
@@ -429,8 +429,8 @@ final class Js_of_ocaml__Form {
          })($E_, $i, $C_);
         return $call1($Js_of_ocaml_Js[5][10], $F_);
       };
-      $z_ = $call2($Array[2], $length, $y_);
-      $elements = $call1($Array[11], $z_);
+      $z_ = $call2($Stdlib_array[2], $length, $y_);
+      $elements = $call1($Stdlib_array[11], $z_);
       $A_ = (dynamic $param) : dynamic ==> {
         if ($param) {
           $v = $param[1];
@@ -455,8 +455,8 @@ final class Js_of_ocaml__Form {
         }
         return 0;
       };
-      $B_ = $call2($List[17], $A_, $elements);
-      $contents = $call1($List[14], $B_);
+      $B_ = $call2($Stdlib_list[17], $A_, $elements);
+      $contents = $call1($Stdlib_list[14], $B_);
       return $contents;
     };
     $append = (dynamic $form_contents, dynamic $form_elt) : dynamic ==> {
@@ -503,7 +503,7 @@ final class Js_of_ocaml__Form {
       $contents = $empty_form_contents(0);
       $k_ = $form_elements(0, $form);
       $l_ = (dynamic $m_) : dynamic ==> {return $append($contents, $m_);};
-      $call2($List[15], $l_, $k_);
+      $call2($Stdlib_list[15], $l_, $k_);
       return $contents;
     };
     $get_form_contents = (dynamic $form) : dynamic ==> {
@@ -519,7 +519,7 @@ final class Js_of_ocaml__Form {
         }
         throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $f_}) as \Throwable;
       };
-      return $call2($List[17], $h_, $g_);
+      return $call2($Stdlib_list[17], $h_, $g_);
     };
     $Js_of_ocaml_Form = Vector{
       0,

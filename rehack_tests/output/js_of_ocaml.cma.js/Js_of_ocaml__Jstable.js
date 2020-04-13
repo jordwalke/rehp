@@ -21,9 +21,9 @@ function call2(f, a0, a1) {
 }
 
 var cst_Jstable_keys = string("Jstable.keys");
-var Pervasives = require("../stdlib.cma.js/Pervasives.js");
+var Stdlib = require("../stdlib.cma.js/Stdlib.js");
 var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
-var List = require("../stdlib.cma.js/List.js");
+var Stdlib_list = require("../stdlib.cma.js/Stdlib__list.js");
 
 function a_(x) {return call1(caml_get_public_method(x, 944440446, 277), x);}
 
@@ -78,9 +78,7 @@ function keys(t) {
   if (! (i_ < 0)) {
     var i = g_;
     for (; ; ) {
-      var j_ = function(param) {
-        return call1(Pervasives[2], cst_Jstable_keys);
-      };
+      var j_ = function(param) {return call1(Stdlib[2], cst_Jstable_keys);};
       var k_ = call2(Js_of_ocaml_Js[16], key_array, i);
       var key = call2(Js_of_ocaml_Js[6][8], k_, j_);
       var l_ = res[1];
@@ -104,7 +102,7 @@ function keys(t) {
       break;
     }
   }
-  return call1(List[9], res[1]);
+  return call1(Stdlib_list[9], res[1]);
 }
 
 var Js_of_ocaml_Jstable = [0,create,add,remove,find,keys];

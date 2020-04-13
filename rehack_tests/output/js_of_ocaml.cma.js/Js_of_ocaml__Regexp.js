@@ -27,7 +27,7 @@ var cst_g = string("g");
 var cst = string("[\\][()\\\\|+*.?{}^$]");
 var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
 var Assert_failure = require("../runtime/Assert_failure.js");
-var Pervasives = require("../stdlib.cma.js/Pervasives.js");
+var Stdlib = require("../stdlib.cma.js/Stdlib.js");
 var a_ = [0,string("lib/js_of_ocaml/regexp.ml"),33,64];
 
 function regexp(s) {
@@ -49,7 +49,7 @@ function regexp_case_fold(s) {
 }
 
 function regexp_with_flag(s, f) {
-  var ae_ = call2(Pervasives[16], cst_g, f).toString();
+  var ae_ = call2(Stdlib[28], cst_g, f).toString();
   var ad_ = 0;
   var af_ = caml_jsbytes_of_string(s);
   var ag_ = Js_of_ocaml_Js[11];

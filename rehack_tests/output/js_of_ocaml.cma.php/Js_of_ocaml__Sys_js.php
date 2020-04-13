@@ -18,12 +18,12 @@ final class Js_of_ocaml__Sys_js {
     $string = $runtime["caml_new_string"];
     $cst = $string("");
     $cst__0 = $string("+");
-    $Pervasives = Pervasives::get();
+    $Stdlib = Stdlib::get();
     $Js_of_ocaml_Lib_version = Js_of_ocaml__Lib_version::get();
     $update_file = (dynamic $name, dynamic $content) : dynamic ==> {
-      $oc = $call1($Pervasives[48], $name);
-      $call2($Pervasives[54], $oc, $content);
-      return $call1($Pervasives[64], $oc);
+      $oc = $call1($Stdlib[60], $name);
+      $call2($Stdlib[66], $oc, $content);
+      return $call1($Stdlib[76], $oc);
     };
     $set_channel_flusher = (dynamic $out_channel, dynamic $f) : dynamic ==> {
       $f__0 = $caml_js_wrap_callback(
@@ -53,9 +53,9 @@ final class Js_of_ocaml__Sys_js {
     
     if ($runtime["caml_string_equal"]($Js_of_ocaml_Lib_version[2], $cst)) {$js_of_ocaml_version = $Js_of_ocaml_Lib_version[1];}
     else {
-      $c_ = $call2($Pervasives[16], $cst__0, $Js_of_ocaml_Lib_version[2]);
+      $c_ = $call2($Stdlib[28], $cst__0, $Js_of_ocaml_Lib_version[2]);
       $js_of_ocaml_version = $call2(
-        $Pervasives[16],
+        $Stdlib[28],
         $Js_of_ocaml_Lib_version[1],
         $c_
       );

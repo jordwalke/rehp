@@ -442,13 +442,12 @@ final class Js_of_ocaml__Dom_html {
       "Js_of_ocaml__Dom_html.Canvas_not_available"
     );
     $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
-    $List = List_::get();
-    $Not_found = Not_found::get();
+    $Stdlib_list = Stdlib__list::get();
+    $Stdlib = Stdlib::get();
     $Js_of_ocaml_Import = Js_of_ocaml__Import::get();
-    $Uchar = Uchar::get();
+    $Stdlib_uchar = Stdlib__uchar::get();
     $Assert_failure = Assert_failure::get();
-    $Printf = Printf::get();
-    $Pervasives = Pervasives::get();
+    $Stdlib_printf = Stdlib__printf::get();
     $Js_of_ocaml_Dom = Js_of_ocaml__Dom::get();
     $g_ = Vector{0, $string("lib/js_of_ocaml/dom_html.ml"), 2792, 58} as dynamic;
     $f_ = Vector{0, $string("lib/js_of_ocaml/dom_html.ml"), 2791, 61} as dynamic;
@@ -737,7 +736,7 @@ final class Js_of_ocaml__Dom_html {
     $getElementById = (dynamic $id) : dynamic ==> {
       $db_ = (dynamic $pnode) : dynamic ==> {return $pnode;};
       $dc_ = (dynamic $param) : dynamic ==> {
-        throw $caml_wrap_thrown_exception($Not_found) as \Throwable;
+        throw $caml_wrap_thrown_exception($Stdlib[8]) as \Throwable;
       };
       $dd_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -332188296, 85), $x);
@@ -751,8 +750,8 @@ final class Js_of_ocaml__Dom_html {
     $getElementById_exn = (dynamic $id) : dynamic ==> {
       $c6_ = (dynamic $pnode) : dynamic ==> {return $pnode;};
       $c7_ = (dynamic $param) : dynamic ==> {
-        $da_ = $call2($Printf[4], $b_, $id);
-        return $call1($Pervasives[2], $da_);
+        $da_ = $call2($Stdlib_printf[4], $b_, $id);
+        return $call1($Stdlib[2], $da_);
       };
       $c8_ = (dynamic $x) : dynamic ==> {
         return $call1($caml_get_public_method($x, -332188296, 86), $x);
@@ -2487,7 +2486,7 @@ final class Js_of_ocaml__Dom_html {
     $char_of_int = (dynamic $value) : dynamic ==> {
       if ($call2($Js_of_ocaml_Import[5], 0, $value)) {
         try {
-          $az_ = Vector{0, $call1($Uchar[8], $value)} as dynamic;
+          $az_ = Vector{0, $call1($Stdlib_uchar[8], $value)} as dynamic;
           return $az_;
         }
         catch(\Throwable $aA_) {return 0;}
@@ -2557,7 +2556,7 @@ final class Js_of_ocaml__Dom_html {
           0
         )
       ) {return $other($e);}
-      $match = $runtime["caml_bytes_unsafe_get"]($tag, 0);
+      $match = $runtime["caml_string_unsafe_get"]($tag, 0);
       $switcher = (int) ($match + -97) as dynamic;
       if (! (21 < $unsigned_right_shift_32($switcher, 0))) {
         switch($switcher) {
@@ -2858,13 +2857,13 @@ final class Js_of_ocaml__Dom_html {
           $G_ = (dynamic $c) : dynamic ==> {
             return $call1($Js_of_ocaml_Js[6][5], $c);
           };
-          $req = $call2($List[33], $G_, $l);
+          $req = $call2($Stdlib_list[34], $G_, $l);
           $H_ = (dynamic $callback) : dynamic ==> {return $req($callback);};
           return $H_;
         }
         catch(\Throwable $I_) {
           $I_ = $runtime["caml_wrap_exception"]($I_);
-          if ($I_ === $Not_found) {
+          if ($I_ === $Stdlib[8]) {
             $now = (dynamic $param) : dynamic ==> {
               $K_ = (dynamic $x) : dynamic ==> {
                 return $call1($caml_get_public_method($x, 528448451, 167), $x);
@@ -2881,7 +2880,7 @@ final class Js_of_ocaml__Dom_html {
             $last = Vector{0, $now(0)} as dynamic;
             return (dynamic $callback) : dynamic ==> {
               $t = $now(0);
-              $dt = $last[1] + 16.6666666666666679 - $t;
+              $dt = $last[1] + 16.666666666666668 - $t;
               $dt__0 = $dt < 0 ? 0 : ($dt);
               $last[1] = $t;
               $J_ = (dynamic $x) : dynamic ==> {

@@ -15,7 +15,7 @@ function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-var Array = require("../stdlib.cma.js/Array.js");
+var Stdlib_array = require("../stdlib.cma.js/Stdlib__array.js");
 var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
 
 function empty_mutation_observer_init(param) {return {};}
@@ -106,7 +106,7 @@ function observe(node, f, child_list, attributes, character_data, subtree, attri
       function f_(x) {
         return call1(caml_get_public_method(x, -116981516, 275), x);
       }
-      var g_ = runtime["caml_js_from_array"](call1(Array[12], l));
+      var g_ = runtime["caml_js_from_array"](call1(Stdlib_array[12], l));
       return function(t5, t4, param) {t5.attributeFilter = t4;return 0;}(cfg, g_, f_
       );
     }

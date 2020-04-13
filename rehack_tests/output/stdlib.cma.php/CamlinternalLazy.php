@@ -22,7 +22,7 @@ final class CamlinternalLazy {
     $cst_CamlinternalLazy_Undefined = $runtime["caml_new_string"](
       "CamlinternalLazy.Undefined"
     );
-    $Obj = Obj::get();
+    $Stdlib_obj = Stdlib__obj::get();
     $Undefined = Vector{
       248,
       $cst_CamlinternalLazy_Undefined,
@@ -38,7 +38,7 @@ final class CamlinternalLazy {
       try {
         $result = $call1($closure, 0);
         $blk[1] = $result;
-        $caml_obj_set_tag($blk, $Obj[10]);
+        $caml_obj_set_tag($blk, $Stdlib_obj[10]);
         return $result;
       }
       catch(\Throwable $e) {
@@ -55,20 +55,20 @@ final class CamlinternalLazy {
       $blk[1] = $raise_undefined;
       $result = $call1($closure, 0);
       $blk[1] = $result;
-      $caml_obj_set_tag($blk, $Obj[10]);
+      $caml_obj_set_tag($blk, $Stdlib_obj[10]);
       return $result;
     };
     $force = (dynamic $lzv) : dynamic ==> {
       $t = $caml_obj_tag($lzv);
-      return $t === $Obj[10]
+      return $t === $Stdlib_obj[10]
         ? $lzv[1]
-        : ($t !== $Obj[6] ? $lzv : ($force_lazy_block($lzv)));
+        : ($t !== $Stdlib_obj[6] ? $lzv : ($force_lazy_block($lzv)));
     };
     $force_val = (dynamic $lzv) : dynamic ==> {
       $t = $caml_obj_tag($lzv);
-      return $t === $Obj[10]
+      return $t === $Stdlib_obj[10]
         ? $lzv[1]
-        : ($t !== $Obj[6] ? $lzv : ($force_val_lazy_block($lzv)));
+        : ($t !== $Stdlib_obj[6] ? $lzv : ($force_val_lazy_block($lzv)));
     };
     $CamlinternalLazy = Vector{
       0,

@@ -17,12 +17,12 @@ function call1(f, a0) {
 var SeparateCompilation_SeparateCompilationHelper = require(
   "./SeparateCompilation__SeparateCompilationHelper.js"
 );
-var Pervasives = require("../stdlib.cma.js/Pervasives.js");
+var Stdlib = require("../stdlib.cma.js/Stdlib.js");
 var MyLib = require("../my-lib.cma.js/MyLib.js");
 
-call1(Pervasives[34], SeparateCompilation_SeparateCompilationHelper[1]);
+call1(Stdlib[46], SeparateCompilation_SeparateCompilationHelper[1]);
 
-call1(Pervasives[30], runtime["caml_js_to_string"](MyLib[2]));
+call1(Stdlib[42], runtime["caml_js_to_string"](MyLib[2]));
 
 var SeparateCompilation = [0];
 
@@ -34,4 +34,4 @@ module.exports = SeparateCompilation;
 }} */
 module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 
-/*____hashes flags: 589793685 bytecode: 10647412249 debug-data: 389742017 primitives: 1058613066*/
+/*____hashes flags: 589793685 bytecode: 10294615975 debug-data: 389742017 primitives: 1058613066*/

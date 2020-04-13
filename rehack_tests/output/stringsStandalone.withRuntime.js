@@ -12,6 +12,7 @@ var runtime = require("../runtime/runtime.js");
 var caml_blit_string = runtime["caml_blit_string"];
 var caml_bytes_unsafe_get = runtime["caml_bytes_unsafe_get"];
 var caml_create_bytes = runtime["caml_create_bytes"];
+var caml_fresh_oo_id = runtime["caml_fresh_oo_id"];
 var caml_int_of_string = runtime["caml_int_of_string"];
 var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
 var caml_ml_flush = runtime["caml_ml_flush"];
@@ -20,6 +21,8 @@ var caml_ml_output_char = runtime["caml_ml_output_char"];
 var caml_ml_string_length = runtime["caml_ml_string_length"];
 var string = runtime["caml_new_string"];
 var caml_register_global = runtime["caml_register_global"];
+var caml_string_of_bytes = runtime["caml_string_of_bytes"];
+var caml_string_unsafe_get = runtime["caml_string_unsafe_get"];
 var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 var caml_wrap_thrown_exception_reraise = runtime
  ["caml_wrap_thrown_exception_reraise"];
@@ -111,7 +114,7 @@ function invalid_arg(s) {
   throw caml_wrap_thrown_exception([0,Invalid_argument,s]);
 }
 
-runtime["caml_fresh_oo_id"](0);
+caml_fresh_oo_id(0);
 
 var anotherName = runtime["caml_int64_float_of_bits"](a_);
 
@@ -121,7 +124,7 @@ function symbol(s1, s2) {
   var s = caml_create_bytes(l1 + l2 | 0);
   caml_blit_string(s1, 0, s, 0, l1);
   caml_blit_string(s2, 0, s, l1, l2);
-  return s;
+  return caml_string_of_bytes(s);
 }
 
 function string_of_bool(b) {return b ? b_ : c_;}
@@ -178,6 +181,8 @@ function print_newline(param) {
 
 function do_at_exit(param) {return flush_all(0);}
 
+caml_fresh_oo_id(0);
+
 function make(n, c) {
   var s = caml_create_bytes(n);
   runtime["caml_fill_bytes"](s, 0, n, c);
@@ -222,9 +227,9 @@ function trim(s) {
   }
 }
 
-function bos(W_) {return W_;}
+function bos(W_) {return runtime["caml_bytes_of_string"](W_);}
 
-function bts(V_) {return V_;}
+function bts(V_) {return caml_string_of_bytes(V_);}
 
 function make__0(n, c) {return bts(make(n, c));}
 
@@ -236,10 +241,10 @@ function is_space__0(param) {
 
 function trim__0(s) {
   if (runtime["caml_string_equal"](s, e_)) {return s;}
-  if (! is_space__0(caml_bytes_unsafe_get(s, 0))) {
+  if (! is_space__0(caml_string_unsafe_get(s, 0))) {
     if (
     !
-    is_space__0(caml_bytes_unsafe_get(s, caml_ml_string_length(s) + -1 | 0))
+    is_space__0(caml_string_unsafe_get(s, caml_ml_string_length(s) + -1 | 0))
     ) {return s;}
   }
   return bts(trim(bos(s)));
@@ -249,7 +254,7 @@ function index_rec(s, lim, i, c) {
   var i__0 = i;
   for (; ; ) {
     if (lim <= i__0) {throw caml_wrap_thrown_exception(Not_found);}
-    if (caml_bytes_unsafe_get(s, i__0) === c) {return i__0;}
+    if (caml_string_unsafe_get(s, i__0) === c) {return i__0;}
     var i__1 = i__0 + 1 | 0;
     var i__0 = i__1;
     continue;

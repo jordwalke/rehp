@@ -9,8 +9,8 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
-var String = require("../stdlib.cma.js/String.js");
-var Char = require("../stdlib.cma.js/Char.js");
+var Stdlib_string = require("../stdlib.cma.js/Stdlib__string.js");
+var Stdlib_char = require("../stdlib.cma.js/Stdlib__char.js");
 var Poly = [0];
 
 function symbol(x, y) {return x < y ? 1 : 0;}
@@ -46,44 +46,47 @@ var Int_replace_polymorphic_compare = [
   max,
   min
 ];
-var make = String[1];
-var init = String[2];
-var copy = String[3];
-var sub = String[4];
-var fill = String[5];
-var blit = String[6];
-var concat = String[7];
-var iter = String[8];
-var iteri = String[9];
-var map = String[10];
-var mapi = String[11];
-var trim = String[12];
-var escaped = String[13];
-var index = String[14];
-var index_opt = String[15];
-var rindex = String[16];
-var rindex_opt = String[17];
-var index_from = String[18];
-var index_from_opt = String[19];
-var rindex_from = String[20];
-var rindex_from_opt = String[21];
-var contains = String[22];
-var contains_from = String[23];
-var rcontains_from = String[24];
-var uppercase = String[25];
-var lowercase = String[26];
-var capitalize = String[27];
-var uncapitalize = String[28];
-var uppercase_ascii = String[29];
-var lowercase_ascii = String[30];
-var capitalize_ascii = String[31];
-var uncapitalize_ascii = String[32];
-var compare__0 = String[33];
-var split_on_char = String[35];
+var make = Stdlib_string[1];
+var init = Stdlib_string[2];
+var copy = Stdlib_string[3];
+var sub = Stdlib_string[4];
+var fill = Stdlib_string[5];
+var blit = Stdlib_string[6];
+var concat = Stdlib_string[7];
+var iter = Stdlib_string[8];
+var iteri = Stdlib_string[9];
+var map = Stdlib_string[10];
+var mapi = Stdlib_string[11];
+var trim = Stdlib_string[12];
+var escaped = Stdlib_string[13];
+var index = Stdlib_string[14];
+var index_opt = Stdlib_string[15];
+var rindex = Stdlib_string[16];
+var rindex_opt = Stdlib_string[17];
+var index_from = Stdlib_string[18];
+var index_from_opt = Stdlib_string[19];
+var rindex_from = Stdlib_string[20];
+var rindex_from_opt = Stdlib_string[21];
+var contains = Stdlib_string[22];
+var contains_from = Stdlib_string[23];
+var rcontains_from = Stdlib_string[24];
+var uppercase = Stdlib_string[25];
+var lowercase = Stdlib_string[26];
+var capitalize = Stdlib_string[27];
+var uncapitalize = Stdlib_string[28];
+var uppercase_ascii = Stdlib_string[29];
+var lowercase_ascii = Stdlib_string[30];
+var capitalize_ascii = Stdlib_string[31];
+var uncapitalize_ascii = Stdlib_string[32];
+var compare__0 = Stdlib_string[33];
+var split_on_char = Stdlib_string[35];
+var to_seq = Stdlib_string[36];
+var to_seqi = Stdlib_string[37];
+var of_seq = Stdlib_string[38];
 
 function equal__0(x, y) {return runtime["caml_string_equal"](x, y);}
 
-var String__0 = [
+var String = [
   0,
   make,
   init,
@@ -119,19 +122,22 @@ var String__0 = [
   uncapitalize_ascii,
   compare__0,
   split_on_char,
+  to_seq,
+  to_seqi,
+  of_seq,
   equal__0
 ];
-var chr = Char[1];
-var escaped__0 = Char[2];
-var lowercase__0 = Char[3];
-var uppercase__0 = Char[4];
-var lowercase_ascii__0 = Char[5];
-var uppercase_ascii__0 = Char[6];
-var compare__1 = Char[7];
+var chr = Stdlib_char[1];
+var escaped__0 = Stdlib_char[2];
+var lowercase__0 = Stdlib_char[3];
+var uppercase__0 = Stdlib_char[4];
+var lowercase_ascii__0 = Stdlib_char[5];
+var uppercase_ascii__0 = Stdlib_char[6];
+var compare__1 = Stdlib_char[7];
 
 function equal__1(x, y) {return x === y ? 1 : 0;}
 
-var Char__0 = [
+var Char = [
   0,
   chr,
   escaped__0,
@@ -156,8 +162,8 @@ var Js_of_ocaml_Import = [
   0,
   Poly,
   Int_replace_polymorphic_compare,
-  String__0,
-  Char__0,
+  String,
+  Char,
   symbol__5,
   symbol__6,
   symbol__7,
