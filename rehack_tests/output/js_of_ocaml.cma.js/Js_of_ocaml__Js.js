@@ -51,10 +51,7 @@ function case__0(x, f, g) {return x == null__0 ? call1(f, 0) : call1(g, x);}
 
 function get(x, f) {return x == null__0 ? call1(f, 0) : x;}
 
-function option(x) {
-  if (x) {var x__0 = x[1];return return__0(x__0);}
-  return null__0;
-}
+function option(x) {return runtime["caml_js_nullable"](x);}
 
 function to_option(x) {
   function aj_(x) {return [0,x];}

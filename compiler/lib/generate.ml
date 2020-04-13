@@ -416,6 +416,7 @@ let kind k =
 
 let rec constant_rec ~ctx x level instrs =
   match x with
+  | Null -> s_var "null", instrs
   | String s ->
       let e = Share.get_string str_js s ctx.Ctx.share in
       let pretty_name = "string" in

@@ -269,6 +269,7 @@ type constant =
   | Int64 of int64
   | Tuple of int * constant array * array_or_not
   | Int of int32
+  | Null
 
 type prim_arg =
   | Pv of Var.t
@@ -374,6 +375,7 @@ module Print = struct
             done;
             Format.fprintf f ")")
     | Int i -> Format.fprintf f "%ld" i
+    | Null -> Format.fprintf f "null"
 
   let arg f a =
     match a with

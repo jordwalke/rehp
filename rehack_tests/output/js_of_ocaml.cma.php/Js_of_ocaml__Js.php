@@ -50,8 +50,7 @@ final class Js_of_ocaml__Js {
       return $x == $null__0 ? $call1($f, 0) : ($x);
     };
     $option = (dynamic $x) : dynamic ==> {
-      if ($x) {$x__0 = $x[1];return $return__0($x__0);}
-      return $null__0;
+      return $runtime["caml_js_nullable"]($x);
     };
     $to_option = (dynamic $x) : dynamic ==> {
       $aj_ = (dynamic $x) : dynamic ==> {return Vector{0, $x};};

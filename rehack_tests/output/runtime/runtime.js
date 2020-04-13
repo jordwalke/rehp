@@ -4355,6 +4355,8 @@ function caml_js_wrap_meth_callback_unsafe(f) {
   return function() {f.apply(null, raw_array_cons(arguments, this));};
 }
 
+function caml_js_nullable(a) {return a === 0 ? null : a[1];}
+
 function caml_ba_dim_3(ba) {return ba.nth_dim(2);}
 
 function caml_get_exception_raw_backtrace(_unit) {return [0];}
@@ -5171,6 +5173,7 @@ joo_global_object.jsoo_runtime =
     caml_js_fun_call: caml_js_fun_call,
     caml_js_call: caml_js_call,
     caml_js_var: caml_js_var,
+    caml_js_nullable: caml_js_nullable,
     caml_js_to_array: caml_js_to_array,
     caml_js_from_array: caml_js_from_array,
     caml_js_from_string: caml_js_from_string,
