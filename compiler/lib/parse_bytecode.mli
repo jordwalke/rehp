@@ -39,21 +39,22 @@ end
 type one =
   { code : Code.program
   ; cmis : StringSet.t
-  ; debug : Debug.data }
+  ; debug : Debug.data
+  }
 
 val from_exe :
      ?includes:string list
   -> ?toplevel:bool
   -> ?exported_unit:string list
   -> ?dynlink:bool
-  -> ?debug:[`Full | `Names | `No]
+  -> ?debug:[ `Full | `Names | `No ]
   -> in_channel
   -> one
 
 val from_cmo :
      ?includes:string list
   -> ?toplevel:bool
-  -> ?debug:[`Full | `Names | `No]
+  -> ?debug:[ `Full | `Names | `No ]
   -> Cmo_format.compilation_unit
   -> in_channel
   -> one
@@ -61,13 +62,14 @@ val from_cmo :
 val from_cma :
      ?includes:string list
   -> ?toplevel:bool
-  -> ?debug:[`Full | `Names | `No]
+  -> ?debug:[ `Full | `Names | `No ]
   -> Cmo_format.library
   -> in_channel
   -> one
 
 val from_channel :
-  in_channel -> [`Cmo of Cmo_format.compilation_unit | `Cma of Cmo_format.library | `Exe]
+     in_channel
+  -> [ `Cmo of Cmo_format.compilation_unit | `Cma of Cmo_format.library | `Exe ]
 
 val from_string : string array -> string -> Code.program * Debug.data
 

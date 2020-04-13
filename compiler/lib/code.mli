@@ -184,7 +184,7 @@ type cond =
 
 type last =
   | Return of Var.t
-  | Raise of Var.t * [`Normal | `Notrace | `Reraise]
+  | Raise of Var.t * [ `Normal | `Notrace | `Reraise ]
   | Stop
   | Branch of cont
   | Cond of cond * Var.t * cont * cont
@@ -196,7 +196,8 @@ type block =
   { params : Var.t list
   ; handler : (Var.t * cont) option
   ; body : instr list
-  ; branch : last }
+  ; branch : last
+  }
 
 type program = Addr.t * block Addr.Map.t * Addr.t
 
