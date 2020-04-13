@@ -305,9 +305,13 @@ let expandIntoMultipleArguments = (macroData, argsToExpand, nodeList) => {
    * To turn a nodelist that has no depth beyond terminal nodes into a list.
    */
   let rec expandNodeIntoMultipleArgumentsImpl =
-          ((curExpandedArgs, nodeListSoFar), curNode) => {
+          ((curExpandedBindings, curExpandedArgs, nodeListSoFar), curNode) => {
     switch (curNode) {
-    | Raw(r) => (curExpandedArgs, [Raw(r), ...nodeListSoFar])
+    | Raw(r) => (
+        curExpandedBindings,
+        curExpandedArgs,
+        [Raw(r), ...nodeListSoFar],
+      )
     | Node(t, subNodeList) =>
       switch (int_of_string_opt(t)) {
       | Some(i) =>
@@ -321,11 +325,17 @@ let expandIntoMultipleArguments = (macroData, argsToExpand, nodeList) => {
             )
           | Some(a) => a
           };
+        let expandedBindingsWithThis = curExpandedBindings;
         let expandedArgsWithThis = [arg, ...curExpandedArgs];
         let nextExpandedArgsLen = List.length(expandedArgsWithThis);
-        let (nextExpandedArgs, mappedChildren) =
-          expandIntoMultipleArgumentsImpl(expandedArgsWithThis, subNodeList);
+        let (nextExpandedBindings, nextExpandedArgs, mappedChildren) =
+          expandIntoMultipleArgumentsImpl(
+            expandedBindingsWithThis,
+            expandedArgsWithThis,
+            subNodeList,
+          );
         (
+          nextExpandedBindings,
           nextExpandedArgs,
           [Node(string_of_int(nextExpandedArgsLen), []), ...nodeListSoFar],
         );
@@ -333,16 +343,17 @@ let expandIntoMultipleArguments = (macroData, argsToExpand, nodeList) => {
       }
     };
   }
-  and expandIntoMultipleArgumentsImpl = (curExpandedArgs, nodeList) => {
-    let (expandedArgs, mappedNodeList) =
+  and expandIntoMultipleArgumentsImpl =
+      (curExpandedBindings, curExpandedArgs, nodeList) => {
+    let (expandedBindings, expandedArgs, mappedNodeList) =
       List.fold_left(
         ~f=expandNodeIntoMultipleArgumentsImpl,
-        ~init=(curExpandedArgs, []),
+        ~init=(curExpandedBindings, curExpandedArgs, []),
         nodeList,
       );
-    (expandedArgs, List.rev(mappedNodeList));
+    (expandedBindings, expandedArgs, List.rev(mappedNodeList));
   };
-  expandIntoMultipleArgumentsImpl([], nodeList);
+  expandIntoMultipleArgumentsImpl([], [], nodeList);
 };
 
 /**

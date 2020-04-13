@@ -410,7 +410,8 @@ let f_once debug_data_for_errors (pc, blocks, free_pc) =
       (* Arguably this should only be done in f_once (the round that only
        * happens once) since the purpose of this is to expand arguments, and
        * there will never be a case where some other compiler stage might
-       * create a new raw macro that should be expanded or re-expanded.
+       * create a new raw macro that should be expanded or re-expanded (unless
+       * maybe if macros can expand other macros, when one gets inlined).
        *)
       | Let (x, Prim (Extern nm, args)) when Raw_macro.is nm ->
           let loc =
@@ -428,7 +429,7 @@ let f_once debug_data_for_errors (pc, blocks, free_pc) =
               (Raw_macro.parseNodeList macro_data)
               (String.equal be)
           in
-          let expandedArgs, mappedNodeList =
+          let expandedBindings, expandedArgs, mappedNodeList =
             Raw_macro.expandIntoMultipleArguments macro_data args node_list
           in
           let expandedText = Raw_macro.printNodeList mappedNodeList in
