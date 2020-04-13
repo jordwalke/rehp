@@ -1,5 +1,5 @@
 {
-  "checksum": "57d2303814d8a90bc27742744a7fa8d3",
+  "checksum": "8bca4fe74c62bc00b6b8a9ccc4a6e261",
   "root": "dev@link-dev:./package.json",
   "node": {
     "refmterr@3.3.0@d41d8cd9": {
@@ -60,7 +60,7 @@
         "ocaml@4.8.1000@d41d8cd9", "@reason-native/console@0.1.0@d41d8cd9",
         "@opam/ppx_expect@opam:v0.13.0@272da626",
         "@opam/ocamlformat@opam:0.14.0@c30cde14",
-        "@opam/merlin@opam:3.3.3@d653b06a"
+        "@opam/merlin@link:../merlin"
       ]
     },
     "@reason-native/pastel@0.3.0@d41d8cd9": {
@@ -1208,22 +1208,11 @@
         "ocaml@4.8.1000@d41d8cd9", "@opam/dune@opam:2.4.0@639d28a3"
       ]
     },
-    "@opam/merlin@opam:3.3.3@d653b06a": {
-      "id": "@opam/merlin@opam:3.3.3@d653b06a",
+    "@opam/merlin@link:../merlin": {
+      "id": "@opam/merlin@link:../merlin",
       "name": "@opam/merlin",
-      "version": "opam:3.3.3",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://opam.ocaml.org/cache/sha256/72/72909ef47eea1f6fca13b4109a34dccf8fe3923a3c026f1ed1db9eb5ee9aae15#sha256:72909ef47eea1f6fca13b4109a34dccf8fe3923a3c026f1ed1db9eb5ee9aae15",
-          "archive:https://github.com/ocaml/merlin/releases/download/v3.3.3/merlin-v3.3.3.tbz#sha256:72909ef47eea1f6fca13b4109a34dccf8fe3923a3c026f1ed1db9eb5ee9aae15"
-        ],
-        "opam": {
-          "name": "merlin",
-          "version": "3.3.3",
-          "path": "esy.lock/opam/merlin.3.3.3"
-        }
-      },
+      "version": "link:../merlin",
+      "source": { "type": "link", "path": "../merlin" },
       "overrides": [],
       "dependencies": [
         "ocaml@4.8.1000@d41d8cd9", "@opam/yojson@opam:1.7.0@7056d985",
