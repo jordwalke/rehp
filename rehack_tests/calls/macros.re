@@ -62,3 +62,43 @@ let nestedResult2 = duplicateNestedExternCalls(sideEffect());
 let nestedResult3 = duplicateNestedExternCalls(pureExpression("100"));
 
 let includeMe = () => ();
+
+
+let trueee = true;
+let falseee = false;
+
+external acceptsBools : (bool, bool) => bool = "
+  raw-macro:
+  <@php>
+   SomeClass::hereIsSomeBools(<@toBool><@1/></@toBool>, <@toBool><@2/></@toBool>) 
+  <@/php>
+  <@js>
+  SomeClass.hereIsSomeBools(<@toBool><@1/></@toBool>, <@toBool><@2/></@toBool>) 
+  <@/js>
+";
+
+let boolTest1 = acceptsBools(true, false);
+let boolTest2 = acceptsBools(false, true);
+
+
+external xhpDiv : (string, list('a)) => option('b) = {|
+raw-macro:
+  <@php>
+  <div
+    <@ifSome>
+      <@1/>
+      className={<@1/>}>
+    <@/ifSome>
+    {<@2/>}
+  </div>
+  <@/php>
+  <@js>
+  <div
+    className={<@1/>}>
+    {<@2/>}
+  </div>
+  <@/js>
+|};
+
+
+let myDiv = xhpDiv("HelloClass", []);

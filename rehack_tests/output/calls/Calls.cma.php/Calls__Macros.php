@@ -43,6 +43,11 @@ $runtime["outerOuter"](
       $runtime["outer"]($runtime["inner"]($c_))
     );
     $includeMe = (dynamic $param) : dynamic ==> {return 0;};
+    $boolTest1 = SomeClass::hereIsSomeBools(! ! 1, ! ! 0) ;
+    $boolTest2 = SomeClass::hereIsSomeBools(! ! 0, ! ! 1) ;
+    $myDiv = <div
+    {0}
+</div>;
     $Calls_Macros = Vector{
       0,
       $null__0,
@@ -51,7 +56,12 @@ $runtime["outerOuter"](
       $nestedsResult,
       $nestedResult2,
       $nestedResult3,
-      $includeMe
+      $includeMe,
+      1,
+      0,
+      $boolTest1,
+      $boolTest2,
+      $myDiv
     } as dynamic;
     
     return($Calls_Macros);

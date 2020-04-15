@@ -322,6 +322,8 @@ let externName = extern =>
   switch (extern) {
   | "toNull" => Some("caml_js_nullable")
   | "toString" => Some("caml_js_from_string")
+  | "toBool" => Some("caml_js_from_bool")
+  | "fromBool" => Some("caml_js_to_bool")
   | _
       when
         String.length(extern) > 7
