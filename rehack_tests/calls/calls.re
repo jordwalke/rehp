@@ -179,3 +179,4 @@ switch (z) {
 | Some((f, str)) => print_string(str ++ string_of_int(f(0, 0)))
 };
 
+Macros.includeMe();

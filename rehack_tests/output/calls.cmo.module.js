@@ -34,6 +34,7 @@ var cst_two__0 = string("two");
 var cst_hi = string("hi");
 var cst_Second_Part_Of_Tuple = string("Second Part Of Tuple:");
 var Stdlib = require("Stdlib.js");
+var Calls_Macros = require("Calls__Macros.js");
 var c_ = [0,100,0];
 var a_ = [0,100,0];
 var foo = "foo";
@@ -177,6 +178,8 @@ if (z) {
   var h_ = call2(Stdlib[28], str, g_);
   call1(Stdlib[42], h_);
 }
+
+call1(Calls_Macros[7], 0);
 
 var Calls = [
   0,

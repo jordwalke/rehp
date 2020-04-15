@@ -30,6 +30,7 @@ final class Calls {
     $cst_hi = $string("hi");
     $cst_Second_Part_Of_Tuple = $string("Second Part Of Tuple:");
     $Stdlib = Stdlib::get();
+    $Calls_Macros = Calls__Macros::get();
     $c_ = Vector{0, 100, 0} as dynamic;
     $a_ = Vector{0, 100, 0} as dynamic;
     $foo = "foo";
@@ -187,6 +188,8 @@ SomeUtilityClass::foo($cst_fix, $cst_me)
       $h_ = $call2($Stdlib[28], $str, $g_);
       $call1($Stdlib[42], $h_);
     }
+    
+    $call1($Calls_Macros[7], 0);
     
     $Calls = Vector{
       0,
