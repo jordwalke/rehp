@@ -435,6 +435,7 @@ let specialize_all_instrs info p =
 
 let f info p = specialize_all_instrs info p
 
+
 (* This is called from the driver before any Flow information is computed. *)
 let f_once debug_data_for_errors p =
   let rec loop addr l =
@@ -464,17 +465,74 @@ let f_once debug_data_for_errors p =
               (Raw_macro.parseNodeList macro_data)
               (String.equal be)
           in
-          let expandedBindings, expandedArgs, mappedNodeList =
+          let expanded_bindings, expandeds =
             Raw_macro.expandIntoMultipleArguments macro_data args node_list
           in
-          let expandedText = Raw_macro.printNodeList mappedNodeList in
+          let expand_binding_args expandeds ~rev_binding_calls ~extern_data =
+            let rev_binding_calls_len = List.length rev_binding_calls in
+            List.map expandeds ~f:(fun expanded_item ->
+                match expanded_item with
+                | Raw_macro.ExpandedRaw string ->
+                    Raw_macro.raiseMalformedExtern
+                      ("Contained raw text:" ^ string)
+                      extern_data
+                      macro_data
+                | ExpandedOrigArg i -> Raw_macro.nth_error args i nm
+                | ExpandedBinding i ->
+                    let referenced_binding =
+                      Raw_macro.nth_error
+                        rev_binding_calls
+                        (rev_binding_calls_len - i - 1)
+                        nm
+                    in
+                    Pv (fst referenced_binding))
+          in
+          let expanded_extern_bindings =
+            List.fold_left
+              expanded_bindings
+              ~init:[]
+              ~f:(fun cur_rev (extern_data, binding_expandeds) ->
+                let extern_tag, extern_name = extern_data in
+                let args_to_extern =
+                  expand_binding_args
+                    binding_expandeds
+                    ~rev_binding_calls:cur_rev
+                    ~extern_data
+                in
+                let binding_var = Code.Var.fresh () in
+                ( binding_var
+                , Let (binding_var, Prim (Extern extern_name, args_to_extern)) )
+                :: cur_rev)
+          in
+          let expanded_extern_bindings = List.rev expanded_extern_bindings in
+          let _, expanded_txt, expanded_args =
+            List.fold_left
+              expandeds
+              ~init:(0, "", [])
+              ~f:(fun (cur_pos, cur_txt, cur_args) expanded ->
+                match expanded with
+                | Raw_macro.ExpandedRaw string -> cur_pos, cur_txt ^ string, cur_args
+                | ExpandedOrigArg i ->
+                    let prim_arg = Raw_macro.nth_error args i nm in
+                    ( cur_pos + 1
+                    , cur_txt ^ Raw_macro.renderPosition (cur_pos + 1)
+                    , prim_arg :: cur_args )
+                | ExpandedBinding i ->
+                    let binding_var, _binding =
+                      Raw_macro.nth_error expanded_extern_bindings i nm
+                    in
+                    ( cur_pos + 1
+                    , cur_txt ^ Raw_macro.renderPosition (cur_pos + 1)
+                    , Pv binding_var :: cur_args ))
+          in
           (* Turn into special % primitive so that none of the inlining optimizations apply *)
-          Let
-            ( x
-            , Prim
-                ( Extern "%caml_js_expanded_raw_macro"
-                , Pc (String expandedText) :: List.rev expandedArgs ) )
-          :: loop addr r
+          List.map ~f:snd expanded_extern_bindings
+          @ Let
+              ( x
+              , Prim
+                  ( Extern "%caml_js_expanded_raw_macro"
+                  , Pc (String expanded_txt) :: List.rev expanded_args ) )
+            :: loop addr r
       | Let
           ( x
           , ( (Prim (Extern "caml_js_delete", [_; _]) as p)

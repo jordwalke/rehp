@@ -1542,6 +1542,12 @@ and translate_instr ctx expr_queue loc instr =
   match instr with
   | Let (x, e) -> (
       let (ce, prop, expr_queue), instrs = translate_expr ctx expr_queue loc x e 0 in
+      (* This is why using Var.fresh_n to give readable names results in more bloated code.
+       * Being named means we will "keep_name" which means variable bindings
+       * won't get inlined into call sites. We need another kind of Var
+       * "Var.fresh_convenient_name" which wouldln't prevent it from getting
+       * inlined, but just give a more readable name in the event that it was
+       * not. *)
       let keep_name x =
         match Code.Var.get_name x with
         | None -> false

@@ -142,6 +142,24 @@ let raiseMalformedMacro = (specificError, macroData) => {
   raise(UserError(msg, macroData.callerLoc));
 };
 
+let raiseMalformedExtern =
+    (specificError, (externTag, external_name), macroData) => {
+  let msg =
+    Printf.sprintf(
+      {|%s
+  The external macro being called %s (%s) contains raw text in its children. %s.
+  The macro contents are:
+%s
+|},
+      commonError,
+      externTag,
+      external_name,
+      specificError,
+      formatForError(macroData.macro),
+    );
+  raise(UserError(msg, macroData.callerLoc));
+};
+
 let raiseMacroCallIndexNotSupported = (i, len, macroData) => {
   let msg =
     Printf.sprintf(
@@ -300,60 +318,101 @@ let flattenNodeList = (flattener, nodeList) => {
   foldInOrder((cur, next) => [flattener(next), ...cur], [], nodeList);
 };
 
+let externName = extern =>
+  switch (extern) {
+  | "toNull" => Some("caml_js_nullable")
+  | "toString" => Some("caml_js_from_string")
+  | _
+      when
+        String.length(extern) > 7
+        && String.equal(String.sub(extern, ~pos=0, ~len=7), "extern.") =>
+    Some(String.sub(extern, ~pos=7, ~len=String.length(extern) - 7))
+  | _
+      when
+        String.length(extern) > 9
+        && String.equal(String.sub(extern, ~pos=0, ~len=9), "external.") =>
+    Some(String.sub(extern, ~pos=9, ~len=String.length(extern) - 9))
+  | _ => None
+  };
+
+type expanded =
+  | ExpandedRaw(string)
+  | ExpandedOrigArg(int)
+  | ExpandedBinding(int);
+
+/**
+ * Expands recursive macro calls into a list of bindings, and a list of
+ * "expanded"s.
+ */
 let expandIntoMultipleArguments = (macroData, argsToExpand, nodeList) => {
   /**
    * To turn a nodelist that has no depth beyond terminal nodes into a list.
    */
   let rec expandNodeIntoMultipleArgumentsImpl =
-          ((curExpandedBindings, curExpandedArgs, nodeListSoFar), curNode) => {
+          ((curExpandedBindings, curExpanded), curNode) => {
     switch (curNode) {
-    | Raw(r) => (
-        curExpandedBindings,
-        curExpandedArgs,
-        [Raw(r), ...nodeListSoFar],
-      )
-    | Node(t, subNodeList) =>
-      switch (int_of_string_opt(t)) {
-      | Some(i) =>
-        let arg =
-          switch (List.nth_opt(argsToExpand, i - 1)) {
-          | None =>
-            raiseMacroCallIndexNotSupported(
-              i,
-              List.length(argsToExpand),
-              macroData,
-            )
-          | Some(a) => a
-          };
-        let expandedBindingsWithThis = curExpandedBindings;
-        let expandedArgsWithThis = [arg, ...curExpandedArgs];
-        let nextExpandedArgsLen = List.length(expandedArgsWithThis);
-        let (nextExpandedBindings, nextExpandedArgs, mappedChildren) =
-          expandIntoMultipleArgumentsImpl(
-            expandedBindingsWithThis,
-            expandedArgsWithThis,
-            subNodeList,
-          );
+    | Raw(r) => (curExpandedBindings, [ExpandedRaw(r), ...curExpanded])
+    | Node(
         (
-          nextExpandedBindings,
-          nextExpandedArgs,
-          [Node(string_of_int(nextExpandedArgsLen), []), ...nodeListSoFar],
+          "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" |
+          "12"
+        ) as s,
+        [],
+      ) =>
+      let i = int_of_string(s);
+      if (List.nth_opt(argsToExpand, i - 1) === None) {
+        raiseMacroCallIndexNotSupported(
+          i,
+          List.length(argsToExpand),
+          macroData,
         );
-      | None => raiseMacroUnsupportedTag(t, macroData)
-      }
+      };
+      (curExpandedBindings, [ExpandedOrigArg(i - 1), ...curExpanded]);
+    | Node(extern, subNodeList) when externName(extern) !== None =>
+      /*
+       * Filter out empty raw text in external calls because we forbid raw text,
+       * but can overlook white space.
+       */
+      let subNodeList =
+        List.filter(subNodeList, ~f=itm =>
+          switch (itm) {
+          | Raw(txt) => !String.is_empty(String.trim(txt))
+          | _ => true
+          }
+        );
+      let extern_name =
+        switch (externName(extern)) {
+        | None => failwith("Should never happen")
+        | Some(extern_name) => extern_name
+        };
+
+      let (nextExpandedBindings, subExpanded) =
+        expandIntoMultipleArgumentsImpl(curExpandedBindings, [], subNodeList);
+      let expandedBindingsWithThis = [
+        ((extern, extern_name), subExpanded),
+        ...nextExpandedBindings,
+      ];
+      let nextBindingsLen = List.length(expandedBindingsWithThis);
+      let expandedWithThis = [
+        ExpandedBinding(nextBindingsLen - 1),
+        ...curExpanded,
+      ];
+      (expandedBindingsWithThis, expandedWithThis);
+    | Node(tagName, _) => raiseMacroUnsupportedTag(tagName, macroData)
     };
   }
   and expandIntoMultipleArgumentsImpl =
-      (curExpandedBindings, curExpandedArgs, nodeList) => {
-    let (expandedBindings, expandedArgs, mappedNodeList) =
+      (curExpandedBindings, curExpanded, nodeList) => {
+    let (expandedBindings, expanded) =
       List.fold_left(
         ~f=expandNodeIntoMultipleArgumentsImpl,
-        ~init=(curExpandedBindings, curExpandedArgs, []),
+        ~init=(curExpandedBindings, curExpanded),
         nodeList,
       );
-    (expandedBindings, expandedArgs, List.rev(mappedNodeList));
+    (expandedBindings, expanded);
   };
-  expandIntoMultipleArgumentsImpl([], [], nodeList);
+  let backwards = expandIntoMultipleArgumentsImpl([], [], nodeList);
+  (List.rev(fst(backwards)), List.rev(snd(backwards)));
 };
 
 /**
@@ -370,8 +429,11 @@ let rec evalContainers = (nodeList, cb) => {
           switch (child) {
           | Raw(_) as r => [r, ...cur]
           | Node(_, []) as n => [n, ...cur]
-          | Node(n, [_, ..._] as sub) =>
-            cb(n) ? List.rev_append(evalContainers(sub, cb), cur) : cur
+          | Node(tag, [_, ..._] as sub) as n =>
+            externName(tag) !== None
+              ? [n, ...evalContainers(cur, cb)]
+              : cb(tag)
+                  ? List.rev_append(evalContainers(sub, cb), cur) : cur
           },
       nodeList,
     );
@@ -382,7 +444,7 @@ let rec printNode =
   fun
   | Node(t, []) => "<@" ++ t ++ "/>"
   | Node(t, [_, ..._] as nodeList) =>
-    "<@" ++ t ++ ">" ++ printNodeList(nodeList)
+    "<@" ++ t ++ ">" ++ printNodeList(nodeList) ++ "<@/" ++ t ++ ">"
   | Raw(r) => r
 
 and printNodeList = nodes => {
@@ -390,3 +452,34 @@ and printNodeList = nodes => {
 };
 
 let printMacro = nodeList => "raw-macro:" ++ printNodeList(nodeList);
+
+let expandedsToNodeListString = expandeds =>
+  List.map(expandeds, ~f=expanded =>
+    switch (expanded) {
+    | ExpandedRaw(string) => string
+    | ExpandedOrigArg(int) => "<@" ++ string_of_int(int + 1) ++ "/>"
+    /* These must have been replaced by the time you print the expandeds
+     * into a node list string */
+    | ExpandedBinding(_int) =>
+      failwith(
+        "This should never happen. This is a problem with the compiler. ",
+      )
+    }
+  )
+  |> String.concat(~sep="");
+
+let renderPosition = pos => "<@" ++ string_of_int(pos) ++ "/>";
+
+let nth_error = (lst, i, nm) =>
+  switch (List.nth_opt(lst, i)) {
+  | Some(itm) => itm
+  | None =>
+    raise(
+      Sys_error(
+        "Internal error expanding macro arg at index (zero based) "
+        ++ string_of_int(i)
+        ++ " of "
+        ++ nm,
+      ),
+    )
+  };
