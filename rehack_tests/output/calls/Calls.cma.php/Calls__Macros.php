@@ -45,6 +45,9 @@ $runtime["outerOuter"](
     $includeMe = (dynamic $param) : dynamic ==> {return 0;};
     $boolTest1 = SomeClass::hereIsSomeBools(! ! 1, ! ! 0) ;
     $boolTest2 = SomeClass::hereIsSomeBools(! ! 0, ! ! 1) ;
+    
+    ($runtime["foo"](0));
+    
     $myDiv = <div
     {0}
 </div>;

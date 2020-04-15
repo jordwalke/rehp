@@ -43,6 +43,9 @@ function includeMe(param) {return 0;}
 
 var boolTest1 = SomeClass.hereIsSomeBools(! ! 1, ! ! 0) ;
 var boolTest2 = SomeClass.hereIsSomeBools(! ! 0, ! ! 1) ;
+
+(runtime["foo"](0));
+
 var myDiv = <div
   className={cst_HelloClass}>
   {0}

@@ -80,6 +80,10 @@ external acceptsBools : (bool, bool) => bool = "
 let boolTest1 = acceptsBools(true, false);
 let boolTest2 = acceptsBools(false, true);
 
+external sideEffect : unit => unit = "raw-macro:<@extern.foo><@1/></@extern.foo>";
+
+sideEffect();
+
 
 external xhpDiv : (string, list('a)) => option('b) = {|
 raw-macro:
