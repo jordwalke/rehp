@@ -23,28 +23,25 @@ final class Calls__Macros {
   $string("converted to nullable")];
     $a_ = $runtime["caml_js_anything"]($cst_hello);
     $result = $a_ === null ? 0 : Vector {0, $a_};
+    $e_ = $runtime["outer"]($runtime["inner"]($cst_hi));
     $d_ = $runtime["outerOuter"](
       $runtime["outer"]($runtime["inner"]($cst_hi))
     );
     $nestedsResult = $d_ +
-$runtime["outerOuter"](
-      $runtime["outer"]($runtime["inner"]($cst_hi))
-    );
+$runtime["outerOuter"]($e_);
     $b_ = $runtime["side_effect_to_inject_into_nested_macros"](0);
-    $e_ = $runtime["outerOuter"]($runtime["outer"]($runtime["inner"]($b_)));
-    $nestedResult2 = $e_ +
-$runtime["outerOuter"](
-      $runtime["outer"]($runtime["inner"]($b_))
-    );
+    $g_ = $runtime["outer"]($runtime["inner"]($b_));
+    $f_ = $runtime["outerOuter"]($runtime["outer"]($runtime["inner"]($b_)));
+    $nestedResult2 = $f_ +
+$runtime["outerOuter"]($g_);
     $c_ = 100;
-    $f_ = $runtime["outerOuter"]($runtime["outer"]($runtime["inner"]($c_)));
-    $nestedResult3 = $f_ +
-$runtime["outerOuter"](
-      $runtime["outer"]($runtime["inner"]($c_))
-    );
+    $i_ = $runtime["outer"]($runtime["inner"]($c_));
+    $h_ = $runtime["outerOuter"]($runtime["outer"]($runtime["inner"]($c_)));
+    $nestedResult3 = $h_ +
+$runtime["outerOuter"]($i_);
     $includeMe = (dynamic $param) : dynamic ==> {return 0;};
-    $boolTest1 = SomeClass::hereIsSomeBools(! ! 1, ! ! 0) ;
-    $boolTest2 = SomeClass::hereIsSomeBools(! ! 0, ! ! 1) ;
+    $boolTest1 = (int) SomeClass::hereIsSomeBools(! ! 1, ! ! 0);
+    $boolTest2 = (int) SomeClass::hereIsSomeBools(! ! 0, ! ! 1);
     
     ($runtime["foo"](0));
     

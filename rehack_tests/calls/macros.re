@@ -70,10 +70,12 @@ let falseee = false;
 external acceptsBools : (bool, bool) => bool = "
   raw-macro:
   <@php>
-   SomeClass::hereIsSomeBools(<@toBool><@1/></@toBool>, <@toBool><@2/></@toBool>) 
+    <@fromBool>
+    <@raw>SomeClass::hereIsSomeBools(<@toBool><@1/></@toBool>, <@toBool><@2/></@toBool>)</@raw>
+    </@fromBool>
   <@/php>
   <@js>
-  SomeClass.hereIsSomeBools(<@toBool><@1/></@toBool>, <@toBool><@2/></@toBool>) 
+  <@fromBool><@raw>SomeClass.hereIsSomeBools(<@toBool><@1/></@toBool>, <@toBool><@2/></@toBool>)</@raw></@fromBool>
   <@/js>
 ";
 

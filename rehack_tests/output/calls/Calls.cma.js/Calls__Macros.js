@@ -21,28 +21,25 @@ var inlinesMacros = new Array(  runtime["outerOuter"](
   string("converted to nullable"));
 var a_ = runtime["caml_js_anything"](cst_hello);
 var result = a_ === null ? 0 : [0, a_];
+var e_ = runtime["outer"](runtime["inner"](cst_hi));
 var d_ = runtime["outerOuter"](runtime["outer"](runtime["inner"](cst_hi)));
 var nestedsResult = d_ +
-runtime["outerOuter"](
-  runtime["outer"](runtime["inner"](cst_hi))
-);
+runtime["outerOuter"](e_);
 var b_ = runtime["side_effect_to_inject_into_nested_macros"](0);
-var e_ = runtime["outerOuter"](runtime["outer"](runtime["inner"](b_)));
-var nestedResult2 = e_ +
-runtime["outerOuter"](
-  runtime["outer"](runtime["inner"](b_))
-);
+var g_ = runtime["outer"](runtime["inner"](b_));
+var f_ = runtime["outerOuter"](runtime["outer"](runtime["inner"](b_)));
+var nestedResult2 = f_ +
+runtime["outerOuter"](g_);
 var c_ = 100;
-var f_ = runtime["outerOuter"](runtime["outer"](runtime["inner"](c_)));
-var nestedResult3 = f_ +
-runtime["outerOuter"](
-  runtime["outer"](runtime["inner"](c_))
-);
+var i_ = runtime["outer"](runtime["inner"](c_));
+var h_ = runtime["outerOuter"](runtime["outer"](runtime["inner"](c_)));
+var nestedResult3 = h_ +
+runtime["outerOuter"](i_);
 
 function includeMe(param) {return 0;}
 
-var boolTest1 = SomeClass.hereIsSomeBools(! ! 1, ! ! 0) ;
-var boolTest2 = SomeClass.hereIsSomeBools(! ! 0, ! ! 1) ;
+var boolTest1 = SomeClass.hereIsSomeBools(! ! 1, ! ! 0) | 0;
+var boolTest2 = SomeClass.hereIsSomeBools(! ! 0, ! ! 1) | 0;
 
 (runtime["foo"](0));
 
