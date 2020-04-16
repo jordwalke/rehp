@@ -26,6 +26,7 @@
   "resolutions": {
     "dune": "2.1.0",
     "@opam/merlin-extend": "0.4",
+    "refmterr": "link:../reason-native/refmterr.json",
     "@opam/merlin": "link:../merlin",
     "@opam/reason": "facebook/reason:reason.opam#8f71db0b88c31842d866d46a18b71a1ce1709567"
   },
