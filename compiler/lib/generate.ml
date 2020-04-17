@@ -1365,18 +1365,19 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
                 ~init:([], mutator_p, queue)
             in
             let be = Backend.Current.compiler_backend_flag () in
-            let macro_data = Raw_macro.extract ~forBackend:be ("raw-macro:" ^ m) in
+            let macro_data = Raw_macro.extractExpanded ~forBackend:be m in
             let node_list = Raw_macro.parseNodeList macro_data in
             let arg_len = List.length args in
             let cb = function
               | Raw_macro.Raw r -> Rehp.RawText r
-              | Raw_macro.Node (s, _) -> (
-                  match int_of_string_opt s with
-                  | Some i ->
-                      if i - 1 < arg_len
-                      then RawSubstitution (List.nth args (i - 1))
-                      else Raw_macro.raiseMacroCallIndexNotSupported i arg_len macro_data
-                  | None -> Raw_macro.raiseMacroUnsupportedTag s macro_data)
+              | Raw_macro.Extern _ ->
+                  Raw_macro.raiseInternalError "Macro extern calls should be expanded by now." macro_data
+              | Raw_macro.IfDefinitely _ ->
+                  Raw_macro.raiseInternalError "'raw.ifDefinitely* should be expanded by now." macro_data
+              | Raw_macro.Arg i ->
+                  if i - 1 < arg_len
+                  then RawSubstitution (List.nth args (i - 1))
+                  else Raw_macro.raiseMacroCallIndexNotSupported i arg_len macro_data
             in
             Rehp.ERaw (Raw_macro.flattenNodeList cb node_list), prop, queue
         | Extern ("caml_js_expr" | "caml_pure_js_expr"), [ Pc (String nm | IString nm) ]

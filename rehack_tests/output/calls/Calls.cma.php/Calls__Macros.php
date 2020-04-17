@@ -15,6 +15,8 @@ final class Calls__Macros {
     $string = $runtime["caml_new_string"];
     $cst_hello = $string("hello");
     $cst_hi = $string("hi");
+    $cst_sideEffectToInlinedArg = $string("sideEffectToInlinedArg");
+    $cst_sideEffectToArgUsedToTest = $string("sideEffectToArgUsedToTest");
     $null__0 = null;
     $inlinesMacros = varray[  $runtime["outerOuter"](
       $runtime["outer"]($runtime["inner"](100))
@@ -45,8 +47,17 @@ $runtime["outerOuter"]($i_);
     
     ($runtime["foo"](0));
     
-    $myDiv = <div
-    {0}
+    $myDiv = <div className={"two"}>
+</div>;
+    
+    $runtime["side_effect_to_inject_into_nested_macros"]($cst_sideEffectToInlinedArg);
+    
+    $myDiv2 = <div >
+</div>;
+    
+    $runtime["side_effect_to_inject_into_nested_macros"]($cst_sideEffectToArgUsedToTest);
+    
+    $myDiv3 = <div >
 </div>;
     $Calls_Macros = Vector{
       0,
@@ -61,7 +72,9 @@ $runtime["outerOuter"]($i_);
       0,
       $boolTest1,
       $boolTest2,
-      $myDiv
+      $myDiv,
+      $myDiv2,
+      $myDiv3
     } as dynamic;
     
     return($Calls_Macros);

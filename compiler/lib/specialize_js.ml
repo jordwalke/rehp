@@ -22,6 +22,42 @@ open Stdlib
 open Code
 open Flow
 
+
+let the_option_of info x =
+  match x with
+  | Pv x ->
+      get_approx
+        info
+        (fun x ->
+          match info.info_defs.(Var.idx x) with
+          | Expr (Constant (Int i)) -> `CConst (Int32.to_int i)
+          | Expr (Block (0, _, _)) ->
+              if info.info_possibly_mutable.(Var.idx x) then `Unknown else `Block
+          | Expr (Constant (Tuple (0, [| a |], _))) -> `CBlock a
+          | _ -> `Unknown)
+        `Unknown
+        (fun u v ->
+          match u, v with
+          | `Block, `Block -> u
+          | `CBlock a, `CBlock b -> if Poly.equal a b then u else `Unknown
+          | `CConst i, `CConst j when i = j -> u
+          | `Unknown, _
+          | `Block, (`Unknown | `CBlock _ | `CConst _)
+          | `CBlock _, (`Unknown | `Block | `CConst _)
+          | `CConst _, (`Unknown | `Block | `CBlock _ | `CConst _) ->
+              `Unknown)
+        x
+  | Pc (Int i) -> `CConst (Int32.to_int i)
+  | Pc (Tuple (0, [| a |], _)) -> `CBlock a
+  | _ -> `Unknown
+
+let test_some info a =
+  (match the_option_of info a, a with
+  | `Block, Pv a -> true
+  | `CBlock a, _ -> true
+  | `CConst 0, _ -> false
+  | `Block, Pc _ | `CConst _, _ | `Unknown, _ -> false)
+
 (* Could add Pc (IString (Var.to_string v)); to get the string name of
  * the identifier, but the names aren't registered correctly at this
  * point in the compiler. TODO: Implement that without using new
@@ -109,6 +145,15 @@ let specialize_instr addr info i rem =
   (*     | Some s -> Let (x, Prim (Extern "caml_js_raw_expr", Pc (String s) :: rest)) *)
   (*     | _ -> i) *)
   (*     :: rem *)
+  | Let (x, Prim (Extern "%caml_js_expanded_raw_macro", Pc (String m | IString m) :: args)) ->
+      let be = Backend.Current.compiler_backend_flag () in
+      let macro_data = Raw_macro.extractExpanded ~forBackend:be ?loc:None m in
+      let node_list = Raw_macro.parseNodeList macro_data in
+      let (node_list, args) =
+        Raw_macro.evalDefinitelyInExpanded node_list macro_data args (test_some info) in
+      let macro_text = Raw_macro.printNodeList node_list in
+      Let (x, Prim (Extern "%caml_js_expanded_raw_macro", Pc (String macro_text) :: args))
+      :: rem
   | Let (x, Prim (Extern "caml_register_global_module", [ind; modul; name])) ->
       (let the_metadata_of info x =
          match the_block_of info x with
@@ -214,34 +259,6 @@ let specialize_instr addr info i rem =
       | _ -> i)
       :: rem
   | Let (x, Prim (Extern "caml_js_nullable", [ a ])) ->
-      let the_option_of info x =
-        match x with
-        | Pv x ->
-            get_approx
-              info
-              (fun x ->
-                match info.info_defs.(Var.idx x) with
-                | Expr (Constant (Int i)) -> `CConst (Int32.to_int i)
-                | Expr (Block (0, _, _)) ->
-                    if info.info_possibly_mutable.(Var.idx x) then `Unknown else `Block
-                | Expr (Constant (Tuple (0, [| a |], _))) -> `CBlock a
-                | _ -> `Unknown)
-              `Unknown
-              (fun u v ->
-                match u, v with
-                | `Block, `Block -> u
-                | `CBlock a, `CBlock b -> if Poly.equal a b then u else `Unknown
-                | `CConst i, `CConst j when i = j -> u
-                | `Unknown, _
-                | `Block, (`Unknown | `CBlock _ | `CConst _)
-                | `CBlock _, (`Unknown | `Block | `CConst _)
-                | `CConst _, (`Unknown | `Block | `CBlock _ | `CConst _) ->
-                    `Unknown)
-              x
-        | Pc (Int i) -> `CConst (Int32.to_int i)
-        | Pc (Tuple (0, [| a |], _)) -> `CBlock a
-        | _ -> `Unknown
-      in
       (match the_option_of info a, a with
       | `Block, Pv a -> Let (x, Field (a, 0))
       | `CBlock a, _ -> Let (x, Constant a)
@@ -449,7 +466,7 @@ let f_once debug_data_for_errors p =
        * create a new raw macro that should be expanded or re-expanded (unless
        * maybe if macros can expand other macros, when one gets inlined).
        *)
-      | Let (x, Prim (Extern nm, args)) when Raw_macro.is nm ->
+      | Let (x, Prim (Extern nm, args)) when Raw_macro.isUnexpanded nm ->
           let loc =
             match
               ( Parse_bytecode.Debug.find_loc debug_data_for_errors addr
@@ -459,11 +476,9 @@ let f_once debug_data_for_errors p =
             | _ -> None
           in
           let be = Backend.Current.compiler_backend_flag () in
-          let macro_data = Raw_macro.extract ~forBackend:be ?loc nm in
+          let macro_data = Raw_macro.extractUnexpanded ~forBackend:be ?loc nm in
           let node_list =
-            Raw_macro.evalContainers
-              (Raw_macro.parseNodeList macro_data)
-              (String.equal be)
+            Raw_macro.evalBackends (Raw_macro.parseNodeList macro_data) be
           in
           let expanded_bindings =
             Raw_macro.expandIntoMultipleArguments x macro_data args node_list

@@ -12,7 +12,8 @@ var runtime = require("../runtime/runtime.js");
 var string = runtime["caml_new_string"];
 var cst_hello = string("hello");
 var cst_hi = string("hi");
-var cst_HelloClass = string("HelloClass");
+var cst_sideEffectToInlinedArg = string("sideEffectToInlinedArg");
+var cst_sideEffectToArgUsedToTest = string("sideEffectToArgUsedToTest");
 var null__0 = null;
 var inlinesMacros = new Array(  runtime["outerOuter"](
   runtime["outer"](runtime["inner"](100))
@@ -43,9 +44,19 @@ var boolTest2 = SomeClass.hereIsSomeBools(! ! 0, ! ! 1) | 0;
 
 (runtime["foo"](0));
 
-var myDiv = <div
-  className={cst_HelloClass}>
-  {0}
+var myDiv = <div className={"two"}>
+</div>;
+
+runtime["side_effect_to_inject_into_nested_macros"](cst_sideEffectToInlinedArg
+);
+
+var myDiv2 = <div >
+</div>;
+
+runtime["side_effect_to_inject_into_nested_macros"](cst_sideEffectToArgUsedToTest
+);
+
+var myDiv3 = <div >
 </div>;
 var Calls_Macros = [
   0,
@@ -60,7 +71,9 @@ var Calls_Macros = [
   0,
   boolTest1,
   boolTest2,
-  myDiv
+  myDiv,
+  myDiv2,
+  myDiv3
 ];
 
 module.exports = Calls_Macros;
@@ -78,6 +91,8 @@ module.exports = Calls_Macros;
   boolTest1: any,
   boolTest2: any,
   myDiv: any,
+  myDiv2: any,
+  myDiv3: any,
 }*/
 /** @type {{
   _null_: any,
@@ -92,6 +107,8 @@ module.exports = Calls_Macros;
   boolTest1: any,
   boolTest2: any,
   myDiv: any,
+  myDiv2: any,
+  myDiv3: any,
 }} */
 module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports._null_ = module.exports[1];
@@ -106,5 +123,7 @@ module.exports.falseee = module.exports[9];
 module.exports.boolTest1 = module.exports[10];
 module.exports.boolTest2 = module.exports[11];
 module.exports.myDiv = module.exports[12];
+module.exports.myDiv2 = module.exports[13];
+module.exports.myDiv3 = module.exports[14];
 
 /* Hashing disabled */

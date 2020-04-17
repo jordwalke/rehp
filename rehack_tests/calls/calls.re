@@ -74,26 +74,26 @@ external sideEffect: unit => unit = "side_effect";
 
 external make1Array: 'a => 'any = {|
   raw-macro:
-  <@js>
+  <@.js>
   new Array(<@1/>)
-  <@/js>
-  <@php>varray[<@1/>]<@/php>
+  </@.js>
+  <@.php>varray[<@1/>]</@.php>
 |};
 
 external make1ArrayDouble: 'a => 'any = {|
   raw-macro:
-  <@js>
+  <@.js>
   new Array(<@1/>, <@1/>)
-  <@/js>
-  <@php>varray[<@1/>, <@1/>]<@/php>
+  </@.js>
+  <@.php>varray[<@1/>, <@1/>]</@.php>
 |};
 
 external make2Array: ('a, 'b) => 'any = {|
   raw-macro:
-  <@js>
+  <@.js>
   new Array(<@1/>, <@2/>)
-  <@/js>
-  <@php>varray[<@1/>, <@2/>]<@/php>
+  </@.js>
+  <@.php>varray[<@1/>, <@2/>]</@.php>
 |};
 
 
@@ -153,16 +153,16 @@ module ReexportedMacros = {
 
 external callExternWithCommentSuppression: ('a, 'b) => 'any = {|
   raw-macro:
-  <@js>
+  <@.js>
 
   // FLOW_FIXME blah blah
   console.log(<@1/>, <@2/>)
-  <@/js>
-  <@php>
+  </@.js>
+  <@.php>
 
   // HH_IGNORE blah blah
   SomeUtilityClass::foo(<@1/>, <@2/>)
-  <@/php>
+  </@.php>
 |};
 
 

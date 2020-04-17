@@ -101,7 +101,10 @@ type tokens =
   | TRaw(string);
 
 type node =
-  | Node(string, list(node))
+  | IfDefinitely(int, list(node))
+  | Arg(int)
+  | /** userExternName, externName */
+    Extern(string, string, list(node))
   | Raw(string);
 
 type tokenizedTag =
@@ -113,10 +116,27 @@ let raiseMacroUnsupportedTag = (tagName, macroData) => {
   let msg =
     Printf.sprintf(
       {|%s
-  The macro being called was defined using unsupported tag (%s).
-  The only supported macros are ones that specify portions to be used in backends such
-  as <@js>...</@js> or argument substitution <@1 />. You can also supply multiple
-  backends in one macro such as: external x : type = "raw-macro:<@js>...</@js><@php>...<@/php>)
+  The macro being called was uses an unsupported tag <%s>. The only valid tags are:
+  - Specifying portions to be used in backends: <.js>...</.js>
+  - Argument substitution <@1/>.
+  - Calls to primitives (their children must be other tags and not raw text).
+    <@primitiveName>
+      <@2/>
+      <@otherPrimitiveName> <@1/> <@/otherPrimitiveName>
+    <@/primitiveName>
+  - <@raw.ifDefinitelySomeN> If original arg n (<@n/>) is definitely Some(x) then include
+     the contents, else do include nothing. Second+ children may be raw text.
+  - <@raw.ifDefinitelySomeN> If original arg n (<@n/>) is NOT definitely Some(x) then include
+     the contents, else do include nothing. Second+ children may be raw text.
+  - <@raw>..<@/raw> tags which are used to group more raw text as a primitive argument.
+    <@primitiveName>
+      <@raw> ThisRawText.isBeingPassedAsAnArgNow(<@3/>)</@raw>
+      <@otherPrimitiveName> <@1/> <@/otherPrimitiveName>
+    <@/primitiveName>
+
+  Note: You can also supply multiple backends in one macro such as:
+  external x : type = "raw-macro:<@js>...</@js><@php>...<@/php>)
+
   The macro contents are:
 %s
 |},
@@ -142,6 +162,24 @@ let raiseMalformedMacro = (specificError, macroData) => {
   raise(UserError(msg, macroData.callerLoc));
 };
 
+let raiseInternalError = (specificError, macroData) => {
+  let msg =
+    Printf.sprintf(
+      {|%s
+  The macro system has encountered an internal error. This is a bug in the compiler.
+  Please report the issue with a clear repro:
+
+%s.
+  The macro contents are:
+%s
+|},
+      commonError,
+      specificError,
+      formatForError(macroData.macro),
+    );
+  raise(UserError(msg, macroData.callerLoc));
+};
+
 let raiseMalformedExtern =
     (specificError, (externTag, external_name), macroData) => {
   let externPrint =
@@ -149,7 +187,7 @@ let raiseMalformedExtern =
     ++ externTag
     ++ ">"
     ++ (
-      externTag != "extern." ++ external_name
+      externTag != external_name
         ? "(sugar for extern." ++ external_name ++ ")" : ""
     );
   let msg =
@@ -166,11 +204,11 @@ let raiseMalformedExtern =
 
   For example, instead of:
 
-    <@%s>SomethingHere(<@1/>, <@2/>)</@%s>.
+    <@%s>SomethingHere(<@1/>, <@2/>)</@%s>
 
   Do this:
 
-    <@%s><@raw>SomethingHere(<@1/>, <@2/>)</@raw></@%s>.
+    <@%s><@raw>SomethingHere(<@1/>, <@2/>)</@raw></@%s>
 
   Make sure you didn't accidentally supply commas or other text in between children.
 
@@ -189,11 +227,11 @@ let raiseMalformedExtern =
   raise(UserError(msg, macroData.callerLoc));
 };
 
-let raiseMacroCallIndexNotSupported = (i, len, macroData) => {
+let raiseMacroCallIndexNotSupported = (~extra="", i, len, macroData) => {
   let msg =
     Printf.sprintf(
       {|%s
-  The macro being called uses index %d, but it should not.
+  The macro being called uses index %d, but it should not. %s
   It can only use indices 1 - %d. Hint: The number of arguments in the `external`'s
   type has to be compatible with the macro nodes referenced (<@1> - <@%d/>).
   The macro contents are:
@@ -201,6 +239,7 @@ let raiseMacroCallIndexNotSupported = (i, len, macroData) => {
 |},
       commonError,
       i,
+      extra,
       len,
       len,
       formatForError(macroData.macro),
@@ -208,7 +247,63 @@ let raiseMacroCallIndexNotSupported = (i, len, macroData) => {
   raise(UserError(msg, macroData.callerLoc));
 };
 
-let is = nm => {
+let nth_error = (lst, i, nm) =>
+  switch (List.nth_opt(lst, i)) {
+  | Some(itm) => itm
+  | None =>
+    raise(
+      Sys_error(
+        "Internal error getting element "
+        ++ string_of_int(i)
+        ++ " "
+        ++ nm
+        ++ ". There are only "
+        ++ string_of_int(List.length(lst))
+        ++ " elements."
+        ++ " Please report with repro case. ",
+      ),
+    )
+  };
+
+let externName = extern =>
+  switch (extern) {
+  | "toNull" => "caml_js_nullable"
+  | "toString" => "caml_js_from_string"
+  | "toBool" => "caml_js_from_bool"
+  | "fromBool" => "caml_js_to_bool"
+  | "raw" => "%caml_js_expanded_raw_macro"
+  | s => s
+  };
+
+let definitely = (macroData, tag) => {
+  let isDefinitely =
+    String.length(tag) > 20
+    && String.sub(~pos=0, ~len=20, tag) == "raw.ifDefinitelySome";
+  if (isDefinitely) {
+    let iStr = String.sub(tag, ~pos=20, ~len=String.length(tag) - 20);
+    switch (int_of_string_opt(iStr)) {
+    | None => raiseMacroUnsupportedTag(tag, macroData)
+    | Some(i) => Some(i)
+    };
+  } else {
+    None;
+  };
+};
+
+let classify = (mData, tag, sub) => {
+  switch (definitely(mData, tag)) {
+  | Some(i) => IfDefinitely(i, sub)
+  | None =>
+    switch (int_of_string_opt(tag), sub) {
+    | (Some(i), []) => Arg(i)
+    | (Some(i), [_hd, ..._tl]) =>
+      raiseMalformedMacro("Index " ++ tag ++ " cannot have children.", mData)
+    | (None, _) => Extern(tag, externName(tag), sub)
+    }
+  };
+};
+
+let isUnexpanded = nm => {
   let trimmed = String.trim(nm);
   switch (String.find_substring("raw-macro:", trimmed, 0)) {
   | exception Not_found => false
@@ -217,7 +312,7 @@ let is = nm => {
   };
 };
 
-let extract = (~forBackend, ~loc=?, nm) => {
+let extractUnexpanded = (~forBackend, ~loc=?, nm) => {
   let trimmed = String.trim(nm);
   let macro =
     switch (String.find_substring("raw-macro:", trimmed, 0)) {
@@ -236,6 +331,9 @@ let extract = (~forBackend, ~loc=?, nm) => {
     };
   {macro, backend: forBackend, callerLoc: loc};
 };
+
+let extractExpanded = (~forBackend, ~loc=?, nm) =>
+  extractUnexpanded(~forBackend, ~loc?, "raw-macro:" ++ nm);
 
 let rec nonEmptyUntilGt = (~rev=[], chars) =>
   switch (chars) {
@@ -262,67 +360,63 @@ let rec tokenize = (rawStack, next) => {
   | ([_, ..._], []) => appendRawToHead(rawStack, [])
   /* Ignore one newline after opening tag or before closing tag, in this case
    * it's before a closing tag */
-  | (_, ['\n', '<' as first, '@' as second, '/' as third as kind, ...rest])
-  | (_, ['\n', '<' as first, '/' as second as kind, '@' as third, ...rest])
-  | (_, ['<' as first, '@' as second, '/' as third as kind, ...rest])
-  | (_, ['<' as first, '/' as second as kind, '@' as third, ...rest])
-  | (_, ['<' as first, '@' as second, _ as third as kind, ...rest]) =>
-    let kindStr = String.make(1, kind);
-    switch (nonEmptyUntilGt(rest)) {
-    | Nothing => tokenize([first, second, third, ...rawStack], rest)
-    | Gt(tag, rest) =>
-      let token = kind === '/' ? TClose(tag) : TOpen(kindStr ++ tag);
-      appendRawToHead(rawStack, [token, ...tokenize([], rest)]);
-    | SlashGt(tag, rest) =>
-      let token =
-        kind === '/' ? TSelfClose(tag) : TSelfClose(kindStr ++ tag);
-      appendRawToHead(rawStack, [token, ...tokenize([], rest)]);
+  | (_, ['\n', '<' as n1, '@' as n2, '/' as n3 as knd, ...r])
+  | (_, ['\n', '<' as n1, '/' as n2 as knd, '@' as n3, ...r])
+  | (_, ['<' as n1, '@' as n2, '/' as n3 as knd, ...r])
+  | (_, ['<' as n1, '/' as n2 as knd, '@' as n3, ...r])
+  | (_, ['<' as n1, '@' as n2, _ as n3 as knd, ...r]) =>
+    let kindStr = String.make(1, knd);
+    switch (nonEmptyUntilGt(r)) {
+    | Nothing => tokenize([n1, n2, n3, ...rawStack], r)
+    | Gt(tag, r) =>
+      let token = knd === '/' ? TClose(tag) : TOpen(kindStr ++ tag);
+      appendRawToHead(rawStack, [token, ...tokenize([], r)]);
+    | SlashGt(tag, r) =>
+      let token = knd === '/' ? TSelfClose(tag) : TSelfClose(kindStr ++ tag);
+      appendRawToHead(rawStack, [token, ...tokenize([], r)]);
     };
-  | (_, [hd, ...rest]) => tokenize([hd, ...rawStack], rest)
+  | (_, [hd, ...r]) => tokenize([hd, ...rawStack], r)
   };
 };
 
-let rec parseNodeListImpl = (macroData, tokens) =>
+let rec parseNodeListImpl = (mData, tokens) =>
   switch (tokens) {
   | [] => ([], [])
   | [TRaw(_), ...tl]
   | [TSelfClose(_), ...tl]
   | [TOpen(_), ...tl] =>
-    let (node, remaining) = parseNodeImpl(macroData, tokens);
-    let (otherChilren, remaining) = parseNodeListImpl(macroData, remaining);
+    let (node, remaining) = parseNodeImpl(mData, tokens);
+    let (otherChilren, remaining) = parseNodeListImpl(mData, remaining);
     ([node, ...otherChilren], remaining);
   | [TClose(_), ..._] => ([], tokens)
   }
-and parseNodeImpl = (macroData, tokens) =>
+and parseNodeImpl = (mData, tokens) =>
   switch (tokens) {
-  | [] => raiseMalformedMacro("Inbalanced opening or closing tags", macroData)
+  | [] => raiseMalformedMacro("Inbalanced opening or closing tags", mData)
   | [TClose(c), ...tl] =>
-    raiseMalformedMacro("Closing token " ++ c ++ " has no opening", macroData)
+    raiseMalformedMacro("Closing token " ++ c ++ " has no opening", mData)
   | [TRaw(r), ...tl] => (Raw(r), tl)
   | [TOpen(t), ...tl] =>
-    let (nodeList, remaining) = parseNodeListImpl(macroData, tl);
+    let (nodeList, remaining) = parseNodeListImpl(mData, tl);
     switch (remaining) {
     | [] =>
-      raiseMalformedMacro(
-        "Opening token " ++ t ++ " has no closing",
-        macroData,
-      )
-    | [TClose(c), ...tl] when c == t => (Node(t, nodeList), tl)
+      raiseMalformedMacro("Opening token " ++ t ++ " has no closing", mData)
+    | [TClose(c), ...tl] when c == t => (classify(mData, t, nodeList), tl)
     | _ =>
       raiseMalformedMacro(
         "Opening token " ++ t ++ " has mismatched or missing closing",
-        macroData,
+        mData,
       )
     };
-  | [TSelfClose(sc), ...tl] => (Node(sc, []), tl)
+  | [TSelfClose(sc), ...tl] => (classify(mData, sc, []), tl)
   }
-and parseNodeList = macroData => {
-  let tokens = tokenize([], String.to_char_list(macroData.macro));
-  let (parsedNodeList, remaining) = parseNodeListImpl(macroData, tokens);
+and parseNodeList = mData => {
+  let tokens = tokenize([], String.to_char_list(mData.macro));
+  let (parsedNodeList, remaining) = parseNodeListImpl(mData, tokens);
   if (remaining !== []) {
     raiseMalformedMacro(
       "The macro contains unmatched macro nodes at the end.",
-      macroData,
+      mData,
     );
   };
   parsedNodeList;
@@ -330,8 +424,10 @@ and parseNodeList = macroData => {
 
 let rec inOrderNode = (f, init, node) => {
   switch (node) {
-  | Raw(r) => f(init, node)
-  | Node(t, nodeList) =>
+  | Raw(_)
+  | Arg(_) => f(init, node)
+  | IfDefinitely(_, nodeList)
+  | Extern(_, _, nodeList) =>
     let next = f(init, node);
     foldInOrder(f, next, nodeList);
   };
@@ -347,32 +443,18 @@ let flattenNodeList = (flattener, nodeList) => {
   foldInOrder((cur, next) => [flattener(next), ...cur], [], nodeList);
 };
 
-let externName = extern =>
-  switch (extern) {
-  | "toNull" => Some("caml_js_nullable")
-  | "toString" => Some("caml_js_from_string")
-  | "toBool" => Some("caml_js_from_bool")
-  | "fromBool" => Some("caml_js_to_bool")
-  | "raw" => Some("%caml_js_expanded_raw_macro")
-  | _
-      when
-        String.length(extern) > 7
-        && String.equal(String.sub(extern, ~pos=0, ~len=7), "extern.") =>
-    Some(String.sub(extern, ~pos=7, ~len=String.length(extern) - 7))
-  | _
-      when
-        String.length(extern) > 9
-        && String.equal(String.sub(extern, ~pos=0, ~len=9), "external.") =>
-    Some(String.sub(extern, ~pos=9, ~len=String.length(extern) - 9))
-  | _ => None
-  };
-
 type expanded =
   | ExpandedRaw(string)
   | ExpandedOrigArg(int)
   | ExpandedBinding(int);
 
 let renderPosition = pos => "<@" ++ string_of_int(pos) ++ "/>";
+let renderIfDefinitelySome = (pos, txt) => {
+  let posStr = string_of_int(pos);
+  let tagStr = "@raw.ifDefinitelySome" ++ posStr;
+  "<" ++ tagStr ++ ">" ++ txt ++ "</" ++ tagStr ++ ">";
+};
+
 /**
  * Expands recursive macro calls into a list of bindings, and a list of
  * "expanded"s.
@@ -386,14 +468,8 @@ let expandIntoMultipleArguments =
           ((revBindings, curTxt, revArgs), curNode) => {
     switch (curNode) {
     | Raw(r) => (revBindings, curTxt ++ r, revArgs)
-    | Node(
-        (
-          "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" |
-          "12"
-        ) as s,
-        [],
-      ) =>
-      let i = int_of_string(s);
+    | Arg(i) =>
+      /* TODO: Throw if empty subNodeList */
       switch (List.nth_opt(argsToExpand, i - 1)) {
       | None =>
         raiseMacroCallIndexNotSupported(
@@ -408,15 +484,30 @@ let expandIntoMultipleArguments =
           curTxt ++ renderPosition(List.length(nextArgs)),
           nextArgs,
         );
-      };
-    | Node(userExternName, subNodeList)
-        when externName(userExternName) !== None =>
-      let externName =
-        switch (externName(userExternName)) {
-        | None => failwith("Should never happen")
-        | Some(externName) => externName
-        };
-
+      }
+    | IfDefinitely(i, subNodeList) =>
+      switch (List.nth_opt(argsToExpand, i - 1)) {
+      | None =>
+        raiseMacroCallIndexNotSupported(
+          ~extra=" See <@raw.ifDefinitelySome" ++ string_of_int(i) ++ ">",
+          i,
+          List.length(argsToExpand),
+          macroData,
+        )
+      | Some(a) =>
+        let revArgsWithThisArg = [a, ...revArgs];
+        let newPosition = List.length(revArgsWithThisArg);
+        let (nextRevExpandedBindings, subTxt, nextRevArgs) =
+          expandIntoMultipleArgumentsImpl(subNodeList, revArgsWithThisArg);
+        let nextRevExpandedBindings =
+          List.append(revBindings, nextRevExpandedBindings);
+        (
+          nextRevExpandedBindings,
+          curTxt ++ renderIfDefinitelySome(newPosition, subTxt),
+          nextRevArgs,
+        );
+      }
+    | Extern(userExternName, externName, subNodeList) =>
       /*
        * Filter out empty raw text in external calls because we forbid raw text,
        * but can overlook white space.
@@ -448,8 +539,12 @@ let expandIntoMultipleArguments =
           subNodeList;
         };
 
+      /*
+       * Reset the arg count for externals since they get their own args and the
+       * whole extern call becomes a single arg for the current macro.
+       */
       let (nextRevExpandedBindings, subTxt, subRevArgs) =
-        expandIntoMultipleArgumentsImpl(subNodeList);
+        expandIntoMultipleArgumentsImpl(subNodeList, []);
       let nextRevExpandedBindings =
         List.append(revBindings, nextRevExpandedBindings);
       let bindingVar = Code.Var.fresh();
@@ -467,17 +562,20 @@ let expandIntoMultipleArguments =
         curTxt ++ renderPosition(List.length(nextRevArgsWithBinding)),
         nextRevArgsWithBinding,
       );
-    | Node(tagName, _) => raiseMacroUnsupportedTag(tagName, macroData)
     };
   }
-  and expandIntoMultipleArgumentsImpl = nodeList =>
+  /**
+   * TODO: Couldn't this just compute a new tree, and then we can render it?
+   * Similar to how we evaluate "definitely".
+   */
+  and expandIntoMultipleArgumentsImpl = (nodeList, curRevArgs) =>
     List.fold_left(
       ~f=expandNodeIntoMultipleArgumentsImpl,
-      ~init=([], "", []),
+      ~init=([], "", curRevArgs),
       nodeList,
     );
   let (revBindings, subTxt, subRevArgs) =
-    expandIntoMultipleArgumentsImpl(nodeList);
+    expandIntoMultipleArgumentsImpl(nodeList, []);
   let finalBinding = (
     (
       "%caml_js_expanded_raw_macro",
@@ -494,7 +592,7 @@ let expandIntoMultipleArguments =
  * true for a parent, the parent's children are spliced into the parent's
  * previous location. Nodes with no children are left in tact.
  */
-let rec evalContainers = (nodeList, cb) => {
+let rec evalBackends = (nodeList, be) => {
   let taken =
     List.fold_left(
       ~init=[],
@@ -502,23 +600,91 @@ let rec evalContainers = (nodeList, cb) => {
         (cur, child) =>
           switch (child) {
           | Raw(_) as r => [r, ...cur]
-          | Node(_, []) as n => [n, ...cur]
-          | Node(tag, [_, ..._] as sub) as n =>
-            externName(tag) !== None
-              ? [n, ...evalContainers(cur, cb)]
-              : cb(tag)
-                  ? List.rev_append(evalContainers(sub, cb), cur) : cur
+          | Arg(_) as a => [a, ...cur]
+          | IfDefinitely(_, _) as n => [n, ...evalBackends(cur, be)]
+          | Extern(tag, _, sub) as n =>
+            let isOldForm =
+              String.equal(tag, "js") || String.equal(tag, "php");
+            if (isOldForm) {
+              String.equal(tag, be)
+                ? List.rev_append(evalBackends(sub, be), cur) : cur;
+            } else if (String.length(tag) > 1
+                       && String.equal(String.sub(tag, ~pos=0, ~len=1), ".")) {
+              String.equal(
+                String.sub(tag, ~pos=1, ~len=String.length(tag) - 1),
+                be,
+              )
+                ? List.rev_append(evalBackends(sub, be), cur) : cur;
+            } else {
+              [n, ...evalBackends(cur, be)];
+            };
           },
       nodeList,
     );
   List.rev(taken);
 };
 
+/**
+ * Removes the raw.ifDefinitely tag, and also shifts arguments to reflect the
+ * removal. After rendering and reparsing, the newly adjacent (extra) raws will
+ * get compressed.
+ *
+ * We will keep the argument that is being tested in the returned argument list
+ * even if the test fails. I think we could actually remove it though. TODO:
+ * try removing it.
+ *
+ * TODO TODO TODO TODO TODO TODO:
+ * Use a different extern name besides "caml_js_expanded_raw_macro" to
+ * designate macros that need flow time evaluation because it is expensive to
+ * continually parse and print them on each flow iteration.
+ */
+let rec evalDefinitelyInExpanded = (nodeList, macroData, args, testSome) => {
+  let rec impl = (nodeList, initRevArgs) =>
+    List.fold_left(
+      nodeList,
+      ~init=([], initRevArgs),
+      ~f=((revNodes, revArgs) as cur, child) =>
+      switch (child) {
+      | Raw(_) => ([child, ...revNodes], revArgs)
+      | Arg(i) =>
+        let nextRevArgs = [
+          nth_error(args, i - 1, "arg " ++ formatForError(macroData.macro)),
+          ...revArgs,
+        ];
+        let nextLen = List.length(nextRevArgs);
+        /* Shifts the index because we could have removed some */
+        let nextNode = Arg(nextLen);
+        let nextRevNodes = [nextNode, ...revNodes];
+        (nextRevNodes, nextRevArgs);
+      | IfDefinitely(i, sub) =>
+        let arg = nth_error(args, i - 1, "ifDefinitely");
+        if (testSome(arg)) {
+          let nextRevArgsWithThis = [arg, ...revArgs];
+          /* Shifts the index because we could have removed some */
+          let (nextRevSubNodes, nextRevArgs) =
+            impl(sub, nextRevArgsWithThis);
+          let nextRevNodes = nextRevSubNodes @ revNodes;
+          (nextRevNodes, nextRevArgs);
+        } else {
+          cur;
+        };
+      | Extern(_, _, _) =>
+        raiseInternalError(
+          "Externs should be removed before flow-based optimizations.",
+          macroData,
+        )
+      }
+    );
+  let (finalRevNodes, finalRevArgs) = impl(nodeList, []);
+  (List.rev(finalRevNodes), List.rev(finalRevArgs));
+};
+
 let rec printNode =
   fun
-  | Node(t, []) => "<@" ++ t ++ "/>"
-  | Node(t, [_, ..._] as nodeList) =>
-    "<@" ++ t ++ ">" ++ printNodeList(nodeList) ++ "<@/" ++ t ++ ">"
+  | Arg(i) => "<@" ++ string_of_int(i) ++ "/>"
+  | IfDefinitely(i, sub) => renderIfDefinitelySome(i, printNodeList(sub))
+  | Extern(user, _, sub) =>
+    "<@" ++ user ++ ">" ++ printNodeList(sub) ++ "<@/" ++ user ++ ">"
   | Raw(r) => r
 
 and printNodeList = nodes => {
@@ -526,32 +692,3 @@ and printNodeList = nodes => {
 };
 
 let printMacro = nodeList => "raw-macro:" ++ printNodeList(nodeList);
-
-let expandedsToNodeListString = expandeds =>
-  List.map(expandeds, ~f=expanded =>
-    switch (expanded) {
-    | ExpandedRaw(string) => string
-    | ExpandedOrigArg(int) => "<@" ++ string_of_int(int + 1) ++ "/>"
-    /* These must have been replaced by the time you print the expandeds
-     * into a node list string */
-    | ExpandedBinding(_int) =>
-      failwith(
-        "This should never happen. This is a problem with the compiler. ",
-      )
-    }
-  )
-  |> String.concat(~sep="");
-
-let nth_error = (lst, i, nm) =>
-  switch (List.nth_opt(lst, i)) {
-  | Some(itm) => itm
-  | None =>
-    raise(
-      Sys_error(
-        "Internal error expanding macro arg at index (zero based) "
-        ++ string_of_int(i)
-        ++ " of "
-        ++ nm,
-      ),
-    )
-  };
