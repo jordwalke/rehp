@@ -100,8 +100,18 @@ type tokens =
   | TSelfClose(string)
   | TRaw(string);
 
+type rawIfPredicate =
+  | KnownSome
+  | KnownNone;
+
 type node =
-  | IfDefinitely(int, list(node))
+  | /** (negation, position, predicate, sub) */
+    RawIf(
+      bool,
+      int,
+      rawIfPredicate,
+      list(node),
+    )
   | Arg(int)
   | /** userExternName, externName */
     Extern(string, string, list(node))
@@ -124,18 +134,20 @@ let raiseMacroUnsupportedTag = (tagName, macroData) => {
       <@2/>
       <@otherPrimitiveName> <@1/> <@/otherPrimitiveName>
     <@/primitiveName>
-  - <@raw.ifDefinitelySomeN> If original arg n (<@n/>) is definitely Some(x) then include
-     the contents, else do include nothing. Second+ children may be raw text.
-  - <@raw.ifDefinitelySomeN> If original arg n (<@n/>) is NOT definitely Some(x) then include
-     the contents, else do include nothing. Second+ children may be raw text.
-  - <@raw>..<@/raw> tags which are used to group more raw text as a primitive argument.
-    <@primitiveName>
-      <@raw> ThisRawText.isBeingPassedAsAnArgNow(<@3/>)</@raw>
-      <@otherPrimitiveName> <@1/> <@/otherPrimitiveName>
-    <@/primitiveName>
+    Some shortened primitive names are: toNull, toString, fromNull, fromString, toBool, fromBool
+  - <@if.known.kind.n>, <@unless.known.kind.n>
+    Embeds contents if/unless callsite arg <@n/> is known to be 'kind' where 'kind' is 'some', 'none'.
+    Whether or not the argument is "known" depends on optimization level and simplicity of calling code.
+  - <@raw>..<@/raw> tags which are used to group more raw text as a primitive argument since
+    calls to primitives require each child to be a tag, not raw text.
+
+      <@primitiveName>
+        <@raw> ThisRawText.isBeingPassedAsAnArgNow(<@3/>)</@raw>
+        <@otherPrimitiveName> <@1/> <@/otherPrimitiveName>
+      <@/primitiveName>
 
   Note: You can also supply multiple backends in one macro such as:
-  external x : type = "raw-macro:<@js>...</@js><@php>...<@/php>)
+  external x : type = "raw-macro:<@.js>...</@.js><@.php>...<@/.php>)
 
   The macro contents are:
 %s
@@ -275,15 +287,41 @@ let externName = extern =>
   | s => s
   };
 
-let definitely = (macroData, tag) => {
+let predicate = (macroData, tag, sub) => {
+  let segments = String.split_char(~sep='.', tag);
+  switch (segments) {
+  | [
+      ("unless" | "if") as negation,
+      ("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10") as position,
+      "known",
+      ("some" | "none") as predicate,
+    ] =>
+    Some(
+      RawIf(
+        String.equal("if", negation),
+        string_of_int(position),
+        String.equal(predicate, "some") ? KnownSome : KnownNone,
+      ),
+    )
+  };
   let isDefinitely =
     String.length(tag) > 20
     && String.sub(~pos=0, ~len=20, tag) == "raw.ifDefinitelySome";
+
+  let isNotDefinitely =
+    String.length(tag) > 23
+    && String.sub(~pos=0, ~len=23, tag) == "raw.ifNotDefinitelySome";
   if (isDefinitely) {
     let iStr = String.sub(tag, ~pos=20, ~len=String.length(tag) - 20);
     switch (int_of_string_opt(iStr)) {
     | None => raiseMacroUnsupportedTag(tag, macroData)
-    | Some(i) => Some(i)
+    | Some(i) => Some((i, true))
+    };
+  } else if (isNotDefinitely) {
+    let iStr = String.sub(tag, ~pos=23, ~len=String.length(tag) - 23);
+    switch (int_of_string_opt(iStr)) {
+    | None => raiseMacroUnsupportedTag(tag, macroData)
+    | Some(i) => Some((i, false))
     };
   } else {
     None;
@@ -291,8 +329,8 @@ let definitely = (macroData, tag) => {
 };
 
 let classify = (mData, tag, sub) => {
-  switch (definitely(mData, tag)) {
-  | Some(i) => IfDefinitely(i, sub)
+  switch (predicate(mData, tag, sub)) {
+  | Some((i, predicate)) => RawIf(i, predicate, sub)
   | None =>
     switch (int_of_string_opt(tag), sub) {
     | (Some(i), []) => Arg(i)
@@ -426,7 +464,7 @@ let rec inOrderNode = (f, init, node) => {
   switch (node) {
   | Raw(_)
   | Arg(_) => f(init, node)
-  | IfDefinitely(_, nodeList)
+  | RawIf(_, _, nodeList)
   | Extern(_, _, nodeList) =>
     let next = f(init, node);
     foldInOrder(f, next, nodeList);
@@ -449,9 +487,9 @@ type expanded =
   | ExpandedBinding(int);
 
 let renderPosition = pos => "<@" ++ string_of_int(pos) ++ "/>";
-let renderIfDefinitelySome = (pos, txt) => {
+let renderRawIf = (pos, pred, txt) => {
   let posStr = string_of_int(pos);
-  let tagStr = "@raw.ifDefinitelySome" ++ posStr;
+  let tagStr = "@raw.if" ++ (pred ? "" : "Not") ++ "DefinitelySome" ++ posStr;
   "<" ++ tagStr ++ ">" ++ txt ++ "</" ++ tagStr ++ ">";
 };
 
@@ -485,11 +523,11 @@ let expandIntoMultipleArguments =
           nextArgs,
         );
       }
-    | IfDefinitely(i, subNodeList) =>
+    | RawIf(i, pred, subNodeList) =>
       switch (List.nth_opt(argsToExpand, i - 1)) {
       | None =>
         raiseMacroCallIndexNotSupported(
-          ~extra=" See <@raw.ifDefinitelySome" ++ string_of_int(i) ++ ">",
+          ~extra=" See " ++ renderRawIf(i, pred, ""),
           i,
           List.length(argsToExpand),
           macroData,
@@ -503,7 +541,7 @@ let expandIntoMultipleArguments =
           List.append(revBindings, nextRevExpandedBindings);
         (
           nextRevExpandedBindings,
-          curTxt ++ renderIfDefinitelySome(newPosition, subTxt),
+          curTxt ++ renderRawIf(newPosition, pred, subTxt),
           nextRevArgs,
         );
       }
@@ -566,7 +604,7 @@ let expandIntoMultipleArguments =
   }
   /**
    * TODO: Couldn't this just compute a new tree, and then we can render it?
-   * Similar to how we evaluate "definitely".
+   * Similar to how we evaluate "predicate".
    */
   and expandIntoMultipleArgumentsImpl = (nodeList, curRevArgs) =>
     List.fold_left(
@@ -601,7 +639,7 @@ let rec evalBackends = (nodeList, be) => {
           switch (child) {
           | Raw(_) as r => [r, ...cur]
           | Arg(_) as a => [a, ...cur]
-          | IfDefinitely(_, _) as n => [n, ...evalBackends(cur, be)]
+          | RawIf(_, _, _) as n => [n, ...evalBackends(cur, be)]
           | Extern(tag, _, sub) as n =>
             let isOldForm =
               String.equal(tag, "js") || String.equal(tag, "php");
@@ -656,9 +694,9 @@ let rec evalDefinitelyInExpanded = (nodeList, macroData, args, testSome) => {
         let nextNode = Arg(nextLen);
         let nextRevNodes = [nextNode, ...revNodes];
         (nextRevNodes, nextRevArgs);
-      | IfDefinitely(i, sub) =>
+      | RawIf(i, pred, sub) =>
         let arg = nth_error(args, i - 1, "ifDefinitely");
-        if (testSome(arg)) {
+        if (pred && testSome(arg) || !pred && !testSome(arg)) {
           let nextRevArgsWithThis = [arg, ...revArgs];
           /* Shifts the index because we could have removed some */
           let (nextRevSubNodes, nextRevArgs) =
@@ -682,7 +720,7 @@ let rec evalDefinitelyInExpanded = (nodeList, macroData, args, testSome) => {
 let rec printNode =
   fun
   | Arg(i) => "<@" ++ string_of_int(i) ++ "/>"
-  | IfDefinitely(i, sub) => renderIfDefinitelySome(i, printNodeList(sub))
+  | RawIf(i, pred, sub) => renderRawIf(i, pred, printNodeList(sub))
   | Extern(user, _, sub) =>
     "<@" ++ user ++ ">" ++ printNodeList(sub) ++ "<@/" ++ user ++ ">"
   | Raw(r) => r

@@ -1372,7 +1372,7 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
               | Raw_macro.Raw r -> Rehp.RawText r
               | Raw_macro.Extern _ ->
                   Raw_macro.raiseInternalError "Macro extern calls should be expanded by now." macro_data
-              | Raw_macro.IfDefinitely _ ->
+              | Raw_macro.RawIf _ ->
                   Raw_macro.raiseInternalError "'raw.ifDefinitely* should be expanded by now." macro_data
               | Raw_macro.Arg i ->
                   if i - 1 < arg_len
