@@ -57,6 +57,21 @@ let test_some info a =
   | `CBlock a, _ -> true
   | `CConst 0, _ -> false
   | `Block, Pc _ | `CConst _, _ | `Unknown, _ -> false)
+  
+let test_none info a =
+  (match the_option_of info a, a with
+  | `Block, Pv a -> false
+  | `CBlock a, _ -> false
+  | `CConst 0, _ -> true
+  | `Block, Pc _ | `CConst _, _ | `Unknown, _ -> false)
+
+let test_true info a =
+  (match the_option_of info a, a with
+  | `Block, Pv a -> Some false
+  | `CBlock a, _ -> Some false
+  | `CConst 0, _ -> Some false
+  | `CConst 1, _ -> Some true
+  | `Block, Pc _ | `CConst _, _ | `Unknown, _ -> None)
 
 (* Could add Pc (IString (Var.to_string v)); to get the string name of
  * the identifier, but the names aren't registered correctly at this
@@ -150,7 +165,11 @@ let specialize_instr addr info i rem =
       let macro_data = Raw_macro.extractExpanded ~forBackend:be ?loc:None m in
       let node_list = Raw_macro.parseNodeList macro_data in
       let (node_list, args) =
-        Raw_macro.evalDefinitelyInExpanded node_list macro_data args (test_some info) in
+        Raw_macro.evalDefinitelyInExpanded
+          node_list
+          macro_data
+          args
+          ~testVal:(test_true info) in
       let macro_text = Raw_macro.printNodeList node_list in
       Let (x, Prim (Extern "%caml_js_expanded_raw_macro", Pc (String macro_text) :: args))
       :: rem
@@ -263,6 +282,20 @@ let specialize_instr addr info i rem =
       | `Block, Pv a -> Let (x, Field (a, 0))
       | `CBlock a, _ -> Let (x, Constant a)
       | `CConst 0, _ -> Let (x, Constant Null)
+      | `Block, Pc _ | `CConst _, _ | `Unknown, _ -> i)
+      :: rem
+  | Let (x, Prim (Extern "caml_js_is_none", [ a ])) ->
+      (match the_option_of info a, a with
+      | `Block, Pv a -> Let (x, Constant (Int 0l))
+      | `CBlock a, _ -> Let (x, Constant (Int 0l))
+      | `CConst 0, _ -> Let (x, Constant (Int 0l))
+      | `Block, Pc _ | `CConst _, _ | `Unknown, _ -> i)
+      :: rem
+  | Let (x, Prim (Extern "caml_js_is_some", [ a ])) ->
+      (match the_option_of info a, a with
+      | `Block, Pv a -> Let (x, Constant (Int 1l))
+      | `CBlock a, _ -> Let (x, Constant (Int 1l))
+      | `CConst 0, _ -> Let (x, Constant (Int 0l))
       | `Block, Pc _ | `CConst _, _ | `Unknown, _ -> i)
       :: rem
   | Let (x, Prim (Extern "caml_js_fun_call", [f; a])) ->
@@ -483,6 +516,7 @@ let f_once debug_data_for_errors p =
           let expanded_bindings =
             Raw_macro.expandIntoMultipleArguments x macro_data args node_list
           in
+          
           (* Turn into special % primitive so that none of the inlining optimizations apply *)
           (List.map expanded_bindings
             ~f:(fun ((user_extern_name, extern_name, binding_var), args) ->

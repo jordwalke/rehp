@@ -100,16 +100,13 @@ type tokens =
   | TSelfClose(string)
   | TRaw(string);
 
-type rawIfPredicate =
-  | KnownSome
-  | KnownNone;
-
 type node =
-  | /** (negation, position, predicate, sub) */
+  | /** (primPredicateName, position, predicate, ifKnownTrueSub, ifKnownFalseSub, ifUnknownSub) */
     RawIf(
-      bool,
+      string,
       int,
-      rawIfPredicate,
+      list(node),
+      list(node),
       list(node),
     )
   | Arg(int)
@@ -122,38 +119,45 @@ type tokenizedTag =
   | Gt(string, list(char))
   | SlashGt(string, list(char));
 
-let raiseMacroUnsupportedTag = (tagName, macroData) => {
+let validMacroHelp = {|Valid Macros may only contain:
+  - <@.js>...</@.js>
+    Portions only to be included for specific backends.
+  - <@1/> - <@10/>
+    Argument substitution.
+  - <@primitiveName> <@/primitiveName>
+    Calls to primitives (their immediate children must be other tags - not raw text).
+    Some shortened primitive names are: toNull, toString, fromNull, fromString, toBool, fromBool
+  - <@if.primitiveName.n>
+      <@true>..</@true>
+      <@false>..</@false>
+      <@unknown>..</@unknown>
+    <@if.primitiveName.n>
+    Embeds different contents depending on if callsite arg <@n/> is known to satisfy some primitive
+    that returns true/false.
+    Whether or not the argument is "known" depends on optimization level and simplicity of calling code.
+    It is on the developer to ensure that the unknown case behaves exactly as the others but performing
+    the necessary checks at runtime.
+  - <@raw>..<@/raw> tags which are used to group more raw text as a primitive argument since
+    calls to primitives require each child to be a tag, not raw text. Example:
+    <@primitiveName>
+      <@raw> ThisRawText.isBeingPassedAsAnArgNow(<@3/>)</@raw>
+      <@otherPrimitiveName> <@1/> <@/otherPrimitiveName>
+    <@/primitiveName>|};
+
+let raiseMacroUnsupportedTag = (~hint="", tagName, macroData) => {
   let msg =
     Printf.sprintf(
       {|%s
-  The macro being called was uses an unsupported tag <%s>. The only valid tags are:
-  - Specifying portions to be used in backends: <.js>...</.js>
-  - Argument substitution <@1/>.
-  - Calls to primitives (their children must be other tags and not raw text).
-    <@primitiveName>
-      <@2/>
-      <@otherPrimitiveName> <@1/> <@/otherPrimitiveName>
-    <@/primitiveName>
-    Some shortened primitive names are: toNull, toString, fromNull, fromString, toBool, fromBool
-  - <@if.known.kind.n>, <@unless.known.kind.n>
-    Embeds contents if/unless callsite arg <@n/> is known to be 'kind' where 'kind' is 'some', 'none'.
-    Whether or not the argument is "known" depends on optimization level and simplicity of calling code.
-  - <@raw>..<@/raw> tags which are used to group more raw text as a primitive argument since
-    calls to primitives require each child to be a tag, not raw text.
-
-      <@primitiveName>
-        <@raw> ThisRawText.isBeingPassedAsAnArgNow(<@3/>)</@raw>
-        <@otherPrimitiveName> <@1/> <@/otherPrimitiveName>
-      <@/primitiveName>
-
-  Note: You can also supply multiple backends in one macro such as:
-  external x : type = "raw-macro:<@.js>...</@.js><@.php>...<@/.php>)
-
+  The macro being called uses unsupported tag <@%s>.
+  %s
+  %s
   The macro contents are:
 %s
 |},
       commonError,
       tagName,
+      String.is_empty(hint) ? "" : "Hint: " ++ hint,
+      validMacroHelp,
       formatForError(macroData.macro),
     );
   raise(UserError(msg, macroData.callerLoc));
@@ -210,19 +214,9 @@ let raiseMalformedExtern =
 
   %s
 
-  Nested extern tags should only contain other tags. Each child is 1 argument to the extern call.
-
-  If you need to supply raw text as an argument, wrap it in a <raw></raw> element.
-
-  For example, instead of:
-
-    <@%s>SomethingHere(<@1/>, <@2/>)</@%s>
-
-  Do this:
-
-    <@%s><@raw>SomethingHere(<@1/>, <@2/>)</@raw></@%s>
-
   Make sure you didn't accidentally supply commas or other text in between children.
+
+  %s
 
   The macro being called is defined as:
 %s
@@ -230,16 +224,13 @@ let raiseMalformedExtern =
       commonError,
       externPrint,
       specificError,
-      externTag,
-      externTag,
-      externTag,
-      externTag,
+      validMacroHelp,
       formatForError(macroData.macro),
     );
   raise(UserError(msg, macroData.callerLoc));
 };
 
-let raiseMacroCallIndexNotSupported = (~extra="", i, len, macroData) => {
+let raiseIndexNotSupported = (~extra="", i, len, macroData) => {
   let msg =
     Printf.sprintf(
       {|%s
@@ -287,58 +278,55 @@ let externName = extern =>
   | s => s
   };
 
-let predicate = (macroData, tag, sub) => {
-  let segments = String.split_char(~sep='.', tag);
-  switch (segments) {
-  | [
-      ("unless" | "if") as negation,
-      ("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10") as position,
-      "known",
-      ("some" | "none") as predicate,
-    ] =>
-    Some(
-      RawIf(
-        String.equal("if", negation),
-        string_of_int(position),
-        String.equal(predicate, "some") ? KnownSome : KnownNone,
-      ),
-    )
-  };
-  let isDefinitely =
-    String.length(tag) > 20
-    && String.sub(~pos=0, ~len=20, tag) == "raw.ifDefinitelySome";
+let filterEmptyRawText = subNodeList =>
+  List.filter(subNodeList, ~f=itm =>
+    switch (itm) {
+    | Raw(txt) => !String.is_empty(String.trim(txt))
+    | _ => true
+    }
+  );
 
-  let isNotDefinitely =
-    String.length(tag) > 23
-    && String.sub(~pos=0, ~len=23, tag) == "raw.ifNotDefinitelySome";
-  if (isDefinitely) {
-    let iStr = String.sub(tag, ~pos=20, ~len=String.length(tag) - 20);
-    switch (int_of_string_opt(iStr)) {
-    | None => raiseMacroUnsupportedTag(tag, macroData)
-    | Some(i) => Some((i, true))
+let classifyPredicate = (macroData, tag, sub, ~otherwise) => {
+  switch (String.split_char(~sep='.', tag)) {
+  | ["if", ...rest] =>
+    let withoutEmptyRaws = filterEmptyRawText(sub);
+    switch (rest, withoutEmptyRaws) {
+    | (
+        [
+          pred,
+          ("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10") as pos,
+        ],
+        [
+          Extern("true", _, trueSub),
+          Extern("false", _, falseSub),
+          Extern("unknown", _, unknownSub),
+        ],
+      ) =>
+      RawIf(pred, int_of_string(pos), trueSub, falseSub, unknownSub)
+    | ([pred, "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10"], _) =>
+      let hint =
+        "You're trying to use the conditional macro embedding "
+        ++ "<@if.primitiveName.n> but did not provide necessary ordered children of the if.";
+      raiseMacroUnsupportedTag(~hint, tag, macroData);
+    | (_, _) =>
+      let hint =
+        "It looks like you're trying to use the conditional macro embedding "
+        ++ "<@if.primitiveName.n> but the order/contents of the segments are wrong.";
+      raiseMacroUnsupportedTag(~hint, tag, macroData);
     };
-  } else if (isNotDefinitely) {
-    let iStr = String.sub(tag, ~pos=23, ~len=String.length(tag) - 23);
-    switch (int_of_string_opt(iStr)) {
-    | None => raiseMacroUnsupportedTag(tag, macroData)
-    | Some(i) => Some((i, false))
-    };
-  } else {
-    None;
+  | _ => otherwise()
   };
 };
 
 let classify = (mData, tag, sub) => {
-  switch (predicate(mData, tag, sub)) {
-  | Some((i, predicate)) => RawIf(i, predicate, sub)
-  | None =>
+  classifyPredicate(mData, tag, sub, ~otherwise=() => {
     switch (int_of_string_opt(tag), sub) {
     | (Some(i), []) => Arg(i)
     | (Some(i), [_hd, ..._tl]) =>
       raiseMalformedMacro("Index " ++ tag ++ " cannot have children.", mData)
     | (None, _) => Extern(tag, externName(tag), sub)
     }
-  };
+  });
 };
 
 let isUnexpanded = nm => {
@@ -453,32 +441,11 @@ and parseNodeList = mData => {
   let (parsedNodeList, remaining) = parseNodeListImpl(mData, tokens);
   if (remaining !== []) {
     raiseMalformedMacro(
-      "The macro contains unmatched macro nodes at the end.",
+      "Tihe macro contains unmatched macro nodes at the end.",
       mData,
     );
   };
   parsedNodeList;
-};
-
-let rec inOrderNode = (f, init, node) => {
-  switch (node) {
-  | Raw(_)
-  | Arg(_) => f(init, node)
-  | RawIf(_, _, nodeList)
-  | Extern(_, _, nodeList) =>
-    let next = f(init, node);
-    foldInOrder(f, next, nodeList);
-  };
-}
-and foldInOrder = (f, init, nodeList) => {
-  List.fold_left(~f=inOrderNode(f), ~init, nodeList);
-};
-
-/**
- * To turn a nodelist that has no depth beyond terminal nodes into a list.
- */
-let flattenNodeList = (flattener, nodeList) => {
-  foldInOrder((cur, next) => [flattener(next), ...cur], [], nodeList);
 };
 
 type expanded =
@@ -487,10 +454,39 @@ type expanded =
   | ExpandedBinding(int);
 
 let renderPosition = pos => "<@" ++ string_of_int(pos) ++ "/>";
-let renderRawIf = (pos, pred, txt) => {
-  let posStr = string_of_int(pos);
-  let tagStr = "@raw.if" ++ (pred ? "" : "Not") ++ "DefinitelySome" ++ posStr;
-  "<" ++ tagStr ++ ">" ++ txt ++ "</" ++ tagStr ++ ">";
+let renderRawIf = (externPredicateName, pos, trueTxt, falseTxt, unknownTxt) => {
+  let tagStr = "@if." ++ externPredicateName ++ "." ++ string_of_int(pos);
+  "<"
+  ++ tagStr
+  ++ "><@true>"
+  ++ trueTxt
+  ++ "</@true><@false>"
+  ++ falseTxt
+  ++ "</@false><@unknown>"
+  ++ unknownTxt
+  ++ "</@unknown></"
+  ++ tagStr
+  ++ ">";
+};
+
+let rec printNode =
+  fun
+  | Arg(i) => "<@" ++ string_of_int(i) ++ "/>"
+  | RawIf(externPredicateName, i, trueSub, falseSub, unknownSub) => {
+      renderRawIf(
+        externPredicateName,
+        i,
+        printNodeList(trueSub),
+        printNodeList(falseSub),
+        printNodeList(unknownSub),
+      );
+    }
+  | Extern(user, _, sub) =>
+    "<@" ++ user ++ ">" ++ printNodeList(sub) ++ "<@/" ++ user ++ ">"
+  | Raw(r) => r
+
+and printNodeList = nodes => {
+  String.concat(~sep="", List.map(printNode, nodes));
 };
 
 /**
@@ -510,11 +506,7 @@ let expandIntoMultipleArguments =
       /* TODO: Throw if empty subNodeList */
       switch (List.nth_opt(argsToExpand, i - 1)) {
       | None =>
-        raiseMacroCallIndexNotSupported(
-          i,
-          List.length(argsToExpand),
-          macroData,
-        )
+        raiseIndexNotSupported(i, List.length(argsToExpand), macroData)
       | Some(a) =>
         let nextArgs = [a, ...revArgs];
         (
@@ -523,26 +515,55 @@ let expandIntoMultipleArguments =
           nextArgs,
         );
       }
-    | RawIf(i, pred, subNodeList) =>
+    | RawIf(pred, i, trueList, falseList, unknownList) =>
       switch (List.nth_opt(argsToExpand, i - 1)) {
       | None =>
-        raiseMacroCallIndexNotSupported(
-          ~extra=" See " ++ renderRawIf(i, pred, ""),
+        let xtra = " See " ++ renderRawIf(pred, i, "..", "..", "..");
+        raiseIndexNotSupported(
+          ~extra=xtra,
           i,
           List.length(argsToExpand),
           macroData,
-        )
+        );
       | Some(a) =>
-        let revArgsWithThisArg = [a, ...revArgs];
-        let newPosition = List.length(revArgsWithThisArg);
-        let (nextRevExpandedBindings, subTxt, nextRevArgs) =
-          expandIntoMultipleArgumentsImpl(subNodeList, revArgsWithThisArg);
-        let nextRevExpandedBindings =
-          List.append(revBindings, nextRevExpandedBindings);
+        let argToPredicate =
+          switch (List.nth_opt(argsToExpand, i - 1)) {
+          | None =>
+            raiseIndexNotSupported(i, List.length(argsToExpand), macroData)
+          | Some(a) => [a]
+          };
+        let externName = externName(pred);
+        let bindingVar = Code.Var.fresh();
+        let revArgs = [Code.Pv(bindingVar), ...revArgs];
+        let newPosition = List.length(revArgs);
+        let (revBindingsTrue, subTxtTrue, revArgs) =
+          expandIntoMultipleArgumentsImpl(trueList, revArgs);
+        let (revBindingsFalse, subTxtFalse, revArgs) =
+          expandIntoMultipleArgumentsImpl(trueList, revArgs);
+        let (revBindingsUnknown, subTxtUnknown, revArgs) =
+          expandIntoMultipleArgumentsImpl(trueList, revArgs);
+        let nextRevBindings =
+          List.concat([
+            revBindingsUnknown,
+            revBindingsFalse,
+            revBindingsTrue,
+            revBindings,
+          ]);
+        let revBindingsWithThis = [
+          ((pred, externName, bindingVar), argToPredicate),
+          ...nextRevBindings,
+        ];
         (
-          nextRevExpandedBindings,
-          curTxt ++ renderRawIf(newPosition, pred, subTxt),
-          nextRevArgs,
+          revBindingsWithThis,
+          curTxt
+          ++ renderRawIf(
+               "caml_js_if_true",
+               newPosition,
+               subTxtTrue,
+               subTxtFalse,
+               subTxtUnknown,
+             ),
+          revArgs,
         );
       }
     | Extern(userExternName, externName, subNodeList) =>
@@ -554,13 +575,7 @@ let expandIntoMultipleArguments =
         if (String.equal(externName, "%caml_js_expanded_raw_macro")) {
           subNodeList;
         } else {
-          let subNodeList =
-            List.filter(subNodeList, ~f=itm =>
-              switch (itm) {
-              | Raw(txt) => !String.is_empty(String.trim(txt))
-              | _ => true
-              }
-            );
+          let subNodeList = filterEmptyRawText(subNodeList);
           List.iter(subNodeList, ~f=itm =>
             switch (itm) {
             | Raw(txt) =>
@@ -583,8 +598,18 @@ let expandIntoMultipleArguments =
        */
       let (nextRevExpandedBindings, subTxt, subRevArgs) =
         expandIntoMultipleArgumentsImpl(subNodeList, []);
+      //
+      //
+      //
+      //
+      //
+      // WAIT THIS ISN"T THE RIGHT ORDER OF APPEND
+      //
+      //
+      //
+      //
       let nextRevExpandedBindings =
-        List.append(revBindings, nextRevExpandedBindings);
+        List.append(nextRevExpandedBindings, revBindings);
       let bindingVar = Code.Var.fresh();
       let args =
         String.equal(externName, "%caml_js_expanded_raw_macro")
@@ -606,12 +631,15 @@ let expandIntoMultipleArguments =
    * TODO: Couldn't this just compute a new tree, and then we can render it?
    * Similar to how we evaluate "predicate".
    */
-  and expandIntoMultipleArgumentsImpl = (nodeList, curRevArgs) =>
-    List.fold_left(
-      ~f=expandNodeIntoMultipleArgumentsImpl,
-      ~init=([], "", curRevArgs),
-      nodeList,
-    );
+  and expandIntoMultipleArgumentsImpl = (nodeList, curRevArgs) => {
+    let (_, _ as txt, _) as res =
+      List.fold_left(
+        ~f=expandNodeIntoMultipleArgumentsImpl,
+        ~init=([], "", curRevArgs),
+        nodeList,
+      );
+    res;
+  };
   let (revBindings, subTxt, subRevArgs) =
     expandIntoMultipleArgumentsImpl(nodeList, []);
   let finalBinding = (
@@ -639,7 +667,7 @@ let rec evalBackends = (nodeList, be) => {
           switch (child) {
           | Raw(_) as r => [r, ...cur]
           | Arg(_) as a => [a, ...cur]
-          | RawIf(_, _, _) as n => [n, ...evalBackends(cur, be)]
+          | RawIf(_, _, _, _, _) as n => [n, ...evalBackends(cur, be)]
           | Extern(tag, _, sub) as n =>
             let isOldForm =
               String.equal(tag, "js") || String.equal(tag, "php");
@@ -663,7 +691,38 @@ let rec evalBackends = (nodeList, be) => {
 };
 
 /**
- * Removes the raw.ifDefinitely tag, and also shifts arguments to reflect the
+ * <@somePrim>
+ *    <@1/>
+ *    <@if.1.known.some>"issome"</if.1.known.some>
+ *    <@2/>
+ * <@/somePrim>(a, b)
+ *
+ * Is just sugar for:
+ * <@somePrim>
+ *    <@1/>
+ *    <@if.caml_js_is_some.1>
+ *      <@true>"issome"</@true>
+ *      <@false></@knowFalse>
+ *      <@unknown></@unknown>
+ *    </@if.caml_js_is_some.1>
+ *    <@2/>
+ * <@/somePrim>(a, b)
+ *
+ * let isSome = <@caml_js_is_some><@1/><@/caml_js_is_some>(a)
+ * <@somePrim>
+ *    <@a/>
+ *    <@if.2>
+ *      <@true>"issome"</@true>
+ *      <@false>"issome"</@false>
+ *      <@unknown></@unknown>
+ *    <@/rawIf.2>
+ *    <@if.1.known.some>"issome"</if.1.known.some>
+ *    <@2/>
+ * <@/somePrim>(a, isSome, b)
+ *
+ * Becomes:
+ *
+ * Removes the if.n.known.pred tag, and also shifts arguments to reflect the
  * removal. After rendering and reparsing, the newly adjacent (extra) raws will
  * get compressed.
  *
@@ -676,12 +735,10 @@ let rec evalBackends = (nodeList, be) => {
  * designate macros that need flow time evaluation because it is expensive to
  * continually parse and print them on each flow iteration.
  */
-let rec evalDefinitelyInExpanded = (nodeList, macroData, args, testSome) => {
+let rec evalDefinitelyInExpanded = (nodeList, macroData, args, ~testVal) => {
   let rec impl = (nodeList, initRevArgs) =>
     List.fold_left(
-      nodeList,
-      ~init=([], initRevArgs),
-      ~f=((revNodes, revArgs) as cur, child) =>
+      nodeList, ~init=([], initRevArgs), ~f=((revNodes, revArgs), child) =>
       switch (child) {
       | Raw(_) => ([child, ...revNodes], revArgs)
       | Arg(i) =>
@@ -694,18 +751,47 @@ let rec evalDefinitelyInExpanded = (nodeList, macroData, args, testSome) => {
         let nextNode = Arg(nextLen);
         let nextRevNodes = [nextNode, ...revNodes];
         (nextRevNodes, nextRevArgs);
-      | RawIf(i, pred, sub) =>
-        let arg = nth_error(args, i - 1, "ifDefinitely");
-        if (pred && testSome(arg) || !pred && !testSome(arg)) {
+      | RawIf("caml_js_if_true", i, trueList, falseList, unknownList) =>
+        let arg =
+          nth_error(args, i - 1, renderRawIf("pred", i, "..", "..", ".."));
+        switch (testVal(arg)) {
+        /* Defer removal of dead segments until all flow analysis is done (in generate) */
+        | None =>
+          let nextRevArgs = [arg, ...revArgs];
+          let nextLen = List.length(nextRevArgs);
+          /* Shifts the index because we could have removed some in previous impl calls. */
+          let (nextRevSubNodesTrue, nextRevArgs) =
+            impl(trueList, nextRevArgs);
+          let (nextRevSubNodesFalse, nextRevArgs) =
+            impl(falseList, nextRevArgs);
+          let (nextRevSubNodesUnknown, nextRevArgs) =
+            impl(unknownList, nextRevArgs);
+          let nextRevNodes = [
+            RawIf(
+              "caml_js_if_true",
+              nextLen,
+              List.rev(nextRevSubNodesTrue),
+              List.rev(nextRevSubNodesFalse),
+              List.rev(nextRevSubNodesUnknown),
+            ),
+            ...revNodes,
+          ];
+          (nextRevNodes, nextRevArgs);
+        | Some(b) =>
+          let sub = b ? trueList : falseList;
+          // TODO: I think we can remove this arg.
           let nextRevArgsWithThis = [arg, ...revArgs];
           /* Shifts the index because we could have removed some */
           let (nextRevSubNodes, nextRevArgs) =
             impl(sub, nextRevArgsWithThis);
           let nextRevNodes = nextRevSubNodes @ revNodes;
           (nextRevNodes, nextRevArgs);
-        } else {
-          cur;
         };
+      | RawIf(_) =>
+        raiseInternalError(
+          "Something went wrong with expanding 'raw ifs'. It should only have caml_js_if_true at this point",
+          macroData,
+        )
       | Extern(_, _, _) =>
         raiseInternalError(
           "Externs should be removed before flow-based optimizations.",
@@ -714,19 +800,45 @@ let rec evalDefinitelyInExpanded = (nodeList, macroData, args, testSome) => {
       }
     );
   let (finalRevNodes, finalRevArgs) = impl(nodeList, []);
+  print_newline();
   (List.rev(finalRevNodes), List.rev(finalRevArgs));
 };
 
-let rec printNode =
-  fun
-  | Arg(i) => "<@" ++ string_of_int(i) ++ "/>"
-  | RawIf(i, pred, sub) => renderRawIf(i, pred, printNodeList(sub))
-  | Extern(user, _, sub) =>
-    "<@" ++ user ++ ">" ++ printNodeList(sub) ++ "<@/" ++ user ++ ">"
-  | Raw(r) => r
+let printMacro = nodeList => "raw-macro:" ++ printNodeList(nodeList);
 
-and printNodeList = nodes => {
-  String.concat(~sep="", List.map(printNode, nodes));
+let flattenFinal = (macroData, args, nodeList) => {
+  let arg_len = List.length(args);
+  let rec impl = (curRev, node) => {
+    switch (node) {
+    | Raw(r) => [Rehp.RawText(r), ...curRev]
+    | Arg(i) =>
+      if (i - 1 < arg_len) {
+        [RawSubstitution(List.nth(args, i - 1)), ...curRev];
+      } else {
+        raiseIndexNotSupported(i, arg_len, macroData);
+      }
+    | RawIf("caml_js_if_true", i, trueList, falseList, unknownList) =>
+      List.fold_left(~f=impl, ~init=curRev, unknownList)
+    | RawIf(_) =>
+      raiseInternalError(
+        "RawIf extern calls should be expanded by now.",
+        macroData,
+      )
+    | Extern(_, _, nodeList) =>
+      raiseInternalError(
+        "Macro extern calls should be expanded by now.",
+        macroData,
+      )
+    };
+  };
+  List.rev(List.fold_left(~f=impl, ~init=[], nodeList));
 };
 
-let printMacro = nodeList => "raw-macro:" ++ printNodeList(nodeList);
+let printFlattened = rawSegmentList =>
+  List.map(rawSegmentList, ~f=seg =>
+    switch (seg) {
+    | Rehp.RawText(r) => r
+    | RawSubstitution(i) => "<@arg/>"
+    }
+  )
+  |> String.concat(~sep="");

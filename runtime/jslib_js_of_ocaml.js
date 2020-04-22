@@ -40,6 +40,12 @@ function caml_js_to_array(a) { return raw_array_cons(a,0); }
 //Provides: caml_js_nullable const
 function caml_js_nullable(a) { return (a===0)?null:a[1]; }
 
+//Provides: caml_js_is_some const(const)
+function caml_js_is_some(a) { return (a===0)?0:Array.isArray(a) }
+
+//Provides: caml_js_is_none const
+function caml_js_is_none(a) { return (a===0)?1:0 }
+
 //Provides: caml_js_var mutable (const)
 //Requires: js_print_stderr
 //Requires: MlBytes

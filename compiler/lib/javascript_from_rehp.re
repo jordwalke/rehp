@@ -82,7 +82,7 @@ and from_expression = e =>
   switch (e) {
   | Rehp.ERaw(segments) =>
     let revMapped =
-      List.map(segments, ~f=segment =>
+      List.rev_map(segments, ~f=segment =>
         switch (segment) {
         | Rehp.RawText(s) => Javascript.RawText(s)
         | Rehp.RawSubstitution(e) =>

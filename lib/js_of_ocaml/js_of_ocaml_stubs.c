@@ -104,6 +104,14 @@ void caml_js_instanceof () {
   fprintf(stderr, "Unimplemented Javascript primitive caml_js_instanceof!\n");
   exit(1);
 }
+void caml_js_is_none () {
+  fprintf(stderr, "Unimplemented Javascript primitive caml_js_is_none!\n");
+  exit(1);
+}
+void caml_js_is_some () {
+  fprintf(stderr, "Unimplemented Javascript primitive caml_js_is_some!\n");
+  exit(1);
+}
 void caml_js_meth_call () {
   fprintf(stderr, "Unimplemented Javascript primitive caml_js_meth_call!\n");
   exit(1);

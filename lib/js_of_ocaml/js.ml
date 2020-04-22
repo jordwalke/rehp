@@ -136,6 +136,10 @@ external nullable_of_option : 'a option -> 'a opt = "caml_js_nullable"
 
 let null = nullable_of_option None
 
+external is_some : 'a option -> 'a opt = "caml_js_is_some"
+
+external is_none : 'a option -> 'a opt = "caml_js_is_none"
+
 external some : 'a -> 'a opt = "%identity"
 
 let undefined : 'a optdef = Unsafe.pure_js_expr "undefined"

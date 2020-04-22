@@ -553,7 +553,7 @@ let rec expression = (input: input, x) =>
           );
         }
       );
-    (out, Php.ERaw(mapped));
+    (out, Php.ERaw(List.rev(mapped)));
   | Rehp.ECond(e1, e2, e3) =>
     let (e1Out, e1Mapped) = expression(input, e1);
     let (e2Out, e2Mapped) = expression(input, e2);
