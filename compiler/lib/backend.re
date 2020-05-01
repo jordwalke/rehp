@@ -7,7 +7,7 @@ module Helpers = {
   let git_version = () => "temporarily-disabled-git-version";
 
   let is_prefixed_with_one_of = (set, str) => {
-    StringSet.exists(elem => set)
+    StringSet.exists(elem => set);
   };
 
   /**
@@ -160,8 +160,16 @@ module type Backend_implementation = {
       (runtime_getter, Rehp.expression, list(Module_export_metadata.t)) =>
       option(Rehp.expression),
     );
+  /**
+   * Loads compiled module outputs using the language module loader.
+   */
   let custom_module_loader:
     unit => option((runtime_getter, string) => option(Rehp.expression));
+
+  /**
+   * Loads non-compiled modules using the language module loader.
+   */
+  let module_require: unit => option(string => option(Rehp.expression));
   /**
    * Variable expression that the runtime variable is set to in separate
    * compilation mode.
@@ -263,6 +271,11 @@ module Current: Backend_implementation = {
     switch (current^) {
     | None => raise(Invalid_argument("Compiler backend not set"))
     | Some((module CurrentBackend)) => CurrentBackend.custom_module_loader()
+    };
+  let module_require = () =>
+    switch (current^) {
+    | None => raise(Invalid_argument("Compiler backend not set"))
+    | Some((module CurrentBackend)) => CurrentBackend.module_require()
     };
   let runtime_module_var = () =>
     switch (current^) {

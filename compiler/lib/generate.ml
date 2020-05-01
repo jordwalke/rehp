@@ -41,6 +41,24 @@ open Code
 open Stdlib
 module J = Rehp
 
+
+(* For cases where location is very unreliable but at least we can get the
+ * source file *)
+let parse_source_file_from_debug_info debug ?after pc =
+  match Parse_bytecode.Debug.find_loc debug ?after pc with
+  | Some pi -> Some {pi with line = 0; col = 0}
+  | None -> None
+
+let ask_backend ?loc path =
+  match Backend.Current.module_require () with
+  | None ->
+      raise (Errors.UserError(Errors.require_unsupported_backend path, loc))
+  | Some loader -> (
+    match loader path with
+      | None ->
+          raise(Errors.UserError(Errors.backend_unsupported_require path, loc))
+      | Some expr -> expr)
+
 (****)
 
 let string_of_set s =
@@ -76,10 +94,14 @@ module Share = struct
     { strings : 'a StringMap.t
     ; applies : 'a IntMap.t
     ; prims : 'a StringMap.t
+    ; language_requires : 'a StringMap.t
     }
 
   let empty_aux =
-    { prims = StringMap.empty; strings = StringMap.empty; applies = IntMap.empty }
+    { language_requires = StringMap.empty;
+      prims = StringMap.empty;
+      strings = StringMap.empty;
+      applies = IntMap.empty }
 
   type t =
     { mutable count : int aux
@@ -96,6 +118,11 @@ module Share = struct
   let add_prim s t =
     let n = try StringMap.find s t.prims with Not_found -> 0 in
     { t with prims = StringMap.add s (n + 1) t.prims }
+
+  let add_require s t =
+    let n = try StringMap.find s t.language_requires with Not_found -> 0 in
+    { t with language_requires = StringMap.add s (n + 1) t.language_requires }
+
 
   (* Adds special primitives to the prims counter with count -1, which allows them
      to be hoisted/shared, even if they were never referenced in bytecode - but only
@@ -131,13 +158,14 @@ module Share = struct
         | _ -> t)
 
   let get
+      ~debug
       ?(alias_strings = false)
       ?(alias_prims = false)
       ?(alias_apply = true)
       { blocks; _ } : t =
     let count =
       Addr.Map.fold
-        (fun _ block share ->
+        (fun addr block share ->
           List.fold_left block.body ~init:share ~f:(fun share i ->
               match i with
               | Let (_, Constant c) -> get_constant c share
@@ -148,6 +176,12 @@ module Share = struct
                     if Primitive.exists name then add_prim name share else share
                   in
                   share
+              | Let (_, Prim (Extern "%caml_require", [Pc (IString path | String path)])) ->
+                  let loc = parse_source_file_from_debug_info debug ~after:false addr in
+                  (* Check once if the macro is even valid while we have some
+                   * debug info *)
+                  let _ = ask_backend ?loc path in
+                  add_require path share
               | Let (_, Prim (Extern name, args)) ->
                   let name = Primitive.resolve name in
                   let share =
@@ -260,6 +294,24 @@ module Share = struct
             let x = Var.fresh_n varname in
             let v = Id.V x in
             t.vars <- { t.vars with prims = StringMap.add s v t.vars.prims };
+            J.EVar v)
+        else gen s
+      with Not_found -> gen s
+
+
+  let get_require gen s t =
+    let varname = s
+    in
+      try
+        let c = StringMap.find s t.count.language_requires in
+        (* If the usage count of the require is > 1 then try to hoist the variable *)
+        if c > 1
+        then (
+          try J.EVar (StringMap.find s t.vars.language_requires)
+          with Not_found ->
+            let x = Var.fresh_n varname in
+            let v = Id.V x in
+            t.vars <- { t.vars with language_requires = StringMap.add s v t.vars.language_requires };
             J.EVar v)
         else gen s
       with Not_found -> gen s
@@ -668,7 +720,7 @@ module DTree = struct
             match range1, range2 with
             | [], _ | _, [] -> assert false
             | _, lower_bound2 :: _ -> If (CLe (Int32.of_int lower_bound2), b2, b1))
-        
+
     in
     let len = Array.length ai in
     if len = 0 then Empty else loop 0 (len - 1)
@@ -1052,7 +1104,7 @@ let rec module_metadata so_far ?(so_far_len = List.length so_far) lst =
            ^ "metadata must be of the form (string(export-name)|-1) arity \
               list(string-arg-names)"))
 
-let register_module_loader name f =
+let register_module_exporter name f =
   register_prim name `Mutator (fun l queue ctx loc ->
       match l with
       | x :: y :: z :: rest ->
@@ -1081,7 +1133,7 @@ let _ =
    * int_to_string.
    *)
       J.ECall (p, [ J.EBin (J.Plus, str_js "", cx) ], loc));
-  register_module_loader
+  register_module_exporter
     "%caml_register_global_module_metadata"
     (fun ctx cx cy cz md loc ->
       let runtime_var_getter () =
@@ -1094,8 +1146,8 @@ let _ =
           | None -> J.ECall (runtime_var_getter (), [ cx ], loc)
           | Some expr -> expr));
 
-  (* The version that has been optimized by inline_js.ml *)
-  register_module_loader "%caml_register_global_module" (fun ctx cx cy cz md loc ->
+  (* The version that has been optimized by specialize_js.ml *)
+  register_module_exporter "%caml_register_global_module" (fun ctx cx cy cz md loc ->
       let runtime_var_getter () =
         Share.get_prim (runtime_fun ctx) "caml_register_global" ctx.Ctx.share
       in
@@ -1114,6 +1166,24 @@ let _ =
               | None -> J.ECall (runtime_var_getter (), [ cx ], loc)
               | Some expr -> expr))
       | _ -> J.ECall (runtime_var_getter (), [ cx ], loc));
+
+  register_un_prim_ctx "%caml_require" `Pure (fun ctx cx loc ->
+    match cx with
+    | J.EStr (path, _) -> (
+      Share.get_require (fun path ->
+       J.EStr
+        ("Cannot require module " ^ path ^ " likely because backend does not support requires",
+        `Utf8))
+      path
+      ctx.Ctx.share);
+    | _ ->
+      failwith(
+        "Something passed an invalid argument to caml_require which is likely caused " ^
+        "by invalid contents of a <@require*> macro. " ^
+        "It should only be a single string but something is interpretting is as more " ^
+        "than one string or richer children content etc." ^
+        "This is likely caused by a macro with a <@require*> tag that isn't" ^
+        "supported by your backend."));
 
   register_un_prim "polymorphic_log" `Mutable (fun cx loc ->
       J.ECall (s_var "polymorphic_log", [ cx ], loc));
@@ -2186,15 +2256,20 @@ let generate_shared_value ctx =
       applies
     else []
   in
+ 
   let strings =
     ( J.Statement
         (J.Variable_statement
-           (List.map
+          (List.map
+              (StringMap.bindings ctx.Ctx.share.Share.vars.Share.language_requires)
+              ~f:(fun (s, v) -> v, Some (ask_backend s, Loc.N))
+           @ List.map
               (StringMap.bindings ctx.Ctx.share.Share.vars.Share.strings)
               ~f:(fun (s, v) -> v, Some (str_js s, Loc.N))
            @ List.map
                (StringMap.bindings ctx.Ctx.share.Share.vars.Share.prims)
-               ~f:(fun (s, v) -> v, Some (runtime_fun ctx s, Loc.N))))
+               ~f:(fun (s, v) -> v, Some (runtime_fun ctx s, Loc.N))
+           ))
     , Loc.U )
   in
   strings :: applies
@@ -2207,7 +2282,7 @@ let compile_program ctx pc =
 
 let f (p : Code.program) ~exported_runtime ~live_vars debug =
   let t' = Timer.make () in
-  let share = Share.get ~alias_prims:(exported_runtime != None) p in
+  let share = Share.get ~debug ~alias_prims:(exported_runtime != None) p in
   let ctx = Ctx.initial ~exported_runtime p.blocks live_vars share debug in
   let p = compile_program ctx p.start in
   if times () then Format.eprintf "  code gen.: %a@." Timer.print t';

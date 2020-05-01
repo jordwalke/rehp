@@ -663,7 +663,7 @@ let _ =
     Cmdliner.Term.eval ~catch:false ~argv:(Util.normalize_argv ~warn_:true Sys.argv) main
   with
   (* TODO: Print this in a way that is parseable by refmterr *)
-  | Raw_macro.UserError (msg, opt_loc) ->
+  | Errors.UserError (msg, opt_loc) ->
       (match opt_loc with
       | Some {Parse_info.name = Some name; line; col} ->
           print_file_error msg name line col

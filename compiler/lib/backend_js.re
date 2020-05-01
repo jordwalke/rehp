@@ -374,6 +374,19 @@ let custom_module_loader = () =>
     },
   );
 
+let module_require = () =>
+  Some(
+    name => {
+      Some(
+        Rehp.ECall(
+          Rehp.EVar(Id.ident("require")),
+          [Rehp.EStr(name, `Bytes)],
+          Loc.N,
+        ),
+      )
+    },
+  );
+
 let runtime_module_var = () =>
   Rehp.ECall(
     Rehp.EVar(Id.ident("require")),

@@ -65,14 +65,14 @@ let includeMe = () => ();
 let trueee = true;
 let falseee = false;
 
-external acceptsBools : (bool, bool) => bool = "
+external acceptsBools : (bool, bool) => bool = {|
   <@.php>
     <@fromBool><@>SomeClass::hereIsSomeBools(<@toBool><@1/></@toBool>, <@toBool><@2/></@toBool>)</@></@fromBool>
   </@.php>
   <@.js>
-    <@fromBool><@>SomeClass.hereIsSomeBools(<@toBool><@1/></@toBool>, <@toBool><@2/></@toBool>)</@></@fromBool>
+    <@fromBool><@><@nonRelativeRequire>my-project/foo/SomeClass</@nonRelativeRequire>.hereIsSomeBools(<@toBool><@1/></@toBool>, <@toBool><@2/></@toBool>)</@></@fromBool>
   </@.js>
-";
+|};
 
 let boolTest1 = acceptsBools(true, false);
 let boolTest2 = acceptsBools(false, true);
@@ -163,57 +163,35 @@ let twoSideEffectCorrect =
   );
 
 /**
- * Test invalid:
- * 
+ * TODO: Test invalid:
+ *
  * <@2.toNull.toString>anythinghere</@2.toNull.toString>
  * <@.toNull.toString><@more/><@than/><@one/></@toNull.toString>
  */
 type style;
 external style: (~backgroundColor:string=?, ~color:string=?, unit) => style = {|
-  <@.js>{<@1.isSome?>
-      <@>backgroundColor: <@1.toString.toNull/>,</@>
-      <@></@>
-      <@>backgroundColor: <@1.toNull.toString/>,</@>
-    </@1.isSome?><@2.isSome?>
-      <@>color: <@2.toNull.toString/>,</@>
-      <@></@>
-      <@unknown>color: <@2.toNull.toString/>,</@unknown>
-  </@2.isSome?>}</@.js>
-  <@.php>{<@?>
-      <@1.isSome/>
-      <@>backgroundColor: <@1.toString.toNull/>,</@>
-      <@></@>
-      <@>backgroundColor: <@1.toNull.toString/>,</@>
-    </@?><@?>
-      <@2.isSome/>
-      <@>color: <@2.toNull.toString/>,</@>
-      <@></@>
-      <@unknown>color: <@2.toNull.toString/>,</@unknown>
-  </@?>}</@.php>
-|};
-
-external style: (~backgroundColor:string=?, ~color:string=?, unit) => style = {|
-  <@.js>{<@?>
+  <@.js>{
+    <@?>
       <@isSome><@1/></@isSome>
       <@true>backgroundColor: <@toString><@toNull><@1/><@/toNull></@toString>,</@true>
       <@false></@false>
-      <@unknown>backgroundColor: <@toString><@toNull><@1/><@/toNull></@toString>,</@unknown>
+      <@unknown>backgroundColor: <@toNull><@1/><@/toNull> === null ? null : <@toString><@1/><@/toString>,</@unknown>
     </@?><@?>
       <@isSome><@2/></@isSome>
       <@true>color: <@toString><@toNull><@2/><@/toNull></@toString>,</@true>
       <@false></@false>
-      <@unknown>color: <@toString><@toNull><@2/><@/toNull></@toString>,</@unknown>
+      <@unknown>color: <@toNull><@2/><@/toNull> === null ? null : <@toString><@2/><@/toString>,</@unknown>
   </@?>}</@.js>
   <@.php>{<@?>
       <@isSome><@1/></@isSome>
       <@true>backgroundColor: <@toString><@toNull><@1/><@/toNull></@toString>,</@true>
       <@false></@false>
-      <@unknown>backgroundColor: <@toString><@toNull><@1/><@/toNull></@toString>,</@unknown>
+      <@unknown>backgroundColor: <@toNull><@1/><@/toNull> === null ? null : <@toString><@1/><@/toString>,</@unknown>
     </@?><@?>
       <@isSome><@2/></@isSome>
       <@true>color: <@toString><@toNull><@2/><@/toNull></@toString>,</@true>
       <@false></@false>
-      <@unknown>color: <@toString><@toNull><@2/><@/toNull></@toString>,</@unknown>
+      <@unknown>color: <@toNull><@2/><@/toNull> === null ? null : <@toString><@toNull><@2/></@toNull><@/toString>,</@unknown>
   </@?>}</@.php>
 |};
 
@@ -288,7 +266,7 @@ external div: (~className:string=?, ~style:style=?, ~children:xhp=?, unit) => xh
     <@isSome><@1/></@isSome>
     <@true>class=<@toString><@toNull><@1/><@/toNull></@toString></@true>
     <@false/>
-    <@unknown>class={<@toString><@toNull><@1/><@/toNull></@toString>}</@unknown>
+    <@unknown>class={<@toNull><@1/><@/toNull> === null ? null : <@toString><@toNull><@1/><@/toNull></@toString>}</@unknown>
   </@?>
   <@?>
     <@isSome><@2/></@isSome>
@@ -311,7 +289,7 @@ external div: (~className:string=?, ~style:style=?, ~children:xhp=?, unit) => xh
   <div <@?><@isSome><@1/></@isSome>
     <@true>class=<@toString><@toNull><@1/><@/toNull></@toString></@true>
     <@false/>
-    <@unknown>class={<@toString><@toNull><@1/><@/toNull></@toString>}</@unknown>
+    <@unknown>class={<@toNull><@1/><@/toNull> === null ? null : <@toString><@toNull><@1/><@/toNull></@toString>}</@unknown>
   </@?>
   <@?><@isSome><@2/></@isSome>
     <@true>style={<@toNull><@2/><@/toNull>}</@true>
@@ -340,3 +318,7 @@ let myOuterDiv = {
   ...innerDiv
   </div>;
 };
+
+let createDivWithUnknowns = (~className=?, ~style=?, ()) => {
+  <div ?className ?style>...emptyChildren</div>
+}

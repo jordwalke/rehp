@@ -9,7 +9,9 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
+var my_project_foo_SomeClass = require("my-project/foo/SomeClass");
 var caml_js_is_some = runtime["caml_js_is_some"];
+var caml_js_nullable = runtime["caml_js_nullable"];
 var string = runtime["caml_new_string"];
 
 function call1(f, a0) {
@@ -57,8 +59,8 @@ runtime["outerOuter"](
 
 function includeMe(param) {return 0;}
 
-var boolTest1 = SomeClass.hereIsSomeBools(! ! 1, ! ! 0) | 0;
-var boolTest2 = SomeClass.hereIsSomeBools(! ! 0, ! ! 1) | 0;
+var boolTest1 = my_project_foo_SomeClass.hereIsSomeBools(! ! 1, ! ! 0) | 0;
+var boolTest2 = my_project_foo_SomeClass.hereIsSomeBools(! ! 0, ! ! 1) | 0;
 
 (runtime["foo"](0));
 
@@ -76,14 +78,30 @@ var j_ = [0,call1(Stdlib[46], cst_Argsideeffect1__3)];
 var oneSideEffectCorrect = runtime["somePrimitive"](0, 0  );
 var k_ = [0,call1(Stdlib[46], cst_Argsideeffect1__4)];
 var twoSideEffectCorrect = runtime["somePrimitive"](k_, k_  );
-var myStyle = {backgroundColor: "blue",color: "black",};
+var myStyle = {
+  backgroundColor: "blue",color: "black",};
 var emptyChildren = </>;
-var innerDiv = <div class="ThisIsTheClasName"  style={{backgroundColor: "red",}}  >
+var innerDiv = <div class="ThisIsTheClasName"  style={{
+  backgroundColor: "red",}}  >
   {emptyChildren}
 </div>;
-var myOuterDiv = <div class="OuterDiv"  style={{backgroundColor: "red",color: "black",}}  >
+var myOuterDiv = <div class="OuterDiv"  style={{
+  backgroundColor: "red",color: "black",}}  >
   {innerDiv}
 </div>;
+var trueee = 1;
+var falseee = 0;
+
+function createDivWithUnknowns(className, style, param) {
+  return (
+    <div class={caml_js_nullable(className) === null ? null : caml_js_nullable(
+      className
+    ).toString()}  style={caml_js_nullable(style)}  >
+  {emptyChildren}
+</div>
+  );
+}
+
 var Calls_Macros = [
   0,
   null__0,
@@ -93,8 +111,8 @@ var Calls_Macros = [
   nestedResult2,
   nestedResult3,
   includeMe,
-  1,
-  0,
+  trueee,
+  falseee,
   boolTest1,
   boolTest2,
   oneTwoSideEffectUngrouped,
@@ -105,7 +123,8 @@ var Calls_Macros = [
   twoSideEffectCorrect,
   myStyle,
   emptyChildren,
-  myOuterDiv
+  myOuterDiv,
+  createDivWithUnknowns
 ];
 
 module.exports = Calls_Macros;
@@ -131,6 +150,7 @@ module.exports = Calls_Macros;
   myStyle: any,
   emptyChildren: any,
   myOuterDiv: any,
+  createDivWithUnknowns: (className: any, style: any, param: any) => any,
 }*/
 /** @type {{
   _null_: any,
@@ -153,6 +173,7 @@ module.exports = Calls_Macros;
   myStyle: any,
   emptyChildren: any,
   myOuterDiv: any,
+  createDivWithUnknowns: (className: any, style: any, param: any) => any,
 }} */
 module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports._null_ = module.exports[1];
@@ -175,5 +196,6 @@ module.exports.twoSideEffectCorrect = module.exports[17];
 module.exports.myStyle = module.exports[18];
 module.exports.emptyChildren = module.exports[19];
 module.exports.myOuterDiv = module.exports[20];
+module.exports.createDivWithUnknowns = module.exports[21];
 
 /* Hashing disabled */

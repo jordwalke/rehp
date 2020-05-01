@@ -432,6 +432,9 @@ let custom_module_loader = () =>
       ),
   );
 
+let module_require = () => None;
+
+
 let runtime_module_var = () =>
   Rehp.ERaw([
     Rehp.RawText("(\\Rehack\\GlobalObject::get() as dynamic)->jsoo_runtime"),

@@ -14,6 +14,7 @@ final class Calls__Macros {
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $caml_js_is_some = $runtime["caml_js_is_some"];
+    $caml_js_nullable = $runtime["caml_js_nullable"];
     $string = $runtime["caml_new_string"];
     $cst_hello = $string("hello");
     $cst_hi = $string("hi");
@@ -83,6 +84,20 @@ $runtime["outerOuter"](
     $myOuterDiv = <div class="OuterDiv"  style={{backgroundColor: "red",color: "black",}}  >
   {$innerDiv}
 </div>;
+    $trueee = 1 as dynamic;
+    $falseee = 0 as dynamic;
+    $createDivWithUnknowns = 
+    (dynamic $className, dynamic $style, dynamic $param) : dynamic ==> {
+      return (
+        <div class={$caml_js_nullable($className) === null ? null : $caml_js_nullable(
+          $className
+        )->toString()}  style={$caml_js_nullable(
+          $style
+        )}  >
+  {$emptyChildren}
+</div>
+      );
+    };
     $Calls_Macros = Vector{
       0,
       $null__0,
@@ -92,8 +107,8 @@ $runtime["outerOuter"](
       $nestedResult2,
       $nestedResult3,
       $includeMe,
-      1,
-      0,
+      $trueee,
+      $falseee,
       $boolTest1,
       $boolTest2,
       $oneTwoSideEffectUngrouped,
@@ -104,7 +119,8 @@ $runtime["outerOuter"](
       $twoSideEffectCorrect,
       $myStyle,
       $emptyChildren,
-      $myOuterDiv
+      $myOuterDiv,
+      $createDivWithUnknowns
     } as dynamic;
     
     return($Calls_Macros);
@@ -112,6 +128,9 @@ $runtime["outerOuter"](
   }
   public static function includeMe(dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 7, $param);
+  }
+  public static function createDivWithUnknowns(dynamic $className, dynamic $style, dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 21, $className, $style, $param);
   }
 
 }

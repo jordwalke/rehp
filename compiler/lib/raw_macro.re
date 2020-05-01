@@ -106,7 +106,7 @@ type macroData = {
  * or may not evaluate to empty.
  *
  * TODO: Split `toNull` into three different forms:
- *   - `toNullable`: Today's `caml_js_to_null`
+ *   - `toNullable`: Today's `caml_js_nullable`
  *   - `toNull`: The same, but demands that the eval prove it is None.
  *   - `toNonNull`: The same, but demands that eval prove it is Some.
  *
@@ -118,6 +118,7 @@ type macroData = {
  * TODO: Add the following sugars:
  * <@1.isSome/>                            ==>   <@isSome><@1/></@isSome>
  * <@toString.toNull>X</@toString.toNull>  ==>   <@toNull><@toString>X</@toString></@toNull>
+ * (Possibly on allow the previous with the form):
  * <@1.toString.toNull/>                   ==>   <@toNull><@toString><@1/></@toString></@toNull>
  * <@?>                                    ==>   <@?>
  *   testExpr                                      testExpr
@@ -204,14 +205,6 @@ let formatForError = s => {
   |> String.concat(~sep="\n");
 };
 
-/**
- * Exception for problems that the user is responsible for - something wrong
- * with their code for example.
- * Could be used beyond macros as well. Used to surface a user facing message
- * with potential file/lineno.
- */
-exception UserError(string, option(Parse_info.t));
-
 let commonError = {|There is a problem with the macro being called at this approximate location.|};
 
 type tokens =
@@ -285,7 +278,7 @@ let raiseMacroUnsupportedTag = (~hint="", tagName, macroData) => {
       validMacroHelp,
       formatForError(macroData.macro),
     );
-  raise(UserError(msg, macroData.callerLoc));
+  raise(Errors.UserError(msg, macroData.callerLoc));
 };
 
 let raiseMalformedMacro = (specificError, macroData) => {
@@ -300,7 +293,7 @@ let raiseMalformedMacro = (specificError, macroData) => {
       specificError,
       formatForError(macroData.macro),
     );
-  raise(UserError(msg, macroData.callerLoc));
+  raise(Errors.UserError(msg, macroData.callerLoc));
 };
 
 let raiseInternalError = (specificError, macroData) => {
@@ -318,7 +311,7 @@ let raiseInternalError = (specificError, macroData) => {
       specificError,
       formatForError(macroData.macro),
     );
-  raise(UserError(msg, macroData.callerLoc));
+  raise(Errors.UserError(msg, macroData.callerLoc));
 };
 
 let raiseMalformedPrim = (specificError, (primTag, prim_name), macroData) => {
@@ -348,7 +341,7 @@ let raiseMalformedPrim = (specificError, (primTag, prim_name), macroData) => {
       validMacroHelp,
       formatForError(macroData.macro),
     );
-  raise(UserError(msg, macroData.callerLoc));
+  raise(Errors.UserError(msg, macroData.callerLoc));
 };
 
 let raiseIndexNotSupported = (i, len, macroData) => {
@@ -368,7 +361,7 @@ let raiseIndexNotSupported = (i, len, macroData) => {
       len,
       formatForError(macroData.macro),
     );
-  raise(UserError(msg, macroData.callerLoc));
+  raise(Errors.UserError(msg, macroData.callerLoc));
 };
 
 let raiseNestedMacro = macroData => {
@@ -385,7 +378,7 @@ let raiseNestedMacro = macroData => {
       commonError,
       formatForError(macroData.macro),
     );
-  raise(UserError(msg, macroData.callerLoc));
+  raise(Errors.UserError(msg, macroData.callerLoc));
 };
 
 let nth_error = (lst, i, nm) =>
@@ -414,7 +407,7 @@ let primName = prim =>
   | "toString" => "caml_js_from_string"
   | "toBool" => "caml_js_from_bool"
   | "fromBool" => "caml_js_to_bool"
-  | "require" => "%caml_load_global_module"
+  | "nonRelativeRequire" => "%caml_require"
   | "" => "%caml_js_expanded_raw_macro_done"
   | s => s
   };
@@ -755,6 +748,26 @@ let expandPrimBindingsAndArgs = (~mode, md, origArgs, nodeList) => {
         expand(~doExpand=true, ~inIf=true, unknowns, revArgs);
       let nextRevBindings = List.concat([revBindingsUnknown, revBindings]);
       (nextRevBindings, curTxt ++ sUnknown, revArgs);
+    | (Prim(tag, "%caml_require", [Raw(path)]), true, _, _) =>
+      /* Reset arg count for prims. They get own args and whole prim call
+       * becomes a single arg for the current macro.  */
+      let bindingVar = Code.Var.fresh();
+      let len = String.length(path);
+      let path =
+        len > 1 && path.[0] === '"' && path.[len - 1] === '"'
+          ? String.sub(path, ~pos=1, ~len=len - 2) : path;
+
+      let args = [Code.Pc(Code.IString(path))];
+      let revBindingsWithThis = [
+        ((tag, "%caml_require", bindingVar), args),
+        ...revBindings,
+      ];
+      let nextRevArgsWithBinding = [Code.Pv(bindingVar), ...revArgs];
+      (
+        revBindingsWithThis,
+        curTxt ++ renderPos(List.length(nextRevArgsWithBinding)),
+        nextRevArgsWithBinding,
+      );
     | (Prim(tag, prim, subs), true, _, _) =>
       /* Filter empty tag in prim calls because forbid raw text, but allow white. */
       let errorNonEmpty = Some((tag, prim));
@@ -815,8 +828,15 @@ let expandPrimBindingsAndArgs = (~mode, md, origArgs, nodeList) => {
 };
 
 /**
- * Removes backend primitive specifies, and automatically hoists RawIfs
- * supplied directly as primitive args into their own extern calls.
+ * - Removes backend primitive specific portions.
+ * - Automatically hoists RawIfs supplied directly as primitive args into their
+ * own extern calls.
+ * - Converts sugars such as `<@1.toNull
+ * - Converts all of the following to `<@require>Raw(MyModule)</@require>` even
+ * though this would not be allowed for any other prim.
+ *
+ *     <@require>MyModule</@require>
+ *     <@require>"MyModule"</@require>
  */
 let rec normalize = (~forBackend, nodeList) => {
   let be = forBackend;
@@ -831,46 +851,43 @@ let rec normalize = (~forBackend, nodeList) => {
       )
     | _ => node
     };
-  let taken =
-    List.fold_left(
-      ~init=[],
-      ~f=
-        (cur, child) =>
-          switch (child) {
-          | Raw(_) as r => [r, ...cur]
-          | Arg(_) as a => [a, ...cur]
-          /* TODO: Normalize the expression test */
-          | RawIf(exp, tr, fl, un) => [
-              RawIf(
-                exp,
-                normalize(tr, ~forBackend),
-                normalize(fl, ~forBackend),
-                normalize(un, ~forBackend),
-              ),
-              ...cur,
-            ]
-          | Prim(tag, thePrimName, sub) =>
-            let isOldForm =
-              String.equal(tag, "js") || String.equal(tag, "php");
-            if (isOldForm) {
-              String.equal(tag, be)
-                ? List.rev_append(normalize(sub, ~forBackend), cur) : cur;
-            } else if (String.length(tag) > 1
-                       && String.equal(String.sub(tag, ~pos=0, ~len=1), ".")) {
-              String.equal(
-                String.sub(tag, ~pos=1, ~len=String.length(tag) - 1),
-                be,
-              )
-                ? List.rev_append(normalize(sub, ~forBackend), cur) : cur;
-            } else {
-              let sub =
-                thePrimName == "%caml_js_expanded_raw_macro_done"
-                  ? sub : List.map(sub, ~f=primify);
-              [Prim(tag, thePrimName, normalize(sub, ~forBackend)), ...cur];
-            };
-          },
-      nodeList,
-    );
+  let folder = (cur, child) =>
+    switch (child) {
+    | Raw(_) as r => [r, ...cur]
+    | Arg(_) as a => [a, ...cur]
+    /* TODO: Normalize the expression test */
+    | RawIf(exp, tr, fl, un) => [
+        RawIf(
+          exp,
+          normalize(tr, ~forBackend),
+          normalize(fl, ~forBackend),
+          normalize(un, ~forBackend),
+        ),
+        ...cur,
+      ]
+    | Prim(tag, thePrimName, sub) =>
+      let isOldForm = String.equal(tag, "js") || String.equal(tag, "php");
+      if (isOldForm) {
+        String.equal(tag, be)
+          ? List.rev_append(normalize(sub, ~forBackend), cur) : cur;
+      } else if (String.length(tag) > 1
+                 && String.equal(String.sub(tag, ~pos=0, ~len=1), ".")) {
+        String.equal(
+          String.sub(tag, ~pos=1, ~len=String.length(tag) - 1),
+          be,
+        )
+          ? List.rev_append(normalize(sub, ~forBackend), cur) : cur;
+      } else {
+        let sub =
+          switch (thePrimName, sub) {
+          | ("%caml_js_expanded_raw_macro_done", sub) => sub
+          | ("%caml_require", [Raw(requirePath)]) => sub
+          | _ => List.map(sub, ~f=primify)
+          };
+        [Prim(tag, thePrimName, normalize(sub, ~forBackend)), ...cur];
+      };
+    };
+  let taken = List.fold_left(~init=[], ~f=folder, nodeList);
   List.rev(taken);
 };
 
