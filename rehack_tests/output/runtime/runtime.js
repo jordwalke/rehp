@@ -1469,6 +1469,8 @@ function caml_wrap_exception(e) {
 
 function caml_load_global_module(n) {return caml_global_data[n];}
 
+function caml_js_is_some(a) {return a === 0 ? 0 : Array.isArray(a);}
+
 function caml_final_register_called_without_value(_unit) {return 0;}
 
 function caml_sys_random_seed(_unit) {
@@ -4264,6 +4266,8 @@ function caml_ba_sub(ba, ofs, len) {return ba.sub(ofs, len);}
 
 function caml_gc_full_major() {return 0;}
 
+function caml_js_is_none(a) {return a === 0 ? 1 : 0;}
+
 function caml_int64_is_minus_one(x) {
   return x[3] == 65535 && (x[1] & x[2]) == 16777215;
 }
@@ -5173,6 +5177,8 @@ joo_global_object.jsoo_runtime =
     caml_js_fun_call: caml_js_fun_call,
     caml_js_call: caml_js_call,
     caml_js_var: caml_js_var,
+    caml_js_is_none: caml_js_is_none,
+    caml_js_is_some: caml_js_is_some,
     caml_js_nullable: caml_js_nullable,
     caml_js_to_array: caml_js_to_array,
     caml_js_from_array: caml_js_from_array,
