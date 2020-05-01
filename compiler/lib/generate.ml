@@ -961,7 +961,7 @@ let register_un_prim name k f =
       | [ x ] ->
           let (px, cx), queue = access_queue' ~ctx queue x in
           f cx loc, or_p (kind k) px, queue
-      | _ -> assert false)
+      | _ -> failwith name)
 
 let register_un_prim_ctx name k f =
   register_prim name k (fun l queue ctx loc ->
@@ -1354,7 +1354,7 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
             ERaw [ Rehp.RawText nm ], const_p, queue
         (* The fact that caml_js_raw_expr has "registered arity" is likely
          * going to be a problem here *)
-        | Extern "%caml_js_expanded_raw_macro", Pc (String m | IString m) :: l
+        | Extern "%caml_js_expanded_raw_macro_done", Pc (String m | IString m) :: l
         | Extern "caml_js_raw_expr", Pc (String m | IString m) :: ([] as l) ->
             let args, prop, queue =
               List.fold_right

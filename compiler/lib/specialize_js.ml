@@ -18,11 +18,21 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
+
+(* TODO: I think that the expanded bindings themselves need to get passed to
+ * specialize *)
 open Stdlib
 open Code
 open Flow
 
-
+let loc_from_debug_data_for_errors debug_data_for_errors addr x =
+  match
+    ( Parse_bytecode.Debug.find_loc debug_data_for_errors addr
+    , Code.Var.get_loc x )
+  with
+  | Some pi, None | None, Some pi | Some _, Some pi -> Some pi
+  | _ -> None
+  
 let the_option_of info x =
   match x with
   | Pv x ->
@@ -51,27 +61,18 @@ let the_option_of info x =
   | Pc (Tuple (0, [| a |], _)) -> `CBlock a
   | _ -> `Unknown
 
-let test_some info a =
-  (match the_option_of info a, a with
-  | `Block, Pv a -> true
-  | `CBlock a, _ -> true
-  | `CConst 0, _ -> false
-  | `Block, Pc _ | `CConst _, _ | `Unknown, _ -> false)
-  
-let test_none info a =
-  (match the_option_of info a, a with
-  | `Block, Pv a -> false
-  | `CBlock a, _ -> false
-  | `CConst 0, _ -> true
-  | `Block, Pc _ | `CConst _, _ | `Unknown, _ -> false)
-
 let test_true info a =
-  (match the_option_of info a, a with
-  | `Block, Pv a -> Some false
-  | `CBlock a, _ -> Some false
-  | `CConst 0, _ -> Some false
-  | `CConst 1, _ -> Some true
-  | `Block, Pc _ | `CConst _, _ | `Unknown, _ -> None)
+  (match the_int info a with
+  | Some i when i = 1l ->
+    print_endline ("Testing truthiness of " ^ string_of_int(Int32.to_int i));
+      Some(true)
+  | Some i ->
+    print_endline ("Testing truthiness of !1 " ^ string_of_int(Int32.to_int i));
+      Some(false)
+  | _ ->
+      
+    print_endline ("Testing truthiness of unknown ");
+      None)
 
 (* Could add Pc (IString (Var.to_string v)); to get the string name of
  * the identifier, but the names aren't registered correctly at this
@@ -154,25 +155,6 @@ let argument_names_of info x =
 
 let specialize_instr addr info i rem =
   match i with
-  (* TODO: Enable this for caml_js_raw_expr *)
-  (* | Let (x, Prim (Extern "caml_js_raw_expr", y :: rest)) -> *)
-  (*     (match the_string_of info y with *)
-  (*     | Some s -> Let (x, Prim (Extern "caml_js_raw_expr", Pc (String s) :: rest)) *)
-  (*     | _ -> i) *)
-  (*     :: rem *)
-  | Let (x, Prim (Extern "%caml_js_expanded_raw_macro", Pc (String m | IString m) :: args)) ->
-      let be = Backend.Current.compiler_backend_flag () in
-      let macro_data = Raw_macro.extractExpanded ~forBackend:be ?loc:None m in
-      let node_list = Raw_macro.parseNodeList macro_data in
-      let (node_list, args) =
-        Raw_macro.evalDefinitelyInExpanded
-          node_list
-          macro_data
-          args
-          ~testVal:(test_true info) in
-      let macro_text = Raw_macro.printNodeList node_list in
-      Let (x, Prim (Extern "%caml_js_expanded_raw_macro", Pc (String macro_text) :: args))
-      :: rem
   | Let (x, Prim (Extern "caml_register_global_module", [ind; modul; name])) ->
       (let the_metadata_of info x =
          match the_block_of info x with
@@ -493,37 +475,32 @@ let f_once debug_data_for_errors p =
     | [] -> []
     | i :: r -> (
       match i with
-      (* Arguably this should only be done in f_once (the round that only
-       * happens once) since the purpose of this is to expand arguments, and
-       * there will never be a case where some other compiler stage might
-       * create a new raw macro that should be expanded or re-expanded (unless
-       * maybe if macros can expand other macros, when one gets inlined).
+      (*
+       * Perform one round of expansion because doing so in f_once doesn't
+       * conflict with identifier tables etc.  So we sneak in one more
+       * opportunity to inline/evaluate correctly, while also being able to
+       * detect problems with the macro text early while we have the debug
+       * data.
        *)
       | Let (x, Prim (Extern nm, args)) when Raw_macro.isUnexpanded nm ->
-          let loc =
-            match
-              ( Parse_bytecode.Debug.find_loc debug_data_for_errors addr
-              , Code.Var.get_loc x )
-            with
-            | Some pi, None | None, Some pi | Some _, Some pi -> Some pi
-            | _ -> None
-          in
+          print_endline "!!EVAL STAGE 0";
+          let loc = loc_from_debug_data_for_errors debug_data_for_errors addr x in
           let be = Backend.Current.compiler_backend_flag () in
-          let macro_data = Raw_macro.extractUnexpanded ~forBackend:be ?loc nm in
-          let node_list =
-            Raw_macro.evalBackends (Raw_macro.parseNodeList macro_data) be
-          in
-          let expanded_bindings =
-            Raw_macro.expandIntoMultipleArguments x macro_data args node_list
-          in
-          
-          (* Turn into special % primitive so that none of the inlining optimizations apply *)
-          (List.map expanded_bindings
-            ~f:(fun ((user_extern_name, extern_name, binding_var), args) ->
-             Let
-              ( binding_var, Prim ( Extern extern_name, args ) )
-            ))
-          @ loop addr r
+          let macro_data = Raw_macro.extractOriginalExtern ~forBackend:be ?loc nm in
+          (* Does not generate new intermediate bindings, so Flow does not need to rerun before
+           * rerunning expandPrimBindingsAndArgs *)
+          let node_list = Raw_macro.parseNodeList macro_data in
+          let node_list = Raw_macro.normalize node_list ~forBackend:be in
+          let (new_bindings, next_macro_text, next_macro_args) =
+            Raw_macro.Eval.expandMacros x macro_data node_list args in
+          new_bindings @
+          (Let
+            (x,
+             Prim
+              ( Extern "%caml_js_expanded_raw_macro",
+                Code.Pc (Code.String next_macro_text) :: next_macro_args))
+          ::
+          loop addr r)
       | Let
           ( x
           , ( (Prim (Extern "caml_js_delete", [_; _]) as p)
@@ -544,3 +521,4 @@ let f_once debug_data_for_errors p =
       p.blocks
   in
   { p with blocks }
+  

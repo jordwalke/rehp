@@ -3,7 +3,6 @@ external nullable_of_option : 'a => 'b = "caml_js_nullable";
 let null = nullable_of_option(None);
 
 external toOption : 'a => option('b) = {|
-  raw-macro:
   <@.php>
     <@1/> === null ? 0 : Vector {0, <@1/>}
   </@.php>
@@ -19,23 +18,22 @@ external duplicateNestedExternCalls: 'a => 'any = {|
 |};
 
 external callExternWithConvertedToNull: ('a, 'b, 'c, 'd, 'e) => 'any = {|
-  raw-macro:
-  <@js>
+  <@.js>
   new Array(
-  </@js>
-  <@php>
-  varray[
-  </@php>
-    <@outerOuter><@outer><@inner><@1/></@inner></@outer></@outerOuter>
+    <@outerOuter><@outer><@inner><@1/></@inner></@outer></@outerOuter>,
     <@toString><@2/></@toString>,
     <@toNull><@3/></@toNull>,
-    <@toNull><@4/></@toNull>
-  <@js>
+    <@toString><@toNull><@4/></@toNull></@toString>
   )
-  </@js>
-  <@php>
+  </@.js>
+  <@.php>
+  varray[
+    <@outerOuter><@outer><@inner><@1/></@inner></@outer></@outerOuter>,
+    <@toString><@2/></@toString>,
+    <@toNull><@3/></@toNull>,
+    <@toString><@toNull><@4/></@toNull></@toString>
   ]
-  </@php>
+  </@.php>
 |};
 
 let inlinesMacros =
@@ -68,14 +66,11 @@ let trueee = true;
 let falseee = false;
 
 external acceptsBools : (bool, bool) => bool = "
-  raw-macro:
   <@.php>
-    <@fromBool>
-    <@raw>SomeClass::hereIsSomeBools(<@toBool><@1/></@toBool>, <@toBool><@2/></@toBool>)</@raw>
-    </@fromBool>
+    <@fromBool><@>SomeClass::hereIsSomeBools(<@toBool><@1/></@toBool>, <@toBool><@2/></@toBool>)</@></@fromBool>
   </@.php>
   <@.js>
-  <@fromBool><@raw>SomeClass.hereIsSomeBools(<@toBool><@1/></@toBool>, <@toBool><@2/></@toBool>)</@raw></@fromBool>
+    <@fromBool><@>SomeClass.hereIsSomeBools(<@toBool><@1/></@toBool>, <@toBool><@2/></@toBool>)</@></@fromBool>
   </@.js>
 ";
 
@@ -90,37 +85,258 @@ sideEffect();
 
 /**
  * Test this too:
-  <someExtern>
-      <@2/>
-      <@raw.ifDefinitelySome1>
+  <somePrimitive>
+      <@2/somePrimitive
+      <@if.1.known.some>
         <@1/>
-      </@raw.ifDefinitelySome1>
-  </someExtern>
+      <@/if.1.known.some>
+  </somePrimitive>
 */
-external xhpDiv : (~className:string=?, ~className2:string=?, list('a)) => option('b) = {|
+
+
+/**
+ * Ideally, we could just omit the <@>
+ */
+external ungroupedConditionalsNotCountedAsOneArg : ('a, 'b) => 'c = {|
 raw-macro:
-  <@.php>
-  <div <@raw.ifDefinitelySome1>className={<@toString><@toNull><@2/></@toNull></@toString>}</@raw.ifDefinitelySome1>>
-  </div>
-  </@.php>
-  <@.js>
-  <div <@raw.ifDefinitelySome1>className={<@toString><@toNull><@2/></@toNull></@toString>}</@raw.ifDefinitelySome1>>
-  </div>
-  </@.js>
+  <@somePrimitive>
+    <@2/>
+    <@?>
+      <@isSome><@1/></@isSome>
+      <@true><@toNull><@1/><@/toNull><@/true>
+      <@false><@2/><@/false>
+      <@unknown><@2/></@unknown>
+    </@?>
+  </@somePrimitive>
+|};
+
+external correctConditionalsCountedAsOneArg : ('a, 'b) => 'c = {|
+raw-macro:
+  <@somePrimitive>
+    <@2/>
+    <@>
+      <@?>
+        <@isSome><@1/></@isSome>
+        <@true><@toNull><@1/><@/toNull><@/true>
+        <@false><@2/><@/false>
+        <@unknown><@2/><@/unknown>
+      <@/?>
+    </@>
+  </@somePrimitive>
 |};
 
 
-let myDiv = xhpDiv(~className="one", ~className2="two", []);
+let oneTwoSideEffectUngrouped =
+  ungroupedConditionalsNotCountedAsOneArg(
+    Some(print_endline("Argsideeffect1")),
+    Some(print_endline("Argsideeffect2")),
+  );
+
+let oneSideEffectUngrouped =
+  ungroupedConditionalsNotCountedAsOneArg(
+    Some(print_endline("Argsideeffect1")),
+    (),
+  );
+
+let twoSideEffectUngrouped =
+  ungroupedConditionalsNotCountedAsOneArg(
+    (),
+    Some(print_endline("Argsideeffect1")),
+  );
+
+let oneTwoSideEffectCorrect =
+  correctConditionalsCountedAsOneArg(
+    Some(print_endline("Argsideeffect1")),
+    Some(print_endline("Argsideeffect2")),
+  );
+
+let oneSideEffectCorrect =
+  correctConditionalsCountedAsOneArg(
+    Some(print_endline("Argsideeffect1")),
+    (),
+  );
+
+let twoSideEffectCorrect =
+  correctConditionalsCountedAsOneArg(
+    (),
+    Some(print_endline("Argsideeffect1")),
+  );
 
 /**
- * Test that even though the second arg will get removed, its side effect still
- * takes place.
+ * Test invalid:
+ * 
+ * <@2.toNull.toString>anythinghere</@2.toNull.toString>
+ * <@.toNull.toString><@more/><@than/><@one/></@toNull.toString>
  */
-let myDiv2 = xhpDiv(~className2=sideEffectAny("sideEffectToInlinedArg"), []);
+type style;
+external style: (~backgroundColor:string=?, ~color:string=?, unit) => style = {|
+  <@.js>{<@1.isSome?>
+      <@>backgroundColor: <@1.toString.toNull/>,</@>
+      <@></@>
+      <@>backgroundColor: <@1.toNull.toString/>,</@>
+    </@1.isSome?><@2.isSome?>
+      <@>color: <@2.toNull.toString/>,</@>
+      <@></@>
+      <@unknown>color: <@2.toNull.toString/>,</@unknown>
+  </@2.isSome?>}</@.js>
+  <@.php>{<@?>
+      <@1.isSome/>
+      <@>backgroundColor: <@1.toString.toNull/>,</@>
+      <@></@>
+      <@>backgroundColor: <@1.toNull.toString/>,</@>
+    </@?><@?>
+      <@2.isSome/>
+      <@>color: <@2.toNull.toString/>,</@>
+      <@></@>
+      <@unknown>color: <@2.toNull.toString/>,</@unknown>
+  </@?>}</@.php>
+|};
+
+external style: (~backgroundColor:string=?, ~color:string=?, unit) => style = {|
+  <@.js>{<@?>
+      <@isSome><@1/></@isSome>
+      <@true>backgroundColor: <@toString><@toNull><@1/><@/toNull></@toString>,</@true>
+      <@false></@false>
+      <@unknown>backgroundColor: <@toString><@toNull><@1/><@/toNull></@toString>,</@unknown>
+    </@?><@?>
+      <@isSome><@2/></@isSome>
+      <@true>color: <@toString><@toNull><@2/><@/toNull></@toString>,</@true>
+      <@false></@false>
+      <@unknown>color: <@toString><@toNull><@2/><@/toNull></@toString>,</@unknown>
+  </@?>}</@.js>
+  <@.php>{<@?>
+      <@isSome><@1/></@isSome>
+      <@true>backgroundColor: <@toString><@toNull><@1/><@/toNull></@toString>,</@true>
+      <@false></@false>
+      <@unknown>backgroundColor: <@toString><@toNull><@1/><@/toNull></@toString>,</@unknown>
+    </@?><@?>
+      <@isSome><@2/></@isSome>
+      <@true>color: <@toString><@toNull><@2/><@/toNull></@toString>,</@true>
+      <@false></@false>
+      <@unknown>color: <@toString><@toNull><@2/><@/toNull></@toString>,</@unknown>
+  </@?>}</@.php>
+|};
+
+let myStyle = style(~backgroundColor="blue", ~color="black", ());
+
+type xhp;
 
 /**
- * Test that the side effect is always performed even though the first arg
- * doesn't actually appear in the output, and is only used to shape the
- * template.
+ * Ideally we would have a lot more sugar.
  */
-let myDiv3 = xhpDiv(~className=sideEffectAny("sideEffectToArgUsedToTest"), ~className2="hi", []);
+external div: (~className:string=?, ~style:style=?, ~children:string=?, unit) => xhp = {|
+<@.js>
+  <div <@?>
+    <@isSome><@1/></@isSome>
+    <@true>class=<@1.toNull.toString/></@true>
+    <@false/>
+    <@unknown>class={<@1.toNull.toString/>}</@unknown>
+    <@isSome><@2/></@isSome>
+    <@true>style={<@2.toNull/>}</@true>
+    <@false/>
+    <@unknown>style={<@2.toNull/>}</@unknown>
+    <@isSome><@3/></@isSome>
+    <@true>>{<@3.toNull.toString/>} </div> </@true>
+    <@false>/></@false>
+    <@unknown>>{<@3.toNull.toString/>}</div></@unknown>
+  </@?>
+</@.js>
+|};
+
+/**
+ * And ideally we would have sub-macro embedding with `.toRaw`.
+ */
+external dom: (~tag:string, ~className:string=?, ~style:style=?, ~children:string=?, unit) => xhp = {|
+<@.js>
+  <<@1.toRaw/> <@?>
+    <@isSome><@2/></@isSome>
+    <@true>class=<@2.toNull.toString/></@true>
+    <@false/>
+    <@unknown>class={<@2.toNull.toString/>}</@unknown>
+    <@isSome><@3/></@isSome>
+    <@true>style={<@3.toNull/>}</@true>
+    <@false/>
+    <@unknown>style={<@3.toNull/>}</@unknown>
+    <@isSome><@4/></@isSome>
+    <@true>>{<@4.toNull.toString/>} </div> </@true>
+    <@false>/></@false>
+    <@unknown>>{<@4.toNull.toString/>}</div></@unknown>
+  </@?>
+</@.js>
+|};
+
+external div: (~className:string=?, ~style:style=?, ~children:string=?, unit) => xhp = {|
+  dom(div)
+|};
+
+external emptyXhp : unit => xhp = {|
+<@.js></>
+</@.js>
+<@.php></>
+</@.php>
+|};
+
+let emptyChildren = emptyXhp();
+
+
+/**
+ * Testing xhp.
+ */
+external div: (~className:string=?, ~style:style=?, ~children:xhp=?, unit) => xhp = {|
+<@.js>
+  <div <@?>
+    <@isSome><@1/></@isSome>
+    <@true>class=<@toString><@toNull><@1/><@/toNull></@toString></@true>
+    <@false/>
+    <@unknown>class={<@toString><@toNull><@1/><@/toNull></@toString>}</@unknown>
+  </@?>
+  <@?>
+    <@isSome><@2/></@isSome>
+    <@true>style={<@toNull><@2/><@/toNull>}</@true>
+    <@false/>
+    <@unknown>style={<@toNull><@2/><@/toNull>}</@unknown></@?>
+  <@?>
+    <@isSome><@3/></@isSome>
+    <@true>>
+    {<@toNull><@3/></@toNull>}
+    </div>
+  </@true>
+  <@false>/></@false>
+  <@unknown>>
+    {<@toNull><@3/></@toNull>}
+  </div></@unknown>
+  </@?>
+</@.js>
+<@.php>
+  <div <@?><@isSome><@1/></@isSome>
+    <@true>class=<@toString><@toNull><@1/><@/toNull></@toString></@true>
+    <@false/>
+    <@unknown>class={<@toString><@toNull><@1/><@/toNull></@toString>}</@unknown>
+  </@?>
+  <@?><@isSome><@2/></@isSome>
+    <@true>style={<@toNull><@2/><@/toNull>}</@true>
+    <@false/>
+    <@unknown>style={<@toNull><@2/><@/toNull>}</@unknown></@?>
+  <@?><@isSome><@3/></@isSome>
+  <@true>>
+    {<@toNull><@3/></@toNull>}
+  </div>
+  </@true>
+  <@false>/></@false>
+  <@unknown>>
+    {<@toNull><@3/></@toNull>}
+  </div></@unknown>
+  </@?>
+</@.php>
+|};
+
+
+let myOuterDiv = {
+  let innerDiv =
+    <div className="ThisIsTheClasName" style=style(~backgroundColor="red", ())>
+    ...emptyChildren
+    </div>;
+  <div className="OuterDiv" style=style(~backgroundColor="red", ~color="black", ())>
+  ...innerDiv
+  </div>;
+};

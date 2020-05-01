@@ -31,6 +31,47 @@ let get_static_env s = try Some (Hashtbl.find static_env s) with Not_found -> No
 
 module Int = Int32
 
+let the_option_of info x =
+  match x with
+  | Pv x ->
+      get_approx
+        info
+        (fun x ->
+          match info.info_defs.(Var.idx x) with
+          | Expr (Constant (Int i)) -> `CConst (Int32.to_int i)
+          | Expr (Block (0, _, _)) ->
+              if info.info_possibly_mutable.(Var.idx x) then `Unknown else `Block
+          | Expr (Constant (Tuple (0, [| a |], _))) -> `CBlock a
+          | _ -> `Unknown)
+        `Unknown
+        (fun u v ->
+          match u, v with
+          | `Block, `Block -> u
+          | `CBlock a, `CBlock b -> if Poly.equal a b then u else `Unknown
+          | `CConst i, `CConst j when i = j -> u
+          | `Unknown, _
+          | `Block, (`Unknown | `CBlock _ | `CConst _)
+          | `CBlock _, (`Unknown | `Block | `CConst _)
+          | `CConst _, (`Unknown | `Block | `CBlock _ | `CConst _) ->
+              `Unknown)
+        x
+  | Pc (Int i) -> `CConst (Int32.to_int i)
+  | Pc (Tuple (0, [| a |], _)) -> `CBlock a
+  | _ -> `Unknown
+
+let test_true info a =
+  (match the_int info a with
+  | Some i when i = 1l ->
+    print_endline ("Testing truthiness of " ^ string_of_int(Int32.to_int i));
+      Some(true)
+  | Some i ->
+    print_endline ("Testing truthiness of !1 " ^ string_of_int(Int32.to_int i));
+      Some(false)
+  | exception _
+  | _ ->
+    print_endline ("Testing truthiness of unknown ");
+      None)
+
 let int_binop l f =
   match l with
   | [ Int i; Int j ] -> Some (Int (f i j))
@@ -233,6 +274,7 @@ let rec constant_equal a b =
     ) ->
       Some false
 
+(* Mapping a single instruction into another *)
 let eval_instr info i =
   match i with
   | Let (x, Prim (Extern ("caml_js_equals" | "caml_equal"), [ y; z ])) -> (
@@ -273,7 +315,17 @@ let eval_instr info i =
           Flow.update_def info x c;
           Let (x, c))
   | Let (x, Prim (prim, prim_args)) -> (
-      let prim_args' = List.map prim_args ~f:(fun x -> the_const_of info x) in
+        match List.map prim_args ~f:(fun x -> the_const_of info x)
+        with
+        | exception e ->
+          (match prim with Extern(prim) ->
+              print_endline ("Problem with prim " ^ prim ^  " reraising");
+            | _ -> ());
+          (* raise e *)
+          i
+        | prim_args' -> 
+            (match prim with Extern(prim) -> print_endline ("NO PROBLEM evalling prim " ^ prim )
+            | _ -> ());
       let res =
         if List.for_all prim_args' ~f:(function
                | Some _ -> true
@@ -305,6 +357,58 @@ let eval_instr info i =
                       | None ->
                           arg) ) ))
   | _ -> i
+
+
+(* Expanding instructions into multiple instructions *)
+let eval_instr_expand info i =
+  match i with
+  | Let (x, Prim (Extern "%caml_js_expanded_raw_macro", Pc (String m | IString m) :: args)) ->
+      print_endline "!!EVAL STAGE 1";
+      let be = Backend.Current.compiler_backend_flag () in
+      let macro_data = Raw_macro.extractExpanded ~forBackend:be ?loc:None m in
+      (* Does not generate new intermediate bindings, so Flow does not need to rerun before
+       * rerunning expandPrimBindingsAndArgs *)
+      let node_list = Raw_macro.parseNodeList macro_data in
+      let (node_list, args) = Raw_macro.Eval.evalConditionalMacros ~testVal:(test_true info) x macro_data node_list args in
+
+      let (new_bindings, next_macro_text, next_macro_args) = Raw_macro.Eval.expandMacros x macro_data node_list args in
+      (* Note: We run eval on any newly expanded bindings - I haven't seen this
+       * assist in any optimizations *)
+      List.map ~f:(eval_instr info) new_bindings @
+      [Let
+        (x,
+         Prim
+          ( Extern "%caml_js_expanded_raw_macro_evaled",
+            Code.Pc (Code.String next_macro_text) :: next_macro_args))]
+  (* Two phase eval - where we first turn caml_js_expanded_raw_macro into
+   * caml_js_expanded_raw_macro_evaled and then let the Flow process complete
+   * in between two separate evals. Then by the second eval, it is now
+   * caml_js_expanded_raw_macro_evaled, and we know as much as we possibly
+   * could about the test condition, and if it hasn't been expanded to the
+   * true/false case yet, it likely never will be - so we expand the
+   * <@unknown/> sections here. The reason we need two (at least) phases is
+   * that we need a convenient point to expand unknowns after some evals have
+   * taken place - we would really like an eval_final.ml *)
+  | Let (x, Prim (Extern "%caml_js_expanded_raw_macro_evaled", Pc (String m | IString m) :: args)) ->
+      print_endline "!!EVAL STAGE 2";
+      let be = Backend.Current.compiler_backend_flag () in
+      let macro_data = Raw_macro.extractExpanded ~forBackend:be ?loc:None m in
+      (* Can also first do a round of evalConditionalMacros here *)
+      (* This is actually really important btw *)
+      let node_list = Raw_macro.parseNodeList macro_data in
+      let (node_list, args) = Raw_macro.Eval.evalConditionalMacros ~testVal:(test_true info) x macro_data node_list args in
+      let (new_bindings, next_macro_text, next_macro_args) =
+        Raw_macro.Eval.take_the_unknown_case_of_macro x {macro_data with macro=Raw_macro.printNodeList node_list} args in
+      (* Note: We run eval on any newly expanded bindings - I haven't seen this
+       * assist in any optimizations *)
+      List.map ~f:(eval_instr info) new_bindings @
+      [Let
+        (x,
+         Prim
+          ( Extern "%caml_js_expanded_raw_macro_done",
+            Code.Pc (Code.String next_macro_text) :: next_macro_args))]
+  | _ -> [eval_instr info i]
+      
 
 type case_of =
   | CConst of int
@@ -426,7 +530,7 @@ let drop_exception_handler blocks =
 let eval info blocks =
   Addr.Map.map
     (fun block ->
-      let body = List.map block.body ~f:(eval_instr info) in
+      let body = List.concat (List.map block.body ~f:(eval_instr_expand info)) in
       let branch = eval_branch info block.branch in
       { block with Code.body; Code.branch })
     blocks

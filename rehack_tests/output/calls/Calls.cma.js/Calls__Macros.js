@@ -9,33 +9,51 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
+var caml_js_is_some = runtime["caml_js_is_some"];
 var string = runtime["caml_new_string"];
+
+function call1(f, a0) {
+  return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
+}
+
 var cst_hello = string("hello");
 var cst_hi = string("hi");
-var cst_sideEffectToInlinedArg = string("sideEffectToInlinedArg");
-var cst_sideEffectToArgUsedToTest = string("sideEffectToArgUsedToTest");
+var cst_Argsideeffect2 = string("Argsideeffect2");
+var cst_Argsideeffect1 = string("Argsideeffect1");
+var cst_Argsideeffect1__0 = string("Argsideeffect1");
+var cst_Argsideeffect1__1 = string("Argsideeffect1");
+var cst_Argsideeffect2__0 = string("Argsideeffect2");
+var cst_Argsideeffect1__2 = string("Argsideeffect1");
+var cst_Argsideeffect1__3 = string("Argsideeffect1");
+var cst_Argsideeffect1__4 = string("Argsideeffect1");
+var Stdlib = require("Stdlib.js");
 var null__0 = null;
-var inlinesMacros = new Array(  runtime["outerOuter"](
+var inlinesMacros = new Array(
+  runtime["outerOuter"](
   runtime["outer"](runtime["inner"](100))
-)  "convertedToPlatformString",
+),
+  "convertedToPlatformString",
   null,
-  string("converted to nullable"));
+  "converted to nullable");
 var a_ = runtime["caml_js_anything"](cst_hello);
 var result = a_ === null ? 0 : [0, a_];
-var e_ = runtime["outer"](runtime["inner"](cst_hi));
-var d_ = runtime["outerOuter"](runtime["outer"](runtime["inner"](cst_hi)));
-var nestedsResult = d_ +
-runtime["outerOuter"](e_);
+var l_ = runtime["outerOuter"](runtime["outer"](runtime["inner"](cst_hi)));
+var nestedsResult = l_ +
+runtime["outerOuter"](
+  runtime["outer"](runtime["inner"](cst_hi))
+);
 var b_ = runtime["side_effect_to_inject_into_nested_macros"](0);
-var g_ = runtime["outer"](runtime["inner"](b_));
-var f_ = runtime["outerOuter"](runtime["outer"](runtime["inner"](b_)));
-var nestedResult2 = f_ +
-runtime["outerOuter"](g_);
+var m_ = runtime["outerOuter"](runtime["outer"](runtime["inner"](b_)));
+var nestedResult2 = m_ +
+runtime["outerOuter"](
+  runtime["outer"](runtime["inner"](b_))
+);
 var c_ = 100;
-var i_ = runtime["outer"](runtime["inner"](c_));
-var h_ = runtime["outerOuter"](runtime["outer"](runtime["inner"](c_)));
-var nestedResult3 = h_ +
-runtime["outerOuter"](i_);
+var n_ = runtime["outerOuter"](runtime["outer"](runtime["inner"](c_)));
+var nestedResult3 = n_ +
+runtime["outerOuter"](
+  runtime["outer"](runtime["inner"](c_))
+);
 
 function includeMe(param) {return 0;}
 
@@ -44,19 +62,27 @@ var boolTest2 = SomeClass.hereIsSomeBools(! ! 0, ! ! 1) | 0;
 
 (runtime["foo"](0));
 
-var myDiv = <div className={"two"}>
+var d_ = [0,call1(Stdlib[46], cst_Argsideeffect2)];
+var e_ = [0,call1(Stdlib[46], cst_Argsideeffect1)];
+var oneTwoSideEffectUngrouped = runtime["somePrimitive"](d_, d_);
+var f_ = [0,call1(Stdlib[46], cst_Argsideeffect1__0)];
+var oneSideEffectUngrouped = runtime["somePrimitive"](0, 0);
+var g_ = [0,call1(Stdlib[46], cst_Argsideeffect1__1)];
+var twoSideEffectUngrouped = runtime["somePrimitive"](g_, g_);
+var h_ = [0,call1(Stdlib[46], cst_Argsideeffect2__0)];
+var i_ = [0,call1(Stdlib[46], cst_Argsideeffect1__2)];
+var oneTwoSideEffectCorrect = runtime["somePrimitive"](h_, h_  );
+var j_ = [0,call1(Stdlib[46], cst_Argsideeffect1__3)];
+var oneSideEffectCorrect = runtime["somePrimitive"](0, 0  );
+var k_ = [0,call1(Stdlib[46], cst_Argsideeffect1__4)];
+var twoSideEffectCorrect = runtime["somePrimitive"](k_, k_  );
+var myStyle = {backgroundColor: "blue",color: "black",};
+var emptyChildren = </>;
+var innerDiv = <div class="ThisIsTheClasName"  style={{backgroundColor: "red",}}  >
+  {emptyChildren}
 </div>;
-
-runtime["side_effect_to_inject_into_nested_macros"](cst_sideEffectToInlinedArg
-);
-
-var myDiv2 = <div >
-</div>;
-
-runtime["side_effect_to_inject_into_nested_macros"](cst_sideEffectToArgUsedToTest
-);
-
-var myDiv3 = <div >
+var myOuterDiv = <div class="OuterDiv"  style={{backgroundColor: "red",color: "black",}}  >
+  {innerDiv}
 </div>;
 var Calls_Macros = [
   0,
@@ -71,9 +97,15 @@ var Calls_Macros = [
   0,
   boolTest1,
   boolTest2,
-  myDiv,
-  myDiv2,
-  myDiv3
+  oneTwoSideEffectUngrouped,
+  oneSideEffectUngrouped,
+  twoSideEffectUngrouped,
+  oneTwoSideEffectCorrect,
+  oneSideEffectCorrect,
+  twoSideEffectCorrect,
+  myStyle,
+  emptyChildren,
+  myOuterDiv
 ];
 
 module.exports = Calls_Macros;
@@ -90,9 +122,15 @@ module.exports = Calls_Macros;
   falseee: any,
   boolTest1: any,
   boolTest2: any,
-  myDiv: any,
-  myDiv2: any,
-  myDiv3: any,
+  oneTwoSideEffectUngrouped: any,
+  oneSideEffectUngrouped: any,
+  twoSideEffectUngrouped: any,
+  oneTwoSideEffectCorrect: any,
+  oneSideEffectCorrect: any,
+  twoSideEffectCorrect: any,
+  myStyle: any,
+  emptyChildren: any,
+  myOuterDiv: any,
 }*/
 /** @type {{
   _null_: any,
@@ -106,9 +144,15 @@ module.exports = Calls_Macros;
   falseee: any,
   boolTest1: any,
   boolTest2: any,
-  myDiv: any,
-  myDiv2: any,
-  myDiv3: any,
+  oneTwoSideEffectUngrouped: any,
+  oneSideEffectUngrouped: any,
+  twoSideEffectUngrouped: any,
+  oneTwoSideEffectCorrect: any,
+  oneSideEffectCorrect: any,
+  twoSideEffectCorrect: any,
+  myStyle: any,
+  emptyChildren: any,
+  myOuterDiv: any,
 }} */
 module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports._null_ = module.exports[1];
@@ -122,8 +166,14 @@ module.exports.trueee = module.exports[8];
 module.exports.falseee = module.exports[9];
 module.exports.boolTest1 = module.exports[10];
 module.exports.boolTest2 = module.exports[11];
-module.exports.myDiv = module.exports[12];
-module.exports.myDiv2 = module.exports[13];
-module.exports.myDiv3 = module.exports[14];
+module.exports.oneTwoSideEffectUngrouped = module.exports[12];
+module.exports.oneSideEffectUngrouped = module.exports[13];
+module.exports.twoSideEffectUngrouped = module.exports[14];
+module.exports.oneTwoSideEffectCorrect = module.exports[15];
+module.exports.oneSideEffectCorrect = module.exports[16];
+module.exports.twoSideEffectCorrect = module.exports[17];
+module.exports.myStyle = module.exports[18];
+module.exports.emptyChildren = module.exports[19];
+module.exports.myOuterDiv = module.exports[20];
 
 /* Hashing disabled */

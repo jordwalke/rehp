@@ -12,52 +12,76 @@ final class Calls__Macros {
   public static function get() : Vector<dynamic> {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
+    $call1 = $runtime["caml_call1"];
+    $caml_js_is_some = $runtime["caml_js_is_some"];
     $string = $runtime["caml_new_string"];
     $cst_hello = $string("hello");
     $cst_hi = $string("hi");
-    $cst_sideEffectToInlinedArg = $string("sideEffectToInlinedArg");
-    $cst_sideEffectToArgUsedToTest = $string("sideEffectToArgUsedToTest");
+    $cst_Argsideeffect2 = $string("Argsideeffect2");
+    $cst_Argsideeffect1 = $string("Argsideeffect1");
+    $cst_Argsideeffect1__0 = $string("Argsideeffect1");
+    $cst_Argsideeffect1__1 = $string("Argsideeffect1");
+    $cst_Argsideeffect2__0 = $string("Argsideeffect2");
+    $cst_Argsideeffect1__2 = $string("Argsideeffect1");
+    $cst_Argsideeffect1__3 = $string("Argsideeffect1");
+    $cst_Argsideeffect1__4 = $string("Argsideeffect1");
+    $Stdlib = Stdlib::get();
     $null__0 = null;
-    $inlinesMacros = varray[  $runtime["outerOuter"](
+    $inlinesMacros = varray[
+  $runtime["outerOuter"](
       $runtime["outer"]($runtime["inner"](100))
-    )  "convertedToPlatformString",
+    ),
+  "convertedToPlatformString",
   null,
-  $string("converted to nullable")];
+  "converted to nullable"];
     $a_ = $runtime["caml_js_anything"]($cst_hello);
     $result = $a_ === null ? 0 : Vector {0, $a_};
-    $e_ = $runtime["outer"]($runtime["inner"]($cst_hi));
-    $d_ = $runtime["outerOuter"](
+    $l_ = $runtime["outerOuter"](
       $runtime["outer"]($runtime["inner"]($cst_hi))
     );
-    $nestedsResult = $d_ +
-$runtime["outerOuter"]($e_);
+    $nestedsResult = $l_ +
+$runtime["outerOuter"](
+      $runtime["outer"]($runtime["inner"]($cst_hi))
+    );
     $b_ = $runtime["side_effect_to_inject_into_nested_macros"](0);
-    $g_ = $runtime["outer"]($runtime["inner"]($b_));
-    $f_ = $runtime["outerOuter"]($runtime["outer"]($runtime["inner"]($b_)));
-    $nestedResult2 = $f_ +
-$runtime["outerOuter"]($g_);
+    $m_ = $runtime["outerOuter"]($runtime["outer"]($runtime["inner"]($b_)));
+    $nestedResult2 = $m_ +
+$runtime["outerOuter"](
+      $runtime["outer"]($runtime["inner"]($b_))
+    );
     $c_ = 100;
-    $i_ = $runtime["outer"]($runtime["inner"]($c_));
-    $h_ = $runtime["outerOuter"]($runtime["outer"]($runtime["inner"]($c_)));
-    $nestedResult3 = $h_ +
-$runtime["outerOuter"]($i_);
+    $n_ = $runtime["outerOuter"]($runtime["outer"]($runtime["inner"]($c_)));
+    $nestedResult3 = $n_ +
+$runtime["outerOuter"](
+      $runtime["outer"]($runtime["inner"]($c_))
+    );
     $includeMe = (dynamic $param) : dynamic ==> {return 0;};
     $boolTest1 = (int) SomeClass::hereIsSomeBools(! ! 1, ! ! 0);
     $boolTest2 = (int) SomeClass::hereIsSomeBools(! ! 0, ! ! 1);
     
     ($runtime["foo"](0));
     
-    $myDiv = <div className={"two"}>
+    $d_ = Vector{0, $call1($Stdlib[46], $cst_Argsideeffect2)} as dynamic;
+    $e_ = Vector{0, $call1($Stdlib[46], $cst_Argsideeffect1)} as dynamic;
+    $oneTwoSideEffectUngrouped = $runtime["somePrimitive"]($d_, $d_);
+    $f_ = Vector{0, $call1($Stdlib[46], $cst_Argsideeffect1__0)} as dynamic;
+    $oneSideEffectUngrouped = $runtime["somePrimitive"](0, 0);
+    $g_ = Vector{0, $call1($Stdlib[46], $cst_Argsideeffect1__1)} as dynamic;
+    $twoSideEffectUngrouped = $runtime["somePrimitive"]($g_, $g_);
+    $h_ = Vector{0, $call1($Stdlib[46], $cst_Argsideeffect2__0)} as dynamic;
+    $i_ = Vector{0, $call1($Stdlib[46], $cst_Argsideeffect1__2)} as dynamic;
+    $oneTwoSideEffectCorrect = $runtime["somePrimitive"]($h_, $h_  );
+    $j_ = Vector{0, $call1($Stdlib[46], $cst_Argsideeffect1__3)} as dynamic;
+    $oneSideEffectCorrect = $runtime["somePrimitive"](0, 0  );
+    $k_ = Vector{0, $call1($Stdlib[46], $cst_Argsideeffect1__4)} as dynamic;
+    $twoSideEffectCorrect = $runtime["somePrimitive"]($k_, $k_  );
+    $myStyle = {backgroundColor: "blue",color: "black",};
+    $emptyChildren = </>;
+    $innerDiv = <div class="ThisIsTheClasName"  style={{backgroundColor: "red",}}  >
+  {$emptyChildren}
 </div>;
-    
-    $runtime["side_effect_to_inject_into_nested_macros"]($cst_sideEffectToInlinedArg);
-    
-    $myDiv2 = <div >
-</div>;
-    
-    $runtime["side_effect_to_inject_into_nested_macros"]($cst_sideEffectToArgUsedToTest);
-    
-    $myDiv3 = <div >
+    $myOuterDiv = <div class="OuterDiv"  style={{backgroundColor: "red",color: "black",}}  >
+  {$innerDiv}
 </div>;
     $Calls_Macros = Vector{
       0,
@@ -72,9 +96,15 @@ $runtime["outerOuter"]($i_);
       0,
       $boolTest1,
       $boolTest2,
-      $myDiv,
-      $myDiv2,
-      $myDiv3
+      $oneTwoSideEffectUngrouped,
+      $oneSideEffectUngrouped,
+      $twoSideEffectUngrouped,
+      $oneTwoSideEffectCorrect,
+      $oneSideEffectCorrect,
+      $twoSideEffectCorrect,
+      $myStyle,
+      $emptyChildren,
+      $myOuterDiv
     } as dynamic;
     
     return($Calls_Macros);

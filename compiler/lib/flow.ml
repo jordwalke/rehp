@@ -43,7 +43,13 @@ type info =
 
 let update_def { info_defs; _ } x exp =
   let idx = Code.Var.idx x in
-  info_defs.(idx) <- Expr exp
+  try
+    info_defs.(idx) <- Expr exp
+  with
+  | e -> (
+    print_endline ("Exception at index " ^ (string_of_int idx));
+    raise e
+  )
 
 let undefined = Phi Var.Set.empty
 
@@ -106,6 +112,12 @@ let program_deps { blocks; _ } =
       List.iter block.body ~f:(fun i ->
           match i with
           | Let (x, e) ->
+              print_endline ("Adding var " ^ string_of_int(Code.Var.idx x) ^ " = " ^
+                (match (e) with
+                | Prim (Extern(ext), args) -> "extern " ^ ext
+                | Constant (String(s) | IString(s)) -> s
+                | _ -> "?")
+              );
               add_var vars x;
               add_expr_def defs x e;
               expr_deps blocks vars deps defs x e
@@ -393,6 +405,7 @@ let f ?skip_param p =
   let vars, deps, defs = program_deps p in
   if times () then Format.eprintf "    flow analysis 1: %a@." Timer.print t1;
   let t2 = Timer.make () in
+  print_endline "COMPUTING KNOWN ORIGINS";
   let known_origins = solver1 vars deps defs in
   if times () then Format.eprintf "    flow analysis 2: %a@." Timer.print t2;
   let t3 = Timer.make () in
