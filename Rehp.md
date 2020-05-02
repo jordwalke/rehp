@@ -27,3 +27,15 @@ Efun to have identifiiers.
 
 
 
+
+## Rehp Semantics
+The following are assumptions made by the generation from `code.ml` into
+`Rehp.re`, as well as optimizations that take place in `js_simpl.ml`:
+
+`Not(EInt(0))` evaluates to `EBool(true)`.
+`Not(EInt(1))` evaluates to `EBool(false)`.
+
+And therefore:
+
+`Not(Not(EInt(0)))` evaluates to `EBool(false)`.
+`Not(Not(EInt(1)))` evaluates to `EBool(true)`.
