@@ -61,10 +61,8 @@ let the_option_of info x =
 
 let test_true info a =
   (match the_int info a with
-  | Some i when i = 1l ->
-      Some(true)
-  | Some i ->
-      Some(false)
+  | Some i when i = 1l -> Some(true)
+  | Some i -> Some(false)
   | _ -> None)
 
 let int_binop l f =
@@ -359,7 +357,6 @@ let eval_instr_expand info i =
    * out on some "known" macro expansions by only doing two evals before
    * expanding the unknown cases. *)
   | Let (x, Prim (Extern "%caml_js_expanded_raw_macro", Pc (String m | IString m) :: args)) ->
-      print_endline "!!EVAL STAGE 2";
       let be = Backend.Current.compiler_backend_flag () in
       let macro_data = Raw_macro.extractExpanded ~forBackend:be ?loc:None m in
       let node_list = Raw_macro.parseNodeList macro_data in
@@ -378,7 +375,6 @@ let eval_instr_expand info i =
           ( Extern "%caml_js_expanded_raw_macro_evaled",
             Code.Pc (Code.String next_macro_text) :: next_macro_args))]
   | Let (x, Prim (Extern "%caml_js_expanded_raw_macro_evaled", Pc (String m | IString m) :: args)) ->
-      print_endline "!!EVAL STAGE 3";
       let be = Backend.Current.compiler_backend_flag () in
       let macro_data = Raw_macro.extractExpanded ~forBackend:be ?loc:None m in
       (* Can also first do a round of evalConditionalMacros here *)

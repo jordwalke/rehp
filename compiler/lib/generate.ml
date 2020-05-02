@@ -1438,11 +1438,6 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
             let macro_data = Raw_macro.extractExpanded ~forBackend:be m in
             let node_list = Raw_macro.parseNodeList macro_data in
             let flattened = Raw_macro.flattenFinal macro_data args node_list in
-            let macro_text = Raw_macro.printNodeList node_list in
-            let flattened_text = Raw_macro.printFlattened flattened in
-            print_endline "";
-            print_endline ("pre-flattening " ^ macro_text);
-            print_endline ("post-flattening " ^ flattened_text);
             Rehp.ERaw (flattened), prop, queue
         | Extern ("caml_js_expr" | "caml_pure_js_expr"), [ Pc (String nm | IString nm) ]
           -> (

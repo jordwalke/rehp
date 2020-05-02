@@ -61,19 +61,6 @@ let the_option_of info x =
   | Pc (Tuple (0, [| a |], _)) -> `CBlock a
   | _ -> `Unknown
 
-let test_true info a =
-  (match the_int info a with
-  | Some i when i = 1l ->
-    print_endline ("Testing truthiness of " ^ string_of_int(Int32.to_int i));
-      Some(true)
-  | Some i ->
-    print_endline ("Testing truthiness of !1 " ^ string_of_int(Int32.to_int i));
-      Some(false)
-  | _ ->
-      
-    print_endline ("Testing truthiness of unknown ");
-      None)
-
 (* Could add Pc (IString (Var.to_string v)); to get the string name of
  * the identifier, but the names aren't registered correctly at this
  * point in the compiler. TODO: Implement that without using new
@@ -475,15 +462,12 @@ let f_once debug_data_for_errors p =
     | [] -> []
     | i :: r -> (
       match i with
-      (*
-       * Perform one round of expansion because doing so in f_once doesn't
-       * conflict with identifier tables etc.  So we sneak in one more
+      (* Perform one round of expansion because doing so in f_once doesn't
+       * conflict with identifier tables etc. So we sneak in one more
        * opportunity to inline/evaluate correctly, while also being able to
        * detect problems with the macro text early while we have the debug
-       * data.
-       *)
+       * data.  *)
       | Let (x, Prim (Extern nm, args)) when Raw_macro.isUnexpanded nm ->
-          print_endline "!!EVAL STAGE 0";
           let loc = loc_from_debug_data_for_errors debug_data_for_errors addr x in
           let be = Backend.Current.compiler_backend_flag () in
           let macro_data = Raw_macro.extractOriginalExtern ~forBackend:be ?loc nm in
