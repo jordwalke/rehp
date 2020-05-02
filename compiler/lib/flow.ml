@@ -43,13 +43,7 @@ type info =
 
 let update_def { info_defs; _ } x exp =
   let idx = Code.Var.idx x in
-  try
-    info_defs.(idx) <- Expr exp
-  with
-  | e -> (
-    print_endline ("Exception at index " ^ (string_of_int idx));
-    raise e
-  )
+  info_defs.(idx) <- Expr exp
 
 let undefined = Phi Var.Set.empty
 

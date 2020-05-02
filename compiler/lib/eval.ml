@@ -65,13 +65,6 @@ let test_true info a =
       Some(true)
   | Some i ->
       Some(false)
-  | exception e ->
-    let s = (match (a) with
-    | Code.Pc(String(s) | IString(s)) -> s
-    | Code.Pv(v) -> "v(" ^ string_of_int(Code.Var.idx(v)) ^ ") "
-    | _ -> "?") in
-    print_endline ("Exception testing truthiness of " ^ s);
-    raise e;
   | _ -> None)
 
 let int_binop l f =
@@ -317,24 +310,7 @@ let eval_instr info i =
           Flow.update_def info x c;
           Let (x, c))
   | Let (x, Prim (prim, prim_args)) -> (
-      let prim_args' =
-        try
-          List.map prim_args ~f:(fun x -> the_const_of info x)
-        with
-        | e ->  (
-          match prim with
-          | Extern nm ->
-              print_endline ("Exception mapping Extern constst over args " ^ nm ^ ":");
-                List.iter prim_args ~f:(fun a ->
-                (match (a) with
-                | Code.Pc(String(s) | IString(s)) -> print_endline ("  " ^ s)
-                | Code.Pv(v) -> print_endline ("  v(" ^ string_of_int(Code.Var.idx(v)) ^ ") ")
-                | _ -> print_endline "  ?"));
-              
-              raise e
-          | _ ->  print_endline ("Exception mapping something else consts over args ");
-              raise e
-        ) in
+      let prim_args' = List.map prim_args ~f:(fun x -> the_const_of info x) in
       let res =
         if List.for_all prim_args' ~f:(function
                | Some _ -> true
