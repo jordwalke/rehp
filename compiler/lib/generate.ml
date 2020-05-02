@@ -176,6 +176,7 @@ module Share = struct
                     if Primitive.exists name then add_prim name share else share
                   in
                   share
+              (* caml_requires come from raw macros *)
               | Let (_, Prim (Extern "%caml_require", [Pc (IString path | String path)])) ->
                   let loc = parse_source_file_from_debug_info debug ~after:false addr in
                   (* Check once if the macro is even valid while we have some
@@ -1127,7 +1128,7 @@ let register_bin_math_prim name prim =
 let _ =
   register_un_prim_ctx "%caml_format_int_special" `Pure (fun ctx cx loc ->
       let p = Share.get_prim (runtime_fun ctx) "caml_new_string" ctx.Ctx.share in
-      (*
+   (*
    * TODO: This makes an assumption that any backend may concatenate an integer
    * with a string. Instead setup a high level Rehp operation for
    * int_to_string.
@@ -1170,20 +1171,15 @@ let _ =
   register_un_prim_ctx "%caml_require" `Pure (fun ctx cx loc ->
     match cx with
     | J.EStr (path, _) -> (
+      (* We don't have any fallback for requires that were not "hoisted". They
+       * must be hoisted. *)
       Share.get_require (fun path ->
        J.EStr
         ("Cannot require module " ^ path ^ " likely because backend does not support requires",
         `Utf8))
       path
       ctx.Ctx.share);
-    | _ ->
-      failwith(
-        "Something passed an invalid argument to caml_require which is likely caused " ^
-        "by invalid contents of a <@require*> macro. " ^
-        "It should only be a single string but something is interpretting is as more " ^
-        "than one string or richer children content etc." ^
-        "This is likely caused by a macro with a <@require*> tag that isn't" ^
-        "supported by your backend."));
+    | _ -> failwith(Errors.weirdArgumentsToCamlRequire));
 
   register_un_prim "polymorphic_log" `Mutable (fun cx loc ->
       J.ECall (s_var "polymorphic_log", [ cx ], loc));

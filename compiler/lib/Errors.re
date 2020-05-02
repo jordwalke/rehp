@@ -18,3 +18,11 @@ let require_unsupported_backend = path =>
   ++ "itself is requiring "
   ++ path
   ++ ". That macro may be defined in another file but called here.";
+
+let weirdArgumentsToCamlRequire =
+  "Something passed an invalid argument to caml_require which is likely caused "
+  ++ "by invalid contents of a <@require*> macro. "
+  ++ "It should only be a single string but something is interpretting is as more "
+  ++ "than one string or richer children content etc."
+  ++ "This is likely caused by a macro with a <@require*> tag that isn't"
+  ++ "supported by your backend.";
