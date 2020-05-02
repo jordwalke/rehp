@@ -347,16 +347,16 @@ let program' (module Strategy : Strategy) p =
   mapper#block [];
   if S.cardinal (mapper#get_free) <> 0
   then begin
-    failwith_ "Some variables escaped (#%d)" (S.cardinal (mapper#get_free))
-    (* S.iter(fun s -> (Format.eprintf "%s@." (Var.to_string s))) coloring#get_free *)
+    S.iter(fun s -> (Format.eprintf "%s@." (Var.to_string s))) mapper#get_free;
+    (* failwith_ "Some variables escaped (#%d)" (S.cardinal (mapper#get_free)) *)
   end;
   let names = Strategy.allocate_variables state ~count:mapper#state.Rehp_traverse.count in
   (* if debug () then output_debug_information state coloring#state.Rehp_traverse.count; *)
   let color = function
     | Id.V v ->
         let name = names.(Var.idx v) in
-        assert (not (String.is_empty name));
-        Id.ident ~var:v name
+        (* assert (not (String.is_empty name)); *)
+        Id.ident ~var:v (if String.is_empty name then "EMPTYNAME" else name)
     | x -> x
   in
   (new Rehp_traverse.subst color)#program p

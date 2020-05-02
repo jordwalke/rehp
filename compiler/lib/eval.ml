@@ -62,15 +62,17 @@ let the_option_of info x =
 let test_true info a =
   (match the_int info a with
   | Some i when i = 1l ->
-    print_endline ("Testing truthiness of " ^ string_of_int(Int32.to_int i));
       Some(true)
   | Some i ->
-    print_endline ("Testing truthiness of !1 " ^ string_of_int(Int32.to_int i));
       Some(false)
-  | exception _
-  | _ ->
-    print_endline ("Testing truthiness of unknown ");
-      None)
+  | exception e ->
+    let s = (match (a) with
+    | Code.Pc(String(s) | IString(s)) -> s
+    | Code.Pv(v) -> "v(" ^ string_of_int(Code.Var.idx(v)) ^ ") "
+    | _ -> "?") in
+    print_endline ("Exception testing truthiness of " ^ s);
+    raise e;
+  | _ -> None)
 
 let int_binop l f =
   match l with
@@ -315,17 +317,24 @@ let eval_instr info i =
           Flow.update_def info x c;
           Let (x, c))
   | Let (x, Prim (prim, prim_args)) -> (
-        match List.map prim_args ~f:(fun x -> the_const_of info x)
+      let prim_args' =
+        try
+          List.map prim_args ~f:(fun x -> the_const_of info x)
         with
-        | exception e ->
-          (match prim with Extern(prim) ->
-              print_endline ("Problem with prim " ^ prim ^  " reraising");
-            | _ -> ());
-          (* raise e *)
-          i
-        | prim_args' -> 
-            (match prim with Extern(prim) -> print_endline ("NO PROBLEM evalling prim " ^ prim )
-            | _ -> ());
+        | e ->  (
+          match prim with
+          | Extern nm ->
+              print_endline ("Exception mapping Extern constst over args " ^ nm ^ ":");
+                List.iter prim_args ~f:(fun a ->
+                (match (a) with
+                | Code.Pc(String(s) | IString(s)) -> print_endline ("  " ^ s)
+                | Code.Pv(v) -> print_endline ("  v(" ^ string_of_int(Code.Var.idx(v)) ^ ") ")
+                | _ -> print_endline "  ?"));
+              
+              raise e
+          | _ ->  print_endline ("Exception mapping something else consts over args ");
+              raise e
+        ) in
       let res =
         if List.for_all prim_args' ~f:(function
                | Some _ -> true
@@ -363,7 +372,7 @@ let eval_instr info i =
 let eval_instr_expand info i =
   match i with
   | Let (x, Prim (Extern "%caml_js_expanded_raw_macro", Pc (String m | IString m) :: args)) ->
-      print_endline "!!EVAL STAGE 1";
+      print_endline "!!EVAL STAGE 2";
       let be = Backend.Current.compiler_backend_flag () in
       let macro_data = Raw_macro.extractExpanded ~forBackend:be ?loc:None m in
       (* Does not generate new intermediate bindings, so Flow does not need to rerun before
@@ -374,7 +383,9 @@ let eval_instr_expand info i =
       let (new_bindings, next_macro_text, next_macro_args) = Raw_macro.Eval.expandMacros x macro_data node_list args in
       (* Note: We run eval on any newly expanded bindings - I haven't seen this
        * assist in any optimizations *)
-      List.map ~f:(eval_instr info) new_bindings @
+      (* Edit: Actually we cannot because the newly expanded bindings don't
+       * have flow info computed for them. Will crash. *)
+      (* List.map ~f:(eval_instr info) new_bindings @ *)
       [Let
         (x,
          Prim
@@ -390,7 +401,7 @@ let eval_instr_expand info i =
    * that we need a convenient point to expand unknowns after some evals have
    * taken place - we would really like an eval_final.ml *)
   | Let (x, Prim (Extern "%caml_js_expanded_raw_macro_evaled", Pc (String m | IString m) :: args)) ->
-      print_endline "!!EVAL STAGE 2";
+      print_endline "!!EVAL STAGE 3";
       let be = Backend.Current.compiler_backend_flag () in
       let macro_data = Raw_macro.extractExpanded ~forBackend:be ?loc:None m in
       (* Can also first do a round of evalConditionalMacros here *)
@@ -401,7 +412,9 @@ let eval_instr_expand info i =
         Raw_macro.Eval.take_the_unknown_case_of_macro x {macro_data with macro=Raw_macro.printNodeList node_list} args in
       (* Note: We run eval on any newly expanded bindings - I haven't seen this
        * assist in any optimizations *)
-      List.map ~f:(eval_instr info) new_bindings @
+      (* Edit: Actually we cannot because the newly expanded bindings don't
+       * have flow info computed for them. Will crash. *)
+      (* List.map ~f:(eval_instr info) new_bindings @ *)
       [Let
         (x,
          Prim
