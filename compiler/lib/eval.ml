@@ -347,26 +347,6 @@ let eval_instr info i =
 (* Expanding instructions into multiple instructions *)
 let eval_instr_expand info i =
   match i with
-  | Let (x, Prim (Extern "%caml_js_expanded_raw_macro", Pc (String m | IString m) :: args)) ->
-      print_endline "!!EVAL STAGE 2";
-      let be = Backend.Current.compiler_backend_flag () in
-      let macro_data = Raw_macro.extractExpanded ~forBackend:be ?loc:None m in
-      (* Does not generate new intermediate bindings, so Flow does not need to rerun before
-       * rerunning expandPrimBindingsAndArgs *)
-      let node_list = Raw_macro.parseNodeList macro_data in
-      let (node_list, args) = Raw_macro.Eval.evalConditionalMacros ~testVal:(test_true info) x macro_data node_list args in
-
-      let (new_bindings, next_macro_text, next_macro_args) = Raw_macro.Eval.expandMacros x macro_data node_list args in
-      (* Note: We run eval on any newly expanded bindings - I haven't seen this
-       * assist in any optimizations *)
-      (* Edit: Actually we cannot because the newly expanded bindings don't
-       * have flow info computed for them. Will crash. *)
-      (* List.map ~f:(eval_instr info) new_bindings @ *)
-      [Let
-        (x,
-         Prim
-          ( Extern "%caml_js_expanded_raw_macro_evaled",
-            Code.Pc (Code.String next_macro_text) :: next_macro_args))]
   (* Two phase eval - where we first turn caml_js_expanded_raw_macro into
    * caml_js_expanded_raw_macro_evaled and then let the Flow process complete
    * in between two separate evals. Then by the second eval, it is now
@@ -375,7 +355,28 @@ let eval_instr_expand info i =
    * true/false case yet, it likely never will be - so we expand the
    * <@unknown/> sections here. The reason we need two (at least) phases is
    * that we need a convenient point to expand unknowns after some evals have
-   * taken place - we would really like an eval_final.ml *)
+   * taken place - we would really like an eval_final.ml. We might be missing
+   * out on some "known" macro expansions by only doing two evals before
+   * expanding the unknown cases. *)
+  | Let (x, Prim (Extern "%caml_js_expanded_raw_macro", Pc (String m | IString m) :: args)) ->
+      print_endline "!!EVAL STAGE 2";
+      let be = Backend.Current.compiler_backend_flag () in
+      let macro_data = Raw_macro.extractExpanded ~forBackend:be ?loc:None m in
+      let node_list = Raw_macro.parseNodeList macro_data in
+      let (node_list, args) = Raw_macro.Eval.evalConditionalMacros ~testVal:(test_true info) x macro_data node_list args in
+      let (new_bindings, next_macro_text, next_macro_args) = Raw_macro.Eval.expandMacros x macro_data node_list args in
+      (* Note: We cannot run eval on newly expanded bindings because there is
+       * no flow information for them. We have to let eval run on them in the
+       * next round. Thankfully, eval is guaranteed to run at least three times
+       * which covers caml_js_expanded_raw_macro,
+       * caml_js_expanded_raw_macro_evaled, and once for the bindings produced
+       * after caml_js_expanded_raw_macro_evaled. *)
+      new_bindings @
+      [Let
+        (x,
+         Prim
+          ( Extern "%caml_js_expanded_raw_macro_evaled",
+            Code.Pc (Code.String next_macro_text) :: next_macro_args))]
   | Let (x, Prim (Extern "%caml_js_expanded_raw_macro_evaled", Pc (String m | IString m) :: args)) ->
       print_endline "!!EVAL STAGE 3";
       let be = Backend.Current.compiler_backend_flag () in
@@ -386,11 +387,9 @@ let eval_instr_expand info i =
       let (node_list, args) = Raw_macro.Eval.evalConditionalMacros ~testVal:(test_true info) x macro_data node_list args in
       let (new_bindings, next_macro_text, next_macro_args) =
         Raw_macro.Eval.take_the_unknown_case_of_macro x {macro_data with macro=Raw_macro.printNodeList node_list} args in
-      (* Note: We run eval on any newly expanded bindings - I haven't seen this
-       * assist in any optimizations *)
-      (* Edit: Actually we cannot because the newly expanded bindings don't
-       * have flow info computed for them. Will crash. *)
-      (* List.map ~f:(eval_instr info) new_bindings @ *)
+      (* See note in caml_js_expanded_raw_macro about why we don't run eval on
+       * the bindings themselves. *)
+      new_bindings @
       [Let
         (x,
          Prim
