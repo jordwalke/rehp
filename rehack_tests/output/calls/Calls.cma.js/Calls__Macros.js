@@ -9,7 +9,12 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
-var my_project_foo_SomeClass = require("my-project/foo/SomeClass");
+var alwaysPulledInDepX = require("../../../../../alwaysPulledInDepX.js");
+var alwaysPulledInDepZ = require("../../../../../alwaysPulledInDepZ.js");
+var alwaysPulledInDepY = require("alwaysPulledInDepY");
+var conditionalDepM = require("conditionalDepM");
+var conditionalDepQ = require("conditionalDepQ");
+var SomeClass = require("my-project/foo/SomeClass");
 var caml_js_is_some = runtime["caml_js_is_some"];
 var caml_js_nullable = runtime["caml_js_nullable"];
 var string = runtime["caml_new_string"];
@@ -59,8 +64,8 @@ runtime["outerOuter"](
 
 function includeMe(param) {return 0;}
 
-var boolTest1 = my_project_foo_SomeClass.hereIsSomeBools(! ! 1, ! ! 0) | 0;
-var boolTest2 = my_project_foo_SomeClass.hereIsSomeBools(! ! 0, ! ! 1) | 0;
+var boolTest1 = SomeClass.hereIsSomeBools(! ! 1, ! ! 0) | 0;
+var boolTest2 = SomeClass.hereIsSomeBools(! ! 0, ! ! 1) | 0;
 
 (runtime["foo"](0));
 
@@ -102,6 +107,14 @@ function createDivWithUnknowns(className, style, param) {
   );
 }
 
+var pullsInDep1 = alwaysPulledInDepX(0) +
+  alwaysPulledInDepY(1) +
+  conditionalDepM()+
+  0;
+var pullsInDep2 = alwaysPulledInDepY(0) +
+  alwaysPulledInDepZ(1) +
+  conditionalDepQ()+
+  0;
 var Calls_Macros = [
   0,
   null__0,
@@ -124,7 +137,9 @@ var Calls_Macros = [
   myStyle,
   emptyChildren,
   myOuterDiv,
-  createDivWithUnknowns
+  createDivWithUnknowns,
+  pullsInDep1,
+  pullsInDep2
 ];
 
 module.exports = Calls_Macros;
@@ -151,6 +166,8 @@ module.exports = Calls_Macros;
   emptyChildren: any,
   myOuterDiv: any,
   createDivWithUnknowns: (className: any, style: any, param: any) => any,
+  pullsInDep1: any,
+  pullsInDep2: any,
 }*/
 /** @type {{
   _null_: any,
@@ -174,6 +191,8 @@ module.exports = Calls_Macros;
   emptyChildren: any,
   myOuterDiv: any,
   createDivWithUnknowns: (className: any, style: any, param: any) => any,
+  pullsInDep1: any,
+  pullsInDep2: any,
 }} */
 module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports._null_ = module.exports[1];
@@ -197,5 +216,7 @@ module.exports.myStyle = module.exports[18];
 module.exports.emptyChildren = module.exports[19];
 module.exports.myOuterDiv = module.exports[20];
 module.exports.createDivWithUnknowns = module.exports[21];
+module.exports.pullsInDep1 = module.exports[22];
+module.exports.pullsInDep2 = module.exports[23];
 
 /* Hashing disabled */

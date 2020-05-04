@@ -98,6 +98,8 @@ $runtime["outerOuter"](
 </div>
       );
     };
+    $pullsInDep1 = "Test Doesn't apply to Php";
+    $pullsInDep2 = "Test Doesn't apply to Php";
     $Calls_Macros = Vector{
       0,
       $null__0,
@@ -120,7 +122,9 @@ $runtime["outerOuter"](
       $myStyle,
       $emptyChildren,
       $myOuterDiv,
-      $createDivWithUnknowns
+      $createDivWithUnknowns,
+      $pullsInDep1,
+      $pullsInDep2
     } as dynamic;
     
     return($Calls_Macros);

@@ -70,7 +70,7 @@ external acceptsBools : (bool, bool) => bool = {|
     <@fromBool><@>SomeClass::hereIsSomeBools(<@toBool><@1/></@toBool>, <@toBool><@2/></@toBool>)</@></@fromBool>
   </@.php>
   <@.js>
-    <@fromBool><@><@nonRelativeRequire>my-project/foo/SomeClass</@nonRelativeRequire>.hereIsSomeBools(<@toBool><@1/></@toBool>, <@toBool><@2/></@toBool>)</@></@fromBool>
+    <@fromBool><@><@require>my-project/foo/SomeClass</@require>.hereIsSomeBools(<@toBool><@1/></@toBool>, <@toBool><@2/></@toBool>)</@></@fromBool>
   </@.js>
 |};
 
@@ -321,4 +321,80 @@ let myOuterDiv = {
 
 let createDivWithUnknowns = (~className=?, ~style=?, ()) => {
   <div ?className ?style>...emptyChildren</div>
-}
+};
+
+external _INVALID_relativeRequire : (unit) => unit = {|
+  <@.js>
+    <@require>./relative/module.js</@require>(0)
+  </@.js>
+  <@.php>
+    RelativeModule::callSomeFunction(0)
+  </@.php>
+|};
+
+
+/**
+ * `alwaysPulledInDepX` is always pulled in by `conditionallyPullsDepA`
+ * `alwaysPulledInDepY` is always pulled in by `conditionallyPullsDepA`.
+ * `conditionalDepM` is conditionally pulled in by `conditionallyPullsDepA`.
+ * `conditionalDepN` is conditionally pulled in by `conditionallyPullsDepA`.
+ */
+external conditionallyPullsDepA : (bool) => unit = {|
+  <@.js>
+    <@require><@projectRoot/>/alwaysPulledInDepX.js</@require>(0) +
+      <@require>"alwaysPulledInDepY"</@require>(1) +
+      <@?>
+      <@1/>
+      <@true><@require>"conditionalDepM"</@require>()</@true>
+      <@false>0</@false>
+      <@unknown><@require>"conditionalDepM"</@require>(/*unknown*/)</@unknown>
+      </@?>+
+      <@?>
+      <@1/>
+      <@true>0</@true>
+      <@false><@require>"conditionalDepN"</@require>()</@false>
+      <@unknown><@require>"conditionalDepN"</@require>(/*unknown*/)</@unknown>
+      </@?>
+  </@.js>
+  <@.php>
+  "Test Doesn't apply to Php"
+  </@.php>
+|};
+
+
+/**
+ * `alwaysPulledInDepY` is always pulled in by `conditionallyPullsDepB`
+ * `alwaysPulledInDepZ` is always pulled in by `conditionallyPullsDepB`.
+ * `conditionalDepQ` is conditionally pulled in by `conditionallyPullsDepB`.
+ * `conditionalDepR` is conditionally pulled in by `conditionallyPullsDepB`.
+ */
+external conditionallyPullsDepB : (bool) => unit = {|
+  <@.js>
+    <@require>alwaysPulledInDepY</@require>(0) +
+      <@require><@projectRoot/>alwaysPulledInDepZ.js</@require>(1) +
+      <@?>
+      <@1/>
+      <@true><@require>"conditionalDepQ"</@require>()</@true>
+      <@false>0</@false>
+      <@unknown><@require>"conditionalDepQ"</@require>(/*unknown*/)</@unknown>
+      </@?>+
+      <@?>
+      <@1/>
+      <@true>0</@true>
+      <@false><@require>"conditionalDepR"</@require>()</@false>
+      <@unknown><@require>"conditionalDepR"</@require>(/*unknown*/)</@unknown>
+      </@?>
+  </@.js>
+  <@.php>
+  "Test Doesn't apply to Php"
+  </@.php>
+|};
+
+/* Should pull in `alwaysPulledInDepX`, `alwaysPulledInDepY`, and `conditionalDepM` */
+let pullsInDep1 = conditionallyPullsDepA(true);
+/* Should pull in `alwaysPulledInDepY`, `alwaysPulledInDepZ`, and
+ * `conditionalDepQ`.  Has overlap in the "always" pulled in deps, and
+ * shouldn't cause any funny behavior in that case. They should always be
+ * hoisted.  */
+
+let pullsInDep2 = conditionallyPullsDepB(true);
