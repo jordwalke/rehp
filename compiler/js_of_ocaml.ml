@@ -104,17 +104,6 @@ let file_needs_update use_hashing hashes_comment file =
     (* File exists, and we are to use hashing *)
     not (file_contains_hashes hashes_comment file)
 
-let normalize_seps s =
-  if not (String.equal Filename.dir_sep "/") then
-    String.split ~sep:Filename.dir_sep s |> String.concat ~sep:"/"
-  else s
-
-let remove_last_normalized_sep s =
-  let len = String.length s in
-  if not(String.is_empty s) && (String.get s (len - 1) == '/') then
-    String.sub s ~pos:0 ~len:(len - 1)
-  else s
-
 
 (* Ensures a directory exists. Will fail if path is a non-dir file.
    Containing directory must already exist.
@@ -122,8 +111,8 @@ let remove_last_normalized_sep s =
    But on windows Sys.file_exists fails if it is an existing directory!
 *)
 let ensure_dir dir =
-  let normalized_dir = normalize_seps dir in
-  let dir = remove_last_normalized_sep normalized_dir in
+  let normalized_dir = PathUtils.normalizeSeps dir in
+  let dir = PathUtils.removeLastNormalizedSep normalized_dir in
   let dir_exists = try Sys.is_directory dir with
   | Sys_error(_) -> false in
   if not dir_exists then (
@@ -145,55 +134,6 @@ let dir_contents dir =
       Array.to_list dir_contents
   else []
 
-let remove_last lst =
-  match List.rev lst with
-  | [] -> []
-  | hd :: tl -> List.rev tl
-
-let rec relativizeRelativePathsImp from p =
-  match from, p with
-  | [], [] -> []
-  | [fromHd], [pHd] -> [".."; pHd]
-  | fromHd :: fromTl, pHd :: pTl ->
-      if fromHd = pHd
-      then relativizeRelativePathsImp fromTl pTl
-      else ".." :: relativizeRelativePathsImp (remove_last from) (pHd :: pTl)
-  | [fromHd], [] -> relativizeRelativePathsImp [] []
-  | fromHd :: fromTl :: fromTlTl, [] -> ".." :: relativizeRelativePathsImp fromTlTl []
-  | [], pHd :: pTl -> p
-
-(*
- * relativizeRelativePaths "./foo/bar/baz.js" "./foo/hi.js" == "../hi.js"
- *
- * relativizeRelativePaths "./foo/bar/barbar/baz.js" "./foo/hi.js" == "../../hi.js"
- * relativizeRelativePaths "./foo/bar/baz.js" "./foo/bye/now.js" == "../bye/now.js"
- * relativizeRelativePaths "./bar/baz.js" "./bye/now.js"
- * relativizeRelativePaths "../bye" + relativizeRelativePaths "./baz.js" "./now.js"
- *
- * relativizeRelativePaths "./foo/bar/baz.js" "./foo/bar/baz2.js" == "./baz2.js"
- *)
-let relativizeRelativePaths from p =
-  let from = normalize_seps from in
-  let p = normalize_seps p in
-  if String.equal from p then "./" else
-    match String.find_substring "./" from 0, String.find_substring "./" from 0 with
-    | exception Not_found ->
-        raise (Sys_error ("Paths not both relative " ^ from ^ ", " ^ p))
-    | 0, 0 ->
-        let from = String.sub ~pos:2 ~len:(String.length from - 2) from in
-        let p = String.sub ~pos:2 ~len:(String.length p - 2) p in
-        let res =
-          String.concat
-            ~sep:"/"
-            (relativizeRelativePathsImp
-               (String.split_char ~sep:'/' from)
-               (String.split_char ~sep:'/' p))
-        in
-        if String.length res > 1 && res.[0] == '.' && res.[1] == '.'
-        then res
-        else "./" ^ res
-    | _, _ -> raise (Sys_error ("Paths not both relative(other) " ^ from ^ ", " ^ p))
-
 (* Intentionally don't return the contents of the dir because they are stale at this point.
  * We will append the expected dependencies to the returned list. *)
 let get_potential_dependency_outputs ?ext dir =
@@ -203,8 +143,8 @@ let get_potential_dependency_outputs ?ext dir =
       let backend_ext = Backend.Current.extension () in
       let dot_backend_ext = "." ^ backend_ext in
       let full_sibling_dir = Filename.concat parent_dir sibling_dir in
-      let full_sibling_dir = normalize_seps full_sibling_dir in
-      let dir = normalize_seps dir in
+      let full_sibling_dir = PathUtils.normalizeSeps full_sibling_dir in
+      let dir = PathUtils.normalizeSeps dir in
       if (not (String.equal full_sibling_dir dir)) && Sys.is_directory full_sibling_dir
       then
         let sibling_dir_contents = dir_contents full_sibling_dir in
@@ -229,7 +169,8 @@ let get_potential_dependency_outputs ?ext dir =
           in
           List.rev_map matching_suffix ~f:(fun (file_name, base_name) ->
               { Dependency_outputs.relative_dir_from_project = full_sibling_dir
-              ; relative_dir_from_output = relativizeRelativePaths dir full_sibling_dir
+              ; relative_dir_from_output =
+                PathUtils.relativizeNormalizedRelativePaths dir full_sibling_dir
               ; normalized_compilation_unit =
                   Parse_bytecode.normalize_module_name base_name
               ; filename = file_name })
@@ -486,6 +427,7 @@ let f
               let code = Code.prepend one.code instr in
               let fmt = Pretty_print.to_out_channel chan in
               RehpDriver.f
+                ~file
                 ~standalone
                 ?profile
                 ~linkall
@@ -500,7 +442,7 @@ let f
                   let instr = fs_instr2 in
                   let code = Code.prepend Code.empty instr in
                   let pfs_fmt = Pretty_print.to_out_channel chan in
-                  RehpDriver.f ~standalone ?profile ~custom_header pfs_fmt one.debug code))));
+                  RehpDriver.f ~file ~standalone ?profile ~custom_header pfs_fmt one.debug code))));
     if times () then Format.eprintf "compilation: %a@." Timer.print t
   in
   (if runtime_only

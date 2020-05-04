@@ -32,7 +32,7 @@ let loc_from_debug_data_for_errors debug_data_for_errors addr x =
   with
   | Some pi, None | None, Some pi | Some _, Some pi -> Some pi
   | _ -> None
-  
+
 let the_option_of info x =
   match x with
   | Pv x ->
@@ -456,7 +456,10 @@ let f info p = specialize_all_instrs info p
 
 
 (* This is called from the driver before any Flow information is computed. *)
-let f_once debug_data_for_errors p =
+let f_once ?file debug_data_for_errors p =
+  let _ = (if file == None then
+    raise (Sys_error "where is this happening") ) in
+
   let rec loop addr l =
     match l with
     | [] -> []
@@ -466,7 +469,8 @@ let f_once debug_data_for_errors p =
        * conflict with identifier tables etc. So we sneak in one more
        * opportunity to inline/evaluate correctly, while also being able to
        * detect problems with the macro text early while we have the debug
-       * data.  *)
+       * data. Also, we have the file output name at this stage, so it is used
+       * to expand macros that require relative path normalization in normalize. *)
       | Let (x, Prim (Extern nm, args)) when Raw_macro.isUnexpanded nm ->
           let loc = loc_from_debug_data_for_errors debug_data_for_errors addr x in
           let be = Backend.Current.compiler_backend_flag () in
@@ -474,7 +478,7 @@ let f_once debug_data_for_errors p =
           (* Does not generate new intermediate bindings, so Flow does not need to rerun before
            * rerunning expandPrimBindingsAndArgs *)
           let node_list = Raw_macro.parseNodeList macro_data in
-          let node_list = Raw_macro.normalize node_list ~forBackend:be in
+          let node_list = Raw_macro.normalize ?file macro_data node_list ~forBackend:be in
           let (new_bindings, next_macro_text, next_macro_args) =
             Raw_macro.Eval.expandMacros x macro_data node_list args in
           new_bindings @

@@ -392,7 +392,7 @@ let eval_instr_expand info i =
           ( Extern "%caml_js_expanded_raw_macro_done",
             Code.Pc (Code.String next_macro_text) :: next_macro_args))]
   | _ -> [eval_instr info i]
-      
+
 
 type case_of =
   | CConst of int

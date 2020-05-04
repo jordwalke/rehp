@@ -52,11 +52,11 @@ let parse_source_file_from_debug_info debug ?after pc =
 let ask_backend ?loc path =
   match Backend.Current.module_require () with
   | None ->
-      raise (Errors.UserError(Errors.require_unsupported_backend path, loc))
+      raise (Errors.UserError(Errors.requireUnsupportedBackend path, loc))
   | Some loader -> (
     match loader path with
       | None ->
-          raise(Errors.UserError(Errors.backend_unsupported_require path, loc))
+          raise(Errors.UserError(Errors.backendUnsupportedRequire path, loc))
       | Some expr -> expr)
 
 (****)
@@ -306,7 +306,7 @@ module Share = struct
       try
         let c = StringMap.find s t.count.language_requires in
         (* If the usage count of the require is > 1 then try to hoist the variable *)
-        if c > 1
+        if c >= 1
         then (
           try J.EVar (StringMap.find s t.vars.language_requires)
           with Not_found ->
@@ -314,7 +314,10 @@ module Share = struct
             let v = Id.V x in
             t.vars <- { t.vars with language_requires = StringMap.add s v t.vars.language_requires };
             J.EVar v)
-        else gen s
+        else (
+          let n = try StringMap.find s t.count.language_requires with Not_found -> 0 in
+          gen s
+        )
       with Not_found -> gen s
 
   let get_apply gen n t =

@@ -281,6 +281,27 @@ let raiseMacroUnsupportedTag = (~hint="", tagName, macroData) => {
   raise(Errors.UserError(msg, macroData.callerLoc));
 };
 
+let raiseEmptyRequirePaths = (~which, macroData) => {
+  let msg =
+    Printf.sprintf(
+      {|%s
+  The macro being called here uses a %s which is empty.
+  The macro contents are:
+%s
+|},
+      commonError,
+      which,
+      formatForError(macroData.macro),
+    );
+  raise(Errors.UserError(msg, macroData.callerLoc));
+};
+
+let raiseNoOutputFileButProjectRoot = macroData => {
+  let msg =
+    Errors.macroNoOutputFile(commonError, formatForError(macroData.macro));
+  raise(Errors.UserError(msg, macroData.callerLoc));
+};
+
 let raiseMalformedMacro = (specificError, macroData) => {
   let msg =
     Printf.sprintf(
@@ -291,6 +312,67 @@ let raiseMalformedMacro = (specificError, macroData) => {
 |},
       commonError,
       specificError,
+      formatForError(macroData.macro),
+    );
+  raise(Errors.UserError(msg, macroData.callerLoc));
+};
+
+let raiseMacroUndefinedProjectRoot = macroData => {
+  let msg =
+    Printf.sprintf(
+      {|%s
+%s
+%s
+|},
+      commonError,
+      Errors.macroUndefinedProjectRoot,
+      formatForError(macroData.macro),
+    );
+  raise(Errors.UserError(msg, macroData.callerLoc));
+};
+
+let raiseMacroMalformedRequire = macroData => {
+  let msg =
+    Printf.sprintf(
+      {|%s
+%s
+%s
+|},
+      commonError,
+      Errors.weirdArgumentsToCamlRequire,
+      formatForError(macroData.macro),
+    );
+  raise(Errors.UserError(msg, macroData.callerLoc));
+};
+
+/**
+ * Gets the project root for npm projects using commonly set environment
+ * variables.  These ones are esy specific but we should add any other
+ * variables/file system searches that would reliably discover an npm project
+ * root.
+ */
+let getProjectRoot = () =>
+  /* cur__original_root is set during esy build */
+  switch (Sys.getenv("cur__original_root")) {
+  | exception Not_found =>
+    /* ESY__ROOT_PACKAGE_CONFIG_PATH is set during esy x (useful for testing jsoo/rehp itself) */
+    switch (Sys.getenv("ESY__ROOT_PACKAGE_CONFIG_PATH")) {
+    | exception Not_found => None
+    | p =>
+      let trimmed = String.trim(p);
+      String.is_empty(trimmed) ? None : Some(Filename.dirname(trimmed));
+    }
+  | p =>
+    let trimmed = String.trim(p);
+    String.is_empty(trimmed) ? None : Some(Filename.dirname(trimmed));
+  };
+
+let raiseRelativeRequires = (path, projectRoot, macroData) => {
+  let msg =
+    Errors.relativeRequiresNotSupported(
+      commonError,
+      path,
+      projectRoot,
       formatForError(macroData.macro),
     );
   raise(Errors.UserError(msg, macroData.callerLoc));
@@ -319,11 +401,11 @@ let raiseMalformedPrim = (specificError, (primTag, prim_name), macroData) => {
     "<@"
     ++ primTag
     ++ ">"
-    ++ (primTag != prim_name ? "(sugar for prim." ++ prim_name ++ ")" : "");
+    ++ (primTag != prim_name ? "(sugar for prim " ++ prim_name ++ ")" : "");
   let msg =
     Printf.sprintf(
       {|%s
-  The macro being called contains a nested prim call %s which incorrectly
+  The macro being called contains a nested primimitve call %s which incorrectly
   contains raw text somewhere in its children.
 
   %s
@@ -407,7 +489,7 @@ let primName = prim =>
   | "toString" => "caml_js_from_string"
   | "toBool" => "caml_js_from_bool"
   | "fromBool" => "caml_js_to_bool"
-  | "nonRelativeRequire" => "%caml_require"
+  | "require" => "%caml_require"
   | "" => "%caml_js_expanded_raw_macro_done"
   | s => s
   };
@@ -687,17 +769,19 @@ type rawIfExpansionMode =
 let expandPrimBindingsAndArgs = (~mode, md, origArgs, nodeList) => {
   /* doExpand is not just inIf because the test case is "inIf" for purposes of
    * validating nesting, but is still a place we want to expand */
+  /* TODO: Just do early validation at normalization stage so that we can simplify this
+   * and make the assumption that RawIfs can never be nested. */
   let rec expandNode =
-          (~doExpand, ~inIf, (revBindings, curTxt, revArgs), curNode) => {
+          (~doExpand, ~inIf, (revBinds, curTxt, revArgs), curNode) => {
     switch (curNode, doExpand, inIf, mode) {
-    | (Raw(r), _, _, _) => (revBindings, curTxt ++ r, revArgs)
+    | (Raw(r), _, _, _) => (revBinds, curTxt ++ r, revArgs)
     | (Arg(i), _, _, _) =>
       switch (List.nth_opt(origArgs, i - 1)) {
       /* TODO: Throw if empty subs */
       | None => raiseIndexNotSupported(i, List.length(origArgs), md)
       | Some(a) =>
         let nextArgs = [a, ...revArgs];
-        (revBindings, curTxt ++ renderPos(List.length(nextArgs)), nextArgs);
+        (revBinds, curTxt ++ renderPos(List.length(nextArgs)), nextArgs);
       }
     | (RawIf(test, ts, fs, us), _, true, _) => raiseNestedMacro(md)
     /* This is still part of the raw content */
@@ -736,7 +820,7 @@ let expandPrimBindingsAndArgs = (~mode, md, origArgs, nodeList) => {
           revBindingsFalse,
           revBindingsTrue,
           revBindingsTest,
-          revBindings,
+          revBinds,
         ]);
       (
         nextRevBindings,
@@ -746,28 +830,30 @@ let expandPrimBindingsAndArgs = (~mode, md, origArgs, nodeList) => {
     | (RawIf(test, _, _, unknowns), _, false, ExpandPrimsInUnknownBranches) =>
       let (revBindingsUnknown, sUnknown, revArgs) =
         expand(~doExpand=true, ~inIf=true, unknowns, revArgs);
-      let nextRevBindings = List.concat([revBindingsUnknown, revBindings]);
+      let nextRevBindings = List.concat([revBindingsUnknown, revBinds]);
       (nextRevBindings, curTxt ++ sUnknown, revArgs);
-    | (Prim(tag, "%caml_require", [Raw(path)]), true, _, _) =>
-      /* Reset arg count for prims. They get own args and whole prim call
-       * becomes a single arg for the current macro.  */
-      let bindingVar = Code.Var.fresh();
-      let len = String.length(path);
-      let path =
-        len > 1 && path.[0] === '"' && path.[len - 1] === '"'
-          ? String.sub(path, ~pos=1, ~len=len - 2) : path;
+    | (Prim(tag, "%caml_require", [Raw(normalizedPath)]), true, _, _) =>
+      let bindVar = Code.Var.fresh();
 
-      let args = [Code.Pc(Code.IString(path))];
+      let args = [Code.Pc(Code.IString(normalizedPath))];
       let revBindingsWithThis = [
-        ((tag, "%caml_require", bindingVar), args),
-        ...revBindings,
+        ((tag, "%caml_require", bindVar), args),
+        ...revBinds,
       ];
-      let nextRevArgsWithBinding = [Code.Pv(bindingVar), ...revArgs];
+      let nextRevArgsWithBinding = [Code.Pv(bindVar), ...revArgs];
       (
         revBindingsWithThis,
         curTxt ++ renderPos(List.length(nextRevArgsWithBinding)),
         nextRevArgsWithBinding,
       );
+    | (Prim(tag, "%caml_require", [Raw(path)] as subs), false, _, _) =>
+      /* revPrimBindings should be empty */
+      let (revPrimBindings, subTxt, revArgsWithSubRevArgs) =
+        expand(~doExpand, ~inIf, subs, revArgs);
+      if (List.length(revPrimBindings) !== 0) {
+        failwith("revPrimBindings was supposed to be length zero");
+      };
+      (revBinds, curTxt ++ renderPrim(tag, subTxt), revArgsWithSubRevArgs);
     | (Prim(tag, prim, subs), true, _, _) =>
       /* Filter empty tag in prim calls because forbid raw text, but allow white. */
       let errorNonEmpty = Some((tag, prim));
@@ -777,17 +863,17 @@ let expandPrimBindingsAndArgs = (~mode, md, origArgs, nodeList) => {
        * becomes a single arg for the current macro.  */
       let (revPrimBindings, subTxt, subRevArgs) =
         expand(~doExpand, ~inIf, subs, []);
-      let revPrimBindings = List.append(revPrimBindings, revBindings);
-      let bindingVar = Code.Var.fresh();
+      let revPrimBindings = List.append(revPrimBindings, revBinds);
+      let bindVar = Code.Var.fresh();
       let args =
         isMacro
           ? [Code.Pc(Code.String(subTxt)), ...List.rev(subRevArgs)]
           : List.rev(subRevArgs);
       let revBindingsWithThis = [
-        ((tag, prim, bindingVar), args),
+        ((tag, prim, bindVar), args),
         ...revPrimBindings,
       ];
-      let nextRevArgsWithBinding = [Code.Pv(bindingVar), ...revArgs];
+      let nextRevArgsWithBinding = [Code.Pv(bindVar), ...revArgs];
       (
         revBindingsWithThis,
         curTxt ++ renderPos(List.length(nextRevArgsWithBinding)),
@@ -804,12 +890,7 @@ let expandPrimBindingsAndArgs = (~mode, md, origArgs, nodeList) => {
       if (List.length(revPrimBindings) !== 0) {
         failwith("revPrimBindings was supposed to be length zero");
       };
-      let revPrimBindings = List.append(revPrimBindings, revBindings);
-      (
-        revPrimBindings,
-        curTxt ++ renderPrim(tag, subTxt),
-        revArgsWithSubRevArgs,
-      );
+      (revBinds, curTxt ++ renderPrim(tag, subTxt), revArgsWithSubRevArgs);
     };
   }
   /**
@@ -820,10 +901,10 @@ let expandPrimBindingsAndArgs = (~mode, md, origArgs, nodeList) => {
     let init = ([], "", curRevArgs);
     List.fold_left(~f=expandNode(~doExpand, ~inIf), ~init, nodeList);
   };
-  let (revBindings, subTxt, subRevArgs) =
+  let (revBinds, subTxt, subRevArgs) =
     expand(~doExpand=true, ~inIf=false, nodeList, []);
   let finalBindingData = (subTxt, List.rev(subRevArgs));
-  (List.rev(revBindings), finalBindingData);
+  (List.rev(revBinds), finalBindingData);
 };
 
 /**
@@ -837,7 +918,7 @@ let expandPrimBindingsAndArgs = (~mode, md, origArgs, nodeList) => {
  *     <@require>MyModule</@require>
  *     <@require>"MyModule"</@require>
  */
-let rec normalize = (~forBackend, nodeList) => {
+let rec normalize = (~file=?, md, nodeList, ~forBackend) => {
   let be = forBackend;
 
   let primify = node =>
@@ -858,32 +939,75 @@ let rec normalize = (~forBackend, nodeList) => {
     | RawIf(exp, tr, fl, un) => [
         RawIf(
           exp,
-          normalize(tr, ~forBackend),
-          normalize(fl, ~forBackend),
-          normalize(un, ~forBackend),
+          normalize(~file?, md, tr, ~forBackend),
+          normalize(~file?, md, fl, ~forBackend),
+          normalize(~file?, md, un, ~forBackend),
         ),
         ...cur,
       ]
     | Prim(tag, thePrimName, sub) =>
       let isOldForm = String.equal(tag, "js") || String.equal(tag, "php");
+      let tagLen = String.length(tag);
       if (isOldForm) {
         String.equal(tag, be)
-          ? List.rev_append(normalize(sub, ~forBackend), cur) : cur;
-      } else if (String.length(tag) > 1
+          ? List.rev_append(normalize(~file?, md, sub, ~forBackend), cur)
+          : cur;
+      } else if (tagLen > 1
                  && String.equal(String.sub(tag, ~pos=0, ~len=1), ".")) {
-        String.equal(
-          String.sub(tag, ~pos=1, ~len=String.length(tag) - 1),
-          be,
-        )
-          ? List.rev_append(normalize(sub, ~forBackend), cur) : cur;
+        String.equal(String.sub(tag, ~pos=1, ~len=tagLen - 1), be)
+          ? List.rev_append(normalize(~file?, md, sub, ~forBackend), cur)
+          : cur;
       } else {
+        let removeQuotes = p => {
+          let len = String.length(p);
+          p.[0] === '"' && p.[len - 1] === '"'
+            ? String.sub(p, ~pos=1, ~len=len - 2) : p;
+        };
         let sub =
-          switch (thePrimName, sub) {
-          | ("%caml_js_expanded_raw_macro_done", sub) => sub
-          | ("%caml_require", [Raw(requirePath)]) => sub
+          switch (getProjectRoot(), file, thePrimName, sub) {
+          | (_, _, "%caml_js_expanded_raw_macro_done", sub) => sub
+          | (_, None, "%caml_require", [Prim("projectRoot", _, []), ..._]) =>
+            raiseNoOutputFileButProjectRoot(md)
+          | (
+              Some(root) as projectRoot,
+              Some(file),
+              "%caml_require",
+              [Prim("projectRoot", _, []), Raw(path)],
+            ) =>
+            let path = String.trim(path);
+            let path = removeQuotes(path);
+            let len = String.length(path);
+            if (len === 0) {
+              raiseEmptyRequirePaths(~which="require path", md);
+            };
+            if (path.[0] == '.') {
+              raiseRelativeRequires(path, projectRoot, md);
+            };
+            let relativized =
+              PathUtils.relativizeAbsolutePathsOnSameDrive(
+                PathUtils.normalizeRelativeToCwd(file),
+                PathUtils.concat(root, "/" ++ path),
+              );
+            [Raw(relativized)];
+          | (_, _, "%caml_require", [Raw(path)]) =>
+            let path = String.trim(path);
+            let path = removeQuotes(path);
+            let len = String.length(path);
+            if (len === 0) {
+              raiseEmptyRequirePaths(~which="require path", md);
+            };
+            if (path.[0] == '.') {
+              let projectRoot = getProjectRoot();
+              raiseRelativeRequires(path, projectRoot, md);
+            };
+            [Raw(path)];
+          | (_, _, "%caml_require", _) => raiseMacroMalformedRequire(md)
           | _ => List.map(sub, ~f=primify)
           };
-        [Prim(tag, thePrimName, normalize(sub, ~forBackend)), ...cur];
+        [
+          Prim(tag, thePrimName, normalize(~file?, md, sub, ~forBackend)),
+          ...cur,
+        ];
       };
     };
   let taken = List.fold_left(~init=[], ~f=folder, nodeList);
@@ -938,9 +1062,8 @@ let rec evalRawIfsInExpanded = (subs, macroData, args, ~testVal) => {
           // TODO: I think we can remove this arg.
           let nextRevArgsWithThis = [arg, ...revArgs];
           /* Shifts the index because we could have removed some */
-          let (nextRevSubNodes, nextRevArgs) =
-            impl(sub, nextRevArgsWithThis);
-          let nextRevNodes = nextRevSubNodes @ revNodes;
+          let (nextRevSubs, nextRevArgs) = impl(sub, nextRevArgsWithThis);
+          let nextRevNodes = nextRevSubs @ revNodes;
           (nextRevNodes, nextRevArgs);
         };
       | RawIf(Prim(tag, _, _), _, _, _) =>
@@ -955,10 +1078,10 @@ let rec evalRawIfsInExpanded = (subs, macroData, args, ~testVal) => {
           "Something went wrong with expanding 'raw ifs'. Raw ifs should have already been expaneded",
           macroData,
         )
-      | Prim(tag, primName, subs) =>
-        let (nextRevSubnodes, revArgs) = impl(subs, revArgs);
+      | Prim(tag, prim, subs) =>
+        let (nextRevSubs, revArgs) = impl(subs, revArgs);
         let nextRevNodes = [
-          Prim(tag, primName, List.rev(nextRevSubnodes)),
+          Prim(tag, prim, List.rev(nextRevSubs)),
           ...revNodes,
         ];
         (nextRevNodes, revArgs);
@@ -1018,12 +1141,12 @@ module Eval = {
       }
     )
     |> String.concat(~sep=",");
-  let _printNewBinding = (~title, bindingVar, ~firstArg, args) => {
+  let _printNewBinding = (~title, bindVar, ~firstArg, args) => {
     let argsString = "(" ++ firstArg ++ "," ++ _printArgsString(args) ++ ")";
     print_endline(
       title
       ++ " bindings: var "
-      ++ string_of_int(Code.Var.idx(bindingVar))
+      ++ string_of_int(Code.Var.idx(bindVar))
       ++ " = call"
       ++ argsString,
     );
@@ -1041,12 +1164,11 @@ module Eval = {
       expandPrimBindingsAndArgs(~mode, macroData, args, nodeList);
     let (nextMacroText, nextMacroArgs) = finalBindingData;
     let newBindings =
-      List.map(
-        expandedBindings, ~f=(((_tag, externName, bindingVar), args)) => {
+      List.map(expandedBindings, ~f=(((_tag, externName, bindVar), args)) => {
         /* let title = "  expanded binding " ++ externName; */
-        /* _printNewBinding(~title, bindingVar, ~firstArg="", args); */
+        /* _printNewBinding(~title, bindVar, ~firstArg="", args); */
         Code.Let(
-          bindingVar,
+          bindVar,
           Prim(Extern(externName), args),
         )
       });
@@ -1064,13 +1186,12 @@ module Eval = {
       expandPrimBindingsAndArgs(~mode, macroData, args, nodeList);
     let (nextMacroText, nextMacroArgs) = finalBindingData;
     let newBindings =
-      List.map(
-        expandedBindings, ~f=(((_tag, externName, bindingVar), args)) => {
+      List.map(expandedBindings, ~f=(((_tag, externName, bindVar), args)) => {
         /* let title = */
         /*   "  expanded macro binding for unknown cases " ++ externName; */
-        /* _printNewBinding(~title, bindingVar, ~firstArg="", args); */
+        /* _printNewBinding(~title, bindVar, ~firstArg="", args); */
         Code.Let(
-          bindingVar,
+          bindVar,
           Prim(Extern(externName), args),
         )
       });

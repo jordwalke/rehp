@@ -22,6 +22,7 @@ type profile;
 
 let f:
   (
+    ~file: string=?,
     ~standalone: bool=?,
     ~profile: profile=?,
     ~dynlink: bool=?,
