@@ -301,7 +301,7 @@ module Share = struct
 
 
   let get_require gen s t =
-    let varname = s
+    let path = s
     in
       try
         let c = StringMap.find s t.count.language_requires in
@@ -310,14 +310,19 @@ module Share = struct
         then (
           try J.EVar (StringMap.find s t.vars.language_requires)
           with Not_found ->
-            let x = Var.fresh_n varname in
+            let bname = Filename.basename path in
+            let var_name =
+              match String.find_substring ".js" bname 0 with
+              | exception Not_found -> bname
+              | i ->
+                  (match i == ((String.length bname) - 3) with
+                   | true -> Filename.chop_extension bname
+                   | false -> bname) in
+            let x = Var.fresh_n var_name in
             let v = Id.V x in
             t.vars <- { t.vars with language_requires = StringMap.add s v t.vars.language_requires };
             J.EVar v)
-        else (
-          let n = try StringMap.find s t.count.language_requires with Not_found -> 0 in
-          gen s
-        )
+        else gen s
       with Not_found -> gen s
 
   let get_apply gen n t =

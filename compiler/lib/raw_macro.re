@@ -1088,7 +1088,6 @@ let rec evalRawIfsInExpanded = (subs, macroData, args, ~testVal) => {
       }
     );
   let (finalRevNodes, finalRevArgs) = impl(subs, []);
-  print_newline();
   (List.rev(finalRevNodes), List.rev(finalRevArgs));
 };
 
