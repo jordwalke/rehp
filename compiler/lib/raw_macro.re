@@ -593,20 +593,29 @@ let classify = (mData, tag, sub) => {
 
 let isUnexpanded = nm => {
   let trimmed = String.trim(nm);
-  switch (String.find_substring("raw-macro:", trimmed, 0)) {
-  | 0 => true
-  | exception Not_found
-  | _ =>
+  let onProblem = () =>
     switch (String.find_substring("<@.", trimmed, 0)) {
+    | exception Not_found => false
     | 0 => true
-    | exception Not_found
     | _ => false
-    }
+    };
+  switch (String.find_substring("raw-macro:", trimmed, 0)) {
+  | exception Not_found => onProblem()
+  | 0 => true
+  | _ => onProblem()
   };
 };
 
 let extractOriginalExtern = (~forBackend, ~loc=?, nm) => {
   let trimmed = String.trim(nm);
+  let onProblem = () =>
+    switch (String.find_substring("<@.", trimmed, 0)) {
+    | 0 =>
+      let everythingAfterRawMacro = nm |> removeBookendNewlines;
+      normalizeLeading(everythingAfterRawMacro);
+    | exception Not_found => ""
+    | _ => ""
+    };
   let macro =
     switch (String.find_substring("raw-macro:", trimmed, 0)) {
     | 0 =>
@@ -619,15 +628,8 @@ let extractOriginalExtern = (~forBackend, ~loc=?, nm) => {
         )
         |> removeBookendNewlines;
       normalizeLeading(everythingAfterRawMacro);
-    | exception Not_found
-    | _ =>
-      switch (String.find_substring("<@.", trimmed, 0)) {
-      | 0 =>
-        let everythingAfterRawMacro = nm |> removeBookendNewlines;
-        normalizeLeading(everythingAfterRawMacro);
-      | exception Not_found
-      | _ => ""
-      }
+    | exception Not_found => onProblem()
+    | _ => onProblem()
     };
   {macro, backend: forBackend, callerLoc: loc};
 };
@@ -911,7 +913,8 @@ let expandPrimBindingsAndArgs = (~mode, md, origArgs, nodeList) => {
  * - Removes backend primitive specific portions.
  * - Automatically hoists RawIfs supplied directly as primitive args into their
  * own extern calls.
- * - Converts sugars such as `<@1.toNull
+ * - Converts sugars such as `<@1.toNull.toString/> into
+ *    `<@toString><@toNull><@1/></@toNull><@/toString>`
  * - Converts all of the following to `<@require>Raw(MyModule)</@require>` even
  * though this would not be allowed for any other prim.
  *
@@ -919,97 +922,107 @@ let expandPrimBindingsAndArgs = (~mode, md, origArgs, nodeList) => {
  *     <@require>"MyModule"</@require>
  */
 let rec normalize = (~file=?, md, nodeList, ~forBackend) => {
+  let normalize = normalize(~file?, ~forBackend, md);
   let be = forBackend;
-
-  let primify = node =>
+  let numericDot = tag =>
+    switch (String.split_char(~sep='.', tag)) {
+    /* At least an n.a, and maybe n.a.b */
+    | [hd, _hd2, ...tl] =>
+      switch (int_of_string_opt(hd)) {
+      | Some(i) => Some((i, [_hd2, ...tl]))
+      | None => None
+      }
+    | [_]
+    | [] => None
+    };
+  let rec primArg = node =>
     switch (node) {
     | RawIf(_) =>
       Prim(
         "%caml_js_expanded_raw_macro_done",
         "%caml_js_expanded_raw_macro_done",
-        [node],
+        normalize([node]),
       )
-    | _ => node
+    | _ => normalize1(node)
+    }
+  and removeQuotes = p => {
+    let len = String.length(p);
+    p.[0] === '"' && p.[len - 1] === '"'
+      ? String.sub(p, ~pos=1, ~len=len - 2) : p;
+  }
+  and chainPrims = (content, lst) =>
+    switch (lst) {
+    | [] => content
+    | [hd, ...tl] => chainPrims(Prim(hd, primName(hd), [content]), tl)
+    }
+  and normalizeOnePrim = (tag, thePrimName, sub) => {
+    switch (numericDot(tag), getProjectRoot(), file, thePrimName, sub) {
+    | (Some((n, dots)), _, _, _, sub) => chainPrims(Arg(n), dots)
+    | (_, _, None, "%caml_require", [Prim("projectRoot", _, []), ..._]) =>
+      raiseNoOutputFileButProjectRoot(md)
+    | (
+        _,
+        Some(root) as projectRoot,
+        Some(file),
+        "%caml_require",
+        [Prim("projectRoot", _, []), Raw(path)],
+      ) =>
+      let path = String.trim(path);
+      let path = removeQuotes(path);
+      let len = String.length(path);
+      if (len === 0) {
+        raiseEmptyRequirePaths(~which="require path", md);
+      };
+      if (path.[0] == '.') {
+        raiseRelativeRequires(path, projectRoot, md);
+      };
+      let relativized =
+        PathUtils.relativizeAbsolutePathsOnSameDrive(
+          PathUtils.normalizeRelativeToCwd(file),
+          PathUtils.concat(root, "/" ++ path),
+        );
+      Prim(tag, thePrimName, normalize([Raw(relativized)]));
+    | (_, _, _, "%caml_require", [Raw(path)]) =>
+      let path = String.trim(path);
+      let path = removeQuotes(path);
+      let len = String.length(path);
+      if (len === 0) {
+        raiseEmptyRequirePaths(~which="require path", md);
+      };
+      if (path.[0] == '.') {
+        let projectRoot = getProjectRoot();
+        raiseRelativeRequires(path, projectRoot, md);
+      };
+      Prim(tag, thePrimName, normalize([Raw(path)]));
+    | (_, _, _, "%caml_require", _) => raiseMacroMalformedRequire(md)
+    | _ => Prim(tag, thePrimName, List.map(sub, ~f=primArg))
+    };
+  }
+  and normalize1 = child =>
+    switch (child) {
+    | Raw(_)
+    | Arg(_) => child
+    /* TODO: Normalize the expression test */
+    | RawIf(exp, tr, fl, un) =>
+      RawIf(normalize1(exp), normalize(tr), normalize(fl), normalize(un))
+    | Prim(tag, thePrimName, sub) => normalizeOnePrim(tag, thePrimName, sub)
     };
   let folder = (cur, child) =>
     switch (child) {
-    | Raw(_) as r => [r, ...cur]
-    | Arg(_) as a => [a, ...cur]
-    /* TODO: Normalize the expression test */
-    | RawIf(exp, tr, fl, un) => [
-        RawIf(
-          exp,
-          normalize(~file?, md, tr, ~forBackend),
-          normalize(~file?, md, fl, ~forBackend),
-          normalize(~file?, md, un, ~forBackend),
-        ),
-        ...cur,
-      ]
     | Prim(tag, thePrimName, sub) =>
       let isOldForm = String.equal(tag, "js") || String.equal(tag, "php");
       let tagLen = String.length(tag);
       if (isOldForm) {
-        String.equal(tag, be)
-          ? List.rev_append(normalize(~file?, md, sub, ~forBackend), cur)
-          : cur;
-      } else if (tagLen > 1
-                 && String.equal(String.sub(tag, ~pos=0, ~len=1), ".")) {
+        String.equal(tag, be) ? List.rev_append(normalize(sub), cur) : cur;
+      } else if (tagLen > 2 && String.sub(tag, ~pos=0, ~len=1) == ".") {
         String.equal(String.sub(tag, ~pos=1, ~len=tagLen - 1), be)
-          ? List.rev_append(normalize(~file?, md, sub, ~forBackend), cur)
-          : cur;
+          ? List.rev_append(normalize(sub), cur) : cur;
       } else {
-        let removeQuotes = p => {
-          let len = String.length(p);
-          p.[0] === '"' && p.[len - 1] === '"'
-            ? String.sub(p, ~pos=1, ~len=len - 2) : p;
-        };
-        let sub =
-          switch (getProjectRoot(), file, thePrimName, sub) {
-          | (_, _, "%caml_js_expanded_raw_macro_done", sub) => sub
-          | (_, None, "%caml_require", [Prim("projectRoot", _, []), ..._]) =>
-            raiseNoOutputFileButProjectRoot(md)
-          | (
-              Some(root) as projectRoot,
-              Some(file),
-              "%caml_require",
-              [Prim("projectRoot", _, []), Raw(path)],
-            ) =>
-            let path = String.trim(path);
-            let path = removeQuotes(path);
-            let len = String.length(path);
-            if (len === 0) {
-              raiseEmptyRequirePaths(~which="require path", md);
-            };
-            if (path.[0] == '.') {
-              raiseRelativeRequires(path, projectRoot, md);
-            };
-            let relativized =
-              PathUtils.relativizeAbsolutePathsOnSameDrive(
-                PathUtils.normalizeRelativeToCwd(file),
-                PathUtils.concat(root, "/" ++ path),
-              );
-            [Raw(relativized)];
-          | (_, _, "%caml_require", [Raw(path)]) =>
-            let path = String.trim(path);
-            let path = removeQuotes(path);
-            let len = String.length(path);
-            if (len === 0) {
-              raiseEmptyRequirePaths(~which="require path", md);
-            };
-            if (path.[0] == '.') {
-              let projectRoot = getProjectRoot();
-              raiseRelativeRequires(path, projectRoot, md);
-            };
-            [Raw(path)];
-          | (_, _, "%caml_require", _) => raiseMacroMalformedRequire(md)
-          | _ => List.map(sub, ~f=primify)
-          };
-        [
-          Prim(tag, thePrimName, normalize(~file?, md, sub, ~forBackend)),
-          ...cur,
-        ];
+        [normalize1(child), ...cur];
       };
+    | _ => [normalize1(child), ...cur]
     };
+
   let taken = List.fold_left(~init=[], ~f=folder, nodeList);
   List.rev(taken);
 };

@@ -179,7 +179,7 @@ if (z) {
   call1(Stdlib[42], h_);
 }
 
-call1(Calls_Macros[7], 0);
+call1(Calls_Macros[8], 0);
 
 var Calls = [
   0,

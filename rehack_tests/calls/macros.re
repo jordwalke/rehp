@@ -44,6 +44,34 @@ let inlinesMacros =
     Some("converted to nullable"),
     null,
   );
+
+external callExternWithConvertedToNullDotSugar: ('a, 'b, 'c, 'd, 'e) => 'any = {|
+  <@.js>
+  new Array(
+    <@outerOuter><@outer><@1.inner/></@outer></@outerOuter>,
+    <@2.toString/>,
+    <@3.toNull/>,
+    <@4.toNull.toString/>
+  )
+  </@.js>
+  <@.php>
+  varray[
+    <@outerOuter><@outer><@inner><@1/></@inner></@outer></@outerOuter>,
+    <@2.toString/>,
+    <@3.toNull/>,
+    <@4.toNull.toString/>
+  ]
+  </@.php>
+|};
+
+let inlinesMacrosWithSugar =
+  callExternWithConvertedToNullDotSugar(
+    100,
+    "convertedToPlatformString",
+    None,
+    Some("converted to nullable"),
+    null,
+  );
 external something : 'a => unit = "caml_js_anything";
 
 let result = toOption(something("hello"));
@@ -361,6 +389,34 @@ external conditionallyPullsDepA : (bool) => unit = {|
   </@.php>
 |};
 
+
+/**
+ * Inlines at call site and conditionally pulls in a require('nameLogger')
+ * dependency.
+ * - Also <@1.toNull.toString/> unboxes optional allocations at call sites,
+ * converts to JS plain string.
+ */
+external smartLogging : (~logName:string=?, string) => unit = {|
+  <@.js>
+    <@?>
+    <@1.isSome/>
+    <@true>
+    <@require>nameLogger/nameLogger.js</@require>(<@1.toNull.toString/>, <@2.toString/>)
+    </@true>
+    <@false>
+    console.log(<@2.toString/>)
+    </@false>
+    <@unknown>
+    <@require>nameLogger/nameLogger.js</@require>(<@1.toNull.toString/>, <@2.toString/>)
+    </@unknown>
+    <@/?>
+  </@.js>
+  <@.php>
+  "Test not applicable to PHP"
+  </@.php>
+|};
+
+let smartLoggingResult = smartLogging("No dependency pulled in");
 
 /**
  * `alwaysPulledInDepY` is always pulled in by `conditionallyPullsDepB`

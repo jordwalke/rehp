@@ -42,6 +42,13 @@ var inlinesMacros = new Array(
   "convertedToPlatformString",
   null,
   "converted to nullable");
+var inlinesMacrosWithSugar = new Array(
+  runtime["outerOuter"](
+  runtime["outer"](runtime["inner"](100))
+),
+  "convertedToPlatformString",
+  null,
+  "converted to nullable");
 var a_ = runtime["caml_js_anything"](cst_hello);
 var result = a_ === null ? 0 : [0, a_];
 var l_ = runtime["outerOuter"](runtime["outer"](runtime["inner"](cst_hi)));
@@ -107,6 +114,7 @@ function createDivWithUnknowns(className, style, param) {
   );
 }
 
+var smartLoggingResult = console.log("No dependency pulled in");
 var pullsInDep1 = alwaysPulledInDepX(0) +
   alwaysPulledInDepY(1) +
   conditionalDepM()+
@@ -119,6 +127,7 @@ var Calls_Macros = [
   0,
   null__0,
   inlinesMacros,
+  inlinesMacrosWithSugar,
   result,
   nestedsResult,
   nestedResult2,
@@ -138,6 +147,7 @@ var Calls_Macros = [
   emptyChildren,
   myOuterDiv,
   createDivWithUnknowns,
+  smartLoggingResult,
   pullsInDep1,
   pullsInDep2
 ];
@@ -147,6 +157,7 @@ module.exports = Calls_Macros;
 /*::type Exports = {
   _null_: any,
   inlinesMacros: any,
+  inlinesMacrosWithSugar: any,
   result: any,
   nestedsResult: any,
   nestedResult2: any,
@@ -166,12 +177,14 @@ module.exports = Calls_Macros;
   emptyChildren: any,
   myOuterDiv: any,
   createDivWithUnknowns: (className: any, style: any, param: any) => any,
+  smartLoggingResult: any,
   pullsInDep1: any,
   pullsInDep2: any,
 }*/
 /** @type {{
   _null_: any,
   inlinesMacros: any,
+  inlinesMacrosWithSugar: any,
   result: any,
   nestedsResult: any,
   nestedResult2: any,
@@ -191,32 +204,35 @@ module.exports = Calls_Macros;
   emptyChildren: any,
   myOuterDiv: any,
   createDivWithUnknowns: (className: any, style: any, param: any) => any,
+  smartLoggingResult: any,
   pullsInDep1: any,
   pullsInDep2: any,
 }} */
 module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports._null_ = module.exports[1];
 module.exports.inlinesMacros = module.exports[2];
-module.exports.result = module.exports[3];
-module.exports.nestedsResult = module.exports[4];
-module.exports.nestedResult2 = module.exports[5];
-module.exports.nestedResult3 = module.exports[6];
-module.exports.includeMe = module.exports[7];
-module.exports.trueee = module.exports[8];
-module.exports.falseee = module.exports[9];
-module.exports.boolTest1 = module.exports[10];
-module.exports.boolTest2 = module.exports[11];
-module.exports.oneTwoSideEffectUngrouped = module.exports[12];
-module.exports.oneSideEffectUngrouped = module.exports[13];
-module.exports.twoSideEffectUngrouped = module.exports[14];
-module.exports.oneTwoSideEffectCorrect = module.exports[15];
-module.exports.oneSideEffectCorrect = module.exports[16];
-module.exports.twoSideEffectCorrect = module.exports[17];
-module.exports.myStyle = module.exports[18];
-module.exports.emptyChildren = module.exports[19];
-module.exports.myOuterDiv = module.exports[20];
-module.exports.createDivWithUnknowns = module.exports[21];
-module.exports.pullsInDep1 = module.exports[22];
-module.exports.pullsInDep2 = module.exports[23];
+module.exports.inlinesMacrosWithSugar = module.exports[3];
+module.exports.result = module.exports[4];
+module.exports.nestedsResult = module.exports[5];
+module.exports.nestedResult2 = module.exports[6];
+module.exports.nestedResult3 = module.exports[7];
+module.exports.includeMe = module.exports[8];
+module.exports.trueee = module.exports[9];
+module.exports.falseee = module.exports[10];
+module.exports.boolTest1 = module.exports[11];
+module.exports.boolTest2 = module.exports[12];
+module.exports.oneTwoSideEffectUngrouped = module.exports[13];
+module.exports.oneSideEffectUngrouped = module.exports[14];
+module.exports.twoSideEffectUngrouped = module.exports[15];
+module.exports.oneTwoSideEffectCorrect = module.exports[16];
+module.exports.oneSideEffectCorrect = module.exports[17];
+module.exports.twoSideEffectCorrect = module.exports[18];
+module.exports.myStyle = module.exports[19];
+module.exports.emptyChildren = module.exports[20];
+module.exports.myOuterDiv = module.exports[21];
+module.exports.createDivWithUnknowns = module.exports[22];
+module.exports.smartLoggingResult = module.exports[23];
+module.exports.pullsInDep1 = module.exports[24];
+module.exports.pullsInDep2 = module.exports[25];
 
 /* Hashing disabled */
