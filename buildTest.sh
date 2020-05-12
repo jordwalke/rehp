@@ -10,6 +10,8 @@ echo "Building test output from target directory $1"
 
 # shared libraries
 echo "./rehack_tests/output/runtime/runtime.js"
+mkdir -p "rehack_tests/output/runtime/"
+touch "rehack_tests/output/runtime/rehp-output-dir.txt"
 export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl --custom-header "file:./rehack_tests/templates/common-js-runtime-header.js" --runtime-only --noinline --disable shortvar --pretty --backend js --prettiest-js "${1}"/default/rehack_tests/strings/strings.bc -o ./rehack_tests/output/runtime/runtime.js
 echo "./rehack_tests/output/stdlib.cma.js"
 export OCAMLRUNPARAM=b && time js_of_ocaml --enable vardecl --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/common-js-module-header.js" ./rehack_tests/stdlib/stdlib.cma -o ./rehack_tests/output/stdlib.cma.js/
@@ -46,7 +48,7 @@ export OCAMLRUNPARAM=b && time js_of_ocaml --custom-header "file:./rehack_tests/
 # Strings separate compilation:
 # ./rehack_tests/Runner.php -I rehack_tests/stdlib/stdlib.cma.php -I rehack_tests/strings/ -I runtime/rehack/php  rehack_tests/strings/strings.cmo.module.php -r '\Rehack\Strings::get();'
 echo "./rehack_tests/output/strings.cmo.module.php"
-export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/php-module-header.php" --backend php "${1}"/default/rehack_tests/strings/.strings.eobjs/byte/strings.cmo -o ./rehack_tests/output/strings.cmo.module.php
+export OCAMLRUNPARAM=b && time js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/php-module-header.php" --backend php "${1}"/default/rehack_tests/strings/.strings.eobjs/byte/strings.cmo -o ./rehack_tests/output/strings.cmo.module.php
 # Strings standalone with runtime.
 # ./rehack_tests/Runner.php runtime/rehack/php/GlobalObject.php ./rehack_tests/strings/stringsStandalone.withRuntime.php
 # echo "./rehack_tests/strings/stringsStandalone.withRuntime.php"
@@ -60,7 +62,7 @@ export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exc
 
 # Random utility (checking for an underscore) compilation:
 echo "./rehack_tests/output/has_one_underscore.cmo.module.php"
-export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/php-module-header.php" --backend php "${1}"/default/rehack_tests/has_one_underscore/.has_one_underscore.eobjs/byte/has_one_underscore.cmo -o ./rehack_tests/output/has_one_underscore.cmo.module.php
+export OCAMLRUNPARAM=b && time js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/php-module-header.php" --backend php "${1}"/default/rehack_tests/has_one_underscore/.has_one_underscore.eobjs/byte/has_one_underscore.cmo -o ./rehack_tests/output/has_one_underscore.cmo.module.php
 
 # Tests various "calls" externs.
 echo "./rehack_tests/output/calls.module.php"
@@ -71,6 +73,10 @@ echo "./rehack_tests/output/calls.module.js"
 export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/common-js-module-header.js" --backend js "${1}"/default/rehack_tests/calls/.Calls.objs/byte/calls.cmo -o ./rehack_tests/output/calls.cmo.module.js
 
 # Tests various "calls" externs.
+echo "./rehack_tests/output/calls.module.with.keep.unit.names.js"
+export OCAMLRUNPARAM=b && time js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/common-js-module-header.js" --backend js "${1}"/default/rehack_tests/calls/.Calls.objs/byte/calls.cmo -o ./rehack_tests/output/calls.cmo.module.with.keep.unit.names.js
+
+# Tests various "calls" externs.
 echo "./rehack_tests/output/calls/Calls.cma.php"
 export OCAMLRUNPARAM=b && time refmterr js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/php-module-header.php" --backend php "${1}"/default/rehack_tests/calls/Calls.cma -o ./rehack_tests/output/calls/Calls.cma.php/
 # Tests various "calls" externs.
@@ -79,9 +85,9 @@ export OCAMLRUNPARAM=b && time refmterr js_of_ocaml --keep-unit-names --enable e
 
 # It's also possible to compile from a .cmo, which will also omit the runtime
 echo "./rehack_tests/output/hello_world.cmo.php"
-export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --backend php "${1}"/default/rehack_tests/hello_world/.hello_world.eobjs/byte/hello_world.cmo -o ./rehack_tests/output/hello_world.cmo.php
+export OCAMLRUNPARAM=b && time js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --backend php "${1}"/default/rehack_tests/hello_world/.hello_world.eobjs/byte/hello_world.cmo -o ./rehack_tests/output/hello_world.cmo.php
 echo "./rehack_tests/output/stringHelper.cmo.module.php"
-export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/php-module-header.php" --backend php "${1}"/default/rehack_tests/strings/.strings.eobjs/byte/stringHelper.cmo -o ./rehack_tests/output/stringHelper.cmo.module.php
+export OCAMLRUNPARAM=b && time js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/php-module-header.php" --backend php "${1}"/default/rehack_tests/strings/.strings.eobjs/byte/stringHelper.cmo -o ./rehack_tests/output/stringHelper.cmo.module.php
 
 # Custom library
 echo "./rehack_tests/output/my-lib.cma.php"
@@ -109,5 +115,5 @@ export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --linkall --enable w
 # NODE_PATH="${PWD}/rehack_tests/output/:${PWD}/rehack_tests/stdlib/stdlib.js:${PWD}/runtime/rehack/js/" node -e 'require("Strings")'
 echo "./rehack_tests/output/stringHelper.js"
 echo "./rehack_tests/output/strings.js"
-export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/common-js-module-header.js" "${1}"/default/rehack_tests/strings/.strings.eobjs/byte/stringHelper.cmo -o ./rehack_tests/output/stringHelper.js
-export OCAMLRUNPARAM=b && time js_of_ocaml --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/common-js-module-header.js" "${1}"/default/rehack_tests/strings/.strings.eobjs/byte/strings.cmo -o ./rehack_tests/output/strings.js
+export OCAMLRUNPARAM=b && time js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/common-js-module-header.js" "${1}"/default/rehack_tests/strings/.strings.eobjs/byte/stringHelper.cmo -o ./rehack_tests/output/stringHelper.js
+export OCAMLRUNPARAM=b && time js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/common-js-module-header.js" "${1}"/default/rehack_tests/strings/.strings.eobjs/byte/strings.cmo -o ./rehack_tests/output/strings.js

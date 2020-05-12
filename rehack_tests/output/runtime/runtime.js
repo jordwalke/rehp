@@ -4012,6 +4012,14 @@ function caml_js_error_of_exception(exn) {
   return null;
 }
 
+function unix_isatty(fileDescriptor) {
+  if (fs_node_supported()) {
+    var tty = require("tty");
+    return tty.isatty(fileDescriptor);
+  }
+  else {return false;}
+}
+
 function caml_check_bound(array, index) {
   if (index >>> 0 >= array.length - 1) {caml_array_bound_error();}
   return array;
@@ -5399,6 +5407,7 @@ joo_global_object.jsoo_runtime =
     raw_array_cons: raw_array_cons,
     raw_array_copy: raw_array_copy,
     raw_array_sub: raw_array_sub,
+    unix_isatty: unix_isatty,
     win_handle_fd: win_handle_fd,
     win_cleanup: win_cleanup,
     win_startup: win_startup,

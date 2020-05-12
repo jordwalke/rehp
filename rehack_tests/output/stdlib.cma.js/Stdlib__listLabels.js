@@ -130,7 +130,7 @@ var Stdlib_listLabels = [
 module.exports = Stdlib_listLabels;
 
 /*::type Exports = {
-  length: any,
+  _length_: any,
   hd: any,
   compare_lengths: any,
   compare_length_with: any,
@@ -187,7 +187,7 @@ module.exports = Stdlib_listLabels;
   of_seq: any,
 }*/
 /** @type {{
-  length: any,
+  _length_: any,
   hd: any,
   compare_lengths: any,
   compare_length_with: any,
@@ -244,7 +244,7 @@ module.exports = Stdlib_listLabels;
   of_seq: any,
 }} */
 module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
-module.exports.length = module.exports[1];
+module.exports._length_ = module.exports[1];
 module.exports.hd = module.exports[2];
 module.exports.compare_lengths = module.exports[3];
 module.exports.compare_length_with = module.exports[4];

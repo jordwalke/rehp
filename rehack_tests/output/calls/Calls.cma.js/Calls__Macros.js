@@ -8,7 +8,7 @@
 
 "use strict";
 
-var runtime = require("../runtime/runtime.js");
+var runtime = require("../../runtime/runtime.js");
 var alwaysPulledInDepX = require("../../../../../alwaysPulledInDepX.js");
 var alwaysPulledInDepZ = require("../../../../../alwaysPulledInDepZ.js");
 var alwaysPulledInDepY = require("alwaysPulledInDepY");
@@ -33,7 +33,7 @@ var cst_Argsideeffect2__0 = string("Argsideeffect2");
 var cst_Argsideeffect1__2 = string("Argsideeffect1");
 var cst_Argsideeffect1__3 = string("Argsideeffect1");
 var cst_Argsideeffect1__4 = string("Argsideeffect1");
-var Stdlib = require("Stdlib.js");
+var Stdlib = require("../../stdlib.cma.js/Stdlib.js");
 var null__0 = null;
 var inlinesMacros = new Array(
   runtime["outerOuter"](

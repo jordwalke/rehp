@@ -1459,7 +1459,7 @@ var Stdlib_list = [
 module.exports = Stdlib_list;
 
 /*::type Exports = {
-  length: (l: any) => any,
+  _length_: (l: any) => any,
   compare_lengths: (l1: any, l2: any) => any,
   compare_length_with: (l: any, n: any) => any,
   cons: (a: any, l: any) => any,
@@ -1512,7 +1512,7 @@ module.exports = Stdlib_list;
   of_seq: (seq: any) => any,
 }*/
 /** @type {{
-  length: (l: any) => any,
+  _length_: (l: any) => any,
   compare_lengths: (l1: any, l2: any) => any,
   compare_length_with: (l: any, n: any) => any,
   cons: (a: any, l: any) => any,
@@ -1565,7 +1565,7 @@ module.exports = Stdlib_list;
   of_seq: (seq: any) => any,
 }} */
 module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
-module.exports.length = module.exports[1];
+module.exports._length_ = module.exports[1];
 module.exports.compare_lengths = module.exports[2];
 module.exports.compare_length_with = module.exports[3];
 module.exports.cons = module.exports[4];

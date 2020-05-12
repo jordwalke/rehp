@@ -7,7 +7,7 @@
 let joo_global_object = typeof global !== 'undefined' ? global : window;
 
 
-var runtime = require("../runtime/runtime.js");
+var runtime = require("runtime.js");
 
 var caml_blit_string = runtime["caml_blit_string"];
 var caml_bytes_unsafe_get = runtime["caml_bytes_unsafe_get"];

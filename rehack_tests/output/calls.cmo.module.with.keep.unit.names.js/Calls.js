@@ -8,7 +8,7 @@
 
 "use strict";
 
-var runtime = require("runtime.js");
+var runtime = require("../runtime/runtime.js");
 var string = runtime["caml_new_string"];
 var caml_update_dummy = runtime["caml_update_dummy"];
 
@@ -33,7 +33,7 @@ var cst_two = string("two");
 var cst_two__0 = string("two");
 var cst_hi = string("hi");
 var cst_Second_Part_Of_Tuple = string("Second Part Of Tuple:");
-var Stdlib = require("Stdlib.js");
+var Stdlib = require("../stdlib.cma.js/Stdlib.js");
 var Calls_Macros = require("Calls__Macros.js");
 var c_ = [0,100,0];
 var a_ = [0,100,0];

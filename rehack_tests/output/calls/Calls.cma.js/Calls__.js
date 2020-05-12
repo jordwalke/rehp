@@ -8,7 +8,7 @@
 
 "use strict";
 
-var runtime = require("../runtime/runtime.js");
+var runtime = require("../../runtime/runtime.js");
 var Calls = [0];
 
 module.exports = Calls;

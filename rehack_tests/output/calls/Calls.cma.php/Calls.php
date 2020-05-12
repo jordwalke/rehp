@@ -189,7 +189,7 @@ SomeUtilityClass::foo($cst_fix, $cst_me)
       $call1($Stdlib[42], $h_);
     }
     
-    $call1($Calls_Macros[7], 0);
+    $call1($Calls_Macros[8], 0);
     
     $Calls = Vector{
       0,

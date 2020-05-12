@@ -69,9 +69,9 @@ var cst_Nans_are_should_output_true = string(
 var cst_Nans_are_should_output_false = string(
   "Nans are == (should output false):"
 );
-var Stdlib = require("Stdlib.js");
-var Stdlib_string = require("Stdlib__string.js");
-var StringHelper = require("StringHelper.js");
+var Stdlib = require("../stdlib.cma.js/Stdlib.js");
+var Stdlib_string = require("../stdlib.cma.js/Stdlib__string.js");
+var StringHelper = require("../stringHelper.js/StringHelper.js");
 var r_ = [0,1,[0,2,[0,3,[0,4,0]]]];
 var s_ = [0,1,[0,2,[0,3,[0,4,0]]]];
 

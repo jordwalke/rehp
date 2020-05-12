@@ -327,6 +327,7 @@ final class Runtime {
          "raw_array_cons"=>$raw_array_cons,
          "raw_array_copy"=>$raw_array_copy,
          "raw_array_sub"=>$raw_array_sub,
+         "unix_isatty"=>$unix_isatty,
          "win_handle_fd"=>$win_handle_fd,
          "win_cleanup"=>$win_cleanup,
          "win_startup"=>$win_startup,

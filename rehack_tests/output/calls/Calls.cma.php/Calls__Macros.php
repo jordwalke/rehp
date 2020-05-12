@@ -35,6 +35,13 @@ final class Calls__Macros {
   "convertedToPlatformString",
   null,
   "converted to nullable"];
+    $inlinesMacrosWithSugar = varray[
+  $runtime["outerOuter"](
+      $runtime["outer"]($runtime["inner"](100))
+    ),
+  "convertedToPlatformString",
+  null,
+  "converted to nullable"];
     $a_ = $runtime["caml_js_anything"]($cst_hello);
     $result = $a_ === null ? 0 : Vector {0, $a_};
     $l_ = $runtime["outerOuter"](
@@ -98,12 +105,14 @@ $runtime["outerOuter"](
 </div>
       );
     };
+    $smartLoggingResult = "Test not applicable to PHP";
     $pullsInDep1 = "Test Doesn't apply to Php";
     $pullsInDep2 = "Test Doesn't apply to Php";
     $Calls_Macros = Vector{
       0,
       $null__0,
       $inlinesMacros,
+      $inlinesMacrosWithSugar,
       $result,
       $nestedsResult,
       $nestedResult2,
@@ -123,6 +132,7 @@ $runtime["outerOuter"](
       $emptyChildren,
       $myOuterDiv,
       $createDivWithUnknowns,
+      $smartLoggingResult,
       $pullsInDep1,
       $pullsInDep2
     } as dynamic;
@@ -131,10 +141,10 @@ $runtime["outerOuter"](
 
   }
   public static function includeMe(dynamic $param): dynamic {
-    return static::syncCall(__FUNCTION__, 7, $param);
+    return static::syncCall(__FUNCTION__, 8, $param);
   }
   public static function createDivWithUnknowns(dynamic $className, dynamic $style, dynamic $param): dynamic {
-    return static::syncCall(__FUNCTION__, 21, $className, $style, $param);
+    return static::syncCall(__FUNCTION__, 22, $className, $style, $param);
   }
 
 }

@@ -646,7 +646,7 @@ module.exports = Stdlib_weak;
 
 /*::type Exports = {
   create: (l: any) => any,
-  length: (x: any) => any,
+  _length_: (x: any) => any,
   set: (e: any, o: any, x: any) => any,
   get: (e: any, o: any) => any,
   get_copy: (e: any, o: any) => any,
@@ -657,7 +657,7 @@ module.exports = Stdlib_weak;
 }*/
 /** @type {{
   create: (l: any) => any,
-  length: (x: any) => any,
+  _length_: (x: any) => any,
   set: (e: any, o: any, x: any) => any,
   get: (e: any, o: any) => any,
   get_copy: (e: any, o: any) => any,
@@ -668,7 +668,7 @@ module.exports = Stdlib_weak;
 }} */
 module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.create = module.exports[1];
-module.exports.length = module.exports[2];
+module.exports._length_ = module.exports[2];
 module.exports.set = module.exports[3];
 module.exports.get = module.exports[4];
 module.exports.get_copy = module.exports[5];
