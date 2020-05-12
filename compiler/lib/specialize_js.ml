@@ -454,12 +454,8 @@ let specialize_all_instrs info p =
 
 let f info p = specialize_all_instrs info p
 
-
 (* This is called from the driver before any Flow information is computed. *)
-let f_once ?file debug_data_for_errors p =
-  let _ = (if file == None then
-    raise (Sys_error "where is this happening") ) in
-
+let f_once ?file ?project_root debug_data_for_errors p =
   let rec loop addr l =
     match l with
     | [] -> []
@@ -478,7 +474,8 @@ let f_once ?file debug_data_for_errors p =
           (* Does not generate new intermediate bindings, so Flow does not need to rerun before
            * rerunning expandPrimBindingsAndArgs *)
           let node_list = Raw_macro.parseNodeList macro_data in
-          let node_list = Raw_macro.normalize ?file macro_data node_list ~forBackend:be in
+          let node_list =
+            Raw_macro.normalize ?file ?projectRoot:project_root macro_data node_list ~forBackend:be in
           let (new_bindings, next_macro_text, next_macro_args) =
             Raw_macro.Eval.expandMacros x macro_data node_list args in
           new_bindings @

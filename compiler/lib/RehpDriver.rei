@@ -22,7 +22,8 @@ type profile;
 
 let f:
   (
-    ~file: string=?,
+    ~file: RehpFp.t(RehpFp.absolute)=?,
+    ~projectRoot: RehpFp.t(RehpFp.absolute)=?,
     ~standalone: bool=?,
     ~profile: profile=?,
     ~dynlink: bool=?,

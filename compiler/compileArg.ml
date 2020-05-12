@@ -20,6 +20,7 @@
 open! Js_of_ocaml_compiler.Stdlib
 open Js_of_ocaml_compiler
 open Cmdliner
+module Fp = RehpFp
 
 type t =
   { common : CommonArg.t
@@ -28,8 +29,8 @@ type t =
   ; source_map : (string option * Source_map.t) option
   ; runtime_files : string list
   ; runtime_only : bool
-  ; output_file : [`Name of string | `Stdout] * bool
-  ; input_file : string option
+  ; output_file : [`Name of Fp.absolute Fp.t | `Stdout] * bool
+  ; input_file : Fp.absolute Fp.t option
   ; params : (string * string) list
   ; static_env : (string * string) list
   ; (* toplevel *)
@@ -45,6 +46,19 @@ type t =
   ; fs_external : bool
   ; backend : Backend.t option
   ; keep_unit_names : bool }
+
+(* TODO: Add these utilities into Fp.re *)
+let replace_basename ~f pth =
+  let dir_name = Fp.dirName pth in
+  match (Fp.baseName pth) with
+  | Some bn -> Fp.append dir_name (f bn)
+  | None -> Fp.append pth (f "")
+
+let rel_to_cwd_absolute fcp =
+  let cwd = Fp.absoluteExn (PathUtils.normalizeSeps (Sys.getcwd ())) in
+  match fcp with
+  | Fp.Relative p -> Fp.join cwd p
+  | Fp.Absolute p -> p
 
 let options =
   let toplevel_section = "OPTIONS (TOPLEVEL)" in
@@ -217,15 +231,22 @@ let options =
     let input_file =
       match input_file, runtime_only with
       | "-", _ | _, true -> None
-      | x, false -> Some x
+      | x, false ->
+          let x_fcp = RehpFp.testForPathExn (PathUtils.normalizeSeps x) in
+          let x = rel_to_cwd_absolute x_fcp in
+          Some x
     in
     let output_file =
       match output_file with
       | Some "-" -> `Stdout, true
-      | Some s -> `Name s, true
+      | Some s ->
+          let fcp = RehpFp.testForPathExn (PathUtils.normalizeSeps s) in
+          let abs = rel_to_cwd_absolute fcp in
+          `Name abs, true
       | None -> (
         match input_file with
-        | Some s -> `Name (chop_extension s ^ ".js"), false
+        | Some ipth ->
+          `Name (replace_basename ipth ~f:(fun bn -> chop_extension bn ^ ".js")), false
         | None -> `Stdout, false)
     in
     let source_map =
@@ -233,8 +254,10 @@ let options =
       then
         let file, sm_output_file =
           match output_file with
-          | `Name file, _ when sourcemap_inline_in_js -> file, None
-          | `Name file, _ -> file, Some (chop_extension file ^ ".map")
+          | `Name file, _ when sourcemap_inline_in_js -> Fp.toString file, None
+          | `Name file, _ ->
+              Fp.toString file
+              , Some (Fp.toString (replace_basename file ~f:(fun bn -> chop_extension bn ^ ".map")))
           | `Stdout, _ -> "STDIN", None
         in
         Some

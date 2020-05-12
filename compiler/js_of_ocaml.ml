@@ -20,6 +20,7 @@
 
 open! Js_of_ocaml_compiler.Stdlib
 open Js_of_ocaml_compiler
+module Fp = RehpFp
 
 let times = Debug.find "times"
 
@@ -36,7 +37,39 @@ type ('a, 'b, 'c, 'd, 'e) extra_hash_data =
 
 let empty_extra_hash_data =
   {args = []; imports = []; globals = []; primitives = []; reloc = []}
+  
+(**
+ * Gets the project root for npm projects using commonly set environment
+ * variables.  These ones are esy specific but we should add any other
+ * variables/file system searches that would reliably discover an npm project
+ * root.  *)
+(* TODO: Add this to Fs or Fp *)
+let rel_to_cwd_absolute fcp =
+  match fcp with
+  | Fp.Relative p ->
+      let cwd = Fp.absoluteExn (PathUtils.normalizeSeps (Sys.getcwd ())) in
+      Fp.join cwd p
+  | Fp.Absolute p -> p
 
+let get_project_root () =
+  (* cur__original_root is set during esy build *)
+  match Sys.getenv "cur__original_root" with
+  | exception Not_found ->
+    (* ESY__ROOT_PACKAGE_CONFIG_PATH is set during esy x (useful for testing jsoo/rehp itself) *)
+    (match Sys.getenv("ESY__ROOT_PACKAGE_CONFIG_PATH") with
+    | exception Not_found -> None
+    | p ->
+      let trimmed = String.trim p in
+      let fcp = RehpFp.testForPathExn (PathUtils.normalizeSeps trimmed) in
+      let abs = rel_to_cwd_absolute fcp in
+      if String.is_empty trimmed then None else Some (Fp.dirName abs))
+  | p ->
+    let trimmed = String.trim(p) in
+    let fcp = RehpFp.testForPathExn (PathUtils.normalizeSeps trimmed) in
+    let abs = rel_to_cwd_absolute fcp in
+    if String.is_empty trimmed then None else Some (Fp.dirName abs)
+
+  
 let compute_hashes
     custom_header_text
     {args; imports; globals; primitives; reloc}
@@ -89,13 +122,13 @@ let compute_hashes
   String.concat ~sep:" " lines ^ "*/"
 
 let file_contains_hashes hashes_comment file =
-  let file_contents = Fs.read_file file in
+  let file_contents = Fs.read_file (Fp.toString file) in
   match Stdlib.String.find_substring hashes_comment file_contents 0 with
   | exception Not_found -> false
   | i -> true
 
 let file_needs_update use_hashing hashes_comment file =
-  if not (Sys.file_exists file)
+  if not (Sys.file_exists (Fp.toString file))
   then true
   else if not use_hashing
   then (* If file exists and... *)
@@ -104,111 +137,31 @@ let file_needs_update use_hashing hashes_comment file =
     (* File exists, and we are to use hashing *)
     not (file_contains_hashes hashes_comment file)
 
-
-(* Ensures a directory exists. Will fail if path is a non-dir file.
-   Containing directory must already exist.
-   Sys.is_directory fails if the path doesn't exist.
-   But on windows Sys.file_exists fails if it is an existing directory!
-*)
-let ensure_dir dir =
-  let normalized_dir = PathUtils.normalizeSeps dir in
-  let dir = PathUtils.removeLastNormalizedSep normalized_dir in
-  let dir_exists = try Sys.is_directory dir with
-  | Sys_error(_) -> false in
-  if not dir_exists then (
-    (if Sys.file_exists dir then
-      raise (Invalid_argument ("Directory " ^ dir ^ " already exists but is not a directory.")));
-    (* TODO: Drop the dependency on Unix *)
-    Unix.mkdir dir 0o755
-  )
-let dir_contents dir =
-  let exists = Sys.file_exists dir in
-  if exists
-  then
-    if not (Sys.is_directory dir)
-    then
-      raise
-        (Invalid_argument ("Directory " ^ dir ^ " already exists but is not a directory."))
-    else
-      let dir_contents = Sys.readdir dir in
-      Array.to_list dir_contents
-  else []
-
-(* Intentionally don't return the contents of the dir because they are stale at this point.
- * We will append the expected dependencies to the returned list. *)
-let get_potential_dependency_outputs ?ext dir =
-  let parent_dir = Filename.dirname dir in
-  let parent_dir_contents = dir_contents parent_dir in
-  List.map parent_dir_contents ~f:(fun sibling_dir ->
-      let backend_ext = Backend.Current.extension () in
-      let dot_backend_ext = "." ^ backend_ext in
-      let full_sibling_dir = Filename.concat parent_dir sibling_dir in
-      let full_sibling_dir = PathUtils.normalizeSeps full_sibling_dir in
-      let dir = PathUtils.normalizeSeps dir in
-      if (not (String.equal full_sibling_dir dir)) && Sys.is_directory full_sibling_dir
-      then
-        let sibling_dir_contents = dir_contents full_sibling_dir in
-        if List.find_opt ~f:(fun nm -> nm = "rehp-output-dir.txt") sibling_dir_contents
-           == None
-        then []
-        else
-          let matching_suffix =
-            List.filter_map sibling_dir_contents ~f:(fun nm ->
-                match ext with
-                | None ->
-                    if Filename.check_suffix nm dot_backend_ext
-                    then Some (nm, Filename.chop_suffix nm dot_backend_ext)
-                    else None
-                | Some e ->
-                    let dot_ext = "." ^ e in
-                    if Filename.check_suffix nm dot_backend_ext
-                    then Some (nm, Filename.chop_suffix nm dot_backend_ext)
-                    else if Filename.check_suffix nm dot_ext
-                    then Some (nm, Filename.chop_suffix nm dot_ext)
-                    else None)
-          in
-          List.rev_map matching_suffix ~f:(fun (file_name, base_name) ->
-              { Dependency_outputs.relative_dir_from_project = full_sibling_dir
-              ; relative_dir_from_output =
-                PathUtils.relativizeNormalizedRelativePaths dir full_sibling_dir
-              ; normalized_compilation_unit =
-                  Parse_bytecode.normalize_module_name base_name
-              ; filename = file_name })
-      else [])
-  |> List.concat
-
-let remove_dependency_outputs from remove_dir =
-  List.filter
-    ~f:
-      (fun { Dependency_outputs.relative_dir_from_project
-           ; relative_dir_from_output
-           ; filename } -> relative_dir_from_project <> remove_dir)
-    from
-
 let temp_file_name =
   (* Inlined unavailable Filename.temp_file_name. Filename.temp_file gives
      us incorrect permissions. https://github.com/ocsigen/js_of_ocaml/issues/182 *)
   let prng = lazy (Random.State.make_self_init ()) in
   fun ~temp_dir prefix suffix ->
+    let prefix = match prefix with None -> "" | Some s -> s in
     let rnd = Random.State.bits (Lazy.force prng) land 0xFFFFFF in
-    Filename.concat temp_dir (Printf.sprintf "%s%06x%s" prefix rnd suffix)
+    Fp.append temp_dir (Printf.sprintf "%s%06x%s" prefix rnd suffix)
 
 let gen_file file f =
   let f_tmp =
-    temp_file_name ~temp_dir:(Filename.dirname file) (Filename.basename file) ".tmp"
+    temp_file_name ~temp_dir:(Fp.dirName file) (Fp.baseName file) ".tmp"
   in
   try
-    let ch = open_out_bin f_tmp in
+    let ch = open_out_bin (Fp.toString f_tmp) in
     (try f ch
      with e ->
        close_out ch;
        raise e);
     close_out ch;
-    (try Sys.remove file with Sys_error _ -> ());
-    Sys.rename f_tmp file
+    (try Sys.remove (Fp.toString file) with Sys_error _ -> ());
+    Sys.rename (Fp.toString f_tmp) (Fp.toString file)
   with exc ->
-    Format.eprintf "Error: cannot generate %s@." file;
-    Sys.remove f_tmp;
+    Format.eprintf "Error: cannot generate %s@." (Fp.toString file);
+    Sys.remove (Fp.toString f_tmp);
     raise exc
 
 let gen_unit_filename ?ext u =
@@ -219,33 +172,36 @@ let gen_unit_filename ?ext u =
   in
   Printf.sprintf "%s.%s" u.Cmo_format.cu_name ext
 
-let gen_unit_filepath ?ext dir u = Filename.concat dir (gen_unit_filename ?ext u)
+let gen_unit_filepath ?ext dir u = Fp.append dir (gen_unit_filename ?ext u)
 
-let ensure_file path =
-  let exists = Sys.file_exists path in
+let ensure_file fp =
+  let exists = Sys.file_exists (Fp.toString fp) in
   if exists
   then ()
   else
-    gen_file path (fun chan ->
+    gen_file fp (fun chan ->
         let fmt = Pretty_print.to_out_channel chan in
         Pretty_print.string fmt "true";
         Pretty_print.newline fmt)
 
-let remove_unexpected_files expected observed =
-  let expected = List.sort ~cmp:String.compare expected in
-  let observed = List.sort ~cmp:String.compare observed in
-  let rec files_to_remove cur expected observed =
-    match expected, observed with
-    | [], [] -> cur
-    | expect_hd :: expect_tl, [] -> cur (* This is actually a problem - what happened? *)
-    | [], observe_hd :: observe_tl -> files_to_remove (observe_hd :: cur) [] observe_tl
-    | expect_hd :: expect_tl, observe_hd :: observe_tl ->
-        if String.equal expect_hd observe_hd
-        then files_to_remove cur expect_tl observe_tl
-        else files_to_remove (observe_hd :: cur) expected observe_tl
-  in
-  let remove_these = files_to_remove [] expected observed in
-  List.iter ~f:(fun file -> try Sys.remove file with Sys_error _ -> ()) remove_these
+let get_likely_dependency_outputs output_dir cmos implicit_ext =
+    (* b is "not inferred from input" *)
+    (* Should not take dirname just because inferred in
+     * keep_unit_names mode where we create a directory. *)
+    (* let dir = if b then x else Filename.dirname x in *)
+    (* Mark the directory as a rehp output dir *)
+    ensure_file (Fp.append output_dir "rehp-output-dir.txt");
+    let existing_outputs =
+      Dependency_outputs.getPotentialDependencyOutputs output_dir in
+    let inner_dependencies =
+      List.map cmos ~f:(fun cmo ->
+          let filename = gen_unit_filename ?ext:implicit_ext cmo in
+          { Dependency_outputs.dirRelativeToOutput = Fp.dot
+          ; normalizedCompilationUnit =
+              Parse_bytecode.normalize_module_name cmo.cu_name
+          ; filename })
+    in
+    List.concat [inner_dependencies; existing_outputs]
 
 let f
     ({ CompileArg.common
@@ -268,6 +224,13 @@ let f
      ; fs_external
      ; export_file
      ; keep_unit_names } as args) =
+  
+  (* Need to allow a force flag because Dune won't let you set flags for
+   * compiled dependencies. *)
+  let keep_unit_names = match Sys.getenv_opt "REHP_OVERRIDE_KEEP_UNIT_NAMES" with
+  | None -> keep_unit_names
+  | Some "true" -> true
+  | Some _ -> false in
   let dynlink = dynlink || toplevel || runtime_only in
   let backend =
     match backend with
@@ -296,7 +259,7 @@ let f
   CommonArg.eval common;
   (match output_file with
   | `Stdout, _ -> ()
-  | `Name name, _ when debug_mem () -> Debug.start_profiling name
+  | `Name name, _ when debug_mem () -> Debug.start_profiling (Fp.toString name)
   | `Name _, _ -> ());
   List.iter params ~f:(fun (s, v) -> Config.Param.set s v);
   List.iter static_env ~f:(fun (s, v) -> Eval.set_static_env s v);
@@ -308,6 +271,7 @@ let f
             let pkg, d' =
               match String.split ~sep:Filename.dir_sep d with
               | [] -> assert false
+              (* Is this where that weird logging is coming from? *)
               | [d] -> "js_of_ocaml", d
               | pkg :: l -> pkg, List.fold_left l ~init:"" ~f:Filename.concat
             in
@@ -404,6 +368,7 @@ let f
         let fmt = Pretty_print.to_out_channel stdout in
         RehpDriver.f
           ~standalone
+          ?projectRoot:(get_project_root())
           ?profile
           ~linkall
           ~dynlink
@@ -428,6 +393,7 @@ let f
               let fmt = Pretty_print.to_out_channel chan in
               RehpDriver.f
                 ~file
+                ?projectRoot:(get_project_root())
                 ~standalone
                 ?profile
                 ~linkall
@@ -438,11 +404,20 @@ let f
                 one.debug
                 code);
           Option.iter fs_output ~f:(fun file ->
+              let fcp = RehpFp.testForPathExn (PathUtils.normalizeSeps file) in
+              let file = rel_to_cwd_absolute fcp in
               gen_file file (fun chan ->
                   let instr = fs_instr2 in
                   let code = Code.prepend Code.empty instr in
                   let pfs_fmt = Pretty_print.to_out_channel chan in
-                  RehpDriver.f ~file ~standalone ?profile ~custom_header pfs_fmt one.debug code))));
+                  RehpDriver.f
+                    ~file
+                    ?projectRoot:(get_project_root())
+                    ~standalone
+                    ?profile
+                    ~custom_header
+                    pfs_fmt
+                    one.debug code))));
     if times () then Format.eprintf "compilation: %a@." Timer.print t
   in
   (if runtime_only
@@ -458,7 +433,7 @@ let f
       match input_file with
       | None -> Parse_bytecode.from_channel stdin, stdin, fun () -> ()
       | Some fn ->
-          let ch = open_in_bin fn in
+          let ch = open_in_bin (Fp.toString fn) in
           let res = Parse_bytecode.from_channel ch in
           res, ch, fun () -> close_in ch
     in
@@ -478,21 +453,30 @@ let f
         (* Fast hashing disabled for exe mode *)
         output "Exe" [] empty_extra_hash_data code true (fst output_file)
     | `Cmo cmo ->
-        let output_file =
+        let (output_file, likely_dependency_outputs) =
           match output_file, keep_unit_names with
-          | (`Stdout, false), true -> `Name (gen_unit_filepath "./" cmo)
-          | (`Name x, false), true ->
-              ensure_dir (Filename.dirname x);
-              `Name (gen_unit_filepath (Filename.dirname x) cmo)
-          | (`Stdout, _), false -> `Stdout
-          | (`Name x, _), false -> `Name x
-          | (`Name x, true), true
-            when String.length x > 0 && Char.equal x.[String.length x - 1] '/' ->
-              ensure_dir x;
-              `Name (gen_unit_filepath x cmo)
-          | (`Name _, true), true | (`Stdout, true), true ->
+          | (`Stdout, false), true ->
+              let dotAbs = rel_to_cwd_absolute (Fp.testForPathExn(".")) in
+              (`Name (gen_unit_filepath ?ext:implicit_ext dotAbs cmo), [])
+          | (`Stdout, _), false -> (`Stdout, [])
+          (* In keep unit names mode, the even if output name is inferred from input, we still
+           * create the output directory right where the input file is.
+           * TODO: Should deprecate the b = true case (file out inferred from input) *)
+          | (`Name fp, _), _ ->
+            if keep_unit_names then (
+              (* Mark the directory as a rehp output dir *)
+              (* when String.length x > 0 && Char.equal x.[String.length x - 1] '/' -> *)
+              Dependency_outputs.ensureDir fp;
+              ensure_file (Fp.append fp "rehp-output-dir.txt");
+              let likely_dependency_outputs =
+                get_likely_dependency_outputs fp [cmo] implicit_ext in
+              (`Name (gen_unit_filepath ?ext:implicit_ext fp cmo), likely_dependency_outputs)
+            )
+            else (`Name fp, [])
+          | (`Stdout, true), true ->
               failwith "use [-o dirname/] or remove [--keep-unit-names]"
         in
+        Dependency_outputs.set likely_dependency_outputs;
         let t1 = Timer.make () in
         let code =
           Parse_bytecode.from_cmo ~includes:paths ~toplevel ~debug:need_debug cmo ic
@@ -506,37 +490,23 @@ let f
          * output doesn't need to search for them for each file. *)
         let likely_dependency_outputs =
           match output_file with
-          | `Name x, b ->
-              let dir = if b then x else Filename.dirname x in
-              (* Add the files that *will* be compiled to the set of
-               * resolveable modules *)
-              ensure_dir dir;
+          | `Name dir, _b ->
+              Dependency_outputs.ensureDir dir;
               (* Mark the directory as a rehp output dir *)
-              ensure_file (Filename.concat dir "rehp-output-dir.txt");
-              let existing_outputs = get_potential_dependency_outputs dir in
-              let add =
-                List.map cma.lib_units ~f:(fun cmo ->
-                    let filename =
-                      if not b
-                      then gen_unit_filename ?ext:implicit_ext cmo
-                      else gen_unit_filename ?ext:implicit_ext cmo
-                    in
-                    { Dependency_outputs.relative_dir_from_project = dir
-                    ; relative_dir_from_output = "./"
-                    ; normalized_compilation_unit =
-                        Parse_bytecode.normalize_module_name cmo.cu_name
-                    ; filename })
-              in
-              List.concat [add; existing_outputs]
+              ensure_file (Fp.append dir "rehp-output-dir.txt");
+              get_likely_dependency_outputs dir cma.lib_units implicit_ext
           | _ -> []
         in
         Dependency_outputs.set likely_dependency_outputs;
+        (* TODO: Should deprecate the b = true case (file out inferred from input) *)
         List.iter cma.lib_units ~f:(fun cmo ->
             let output_file =
               match output_file with
-              | `Stdout, false -> `Name (gen_unit_filepath ?ext:implicit_ext "./" cmo)
+              | `Stdout, false ->
+                  let dotAbs = rel_to_cwd_absolute (Fp.testForPathExn(".")) in
+                  `Name (gen_unit_filepath ?ext:implicit_ext dotAbs cmo)
               | `Name x, false ->
-                  `Name (gen_unit_filepath ?ext:implicit_ext (Filename.dirname x) cmo)
+                  `Name (gen_unit_filepath ?ext:implicit_ext (Fp.dirName x) cmo)
               | `Name x, true ->
                 (* when String.length x > 0 && Char.equal x.[String.length x - 1] '/' -> *)
                 (* when String.length x > 0 && Char.equal x.[String.length x - 1] '/' -> *)
@@ -571,9 +541,12 @@ let f
               List.map cma.lib_units ~f:(fun cmo ->
                   gen_unit_filepath ?ext:implicit_ext x cmo)
             in
-            let observed = List.map ~f:(fun d -> Filename.concat x d) (dir_contents x) in
-            remove_unexpected_files
-              (Filename.concat x "rehp-output-dir.txt" :: expected)
+            let observed =
+              List.map
+                ~f:(fun d -> Fp.append x d)
+                (Dependency_outputs.dirContents x) in
+            Dependency_outputs.removeUnexpectedFiles
+              (Fp.append x "rehp-output-dir.txt" :: expected)
               observed
         | _ -> ())
     | `Cma cma ->

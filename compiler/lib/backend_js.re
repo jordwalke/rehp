@@ -1,4 +1,5 @@
 open Stdlib;
+module Fp = RehpFp;
 module PP = Pretty_print;
 let times = Debug.find("times");
 let js_keywords =
@@ -80,6 +81,18 @@ let js_keywords =
       "await",
     ],
   );
+
+/**
+ * Since module.exports is (currently) an Array, we can't set these properties
+ * because they collide with array properties that we need
+ */
+let js_array_conflict =
+  List.fold_left(
+    ~f=(acc, x) => StringSet.add(x, acc),
+    ~init=StringSet.empty,
+    ["length"],
+  );
+
 let extension = () => "js";
 let compiler_backend_flag = () => extension();
 let keyword = () => js_keywords;
@@ -143,7 +156,9 @@ let normalize_name = nm => {
   let elem_matches = elem => {
     String.equal(String.trim_leading_char('_', elem), nm_no_unders);
   };
-  StringSet.exists(elem_matches, js_keywords) ? "_" ++ nm ++ "_" : nm;
+  StringSet.exists(elem_matches, js_array_conflict)
+  || StringSet.exists(elem_matches, js_keywords)
+    ? "_" ++ nm ++ "_" : nm;
 };
 let compute_footer_summary = (moduleName, metadatas) => {
   let rec dedupeAndFilter = (revDeduped, rest) => {
@@ -344,35 +359,36 @@ let custom_module_registration = () =>
     },
   );
 
-let custom_module_loader = () =>
-  Some(
-    (runtime_getter, name) => {
-      let dependency_outputs = Dependency_outputs.get();
-      open Dependency_outputs;
-      let found =
-        List.find_all(dependency_outputs, ~f=output =>
-          String.equal(output.normalized_compilation_unit, name)
-        );
-      let requireStr =
-        switch (found) {
-        | [] => name ++ ".js"
-        | [hd, ...tl] =>
-          let len = String.length(hd.relative_dir_from_output);
-          switch (hd.relative_dir_from_output.[len - 1]) {
-          | '/'
-          | '\\' => hd.relative_dir_from_output ++ hd.filename
-          | _ => hd.relative_dir_from_output ++ "/" ++ hd.filename
-          };
-        };
-      Some(
-        Rehp.ECall(
-          Rehp.EVar(Id.ident("require")),
-          [Rehp.EStr(requireStr, `Bytes)],
-          Loc.N,
-        ),
-      );
-    },
+let _findInDependencyOutputs = name => {
+  let dependency_outputs = Dependency_outputs.get();
+  let found =
+    List.find_all(dependency_outputs, ~f=output =>
+      String.equal(output.Dependency_outputs.normalizedCompilationUnit, name)
+    );
+  let requireStr =
+    switch (found) {
+    | [] => name ++ ".js"
+    | [hd, ...tl] =>
+      let s =
+        Fp.toDebugString(Fp.append(hd.dirRelativeToOutput, hd.filename));
+      let len = String.length(s);
+      /* Normalize require("./../foo") to require("../foo") for style. */
+      len > 4
+      && s.[0] === '.'
+      && s.[1] === '/'
+      && s.[2] === '.'
+      && s.[3] === '.'
+      && s.[4] === '/'
+        ? String.sub(~pos=2, ~len=len - 2, s) : s;
+    };
+  Rehp.ECall(
+    Rehp.EVar(Id.ident("require")),
+    [Rehp.EStr(requireStr, `Bytes)],
+    Loc.N,
   );
+};
+let custom_module_loader = () =>
+  Some((runtime_getter, name) => Some(_findInDependencyOutputs(name)));
 
 let module_require = () =>
   Some(
@@ -387,9 +403,4 @@ let module_require = () =>
     },
   );
 
-let runtime_module_var = () =>
-  Rehp.ECall(
-    Rehp.EVar(Id.ident("require")),
-    [Rehp.EStr("../runtime/runtime.js", `Bytes)],
-    Loc.N,
-  );
+let runtime_module_var = () => _findInDependencyOutputs("runtime");

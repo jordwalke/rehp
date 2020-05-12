@@ -5,6 +5,7 @@ type macroData = {
   backend: string,
   callerLoc: option(Parse_info.t),
 };
+module Fp = RehpFp;
 
 /**
  * Macro language:
@@ -344,28 +345,6 @@ let raiseMacroMalformedRequire = macroData => {
     );
   raise(Errors.UserError(msg, macroData.callerLoc));
 };
-
-/**
- * Gets the project root for npm projects using commonly set environment
- * variables.  These ones are esy specific but we should add any other
- * variables/file system searches that would reliably discover an npm project
- * root.
- */
-let getProjectRoot = () =>
-  /* cur__original_root is set during esy build */
-  switch (Sys.getenv("cur__original_root")) {
-  | exception Not_found =>
-    /* ESY__ROOT_PACKAGE_CONFIG_PATH is set during esy x (useful for testing jsoo/rehp itself) */
-    switch (Sys.getenv("ESY__ROOT_PACKAGE_CONFIG_PATH")) {
-    | exception Not_found => None
-    | p =>
-      let trimmed = String.trim(p);
-      String.is_empty(trimmed) ? None : Some(Filename.dirname(trimmed));
-    }
-  | p =>
-    let trimmed = String.trim(p);
-    String.is_empty(trimmed) ? None : Some(Filename.dirname(trimmed));
-  };
 
 let raiseRelativeRequires = (path, projectRoot, macroData) => {
   let msg =
@@ -921,8 +900,8 @@ let expandPrimBindingsAndArgs = (~mode, md, origArgs, nodeList) => {
  *     <@require>MyModule</@require>
  *     <@require>"MyModule"</@require>
  */
-let rec normalize = (~file=?, md, nodeList, ~forBackend) => {
-  let normalize = normalize(~file?, ~forBackend, md);
+let rec normalize = (~file=?, ~projectRoot=?, md, nodeList, ~forBackend) => {
+  let normalize = normalize(~file?, ~projectRoot?, ~forBackend, md);
   let be = forBackend;
   let numericDot = tag =>
     switch (String.split_char(~sep='.', tag)) {
@@ -956,7 +935,7 @@ let rec normalize = (~file=?, md, nodeList, ~forBackend) => {
     | [hd, ...tl] => chainPrims(Prim(hd, primName(hd), [content]), tl)
     }
   and normalizeOnePrim = (tag, thePrimName, sub) => {
-    switch (numericDot(tag), getProjectRoot(), file, thePrimName, sub) {
+    switch (numericDot(tag), projectRoot, file, thePrimName, sub) {
     | (Some((n, dots)), _, _, _, sub) => chainPrims(Arg(n), dots)
     | (_, _, None, "%caml_require", [Prim("projectRoot", _, []), ..._]) =>
       raiseNoOutputFileButProjectRoot(md)
@@ -976,11 +955,19 @@ let rec normalize = (~file=?, md, nodeList, ~forBackend) => {
       if (path.[0] == '.') {
         raiseRelativeRequires(path, projectRoot, md);
       };
+      let s =
+        Fp.relativizeExn(~source=file, ~dest=Fp.append(root, path))
+        |> Fp.toDebugString;
+      let len = String.length(s);
+      /* Normalize require("./../foo") to require("../foo") for style. */
       let relativized =
-        PathUtils.relativizeAbsolutePathsOnSameDrive(
-          PathUtils.normalizeRelativeToCwd(file),
-          PathUtils.concat(root, "/" ++ path),
-        );
+        len > 4
+        && s.[0] === '.'
+        && s.[1] === '/'
+        && s.[2] === '.'
+        && s.[3] === '.'
+        && s.[4] === '/'
+          ? String.sub(~pos=2, ~len=len - 2, s) : s;
       Prim(tag, thePrimName, normalize([Raw(relativized)]));
     | (_, _, _, "%caml_require", [Raw(path)]) =>
       let path = String.trim(path);
@@ -990,7 +977,6 @@ let rec normalize = (~file=?, md, nodeList, ~forBackend) => {
         raiseEmptyRequirePaths(~which="require path", md);
       };
       if (path.[0] == '.') {
-        let projectRoot = getProjectRoot();
         raiseRelativeRequires(path, projectRoot, md);
       };
       Prim(tag, thePrimName, normalize([Raw(path)]));

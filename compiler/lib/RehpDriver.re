@@ -67,11 +67,11 @@ let specialize_js = ((p, info)) => {
   Specialize_js.f(info, p);
 };
 
-let specialize_js_once = (~file=?, debug_data, p) => {
+let specialize_js_once = (~file=?, ~projectRoot=?, debug_data, p) => {
   if (debug()) {
     Format.eprintf("Specialize js once...@.");
   };
-  Specialize_js.f_once(~file?, debug_data, p);
+  Specialize_js.f_once(~file?, ~project_root=?projectRoot, debug_data, p);
 };
 
 let specialize' = ((p, info)) => {
@@ -610,6 +610,7 @@ type profile = Code.program => Code.program;
 let f =
     (
       ~file=?,
+      ~projectRoot=?,
       ~standalone=true,
       ~profile=o1,
       /* Actually is dynlink | runtime-only */
@@ -637,7 +638,7 @@ let f =
       : augmentWithLinkInfoSeparate;
 
   configure(formatter)
-  >> specialize_js_once(~file?, d)
+  >> specialize_js_once(~file?, ~projectRoot?, d)
   >> profile
   >> print
   >> Generate_closure.f

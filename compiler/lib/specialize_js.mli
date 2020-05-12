@@ -20,4 +20,9 @@
 
 val f : Flow.info -> Code.program -> Code.program
 
-val f_once : ?file:string -> Parse_bytecode.Debug.data -> Code.program -> Code.program
+val f_once :
+    ?file:RehpFp.absolute RehpFp.t ->
+    ?project_root:RehpFp.absolute RehpFp.t ->
+    Parse_bytecode.Debug.data ->
+    Code.program ->
+    Code.program

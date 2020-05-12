@@ -5,6 +5,7 @@
  * with potential file/lineno.
  */
 open Stdlib;
+module Fp = RehpFp;
 exception UserError(string, option(Parse_info.t));
 
 let removeLeadingNewline = s => {
@@ -81,7 +82,11 @@ let relativeRequiresNotSupported =
   is checked: $cur__original_root. Is that set during the build? In the future
   more ways to set/infer the project root will be added.
     |}
-    | Some(r) => Printf.sprintf("Your <@root/> has been detected as: %s", r)
+    | Some(r) =>
+      Printf.sprintf(
+        "Your <@root/> has been detected as: %s",
+        Fp.toString(r),
+      )
     };
   Printf.sprintf(
     {|%s

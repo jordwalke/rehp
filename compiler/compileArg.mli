@@ -18,6 +18,7 @@
  *)
 
 open Js_of_ocaml_compiler
+module Fp = RehpFp
 
 type t =
   { common : CommonArg.t
@@ -26,8 +27,8 @@ type t =
   ; source_map : (string option * Source_map.t) option
   ; runtime_files : string list
   ; runtime_only : bool
-  ; output_file : [`Name of string | `Stdout] * bool
-  ; input_file : string option
+  ; output_file : [`Name of Fp.absolute Fp.t | `Stdout] * bool
+  ; input_file : Fp.absolute Fp.t option
   ; params : (string * string) list
   ; static_env : (string * string) list
   ; (* toplevel *)
