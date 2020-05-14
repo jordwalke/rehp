@@ -1,16 +1,52 @@
 /**
- * Good reading:
+ * Good reading: (Some outdated)
+ * -----------------------------
+ * https://eager.io/blog/a-brief-history-of-weird-scripting-languages/
  * https://www.oreilly.com/library/view/even-faster-web/9780596803773/ch04.html
- *  "Iframes are loaded in parallel with other components in the main page.
- *  Whereas iframes are typically used to include one HTML page within another,
- *  the Script in Iframe technique leverages them to load JavaScript without
- *  blocking, as shown by the Script in Iframe example."
- * 
+ *
+ *    "Iframes are loaded in parallel with other components in the main page.
+ *    Whereas iframes are typically used to include one HTML page within another,
+ *    the Script in Iframe technique leverages them to load JavaScript without
+ *    blocking, as shown by the Script in Iframe example."
+ *
+ *
+ * https://eager.io/blog/everything-I-know-about-the-script-tag/
+ *
+ *   crossorigin:
+ *     "The idea is if you apply a handler to the window.onerror event, that
+ *     handler is provided with some information about the page and script
+ *     which you perhaps shouldn’t have if you’re loading code from an external
+ *     site.  In secure browsers this info is not included unless you specify
+ *     crossorigin."
+ *
+ *    "If you have a perverse desire to, you can also override the default type
+ *    for every script tag on the page using a meta tag:"
+ *
+ *        <meta http-equiv="Content-Script-Type" content="text/vbscript">
+ *
+ * https://eager.io/blog/the-curious-case-of-document-write/
+ *
+ * Ideas for improving load time performance:
+ * -----------------------------------------
+ * 1. See https://www.html5rocks.com/en/tutorials/speed/script-loading/
+ * "link[rel=subresource]" You can store the absolute paths to modules in local
+ * storage and add those prefetches to the head upon refresh.
+ * 2. A single iframe for actually executing the modules. The problem is that
+ * the modules might polute the global namespace.
+ *
+ * Ideas for eliminating errors at load time (See Stdlib__int32.js)
+ * ----------------------------------------------------------------
+ * Save the previous load order in local storage and use as heuristic to make
+ * sure test modules are loaded with the right previously scraped ones.  This
+ * will also improve performance.
  */
-(function(glob) {
+(function (glob) {
   function normalizeDataPath(main) {
-    if(main) {
-      if (main.lastIndexOf(".js") !== -1 || main.lastIndexOf(".js") === main.length - 3) {
+    if (main) {
+      if (
+        main.lastIndexOf(".js") !== -1 ||
+        main.lastIndexOf(".js") === main.length - 3
+      ) {
         if (main.indexOf("/") === -1 && main[0] !== ".") {
           main = "./" + main;
         }
@@ -18,20 +54,23 @@
       return main;
     }
     return null;
-  };
+  }
   function parseBuildRootLocator(string) {
     var matchBuildRootLocator = string.match(/\${([^}]*)}\/(.*)/);
-    if(matchBuildRootLocator) {
+    if (matchBuildRootLocator) {
       var buildRootLocatorRelativeToPage = matchBuildRootLocator[1];
       var mainModulePathRelativeToBuildRoot = matchBuildRootLocator[2];
-      return [buildRootLocatorRelativeToPage, mainModulePathRelativeToBuildRoot];
+      return [
+        buildRootLocatorRelativeToPage,
+        mainModulePathRelativeToBuildRoot,
+      ];
     } else {
       return [null, normalizeDataPath(string)];
     }
   }
   function extractAbsoluteMainModuleAsync(andThen) {
     var main = document.querySelector("script[data-main]");
-    if(main) {
+    if (main) {
       var main = main.dataset.main;
       var parsed = parseBuildRootLocator(main);
       var buildRootLocatorRelativeToPage = parsed[0];
@@ -40,26 +79,29 @@
       // `window.jsModulesAbsoluteRoot`, the build path relative to the
       // project root (which is for now always assumed to be the directory of
       // the current html page (todo: improve)).
-      if(buildRootLocatorRelativeToPage) {
-        var absBuildRootLocator = OneClick.dirName(OneClick.absNormalizedHtmlPath) +
-          '/' + buildRootLocatorRelativeToPage;
-        var scriptTag = document.createElement('script');
-        scriptTag.type="text/javascript";
-        scriptTag.addEventListener('error', function(){
+      if (buildRootLocatorRelativeToPage) {
+        var absBuildRootLocator =
+          OneClick.dirName(OneClick.absNormalizedHtmlPath) +
+          "/" +
+          buildRootLocatorRelativeToPage;
+        var scriptTag = document.createElement("script");
+        scriptTag.type = "text/javascript";
+        scriptTag.addEventListener("error", function () {
           andThen(
             null,
             "Build root locator " +
-            absBuildRootLocator +
-            " appears to not exist but was specified in the data-main" +
-            " portion of the one-click.js script tag."
+              absBuildRootLocator +
+              " appears to not exist but was specified in the data-main" +
+              " portion of the one-click.js script tag."
           );
         });
-        scriptTag.addEventListener('load', function(){
-          if(!window.jsModulesAbsoluteRoot) {
+        scriptTag.addEventListener("load", function () {
+          if (!window.jsModulesAbsoluteRoot) {
             andThen(
               null,
-              "Build root locator at " + absBuildRootLocator +
-              " did not set window.jsModulesAbsoluteRoot"
+              "Build root locator at " +
+                absBuildRootLocator +
+                " did not set window.jsModulesAbsoluteRoot"
             );
           } else {
             andThen(
@@ -74,22 +116,33 @@
         document.body.appendChild(scriptTag);
         scriptTag.src = buildRootLocatorRelativeToPage;
       } else {
-        andThen(normalizeDataPath(main), null);
+        andThen(
+          normalizeDataPath(
+            OneClick.resolveFromAbsolute(
+              OneClick.dirName(OneClick.absNormalizedHtmlPath),
+              main
+            )
+          ),
+          null
+        )
       }
     } else {
-      andThen(null, "There is no data-main attribute on your one-click.js script tag.");
+      andThen(
+        null,
+        "There is no data-main attribute on your one-click.js script tag."
+      );
     }
   }
-  
+
   function getNodeModulesAbsolutePath() {
-    getAbsoluteNormalizedProjectRootPath() + '/node_modules';
+    getAbsoluteNormalizedProjectRootPath() + "/node_modules";
   }
-      
+
   function getNormalizedHtmlPath() {
-    if(window.location.protocol === 'file:') {
-      var pathname = window.location.pathname; 
+    if (window.location.protocol === "file:") {
+      var pathname = window.location.pathname;
       // Windows drive pathname. Turn /C:/foo into C:/foo
-      if(pathname[0] === '/' && pathname[2] === ':' && pathname[3] === '/') {
+      if (pathname[0] === "/" && pathname[2] === ":" && pathname[3] === "/") {
         return pathname.substr(1);
       } else {
         return pathname;
@@ -105,10 +158,10 @@
   function getAbsoluteNormalizedProjectRootPath() {
     return OneClick.dirName(OneClick.absNormalizedHtmlPath);
   }
-  
+
   function getPnpFilePath() {
     var pnpDir = document.querySelector("script[data-pnp]");
-    if(pnpDir) {
+    if (pnpDir) {
       var pnpDir = pnpDir.dataset.pnp;
       return normalizeDataPath(pnpDir);
     } else {
@@ -117,16 +170,13 @@
   }
 
   var windowSetup = Object.getOwnPropertyNames(window)
-    .reduce(function(cur, nm) {
+    .reduce(function (cur, nm) {
       return nm[0].toUpperCase() === nm[0]
         ? cur.concat([nm + " = parent." + nm])
         : cur;
     }, [])
     .join(",");
-  windowSetup += ";\n" +
-    "process = {" +
-    "  env: { }" +
-    "};"
+  windowSetup += ";\n" + "process = {" + "  env: { }" + "};";
   var megaProxyFields = (varName, recordInto) => `
     var megaProxyFields = {
       get: function(target, prop, receiver) {
@@ -170,7 +220,7 @@
         wasNotLoaded.relPath +
         "%c -> [" +
         Object.keys(wasNotLoaded.fieldAccessesByDependency)
-          .map(function(dep) {
+          .map(function (dep) {
             return !OneClick.modulesFromRoot[dep]
               ? "empty "
               : (!sawCircle && dep === wasNotLoaded.relPath
@@ -180,7 +230,7 @@
                   Object.keys(
                     OneClick.modulesFromRoot[dep].fieldAccessesByDependency
                   )
-                    .map(function(depDep) {
+                    .map(function (depDep) {
                       return !sawCircle && depDep === wasNotLoaded.relPath
                         ? ((sawCircle = true), "%c" + depDep + "%c")
                         : depDep;
@@ -220,39 +270,45 @@
       return total;
     }
   }
-  var normalizeRequireOutsidePackage = function(path) {
-    var splits = path.split('/');
+  var normalizeRequireOutsidePackage = function (path) {
+    var splits = path.split("/");
     // require('someDependency/multiple/slashes/')
     // require('someDependency/')
     // require('someDependency')
     // Assume index.js
-    if(path[path.length - 1] === '/' || splits.length === 1) {
+    if (path[path.length - 1] === "/" || splits.length === 1) {
       var last = splits[0];
       if (path.lastIndexOf(".js") !== path.length - 3) {
-        return path + '/index.js';
+        return path + "/index.js";
       } else {
         return path;
       }
-    } else {  // Multiple slashes, path not ending in slash
+    } else {
+      // Multiple slashes, path not ending in slash
       // require('someDependency/multiple/slashes.js')
       // require('someDependency/multiple/slashes')
       // Just ensure there is a .js at the end if not already there.
-      if(path.lastIndexOf(".js") !== path.length - 3) {
-        return path + '.js'
+      if (path.lastIndexOf(".js") !== path.length - 3) {
+        return path + ".js";
       } else {
         return path;
       }
     }
   };
-  var normalizeRequireCallInsideAPackage = function(p) {
-    if(p.length > 0 && p[p.length-1] !== '/') {
-      if(p.length > 3 && p[p.length -1] !== 's' && p[p.length - 2] !== 'j' && p[p.length - 3] !== '.') {
-        return p + '.js';
+  var normalizeRequireCallInsideAPackage = function (p) {
+    if (p.length > 0 && p[p.length - 1] !== "/") {
+      if (
+        p.length > 3 &&
+        p[p.length - 1] !== "s" &&
+        p[p.length - 2] !== "j" &&
+        p[p.length - 3] !== "."
+      ) {
+        return p + ".js";
       } else {
         return p;
       }
     } else {
-      return p + '/index.js';
+      return p + "/index.js";
     }
   };
   /**
@@ -273,32 +329,36 @@
    * this/thing
    * another/thing
    */
-  var relativeAbsolutesImpl = function(from, to) {
+  var relativeAbsolutesImpl = function (from, to) {
     if (from.length != 0 && to.length != 0) {
-      if(from[0] === to[0]) {
+      if (from[0] === to[0]) {
         return relativeAbsolutesImpl(from.slice(1), to.slice(1));
       } else {
-        return ['..'].concat(relativeAbsolutesImpl(from.slice(1), to))
+        return [".."].concat(relativeAbsolutesImpl(from.slice(1), to));
       }
-    } else if(to.length !== 0) {
+    } else if (to.length !== 0) {
       // from.length must be
       return to;
     } else if (from.length !== 0) {
-      return ['..'].concat(relativeAbsolutesImpl(from.slice(1), []))
+      return [".."].concat(relativeAbsolutesImpl(from.slice(1), []));
       // to.length must be
     }
   };
-  var relativeAbsolutes = function(from, to) {
-    if(from.length && from[from.length -1] === '/') {
+  var relativeAbsolutes = function (from, to) {
+    if (from.length && from[from.length - 1] === "/") {
       from = from.substr(0, from.length - 1);
     }
-    var from = from.split('/');
-    var to = to.split('/');
-    return relativeAbsolutesImpl(from, to).join('/');
+    var from = from.split("/");
+    var to = to.split("/");
+    return relativeAbsolutesImpl(from, to).join("/");
   };
-  var isRequiringInsideProject = function(requireCall) {
-    return requireCall[0] === '.' && requireCall[1] === '/' ||
-         requireCall[0] === '.' && requireCall[1] === '.' && requireCall[2] === '/'
+  var isRequiringInsideProject = function (requireCall) {
+    return (
+      (requireCall[0] === "." && requireCall[1] === "/") ||
+      (requireCall[0] === "." &&
+        requireCall[1] === "." &&
+        requireCall[2] === "/")
+    );
   };
   var OneClick = {
     // Set to true to debug the module loading.
@@ -311,12 +371,12 @@
     modulesFromRoot: {},
     pnpModuleExports: null,
     onMainRequireable: function onAbsoluteRequirable(cb) {
-      if(!OneClick.absMainPath) {
+      if (!OneClick.absMainPath) {
         OneClick.cbsWaitingAbsMainPath.push(cb);
       } else {
         var reqPath = OneClick.absMainPath;
         var moduleData = OneClick.modulesFromRoot[reqPath];
-        if (!moduleData || moduleData.status !== 'loading') {
+        if (!moduleData || moduleData.status !== "loading") {
           OneClick.cbsWaitingAbsMainPath.push(cb);
         } else {
           return cb(moduleData.moduleExports);
@@ -328,22 +388,22 @@
       OneClick.onMainRequireable(cb);
     },
     relativeAbsolutes: relativeAbsolutes,
-    dirName: function(p) {
-      var split = p.split('/');
-      return split.slice(0, split.length - 1).join('/');
+    dirName: function (p) {
+      var split = p.split("/");
+      return split.slice(0, split.length - 1).join("/");
     },
-    baseName: function(p) {
-      var split = p.split('/');
-      return split.length !== 0 ? split[split.length - 1] : '';
+    baseName: function (p) {
+      var split = p.split("/");
+      return split.length !== 0 ? split[split.length - 1] : "";
     },
     /**
      * Should behave like require('path').resolve for absolute "from".
      */
-    resolveFromAbsolute: function(abs, to) {
-      if(abs.length > 0 && abs[abs.length -1] === '/') {
-        abs = abs.substring(0, abs.length -1);
+    resolveFromAbsolute: function (abs, to) {
+      if (abs.length > 0 && abs[abs.length - 1] === "/") {
+        abs = abs.substring(0, abs.length - 1);
       }
-      if(OneClick.isAbs(to)) {
+      if (OneClick.isAbs(to)) {
         return to;
       } else {
         var fromRelativeToRootSplit = abs.split("/");
@@ -351,8 +411,13 @@
         // Remove all relative ".". Everything will just be either ../ or
         // implicitly relative.
         var fromRelativeToRootSplit =
-          fromRelativeToRootSplit[0] === '.' ? fromRelativeToRootSplit.slice(1) : fromRelativeToRootSplit;
-        var toRelativePathSplit = toRelativePathSplit[0] === '.' ? toRelativePathSplit.slice(1) : toRelativePathSplit;
+          fromRelativeToRootSplit[0] === "."
+            ? fromRelativeToRootSplit.slice(1)
+            : fromRelativeToRootSplit;
+        var toRelativePathSplit =
+          toRelativePathSplit[0] === "."
+            ? toRelativePathSplit.slice(1)
+            : toRelativePathSplit;
         var segments = resolveImpl(
           // Remove the depending file, to leave only the dir
           fromRelativeToRootSplit,
@@ -365,17 +430,27 @@
     /**
      * Only handles modules outside of the requesters current package.
      */
-    requireResolveUsingPnp: function(requestedBy, requireCall) {
-      if(OneClick.pnpModuleExports) {
+    requireResolveUsingPnp: function (requestedBy, requireCall) {
+      if (OneClick.pnpModuleExports) {
         // Only use pnp for dependencies outside of project.
-        if(!isRequiringInsideProject(requireCall)) {
+        if (!isRequiringInsideProject(requireCall)) {
           requireCall = normalizeRequireOutsidePackage(requireCall);
           // Have to tell pnp that we're requiring "from the top of the project"
           var rootProjectDir = getAbsoluteNormalizedProjectRootPath();
-          if(requestedBy.indexOf(rootProjectDir) === 0) {
-            return OneClick.pnpModuleExports.resolveUnqualified(OneClick.pnpModuleExports.resolveToUnqualified(requireCall, rootProjectDir));
+          if (requestedBy.indexOf(rootProjectDir) === 0) {
+            return OneClick.pnpModuleExports.resolveUnqualified(
+              OneClick.pnpModuleExports.resolveToUnqualified(
+                requireCall,
+                rootProjectDir
+              )
+            );
           } else {
-            return OneClick.pnpModuleExports.resolveUnqualified(OneClick.pnpModuleExports.resolveToUnqualified(requireCall, requestedBy));
+            return OneClick.pnpModuleExports.resolveUnqualified(
+              OneClick.pnpModuleExports.resolveToUnqualified(
+                requireCall,
+                requestedBy
+              )
+            );
           }
         } else {
           return null;
@@ -384,8 +459,8 @@
         return null;
       }
     },
-    requireResolveNodeApprox: function(requiringFileAbs, requireCall) {
-      if(isRequiringInsideProject(requireCall)) {
+    requireResolveNodeApprox: function (requiringFileAbs, requireCall) {
+      if (isRequiringInsideProject(requireCall)) {
         // If you're requiring inside your own project, you couldn't possibly
         // be requesting an implicit index inside your own package (unless you
         // were requesting a directory, in which case it might have a slash).
@@ -396,25 +471,30 @@
         return OneClick.resolveFromAbsolute(requiringDir, requireCall);
       } else {
         var nodeModulesAbs = getNodeModulesAbsolutePath();
-        return nodeModulesAbs + '/' + normalizeRequireOutsidePackage(requireCall);
+        return (
+          nodeModulesAbs + "/" + normalizeRequireOutsidePackage(requireCall)
+        );
       }
     },
-    requireResolve: function(requiringFileAbs, requireCall) {
-      if(OneClick.isAbs(requireCall)) {
+    requireResolve: function (requiringFileAbs, requireCall) {
+      if (OneClick.isAbs(requireCall)) {
         return requireCall;
       }
-      var usingPnp = OneClick.requireResolveUsingPnp(requiringFileAbs, requireCall);
-      if(usingPnp) {
+      var usingPnp = OneClick.requireResolveUsingPnp(
+        requiringFileAbs,
+        requireCall
+      );
+      if (usingPnp) {
         return usingPnp;
       } else {
         return OneClick.requireResolveNodeApprox(requiringFileAbs, requireCall);
       }
     },
-    isAbs: function(p) {
-      return p[0] === '/' || (p.length > 3 && p[1] === ':' && p[2] === '/')
-    }
+    isAbs: function (p) {
+      return p[0] === "/" || (p.length > 3 && p[1] === ":" && p[2] === "/");
+    },
   };
-  var canAndShouldBeLoadedNow = function(moduleData) {
+  var canAndShouldBeLoadedNow = function (moduleData) {
     var allLoading = true;
     if (moduleData.status !== "loading") {
       for (var dep in moduleData.fieldAccessesByDependency) {
@@ -430,7 +510,7 @@
   // This time allow returning a module if its deps aren't loading yet, but
   // only as long as their backwards referenced module load-time field accesses
   // are empty.
-  var canBreakCircularDependency = function(moduleData) {
+  var canBreakCircularDependency = function (moduleData) {
     var allLoading = true;
     if (moduleData.status !== "loading") {
       for (var dep in moduleData.fieldAccessesByDependency) {
@@ -446,7 +526,7 @@
       return null;
     }
   };
-  var notLoaded = function(moduleData) {
+  var notLoaded = function (moduleData) {
     if (moduleData.status !== "loading") {
       return moduleData;
     } else {
@@ -459,28 +539,39 @@
       var moduleData = OneClick.modulesFromRoot[aRelModPath];
       var result = predicate(moduleData);
       if (result !== null) {
-        return([result]);
+        return [result];
       }
     }
     return all;
   }
-  window.require = function(path) {
-    var resolved = OneClick.requireResolve(OneClick.absNormalizedHtmlPath, path);
+  window.require = function (path) {
+    var resolved = OneClick.requireResolve(
+      OneClick.absNormalizedHtmlPath,
+      path
+    );
     var moduleData = OneClick.modulesFromRoot[resolved];
     if (!moduleData) {
-      throw "Module " + resolved + " has not been initialized by anyone. You specified " + path;
+      throw (
+        "Module " +
+        resolved +
+        " has not been initialized by anyone. You specified " +
+        path
+      );
     }
     if (moduleData.status !== "loading") {
-      throw new Error("Module has not yet been loaded " + path +
-       ". Use OneClick.onRequirable(pathFromRoot, callback) or OneClick.onMain(cb) to " +
-        "ensure the module is loaded before your code runs.");
+      throw new Error(
+        "Module has not yet been loaded " +
+          path +
+          ". Use OneClick.onRequirable(pathFromRoot, callback) or OneClick.onMain(cb) to " +
+          "ensure the module is loaded before your code runs."
+      );
     }
     return moduleData.moduleExports;
   };
   function loadModuleForModuleData(moduleData) {
     moduleData.status = "loading";
     var iframe = document.createElement("iframe");
-    iframe.name=OneClick.baseName(moduleData.relPath);
+    iframe.name = OneClick.baseName(moduleData.relPath);
     iframe.style = "display:none !important";
     document.body.appendChild(iframe);
     var doc = iframe.contentWindow.document;
@@ -542,21 +633,21 @@
             console.log('set module exports ${moduleData.relPath}');
           }
          parent.afterModuleLoad(parent.window.OneClick.modulesFromRoot["${moduleData.relPath}"]);
-          
+
         </script>
         </body></html>
     `;
-    if(parent.OneClick.__DEBUG__MODULE_LOADING) {
-      console.log('writing script for ' + moduleData.relPath);
+    if (parent.OneClick.__DEBUG__MODULE_LOADING) {
+      console.log("writing script for " + moduleData.relPath);
     }
     doc.open();
     doc.write(isolatedScript);
     doc.close();
-    if(parent.OneClick.__DEBUG__MODULE_LOADING) {
-      console.log('wrote script for ' + moduleData.relPath);
+    if (parent.OneClick.__DEBUG__MODULE_LOADING) {
+      console.log("wrote script for " + moduleData.relPath);
     }
   }
-  var handleScrapeMesage = function(moduleAt, makesRequireCalls) {
+  var handleScrapeMesage = function (moduleAt, makesRequireCalls) {
     var fieldAccessesByDependency = {};
     OneClick.modulesFromRoot[moduleAt].status = "scraped";
     for (var requireCall in makesRequireCalls) {
@@ -586,17 +677,17 @@
     }
     var allScraped = allHaveStatus("scraped");
     if (allScraped) {
-      var loadNext = function(max, previousLoadedModuleData) {
-        if(max === 0) {
+      var loadNext = function (max, previousLoadedModuleData) {
+        if (max === 0) {
           throw "Could not load modules after 100 attempts";
         }
-        var canBeLoaded = canBeLoaded = allNonNull(canAndShouldBeLoadedNow);
-        if(canBeLoaded.length === 0) {
+        var canBeLoaded = (canBeLoaded = allNonNull(canAndShouldBeLoadedNow));
+        if (canBeLoaded.length === 0) {
           canBeLoaded = allNonNull(canBreakCircularDependency);
         }
-        if(canBeLoaded.length !== 0) {
+        if (canBeLoaded.length !== 0) {
           window.afterModuleLoad = loadNext.bind(null, max - 1);
-          canBeLoaded.forEach(function(cbl) {
+          canBeLoaded.forEach(function (cbl) {
             loadModuleForModuleData(cbl);
           });
         } else {
@@ -605,10 +696,10 @@
             printCircularDepError(wasNotLoaded);
           }
         }
-        if(previousLoadedModuleData) {
-          if(OneClick.absMainPath === previousLoadedModuleData.relPath) {
-            OneClick.cbsWaitingAbsMainPath.forEach(function(cb){
-              cb(previousLoadedModuleData.moduleExports)
+        if (previousLoadedModuleData) {
+          if (OneClick.absMainPath === previousLoadedModuleData.relPath) {
+            OneClick.cbsWaitingAbsMainPath.forEach(function (cb) {
+              cb(previousLoadedModuleData.moduleExports);
             });
             OneClick.cbsWaitingAbsMainPath = [];
           }
@@ -617,14 +708,14 @@
       loadNext(100, null);
     }
   };
-  
-  var handlePnpShimLoaded = function(moduleAt, makesRequireCalls) {
-    if(parent.OneClick.__DEBUG__MODULE_LOADING) {
+
+  var handlePnpShimLoaded = function (moduleAt, makesRequireCalls) {
+    if (parent.OneClick.__DEBUG__MODULE_LOADING) {
       console.log("handlePnpShimLoaded", makesRequireCalls);
     }
   };
 
-  var handleBadRequireMessage = function(requestedBy, requireCall) {
+  var handleBadRequireMessage = function (requestedBy, requireCall) {
     console.error(
       "Module " +
         requestedBy +
@@ -633,10 +724,12 @@
         "') which does not exist."
     );
   };
-  var handleBadPnpShimRequireMessage = function(requireCall) {
+  var handleBadPnpShimRequireMessage = function (requireCall) {
     console.error(
       "You attempted to load pnp file  " +
-        'data-pnp="' + requireCall + '"' +
+        'data-pnp="' +
+        requireCall +
+        '"' +
         " requested by the one-click.js script tag attributes. " +
         " The pnp file specified could not be loaded for some reason. Does it exist?" +
         " We will fall back to regular resolving of modules in node_modules but if you installed things " +
@@ -645,7 +738,7 @@
     );
   };
   // We get messages back about which modules depend on which.
-  window.onmessage = function(msg) {
+  window.onmessage = function (msg) {
     if (msg.data.type === "scrapeMessage") {
       handleScrapeMesage(msg.data.moduleAt, msg.data.makesRequireCalls);
     } else if (msg.data.type === "pnpShimLoaded") {
@@ -685,7 +778,7 @@
       // Initially set to empty because we actually copy over fields to this in
       // case something needed to depend on it in a circular manner.
       moduleExports: {},
-      fieldAccessesByDependency: null
+      fieldAccessesByDependency: null,
     };
     OneClick.modulesFromRoot[relPathFromRoot] = moduleData;
     // Scrape the dependencies by dry running them.
@@ -723,7 +816,10 @@
         require = function(modPath) {
           window.recordedFieldAccessesByRequireCall[modPath] = [];
           // https://www.mattzeunert.com/2016/07/20/proxy-symbol-tostring.html
-          ${megaProxyFields('recordFieldAccess', 'window.recordedFieldAccessesByRequireCall')}
+          ${megaProxyFields(
+            "recordFieldAccess",
+            "window.recordedFieldAccessesByRequireCall"
+          )}
           return recordFieldAccess;
         };
         function onBadDep() {
@@ -751,22 +847,28 @@
         require = parent.require;
       </script>
     `;
-    loadIframeScript("Dry run " + relPathFromRoot + " Just To Scrape Dependency Graph", !OneClick.__DEBUG__MODULE_LOADING, scrapingScript);
+    loadIframeScript(
+      "Dry run " + relPathFromRoot + " Just To Scrape Dependency Graph",
+      !OneClick.__DEBUG__MODULE_LOADING,
+      scrapingScript
+    );
   }
-  
+
   function loadIframeScript(name, deleteAfterLoad, script) {
     var iframe = document.createElement("iframe");
-    iframe.name=name;
+    iframe.name = name;
     iframe.style = "display:none !important";
     document.body.appendChild(iframe);
-    if(deleteAfterLoad) {
-      iframe.onload=function(){document.body.removeChild(iframe)};
+    if (deleteAfterLoad) {
+      iframe.onload = function () {
+        document.body.removeChild(iframe);
+      };
     }
     var doc = iframe.contentWindow.document;
     doc.open();
     doc.write(script);
     doc.close();
-  };
+  }
   function scrapePnpShimInDir(absPnpPath) {
     var scrapingScript = `<html><head><title></title></head><body>
       <script>
@@ -778,7 +880,7 @@
         // TODO: Store these in a backup log that can be accessed.
         console = {log: function(args) { }};
         console.error = console.warn = console.table = window.console.log;
-        
+
         // Don't want to mask pnp loading errors.
         // window.onerror = function(msg, url, lineNo, columnNo, error){
         //   parent.console.log('onerr scraping ${absPnpPath}', msg, url, lineNo, error);
@@ -840,7 +942,10 @@
           }
           window.recordedFieldAccessByPnpShimRequireCall[modPath] = [];
           // https://www.mattzeunert.com/2016/07/20/proxy-symbol-tostring.html
-          ${megaProxyFields('recordFieldAccess', 'window.recordedFieldAccessByPnpShimRequireCall')}
+          ${megaProxyFields(
+            "recordFieldAccess",
+            "window.recordedFieldAccessByPnpShimRequireCall"
+          )}
           return recordFieldAccess;
         };
         function onBadPnpLoad() {
@@ -869,14 +974,14 @@
     // in the browser.
     loadIframeScript("Pnp", false, scrapingScript);
   }
-  
+
   // This isn't really commonJS compliant, but we'll relax it just for the data-main attribute.
   OneClick.absNormalizedHtmlPath = getNormalizedHtmlPath();
-  extractAbsoluteMainModuleAsync(function(absMainPath, err) {
-    if(!err) {
+  extractAbsoluteMainModuleAsync(function (absMainPath, err) {
+    if (!err) {
       OneClick.absMainPath = absMainPath;
       var pnpFilePath = getPnpFilePath();
-      if(pnpFilePath) {
+      if (pnpFilePath) {
         requirePreparePnpShim(pnpFilePath);
       }
       requirePrepareMain(OneClick.absMainPath);
