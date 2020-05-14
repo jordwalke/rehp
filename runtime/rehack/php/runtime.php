@@ -954,7 +954,11 @@ function caml_ml_open_descriptor_out(int $fd): mixed {
 function caml_arity_test(mixed $f): int {
   if (PHP\is_object($f) && ($f is \Closure)) {
     return (new \ReflectionFunction($f))->getNumberOfParameters();
+  }
+  if (PHP\is_object($f) && $f is UpdateableFunction) {
+    return (new \ReflectionFunction($f->fun))->getNumberOfParameters();
   } else {
+    \slog("Arity test", $f);
     throw new \ErrorException("Passed non closure to rehack_arity");
   }
 }
@@ -1543,6 +1547,28 @@ interface Comparable<T> {
   public function compare(T $other, bool $total): bool;
 }
 
+class UpdateableFunction {
+  public dynamic $fun;
+  public function __construct(mixed $fun) {
+    $this->fun = $fun;
+  }
+  public function __invoke(mixed ...$args) : dynamic {
+    if($this->fun === null) {
+      \slog("not set");
+      throw new \ErrorException("UpdateableFunction not yet set");
+    }
+    return ($this->fun)(...$args);
+  }
+  public function arity() : int {
+    if($this->fun === null) {
+      throw new \ErrorException(
+        "UpdateableFunction arity not defined yet. First set function, or specify at construction",
+      );
+    }
+    return caml_arity_test($this->fun);
+  }
+}
+
 // A class that wraps thrown objects in something that implement Throwable
 // because PHP will have it no other way.
 final class RehpExceptionBox extends \Exception {
@@ -1555,7 +1581,189 @@ final class RehpExceptionBox extends \Exception {
   }
 }
 
+/**
+ * Create lambdas that record their arity in the arguments for reflection while
+ * still allowing them to be called in a "magic" form in order to update the
+ * reference cell (the underlying function).  The varargs counts as one arity.
+ */
+function caml_alloc_dummy_function(int $_size, int $arity): dynamic {
+  switch ($arity) {
+    case 1:
+      $f = function($_one) {
+        throw new \ErrorException("Calling updateable function before updated");
+      };
+      break;
+    case 2:
+      $f = function($_one, $_two) {
+        throw new \ErrorException("Calling updateable function before updated");
+      };
+      break;
+    case 3:
+      $f = function($_one, $_two, $_three) {
+        throw new \ErrorException("Calling updateable function before updated");
+      };
+      break;
+    case 4:
+      $f = function($_one, $_two, $_three, $_four) {
+        throw new \ErrorException("Calling updateable function before updated");
+      };
+      break;
+    default:
+      // Add more cases as needed.
+      throw new \ErrorException(
+        "caml_alloc_dummy_function called with unsupported arity",
+      );
+  }
+  return new UpdateableFunction($f);
+}
+
+// Updates previously created dummy cells which could be dummy functions, or cells.
+// dummy arrays waiting to hold cyclical structures.
+//Provides: caml_update_dummy
+function caml_update_dummy(dynamic $x, KeyedContainer<int, mixed> $y): int {
+  // if( typeof y==="function" ) { x.fun = y; return 0; }
+  // if( y.fun ) { x.fun = y.fun; return 0; }
+  if (PHP\is_object($x) && $x is UpdateableFunction && PHP\is_object($y) && ($y is \Closure)) {
+    $x->fun = $y;
+    return 0;
+  }
+  if (PHP\is_object($x) && $x is UpdateableFunction && PHP\is_object($y) && $y is UpdateableFunction) {
+    \slog("Updating updatable function");
+    $x->fun = $y->fun;
+    return 0;
+  }
+  for ($i = 0; $i < C\count($y); $i++) {
+    $x[] = $y[$i];
+  }
+  return 0;
+}
+
+
+function caml_CamlinternalMod_init_mod(
+  dynamic $loc,
+  dynamic $shape,
+): Vector<dynamic> {
+  $undef_module = function($_x) use ($loc) {
+    \slog("undef module");
+    caml_raise_with_arg(Undefined_recursive_module::get(), $loc);
+  };
+  $loop = new Ref();
+  $loop->contents = function(
+    dynamic $shape,
+    dynamic $struct,
+    int $idx,
+  ) use ($loop, $undef_module) {
+    if ($shape is int) {
+      switch ($shape) {
+        case 0: //function
+          // See corresponding check in caml_update_dummy to search for this map.
+          // Or should this call caml_alloc_dummy_function instead?  I think we
+          // could use a caml_alloc_dummy_function, and then the map check in
+          // caml_update_dummy will not ever trigger and everything will work.
+          // Edit: Nope, we can't do that because we don't know the arity to
+          // create the dummy function with at this point so we need this extra
+          // Map form.
+          $updateable_function = new UpdateableFunction($undef_module);
+          if($idx == C\count($struct)) {
+            $struct[] = $updateable_function;
+          } else {
+            $struct[$idx] = $updateable_function;
+          }
+          break;
+        case 1: //lazy
+          $block = Vector {246, $undef_module};
+          if($idx == C\count($struct)) {
+            $struct[] = $block;
+          } else {
+            $struct[$idx] = $block;
+          }
+          break;
+        default: //case 2://class
+          if($idx == C\count($struct)) {
+            $struct[] = Vector {};
+          } else {
+            $struct[$idx] = Vector {};
+          }
+      }
+    } else {
+      switch ($shape[0]) {
+        case 0: //module
+          $struct[$idx] = Vector {0};
+          for($i=1; $i < C\count($shape[1]); $i++) {
+            /* HH_FIXME[4110] */
+            $loop->contents(
+              $shape[1][$i],
+              $struct[$idx], $i);
+          }
+          break;
+        default: //case 1://Value
+        /* HH_FIXME[4110] */
+        $struct[$idx] = $shape[1];
+      }
+    }
+  };
+  $res = Vector {0};
+  $loop->contents($shape, $res, 0);
+  /* HH_FIXME[4110] */
+  return $res[0];
+}
+
+//Provides: caml_CamlinternalMod_update_mod
+//Requires: caml_update_dummy
+function caml_CamlinternalMod_update_mod(
+  mixed $shape,
+  dynamic $real,
+  dynamic $x,
+): int {
+  if ($shape is int) {
+    switch ($shape) {
+      case 0: //function
+        // It's a map
+        $real->fun= $x;
+        break;
+      case 1: //lazy
+      default: //case 2://class
+      /* HH_FIXME[4110] */
+      caml_update_dummy($real, $x);
+    }
+  } else {
+    /* HH_FIXME[4063] */
+    switch($shape[0]){
+      case 0: //module
+        /* HH_FIXME[4063] */
+        for($i=1; $i < C\count($shape[1]); $i++) {
+          /* HH_FIXME[4063] */
+          caml_CamlinternalMod_update_mod($shape[1][$i], $real[$i], $x[$i]);
+        }
+        break;
+      //case 1://Value
+      default:
+    }
+    ;
+  }
+  return 0;
+}
+
+class Trampoline {
+  public function __construct(public dynamic $tramp, public dynamic $args) { }
+}
+
+function caml_trampoline(mixed $res) : mixed {
+  $c = 1;
+  while($res is Trampoline) {
+    $res = ($res->tramp)(...$res->args);
+    $c++;
+  }
+  return $res;
+}
+
+function caml_trampoline_return(mixed $f, dynamic $args) : mixed {
+  return new Trampoline($f, $args);
+}
+
+
 type RuntimeT = shape(
+  "caml_alloc_dummy_function" => dynamic,
   "caml_arity_test" => dynamic,
   "caml_array_append" => dynamic,
   "caml_array_blit" => mixed,
@@ -1581,6 +1789,8 @@ type RuntimeT = shape(
   "caml_call7" => dynamic,
   "caml_call8" => dynamic,
   "caml_call_gen" => dynamic,
+  "caml_CamlinternalMod_init_mod" => dynamic,
+  "caml_CamlinternalMod_update_mod" => dynamic,
   "caml_check_bound" => dynamic,
   "caml_compare" => dynamic,
   "caml_create_bytes" => dynamic,
@@ -1697,6 +1907,7 @@ type RuntimeT = shape(
   "caml_sys_random_seed" => mixed,
   "caml_trampoline" => mixed,
   "caml_trampoline_return" => mixed,
+  "caml_update_dummy" => dynamic,
   "caml_utf8_length" => dynamic,
   "caml_wrap_exception" => dynamic,
   "caml_wrap_thrown_exception" => dynamic,
@@ -1760,6 +1971,8 @@ abstract final class Runtime {
       caml_register_global($i, Vector {248, caml_new_string($s), -1 * $i}, $s);
     }
     return shape(
+      "caml_alloc_dummy_function" => fun('\\Rehack\\caml_alloc_dummy_function')
+        as dynamic,
       "caml_arity_test" => fun('\\Rehack\\caml_arity_test') as dynamic,
       "caml_array_append" => fun('\\Rehack\\caml_array_append') as dynamic,
       "caml_array_blit" => null,
@@ -1787,6 +2000,16 @@ abstract final class Runtime {
       "caml_call7" => fun('\\Rehack\\caml_call7') as dynamic,
       "caml_call8" => fun('\\Rehack\\caml_call8') as dynamic,
       "caml_call_gen" => fun('\\Rehack\\caml_call_gen') as dynamic,
+      // These two have to be actual closures because they are invoked with
+      // call2.
+      "caml_CamlinternalMod_init_mod" => (
+        (dynamic $shape, dynamic $loc) ==>
+          caml_CamlinternalMod_init_mod($shape, $loc)
+      ) as dynamic,
+      "caml_CamlinternalMod_update_mod" => (
+        (mixed $shape, dynamic $real, dynamic $x) ==>
+          caml_CamlinternalMod_update_mod($shape, $real, $x)
+      ) as dynamic,
       "caml_check_bound" => fun('\\Rehack\\caml_check_bound') as dynamic,
       "caml_compare" => fun('\\Rehack\\caml_compare') as dynamic,
       "caml_create_bytes" => fun('\\Rehack\\caml_create_bytes') as dynamic,
@@ -1917,15 +2140,17 @@ abstract final class Runtime {
       "caml_sys_getenv" => fun('\\Rehack\\caml_sys_getenv') as dynamic,
       "caml_sys_open" => null,
       "caml_sys_random_seed" => null,
-      "caml_trampoline" => null,
-      "caml_trampoline_return" => null,
+      "caml_trampoline" => fun('\\Rehack\\caml_trampoline') as dynamic,
+      "caml_trampoline_return" => fun('\\Rehack\\caml_trampoline_return') as dynamic,
+      "caml_update_dummy" => fun('\\Rehack\\caml_update_dummy') as dynamic,
       "caml_utf8_length" => fun('\\Rehack\\caml_utf8_length') as dynamic,
       "caml_wrap_exception" => fun('\\Rehack\\caml_wrap_exception') as dynamic,
       "caml_wrap_thrown_exception" =>
         fun('\\Rehack\\caml_wrap_thrown_exception') as dynamic,
-      // TODO: Actually implement exception chaining with special primitive
-      "caml_wrap_thrown_exception_reraise" =>
-        fun('\\Rehack\\caml_wrap_thrown_exception') as dynamic,
+      "caml_wrap_thrown_exception_reraise" => fun(
+        '\\Rehack\\caml_wrap_thrown_exception',
+      )
+        as dynamic, // TODO: Actually implement exception chaining with special primitive
       "is_int" => fun('\\Rehack\\is_int') as dynamic,
       "left_shift_32" => fun('\\Rehack\\left_shift_32') as dynamic,
       "native_debug" => fun('\\Rehack\\native_debug') as dynamic,
@@ -1943,6 +2168,10 @@ abstract final class Runtime {
 }
 
 final class GlobalObject {
+  public static Vector<string>
+    $UNIQUE_OBJECT_DETECT_UPDATE_FUN_DONT_EVER_REFER_TO_THIS =
+      Vector {"Unique Vector to detect need to update reference in scope"};
+
   public function __construct(public RuntimeT $jsoo_runtime) {}
 
   <<__Memoize>>
