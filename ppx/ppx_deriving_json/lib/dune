@@ -4,10 +4,9 @@
   (synopsis "[@@deriving json]")
   (ppx_runtime_libraries js_of_ocaml.deriving)
   (kind ppx_deriver)
-  (libraries ppx_deriving.api compiler-libs ppx_tools)
-  ; .exe is needed for windows.
-  (preprocess (action (run %{lib:ppx_tools:rewriter.exe} %{lib:ppx_tools:ppx_metaquot.exe} %{input-file}))))
 
-(rule
-  (targets ppx_deriving_json.ml)
-  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{dep:ppx_deriving_json.cppo.ml} -o %{targets})))
+  (libraries compiler-libs.common
+             ocaml-migrate-parsetree
+             ppxlib
+  )
+  (preprocess (pps ppxlib.metaquot)))
