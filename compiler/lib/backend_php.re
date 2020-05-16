@@ -1,6 +1,7 @@
 open Stdlib;
 module PP = Pretty_print;
 let times = Debug.find("times");
+let init = _ => ();
 let php_keywords =
   List.fold_left(
     ~f=(acc, x) => StringSet.add(x, acc),

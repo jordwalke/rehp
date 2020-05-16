@@ -43,6 +43,7 @@ type t =
   ; fs_output : string option
   ; fs_external : bool
   ; backend : Backend.t option
+  ; backend_flags : string option
   ; keep_unit_names : bool }
 
 val options : t Cmdliner.Term.t
