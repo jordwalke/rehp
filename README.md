@@ -284,11 +284,6 @@ the overall approach.
 - [vincentbalat](https://twitter.com/vincentbalat)
 - [diml](https://github.com/diml)
 
-Also, thank you to [sstur](https://github.com/sstur) whose
-[js2php](https://github.com/sstur/js2php) project served as a reference for how
-to bootstrap the C stubs in PHP by converting them from `js_of_ocaml`'s JS
-stubs into PHP. (The longer term plan is to rewrite them by hand, using the
-generated conversion as a starting point).
 
 Also, thank you to everyone who created / improved `js_of_ocaml` over the
 years.
