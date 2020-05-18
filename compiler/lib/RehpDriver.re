@@ -662,4 +662,8 @@ let backends = [
     Backend_php.compiler_backend_flag(),
     (module Backend_php): (module Backend.Backend_implementation),
   ),
+  (
+    Backend_exec.compiler_backend_flag(),
+    (module Backend_exec): (module Backend.Backend_implementation),
+  ),
 ];
