@@ -100,7 +100,10 @@ echo "./rehack_tests/output/SeparateCompilation.cma.php"
 export OCAMLRUNPARAM=b && time js_of_ocaml --use-hashing --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --backend php --custom-header "file:./rehack_tests/templates/php-module-header.php" "${1}"/default/rehack_tests/SeparateCompilation/SeparateCompilation.cma -o ./rehack_tests/output/SeparateCompilation.cma.php/
 export OCAMLRUNPARAM=b && time js_of_ocaml --use-hashing --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --backend js  --custom-header "file:./rehack_tests/templates/common-js-module-header.js" "${1}"/default/rehack_tests/SeparateCompilation/SeparateCompilation.cma -o ./rehack_tests/output/SeparateCompilation.cma.js/
 
-
+# Reproduce a current hash "bug" (not bug in correctness - unless you consume the generated php code with named fields)
+echo "./rehack_tests/output/HashBugReproduce.cma.php"
+export OCAMLRUNPARAM=b && time js_of_ocaml --use-hashing --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --backend php --custom-header "file:./rehack_tests/templates/php-module-header.php" "${1}"/default/rehack_tests/HashBugReproduce/HashBugReproduce.cma -o ./rehack_tests/output/HashBugReproduce.cma.php/
+export OCAMLRUNPARAM=b && time js_of_ocaml --use-hashing --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --backend js  --custom-header "file:./rehack_tests/templates/common-js-module-header.js" "${1}"/default/rehack_tests/HashBugReproduce/HashBugReproduce.cma -o ./rehack_tests/output/HashBugReproduce.cma.js/
 
 # Js version complete standalone
 # node ./rehack_tests/strings/stringsStandalone.withRuntime.js

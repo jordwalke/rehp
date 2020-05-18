@@ -35,6 +35,7 @@
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/hello_world/hello_world.bc"],
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/my-lib/MyLib.cma"],
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/SeparateCompilation/SeparateCompilation.cma"],
+      [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/HashBugReproduce/HashBugReproduce.cma"],
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/strings/strings.bc"],
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/calls/Calls.cma"]
     ],
