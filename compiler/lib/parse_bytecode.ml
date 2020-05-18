@@ -140,21 +140,37 @@ end = struct
    * requires taking into account the type env in the hash which changes too
    * much to be useful for incremental hashing. Files would change their
    * debugdata hashes too often.
+   * TODO: Document this limitation.
+   * TODO: See if the recently added hashing of debug event locations is
+   * enough to reliably retrigger compilation changes with source maps.
    *
    * See Debug.find which does:
    *
    *  ( Ocaml_compiler.Ident.table_contents ev.ev_stacksize ev.ev_compenv.ce_stack
    *  , ev.ev_typenv )
    *)
-  let hash_event_folder (key : int) (debug_event, ml_unit) cur =
-    cur
+  let hash_event_folder (key : int) (debug_event, ml_unit) acc =
+    (* Need to multiply by 2 a sum of acc and next so that simple reordering
+     * but not changing debug events triggers hash change *)
+    2 * (
+      acc
     + key
+    + debug_event.ev_pos
+    (* Hash the location but *not* the file name so that the hashes are stable
+     * across hosts *)
+    + debug_event.ev_loc.loc_start.pos_lnum +
+    + debug_event.ev_loc.loc_start.pos_cnum +
+    + debug_event.ev_loc.loc_start.pos_bol +
+    + debug_event.ev_loc.loc_end.pos_lnum +
+    + debug_event.ev_loc.loc_end.pos_cnum +
+    + debug_event.ev_loc.loc_end.pos_bol +
     + Hashtbl.hash_param
         256
         256
         (Ocaml_compiler.IdentUtilities.table_contents_names_for_hashing
            debug_event.ev_stacksize
            debug_event.ev_compenv.ce_stack)
+    )
 
   (* Computing a Digest of the bytes themselves might be a lot faster. *)
   (* Hashes only the events because units includes absolute paths that change
