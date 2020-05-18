@@ -1,15 +1,16 @@
 {
-  "checksum": "2a437aec8e1b2217e7bb5def311e5d00",
+  "checksum": "dcd4dbffd8b6ce0669121c1a43b2a8ef",
   "root": "dev@link-dev:./package.json",
   "node": {
-    "refmterr@link:../reason-native/refmterr.json": {
-      "id": "refmterr@link:../reason-native/refmterr.json",
+    "refmterr@3.3.2@d41d8cd9": {
+      "id": "refmterr@3.3.2@d41d8cd9",
       "name": "refmterr",
-      "version": "link:../reason-native/refmterr.json",
+      "version": "3.3.2",
       "source": {
-        "type": "link",
-        "path": "../reason-native",
-        "manifest": "refmterr.json"
+        "type": "install",
+        "source": [
+          "archive:https://registry.npmjs.org/refmterr/-/refmterr-3.3.2.tgz#sha1:0536990e8a9f69684bdaa1e441904da6722fbb5a"
+        ]
       },
       "overrides": [],
       "dependencies": [
@@ -19,9 +20,7 @@
         "@opam/atdgen@opam:2.2.1@d73fda11",
         "@esy-ocaml/reason@3.6.0@d41d8cd9"
       ],
-      "devDependencies": [
-        "ocaml@4.8.1000@d41d8cd9", "@esy-ocaml/reason@3.6.0@d41d8cd9"
-      ]
+      "devDependencies": []
     },
     "ocaml@4.8.1000@d41d8cd9": {
       "id": "ocaml@4.8.1000@d41d8cd9",
@@ -48,8 +47,7 @@
       },
       "overrides": [],
       "dependencies": [
-        "refmterr@link:../reason-native/refmterr.json",
-        "@opam/uchar@opam:0.0.2@c8218eea",
+        "refmterr@3.3.2@d41d8cd9", "@opam/uchar@opam:0.0.2@c8218eea",
         "@opam/reason@opam:3.6.0@2da53ff9",
         "@opam/ppx_tools_versioned@opam:5.4.0@48c10ee1",
         "@opam/ppx_deriving@opam:4.4.1@208c6c8f",
