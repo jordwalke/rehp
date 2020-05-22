@@ -107,6 +107,10 @@ and expression =
   | EInt(int)
   | EQuote(string)
   | ERegexp(string, option(string))
+  | ECustomRequire(string)
+  | ECustomRegister(expression)
+  | ERequire(string)
+  | ERuntime
 /****/
 /* A.4 Statements */
 and statement =

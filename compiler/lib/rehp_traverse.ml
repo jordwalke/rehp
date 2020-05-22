@@ -143,7 +143,11 @@ class map : mapper =
        |(EInt _ as x)
        |(EFloat _ as x)
        |(EQuote _ as x)
-       |(ERegexp _ as x) ->
+       |(ERegexp _ as x)
+       |(ECustomRequire _ as x)
+       |(ECustomRegister _ as x)
+       |(ERequire _ as x)
+       |(ERuntime as x) ->
           x
 
     method expression_o x =
