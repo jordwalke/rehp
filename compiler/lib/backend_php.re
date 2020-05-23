@@ -301,47 +301,10 @@ let output =
       ~init=Php_from_rehp.empty,
       StringSet.elements(provided()),
     );
-  let (runtimePhp, env) =
-    switch (linkinfos) {
-    | None => (
-        [],
-        Php_from_rehp.{
-          vars: initialEnv,
-          enclosed_by: Php_from_rehp.NoLoopOrSwitch,
-        },
-      )
-    | Some(linkinfos) =>
-      let envWithRuntimeVars =
-        List.fold_left(
-          ~f=addOneStr,
-          ~init=initialEnv,
-          Linker.all(linkinfos),
-        );
-      let {Linker.runtime_code, always_required_codes} =
-        Linker.link(linkinfos);
-      let initialEnv =
-        Php_from_rehp.{
-          vars: initialEnv,
-          enclosed_by: Php_from_rehp.NoLoopOrSwitch,
-        };
-      let (_, mapped) =
-        [
-          runtime_code,
-          ...List.map(~f=ar => ar.Linker.program, always_required_codes),
-        ]
-        |> List.rev
-        |> List.map(~f=js => Rehp_from_javascript.raws_from_javascript(js))
-        |> List.flatten
-        /* Render the stubs with an env that includes themselves because we
-         * know they'll be placed in the correct topological sort (mostly). */
-        |> Php_from_rehp.(program(initialEnv));
-      (
-        mapped,
-        Php_from_rehp.{
-          vars: envWithRuntimeVars,
-          enclosed_by: Php_from_rehp.NoLoopOrSwitch,
-        },
-      );
+  let env =
+    Php_from_rehp.{
+      vars: initialEnv,
+      enclosed_by: Php_from_rehp.NoLoopOrSwitch,
     };
 
   let (_, php) = Php_from_rehp.(program(env, rehp));
@@ -349,13 +312,12 @@ let output =
   if (times()) {
     Format.eprintf("Start Writing file (Php)...@.");
   };
-  let allPhp = List.concat([runtimePhp, php]);
   let remainingChunks =
     Backend.Helpers.print_until_compilation_output(
       formatter,
       custom_header.Module_prep.chunks,
     );
-  Php_output.program(formatter, ~source_map?, allPhp);
+  Php_output.program(formatter, ~source_map?, php);
   let (remainingChunks, shouldPrintSummary, should_async) =
     Backend.Helpers.print_until_summary(formatter, remainingChunks);
   if (shouldPrintSummary) {
@@ -433,7 +395,6 @@ let custom_module_loader = () =>
   );
 
 let module_require = () => None;
-
 
 let runtime_module_var = () =>
   Rehp.ERaw([
