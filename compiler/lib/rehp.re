@@ -175,13 +175,7 @@ and statement =
     )
   | Do_while_statement((statement, Loc.t), expression)
   | While_statement(expression, (statement, Loc.t))
-  | For_statement(
-      either(option(expression), list(variable_declaration)),
-      option(expression),
-      option(expression),
-      (statement, Loc.t),
-      option(int),
-    )
+  | Loop_statement(statement, Loc.t)
   | ForIn_statement(
       either(expression, variable_declaration),
       expression,

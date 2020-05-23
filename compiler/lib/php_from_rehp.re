@@ -287,13 +287,6 @@ let topLevelIdentifiersSt = (newVarsSoFar, st) =>
   | Rehp.Variable_statement(l) =>
     let augmentEnv = (env, (id, _eopt)) => addOne(env, id);
     List.fold_left(~f=augmentEnv, ~init=newVarsSoFar, l);
-  | For_statement(Right(l), _e2, _e3, (_s, _loc), _depth) =>
-    let augmentEnv = (env, (id, _eopt)) => addOne(env, id);
-    let addedVars = List.fold_left(~f=augmentEnv, ~init=empty, l);
-    append(newVarsSoFar, addedVars);
-  | ForIn_statement(Right((id, _eopt)), _e2, (_s, _loc)) =>
-    let addedVars = useOneVar(id);
-    append(newVarsSoFar, addedVars);
   /*
    * TODO: Probably need to go one level deeper on the try body.
    */
@@ -893,28 +886,16 @@ and statements = (curOut, input: input, l) => {
   /* print_newline(); */
   ret;
 }
-and for_statement = (curOut, input: input, e1, e2, e3, (s, loc), label) => {
-  let (e1Out, e1Mapped) =
-    switch (e1) {
-    | Left(x) =>
-      let (xOut, x_mapped) = optOutput(expression(input), x);
-      (xOut, Left(x_mapped));
-    | Right(l) =>
-      let (output, res) = foldVars(initialiser, curOut, input, [], l);
-      (output, Right(res));
-    };
+and for_statement = (curOut, input: input, (s, loc), label) => {
   let nextInput = {
-    vars: append(input.vars, e1Out.dec),
+    vars: input.vars,
     enclosed_by:
       switch (label) {
       | None => UnlabelledLoop
       | Some(label) => LabelledForLoop(label)
       },
   };
-  let (e2Out, e2Mapped) = optOutput(expression(nextInput), e2);
-  let (e3Out, e3Mapped) = optOutput(expression(nextInput), e3);
-  let (sOut, sMapped) = statement(curOut, nextInput, s);
-  let outs = outAppend(outAppend(outAppend(e1Out, e2Out), e3Out), sOut);
+  let (outs, sMapped) = statement(curOut, nextInput, s);
 
   /* Always wrapped for loop contents in a block */
   /* Reset the continue_label whenever entering a labelled loop */
@@ -932,7 +913,7 @@ and for_statement = (curOut, input: input, e1, e2, e3, (s, loc), label) => {
       )
     };
   let for_statement_node = (
-    Php.For_statement(e1Mapped, e2Mapped, e3Mapped, (sMapped, loc)),
+    Php.For_statement(Left(None), None, None, (sMapped, loc)),
     loc,
   );
 
@@ -1063,8 +1044,8 @@ and statement = (curOut, input: input, x) => {
         free_labels: List.filter(label => label == "", out.free_labels),
       };
       (out, While_statement(eMapped, (sMapped, loc)));
-    | Rehp.For_statement(e1, e2, e3, (s, loc), _) =>
-      for_statement(curOut, input, e1, e2, e3, (s, loc), None)
+    | Rehp.Loop_statement(s, loc) =>
+      for_statement(curOut, input, (s, loc), None)
     | Rehp.ForIn_statement(e1, e2, (s, loc)) =>
       let continueWithAugmentedScope = (input, _) => {
         let (e1Out, e1Mapped) =
@@ -1141,14 +1122,11 @@ and statement = (curOut, input: input, x) => {
       (outAppend(curOut, eOut), Return_statement(eMapped));
     | Rehp.Labelled_statement(
         lbl,
-        (Rehp.For_statement(e1, e2, e3, (s, loc), _), _loc2),
+        (Rehp.Loop_statement(s, loc), _loc2),
       ) =>
       for_statement(
         curOut,
         input,
-        e1,
-        e2,
-        e3,
         (s, loc),
         Some(Javascript.Label.to_string(lbl)),
       )

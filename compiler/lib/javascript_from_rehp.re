@@ -161,24 +161,8 @@ and from_statement = e =>
     Do_while_statement((from_statement(stmt), loc), from_expression(e))
   | Rehp.While_statement(e, (stmt, loc)) =>
     While_statement(from_expression(e), (from_statement(stmt), loc))
-  | Rehp.For_statement(init, test, incr, (stmt, loc), _depth) =>
-    let init =
-      switch (init) {
-      | Left(None) => Left(None)
-      | Left(Some(e)) => Left(Some(from_expression(e)))
-      | Right(vars) => Right(List.map(~f=from_variable_declaration, vars))
-      };
-    let test =
-      switch (test) {
-      | None => None
-      | Some(e) => Some(from_expression(e))
-      };
-    let incr =
-      switch (incr) {
-      | None => None
-      | Some(e) => Some(from_expression(e))
-      };
-    For_statement(init, test, incr, (from_statement(stmt), loc));
+  | Rehp.Loop_statement(stmt, loc) =>
+    For_statement(Left(None), None, None, (from_statement(stmt), loc));
   | Rehp.ForIn_statement(init, e, (stmt, loc)) =>
     let init =
       switch (init) {
