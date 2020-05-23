@@ -36,22 +36,10 @@ and from_unop = (unop, jsExpr) =>
   | Void => EUn(Javascript.Void, jsExpr)
   | Delete => EUn(Javascript.Delete, jsExpr)
   | Bnot => EUn(Javascript.Bnot, jsExpr)
-  | IncrA => EUn(Javascript.IncrA, jsExpr)
-  | DecrA => EUn(Javascript.DecrA, jsExpr)
-  | IncrB => EUn(Javascript.IncrB, jsExpr)
-  | DecrB => EUn(Javascript.DecrB, jsExpr)
   }
 and from_binop =
   fun
   | Rehp.Eq => Javascript.Eq
-  | StarEq => StarEq
-  | SlashEq => SlashEq
-  | ModEq => ModEq
-  | PlusEq => PlusEq
-  | MinusEq => MinusEq
-  | BandEq => BandEq
-  | BxorEq => BxorEq
-  | BorEq => BorEq
   | Or => Or
   | And => And
   | Bor => Bor

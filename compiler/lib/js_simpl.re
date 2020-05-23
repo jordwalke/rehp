@@ -86,9 +86,7 @@ let rec enot_rec = e => {
     | J.EInt(_)
     | J.EObj(_)
     | J.EQuote(_)
-    | J.ERegexp(_)
-    /* jordwalke: isn't this a bug? IncrA/Decr can have side effects! */
-    | J.EUn(J.IncrA | J.IncrB | J.DecrA | J.DecrB, _) => (
+    | J.ERegexp(_) => (
         J.EUn(J.Not, e),
         1,
       )
