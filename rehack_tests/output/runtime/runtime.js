@@ -1191,7 +1191,7 @@ function caml_ml_enable_runtime_warnings(bool) {caml_runtime_warnings = bool;ret
 
 function caml_classify_float(x) {
   if (isFinite(x)) {
-    if (Math.abs(x) >= 2.2250738585072014e-308) {return 0;}
+    if (Math.abs(x) >= 2.22507385850720138e-308) {return 0;}
     if (x != 0) {return 1;}
     return 2;
   }
@@ -2045,7 +2045,7 @@ function caml_ba_reshape(ba, vind) {
   return ba.reshape(caml_js_from_array(vind));
 }
 
-var log2_ok = Math.log2 && Math.log2(1.1235582092889474e+307) == 1020;
+var log2_ok = Math.log2 && Math.log2(1.12355820928894744e+307) == 1020;
 
 function jsoo_floor_log2(x) {
   if (log2_ok) {return Math.floor(Math.log2(x));}
@@ -2607,7 +2607,7 @@ function caml_format_float(fmt, x) {
       s = x.toExponential(prec - 1);
       var j = s.indexOf("e");
       var exp = + s.slice(j + 1);
-      if (exp < - 4 || x >= 1e+021 || x.toFixed(0).length > prec) {
+      if (exp < - 4 || x >= 1e+21 || x.toFixed(0).length > prec) {
         var i = j - 1;
         while(s.charAt(i) == "0") i--;
         if (s.charAt(i) == ".") {i--;}

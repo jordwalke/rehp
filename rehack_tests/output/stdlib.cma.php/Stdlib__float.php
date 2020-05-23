@@ -57,7 +57,7 @@ final class Stdlib__float {
     $epsilon = $Stdlib[27];
     $of_string_opt = $Stdlib[36];
     $to_string = $Stdlib[35];
-    $pi = 3.1415926535897931 as dynamic;
+    $pi = 3.14159265358979312 as dynamic;
     $is_integer = (dynamic $x) : dynamic ==> {
       $aP_ = $x == $runtime["caml_trunc_float"]($x) ? 1 : (0);
       return $aP_ ? $is_finite($x) : ($aP_);

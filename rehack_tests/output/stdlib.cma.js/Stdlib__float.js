@@ -69,7 +69,7 @@ var min_float = Stdlib[26];
 var epsilon = Stdlib[27];
 var of_string_opt = Stdlib[36];
 var to_string = Stdlib[35];
-var pi = 3.1415926535897931;
+var pi = 3.14159265358979312;
 
 function is_integer(x) {
   var aP_ = x == runtime["caml_trunc_float"](x) ? 1 : 0;

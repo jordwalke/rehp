@@ -2880,7 +2880,7 @@ final class Js_of_ocaml__Dom_html {
             $last = Vector{0, $now(0)} as dynamic;
             return (dynamic $callback) : dynamic ==> {
               $t = $now(0);
-              $dt = $last[1] + 16.666666666666668 - $t;
+              $dt = $last[1] + 16.6666666666666679 - $t;
               $dt__0 = $dt < 0 ? 0 : ($dt);
               $last[1] = $t;
               $J_ = (dynamic $x) : dynamic ==> {

@@ -2411,7 +2411,7 @@ var requestAnimationFrame = runtime["caml_js_pure_expr"](
         var last = [0,now(0)];
         return function(callback) {
           var t = now(0);
-          var dt = last[1] + 16.666666666666668 - t;
+          var dt = last[1] + 16.6666666666666679 - t;
           var dt__0 = dt < 0 ? 0 : dt;
           last[1] = t;
           function J_(x) {
