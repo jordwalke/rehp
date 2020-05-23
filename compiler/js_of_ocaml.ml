@@ -296,7 +296,7 @@ let f
         Some (Hashtbl.fold (fun cmi () acc -> cmi :: acc) t [])
   in
   (* Benchmarking shows this takes on the order of 100ms *)
-  Linker.load_files (Backend.Current.extension ()) runtime_files;
+  Linker.load_files runtime_files;
   let paths =
     try List.append include_dir [Findlib.find_pkg_dir "stdlib"]
     with Not_found -> include_dir

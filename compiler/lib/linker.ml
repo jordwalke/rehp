@@ -27,7 +27,6 @@ type fragment =
   ; requires : string list
   ; version_constraint : ((int -> int -> bool) * string) list list
   ; weakdef : bool
-  ; backends : string list
   ; code : Javascript.program
   }
 
@@ -43,7 +42,6 @@ let parse_annot loc s =
   try
     match Annot_parser.annot Annot_lexer.initial buf with
     | `Requires (_, l) -> Some (`Requires (Some loc, l))
-    | `ForBackend (_, l) -> Some (`ForBackend (Some loc, l))
     | `Provides (_, n, k, ka) -> Some (`Provides (Some loc, n, k, ka))
     | `Version (_, l) -> Some (`Version (Some loc, l))
     | `Weakdef _ -> Some (`Weakdef (Some loc))
@@ -127,7 +125,6 @@ let parse_file f =
             ; requires = []
             ; version_constraint = []
             ; weakdef = false
-            ; backends = []
             ; code
             }
           in
@@ -138,7 +135,6 @@ let parse_file f =
               | `Requires (_, mn) -> { fragment with requires = mn @ fragment.requires }
               | `Version (_, l) ->
                   { fragment with version_constraint = l :: fragment.version_constraint }
-              | `ForBackend (_, be) -> { fragment with backends = be @ fragment.backends }
               | `Weakdef _ -> { fragment with weakdef = true })
         with Parse_js.Parsing_error pi ->
           let name =
@@ -224,70 +220,22 @@ let code_pieces = Hashtbl.create 31
 
 let always_included = ref []
 
-(* Handles calls to raw backend specific runtime functions like:
 
-      //Provides: caml_wrap_exception (mutable)
-      var caml_wrap_exception = raw_backend("php", [
-        "$caml_wrap_exception_php = function($e)  {",
-          "}",
-        "};"
-      ]);
-*)
-let rec strings_in_arr so_far l =
-  match l with
-  | [] -> Some so_far
-  | Some (Javascript.EStr (s, _)) :: tl -> strings_in_arr (so_far ^ "\n" ^ s) tl
-  | None :: tl -> strings_in_arr (so_far ^ "\n") tl
-  | _ -> None
-
-let rec process_raw prov req lst =
-  let open Javascript in
-  match lst with
-  | [] -> []
-  | ( Statement
-        (Variable_statement
-          [ (_, Some (ECall (EVar (S { name = "raw_backend"; _ }), [ EArr itms ], _), _))
-          ])
-    , js_loc )
-    :: rest -> (
-      match strings_in_arr "" itms with
-      | Some impl ->
-          (Statement (Raw_statement (prov, req, impl)), js_loc)
-          :: process_raw prov req rest
-      | None -> (
-          match js_loc with
-          | Pi pi ->
-              Format.eprintf
-                "Arguments for raw_backend are incorrect at %s. Must supply an array of \
-                 strings to raw_backend."
-                (loc (Some pi));
-              failwith "Error while parsing JavaScript"
-          | _ ->
-              Format.eprintf "Arguments for raw_backend are incorrect at unknown location";
-              failwith "Error while parsing JavaScript"))
-  | hd :: tl -> hd :: process_raw prov req tl
-
-let add_file backend_str f =
+let add_file f =
   List.iter
     (parse_file f)
-    ~f:(fun { provides; requires; version_constraint; backends; weakdef; code } ->
+    ~f:(fun { provides; requires; version_constraint; weakdef; code } ->
       let vmatch =
         match version_constraint with
         | [] -> true
         | l -> List.exists l ~f:version_match
       in
-      let bmatch =
-        match backends with
-        | [] -> true
-        | l -> List.exists l ~f:(fun backend_str' -> backend_str' = backend_str)
-      in
-      if vmatch && bmatch
+      if vmatch
       then (
         incr last_code_id;
         let id = !last_code_id in
         match provides with
         | None ->
-            let code = process_raw [] requires code in
             always_included := { filename = f; program = code } :: !always_included;
             Hashtbl.add code_pieces id (code, requires)
         | Some (pi, name, kind, ka) ->
@@ -343,13 +291,12 @@ let add_file backend_str f =
             Hashtbl.add provided name (id, pi, weakdef);
             Hashtbl.add provided_rev id (name, pi);
             (* check_primitive name pi code req *)
-            let code = process_raw [ name ] requires code in
             Hashtbl.add code_pieces id (code, requires)))
 
 let get_provided () =
   Hashtbl.fold (fun k _ acc -> StringSet.add k acc) provided StringSet.empty
 
-let load_files backend_str l = List.iter l ~f:(add_file backend_str)
+let load_files l = List.iter l ~f:add_file
 
 (*;  check_deps () *)
 

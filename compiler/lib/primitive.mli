@@ -25,7 +25,6 @@ type kind = [ `Pure | `Mutable | `Mutator ]
 type kind_arg = [`Shallow_const | `Object_literal | `Const | `Mutable]
 type t =
   [ `Requires of Parse_info.t option * string list
-  | `ForBackend of Parse_info.t option * string list
   | `Provides of Parse_info.t option * string * kind * kind_arg list option
   | `Version of Parse_info.t option * ((int -> int -> bool) * string) list
   | `Weakdef of Parse_info.t option

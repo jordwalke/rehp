@@ -10,7 +10,6 @@ type token =
   | TProvides
   | TOTHER of (string)
   | TIdent of (string)
-  | TForBackend
   | TComma
   | TA_Shallow
   | TA_Pure
