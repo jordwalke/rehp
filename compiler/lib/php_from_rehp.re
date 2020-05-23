@@ -1024,60 +1024,8 @@ and statement = (curOut, input: input, x) => {
       let (soptOut, soptMapped) = optOutput(statementLocation, sopt);
       let output = outAppend(outAppend(exprOutput, ifOutput), soptOut);
       (output, If_statement(exprMapped, ifMapped, soptMapped, false));
-    | Rehp.Do_while_statement((s, loc), e) =>
-      let nextInput = {...input, enclosed_by: UnlabelledLoop};
-      let (sOut, sMapped) = statement(curOut, nextInput, s);
-      let (eOut, eMapped) = expression(nextInput, e);
-      let out = outAppend(sOut, eOut);
-      let out = {
-        ...out,
-        free_labels: List.filter(label => label == "", out.free_labels),
-      };
-      (out, Do_while_statement((sMapped, loc), eMapped));
-    | Rehp.While_statement(e, (s, loc)) =>
-      let nextInput = {...input, enclosed_by: UnlabelledLoop};
-      let (sOut, sMapped) = statement(curOut, nextInput, s);
-      let (eOut, eMapped) = expression(nextInput, e);
-      let out = outAppend(sOut, eOut);
-      let out = {
-        ...out,
-        free_labels: List.filter(label => label == "", out.free_labels),
-      };
-      (out, While_statement(eMapped, (sMapped, loc)));
     | Rehp.Loop_statement(s, loc) =>
       for_statement(curOut, input, (s, loc), None)
-    | Rehp.ForIn_statement(e1, e2, (s, loc)) =>
-      let continueWithAugmentedScope = (input, _) => {
-        let (e1Out, e1Mapped) =
-          switch (e1) {
-          | Left(e) =>
-            let (eOut, eMapped) = expression(input, e);
-            (eOut, Left(eMapped));
-          | Right((id, e)) =>
-            let identMapped = ident(input, id);
-            let (initOut, initMapped) = optOutput(initialiser(input), e);
-            (initOut, Right((Php.EVar(identMapped), initMapped)));
-          };
-        let nextInput = {...input, enclosed_by: UnlabelledLoop};
-        let (e2Out, e2Mapped) = expression(nextInput, e2);
-        let (sOut, sMapped) = statement(curOut, nextInput, s);
-        let outs = outAppend(outAppend(e1Out, e2Out), sOut);
-        let outs = {
-          ...outs,
-          free_labels: List.filter(label => label == "", outs.free_labels),
-        };
-        (outs, Php.ForIn_statement(e1Mapped, e2Mapped, (sMapped, loc)));
-      };
-      switch (e1) {
-      | Left(_) => continueWithAugmentedScope(input, x)
-      | Right((id, _eopt)) =>
-        let addedVars = useOneVar(id);
-        let augmentedInput = {...input, vars: append(input.vars, addedVars)};
-        let (out, res) = continueWithAugmentedScope(augmentedInput, x);
-        let out = {...out, dec: append(out.dec, addedVars)};
-        (out, res);
-      };
-
     /*
      * TODO: For Php, the exception is not actually block scoped and so we don't
      * need to do any special handling here.

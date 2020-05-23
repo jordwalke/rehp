@@ -121,14 +121,7 @@ and statement =
       (statement, Loc.t),
       option((statement, Loc.t)),
     )
-  | Do_while_statement((statement, Loc.t), expression)
-  | While_statement(expression, (statement, Loc.t))
   | Loop_statement(statement, Loc.t)
-  | ForIn_statement(
-      Stdlib.either(expression, variable_declaration),
-      expression,
-      (statement, Loc.t),
-    )
   | Continue_statement(option(Javascript.Label.t), option(int))
   | Break_statement(option(Javascript.Label.t))
   | Return_statement(option(expression))

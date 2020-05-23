@@ -72,20 +72,9 @@ class map : mapper =
       | Expression_statement e -> Expression_statement (m#expression e)
       | If_statement (e, (s, loc), sopt) ->
           If_statement (m#expression e, (m#statement s, loc), m#statement_o sopt)
-      | Do_while_statement ((s, loc), e) ->
-          Do_while_statement ((m#statement s, loc), m#expression e)
-      | While_statement (e, (s, loc)) ->
-          While_statement (m#expression e, (m#statement s, loc))
       | Loop_statement (s, loc) ->
           Loop_statement
             (m#statement s, loc)
-      | ForIn_statement (e1, e2, (s, loc)) ->
-          let e1 =
-            match e1 with
-            | Left e -> Left (m#expression e)
-            | Right (id, e) -> Right (m#ident id, m#initialiser_o e)
-          in
-          ForIn_statement (e1, m#expression e2, (m#statement s, loc))
       | Continue_statement (s, depth) -> Continue_statement (s, depth)
       | Break_statement s -> Break_statement s
       | Return_statement e -> Return_statement (m#expression_o e)
@@ -457,16 +446,6 @@ class free =
       | Loop_statement (s, loc) ->
           Loop_statement
             (m#statement s, loc)
-      | ForIn_statement (Right (id, eopt), e2, (s, loc)) ->
-          m#def_var id;
-          let r =
-            match eopt with
-            | None -> id, None
-            | Some (e, pc) ->
-                let e = m#expression e in
-                id, Some (e, pc)
-          in
-          ForIn_statement (Right r, m#expression e2, (m#statement s, loc))
       | Try_statement (b, w, f) ->
           let b = m#statements b in
           let tbody = {<state_ = empty; level>} in
@@ -608,11 +587,6 @@ class compact_vardecl =
       | Variable_statement l -> m#translate_st l
       | Loop_statement (s, loc) ->
           Loop_statement (s, loc)
-      | ForIn_statement (Right (id, op), e2, s) ->
-          (match op with
-          | Some _ -> assert false
-          | None -> ());
-          ForIn_statement (Left (EVar id), e2, s)
       | Try_statement (b, w, f) ->
           (match w with
           | None -> ()
@@ -774,10 +748,7 @@ class clean =
       in
       match s with
       | If_statement (if', then', else') -> If_statement (if', b then', bopt else')
-      | Do_while_statement (do', while') -> Do_while_statement (b do', while')
-      | While_statement (cond, st) -> While_statement (cond, b st)
       | Loop_statement (s, loc) -> Loop_statement (s, loc)
-      | ForIn_statement (param, e, st) -> ForIn_statement (param, e, b st)
       | Switch_statement (e, l, Some [], []) -> Switch_statement (e, l, None, [])
       | s -> s
 
