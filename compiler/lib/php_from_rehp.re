@@ -1085,10 +1085,16 @@ and statement = (curOut, input: input, x) => {
     | Rehp.Throw_statement(e) =>
       let (eOut, eMapped) = expression(input, e);
       (outAppend(curOut, eOut), Throw_statement(eMapped));
-    | Rehp.Switch_statement(e, l, def, l') =>
+    | Rehp.Switch_statement(e, l, def) =>
       let nextInput = {vars: input.vars, enclosed_by: Switch};
       let (eOut, eMapped) = expression(nextInput, e);
-      let (dOut, dMapped) = optOutput(statements(curOut, nextInput), def);
+      /* Backward-compatible behavior, TODO: cleanup PHP Ast and printing */
+      let defo =
+        switch (def) {
+        | [] => None
+        | _ => Some(def)
+        };
+      let (dOut, dMapped) = optOutput(statements(curOut, nextInput), defo);
       let forEach = ((e, s)) => {
         let (eOut, eMapped) = switchCase(nextInput, e);
         let (stmOut, stmMapped) = statements(curOut, nextInput, s);
@@ -1096,16 +1102,9 @@ and statement = (curOut, input: input, x) => {
         (outs, (eMapped, stmMapped));
       };
       let (lOut, lMapped) = List.split(List.map(~f=forEach, l));
-      let forEach = ((e, s)) => {
-        let (eOut, eMapped) = switchCase(nextInput, e);
-        let (stmOut, stmMapped) = statements(curOut, nextInput, s);
-        let outs = outAppend(eOut, stmOut);
-        (outs, (eMapped, stmMapped));
-      };
-      let (lOut', lMapped') = List.split(List.map(~f=forEach, l'));
-      let outs = joinAll([eOut, dOut, ...lOut @ lOut']);
+      let outs = joinAll([eOut, dOut, ...lOut]);
       let switch_node = (
-        Php.Switch_statement(eMapped, lMapped, dMapped, lMapped'),
+        Php.Switch_statement(eMapped, lMapped, dMapped, []),
         Loc.N,
       );
 

@@ -1964,7 +1964,7 @@ and compile_decision_tree st _queue handler backs frontier interm succs loc cx d
             (List.map l ~f:(fun (ints, br) ->
                  map_last (fun last i -> J.EInt i, if last then br else []) ints))
         in
-        !all_never, [ J.Switch_statement (cx, l, Some last, []), loc ]
+        !all_never, [ J.Switch_statement (cx, l, last), loc ]
   in
   let cx, binds =
     match cx with

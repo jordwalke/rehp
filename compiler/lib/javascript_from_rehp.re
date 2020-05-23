@@ -168,16 +168,18 @@ and from_statement = e =>
     Labelled_statement(lbl, (from_statement(stmt), loc))
   | Rehp.Switch_statement(
       e,
-      case_clause_list1,
-      stmt_lst_opt,
-      case_clause_list2,
+      case_clause_list,
+      stmt_lst,
     ) =>
     let e = from_expression(e);
-    let case_clause_lst1 = from_case_clause_list(case_clause_list1);
-    let case_clause_lst2 = from_case_clause_list(case_clause_list2);
-    let stmt_lst_opt =
-      Stdlib.Option.map(~f=from_statement_list, stmt_lst_opt);
-    Switch_statement(e, case_clause_lst1, stmt_lst_opt, case_clause_lst2);
+    let case_clause_lst = from_case_clause_list(case_clause_list);
+    /* Backward-compatible behavior, TODO: cleanup JS Ast and printing */
+    let stmt_lst =
+      switch (stmt_lst) {
+      | [] => None
+      | _ => Some(from_statement_list(stmt_lst))
+      };
+    Switch_statement(e, case_clause_lst, stmt_lst, []);
   | Rehp.Throw_statement(e) => Throw_statement(from_expression(e))
   | Rehp.Try_statement(block, ident_block_opt, block_opt) =>
     let block = from_statement_list(block);

@@ -80,14 +80,11 @@ class map : mapper =
       | Return_statement e -> Return_statement (m#expression_o e)
       | Labelled_statement (l, (s, loc)) -> Labelled_statement (l, (m#statement s, loc))
       | Throw_statement e -> Throw_statement (m#expression e)
-      | Switch_statement (e, l, def, l') ->
+      | Switch_statement (e, l, def) ->
           Switch_statement
             ( m#expression e
             , List.map l ~f:(fun (e, s) -> m#switch_case e, m#statements s)
-            , (match def with
-              | None -> None
-              | Some l -> Some (m#statements l))
-            , List.map l' ~f:(fun (e, s) -> m#switch_case e, m#statements s) )
+            , (m#statements def) )
       | Try_statement (b, catch, final) ->
           Try_statement
             ( m#statements b
@@ -749,7 +746,6 @@ class clean =
       match s with
       | If_statement (if', then', else') -> If_statement (if', b then', bopt else')
       | Loop_statement (s, loc) -> Loop_statement (s, loc)
-      | Switch_statement (e, l, Some [], []) -> Switch_statement (e, l, None, [])
       | s -> s
 
     method sources l =
