@@ -108,6 +108,7 @@ and unop =
   | IsInt
   /* Backend specific integer conversion */
   | ToInt
+  | IntToString
   | Void /* Only for stubs */
   | Delete /* Only for stubs */
   | Bnot

@@ -11,6 +11,7 @@ module Expand = {
   let isIntCheck = jsExpr =>
     EBin(EqEqEq, EUn(Typeof, jsExpr), EStr("number", `Bytes));
   let toInt = jsExpr => EBin(Bor, jsExpr, ENum(0.0));
+  let intToString = jsExpr => EBin(Plus, EStr("", `Bytes), jsExpr);
 };
 
 let rec from_statement_list = lst =>
@@ -30,6 +31,7 @@ and from_unop = (unop, jsExpr) =>
   | Rehp.Not => EUn(Javascript.Not, jsExpr)
   | IsInt => Expand.isIntCheck(jsExpr)
   | ToInt => Expand.toInt(jsExpr)
+  | IntToString => Expand.intToString(jsExpr)
   | Neg => EUn(Javascript.Neg, jsExpr)
   | Pl => EUn(Javascript.Pl, jsExpr)
   | Typeof => EUn(Javascript.Typeof, jsExpr)

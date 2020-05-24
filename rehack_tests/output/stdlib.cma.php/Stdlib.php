@@ -134,7 +134,7 @@ final class Stdlib {
         ? $caml_string_notequal($param, $cst_true__1) ? 0 : ($g_)
         : ($h_);
     };
-    $string_of_int = (dynamic $n) : dynamic ==> {return $string("" . $n);};
+    $string_of_int = (dynamic $n) : dynamic ==> {return $string((string) $n);};
     $int_of_string_opt = (dynamic $s) : dynamic ==> {
       $ay_ = null as dynamic;
       try {$ay_ = Vector{0, $caml_int_of_string($s)} as dynamic;return $ay_;}

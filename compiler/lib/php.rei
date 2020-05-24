@@ -64,6 +64,7 @@ and binop =
   | Mod
 and unop =
   | ToInt
+  | IntToString
   | Not
   | Neg
   | Pl
