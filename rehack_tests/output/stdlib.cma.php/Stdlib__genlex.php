@@ -56,7 +56,7 @@ final class Stdlib__genlex {
         $buffer[1] = $newbuffer;
       }
       $runtime["caml_bytes_set"]($buffer[1], $bufpos[1], $c);
-      $bufpos[1] += 1;
+      $bufpos[1] = $bufpos[1] + 1;
       return 0;
     };
     $get_string = (dynamic $param) : dynamic ==> {

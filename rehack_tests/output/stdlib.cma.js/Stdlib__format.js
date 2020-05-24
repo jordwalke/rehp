@@ -1227,7 +1227,7 @@ function pp_print_text(ppf, s) {
       ppf,
       call3(Stdlib_string[4], s, left[1], right[1] - left[1] | 0)
     );
-    right[1] += 1;
+    right[1] = right[1] + 1;
     left[1] = right[1];
     return 0;
   }
@@ -1242,7 +1242,7 @@ function pp_print_text(ppf, s) {
         flush(0);
         pp_print_space(ppf, 0);
       }
-      else right[1] += 1;
+      else right[1] = right[1] + 1;
       continue;
     }
     aI_ = left[1] !== len ? 1 : 0;

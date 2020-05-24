@@ -770,7 +770,7 @@ function stable_sort(cmp, a) {
           if (dstofs <= j[1]) {
             if (0 < call2(cmp, caml_array_get(dst, j[1]), e)) {
               caml_array_set(dst, j[1] + 1 | 0, caml_array_get(dst, j[1]));
-              j[1] += -1;
+              j[1] = j[1] + -1;
               continue;
             }
           }

@@ -110,7 +110,7 @@ final class CamlinternalOO {
       $az_ = null as dynamic;
       $ay_ = null as dynamic;
       $i = null as dynamic;
-      $table_count[1] += 1;
+      $table_count[1] = $table_count[1] + 1;
       $len = $pub_labels->count() - 1;
       $methods = $caml_make_vect((int) ((int) ($len * 2) + 2), $dummy_met);
       $caml_check_bound($methods, 0)[1] = $len;
@@ -191,7 +191,7 @@ final class CamlinternalOO {
       return $call2($Stdlib_array[15], $ao_, $names);
     };
     $set_method = (dynamic $table, dynamic $label, dynamic $element) : dynamic ==> {
-      $method_count[1] += 1;
+      $method_count[1] = $method_count[1] + 1;
       if ($call2($Labs[27], $label, $table[4])) {return $put($table, $label, $element);}
       $table[6] = Vector{0, Vector{0, $label, $element}, $table[6]};
       return 0;
@@ -787,7 +787,7 @@ final class CamlinternalOO {
       $m__5 = null as dynamic;
       $n__18 = null as dynamic;
       $next = (dynamic $param) : dynamic ==> {
-        $i[1] += 1;
+        $i[1] = $i[1] + 1;
         $i_ = $i[1];
         return $caml_check_bound($arr, $i_)[$i_ + 1];
       };
@@ -938,7 +938,7 @@ final class CamlinternalOO {
           $label = $caml_check_bound($methods, $h_)[$h_ + 1];
           $clo = $method_impl($table, $i, $methods);
           $set_method($table, $label, $clo);
-          $i[1] += 1;
+          $i[1] = $i[1] + 1;
           continue;
         }
         return 0;

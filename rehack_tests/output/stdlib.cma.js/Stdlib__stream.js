@@ -318,7 +318,7 @@ function of_string(s) {
     function(param) {
       var c = count[1];
       if (c < runtime["caml_ml_string_length"](s)) {
-        count[1] += 1;
+        count[1] = count[1] + 1;
         return [0,runtime["caml_string_get"](s, c)];
       }
       return 0;
@@ -332,7 +332,7 @@ function of_bytes(s) {
     function(param) {
       var c = count[1];
       if (c < caml_ml_bytes_length(s)) {
-        count[1] += 1;
+        count[1] = count[1] + 1;
         return [0,runtime["caml_bytes_get"](s, c)];
       }
       return 0;

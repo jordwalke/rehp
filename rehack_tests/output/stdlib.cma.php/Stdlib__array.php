@@ -679,7 +679,7 @@ final class Stdlib__array {
                   $r_ = $caml_check_bound($dst, $q_)[$q_ + 1];
                   $s_ = (int) ($j[1] + 1) as dynamic;
                   $caml_check_bound($dst, $s_)[$s_ + 1] = $r_;
-                  $j[1] += -1;
+                  $j[1] = $j[1] + -1;
                   continue;
                 }
               }

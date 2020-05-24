@@ -366,7 +366,7 @@ function parse_and_expand_argv_dynamic_aux(allow_expand, current, argv, speclist
     }
     return [0,Help,call1(Stdlib_buffer[2], b)];
   }
-  current[1] += 1;
+  current[1] = current[1] + 1;
   for (; ; ) {
     if (current[1] < argv[1].length - 1) {
       try {
@@ -435,7 +435,7 @@ function parse_and_expand_argv_dynamic_aux(allow_expand, current, argv, speclist
             function(follow) {
               function consume_arg(param) {
                 if (follow) {return 0;}
-                current[1] += 1;
+                current[1] = current[1] + 1;
                 return 0;
               }
               return consume_arg;
@@ -644,7 +644,7 @@ function parse_and_expand_argv_dynamic_aux(allow_expand, current, argv, speclist
         }
         throw caml_wrap_thrown_exception_reraise(exn);
       }
-      current[1] += 1;
+      current[1] = current[1] + 1;
       continue;
     }
     return 0;

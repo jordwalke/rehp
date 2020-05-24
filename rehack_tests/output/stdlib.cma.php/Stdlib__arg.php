@@ -421,7 +421,7 @@ final class Stdlib__arg {
         }
         return Vector{0, $Help, $call1($Stdlib_buffer[2], $b)};
       };
-      $current[1] += 1;
+      $current[1] = $current[1] + 1;
       for (;;) {
         if ($current[1] < $argv[1]->count() - 1) {
           try {
@@ -495,7 +495,7 @@ final class Stdlib__arg {
                   (dynamic $follow) : dynamic ==> {
                     $consume_arg = (dynamic $param) : dynamic ==> {
                       if ($follow) {return 0;}
-                      $current[1] += 1;
+                      $current[1] = $current[1] + 1;
                       return 0;
                     };
                     return $consume_arg;
@@ -741,7 +741,7 @@ final class Stdlib__arg {
             }
             throw $caml_wrap_thrown_exception_reraise($exn) as \Throwable;
           }
-          $current[1] += 1;
+          $current[1] = $current[1] + 1;
           continue;
         }
         return 0;

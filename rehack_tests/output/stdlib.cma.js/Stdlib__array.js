@@ -663,7 +663,7 @@ function stable_sort(cmp, a) {
               r_ = caml_check_bound(dst, q_)[q_ + 1];
               s_ = j[1] + 1 | 0;
               caml_check_bound(dst, s_)[s_ + 1] = r_;
-              j[1] += -1;
+              j[1] = j[1] + -1;
               continue;
             }
           }

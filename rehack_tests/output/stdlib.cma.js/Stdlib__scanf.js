@@ -287,7 +287,7 @@ function from_string(s) {
   function next(param) {
     if (len <= i[1]) {throw caml_wrap_thrown_exception(Stdlib[12]);}
     var c = caml_string_get(s, i[1]);
-    i[1] += 1;
+    i[1] = i[1] + 1;
     return c;
   }
   return create(1, next);
@@ -313,7 +313,11 @@ function from_ic(scan_close_ic, iname, ic) {
   var eof = [0,0];
   function next(param) {
     var c;
-    if (i[1] < lim[1]) {c = caml_bytes_get(buf, i[1]);i[1] += 1;return c;}
+    if (i[1] < lim[1]) {
+      c = caml_bytes_get(buf, i[1]);
+      i[1] = i[1] + 1;
+      return c;
+    }
     if (eof[1]) {throw caml_wrap_thrown_exception(Stdlib[12]);}
     lim[1] = call4(Stdlib[84], ic, buf, 0, len);
     if (0 === lim[1]) {eof[1] = 1;return call1(scan_close_ic, ic);}

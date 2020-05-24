@@ -323,7 +323,7 @@ final class Stdlib__scanf {
           throw $caml_wrap_thrown_exception($Stdlib[12]) as \Throwable;
         }
         $c = $caml_string_get($s, $i[1]);
-        $i[1] += 1;
+        $i[1] = $i[1] + 1;
         return $c;
       };
       return $create(1, $next);
@@ -347,7 +347,7 @@ final class Stdlib__scanf {
         $c = null as dynamic;
         if ($i[1] < $lim[1]) {
           $c = $caml_bytes_get($buf, $i[1]);
-          $i[1] += 1;
+          $i[1] = $i[1] + 1;
           return $c;
         }
         if ($eof[1]) {
