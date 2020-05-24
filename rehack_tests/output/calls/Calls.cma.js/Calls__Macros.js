@@ -9,8 +9,8 @@
 "use strict";
 
 var runtime = require("../../runtime/runtime.js");
-var alwaysPulledInDepX = require("../../../../../alwaysPulledInDepX.js");
-var alwaysPulledInDepZ = require("../../../../../alwaysPulledInDepZ.js");
+var alwaysPulledInDepX = require("../../../../alwaysPulledInDepX.js");
+var alwaysPulledInDepZ = require("../../../../alwaysPulledInDepZ.js");
 var alwaysPulledInDepY = require("alwaysPulledInDepY");
 var conditionalDepM = require("conditionalDepM");
 var conditionalDepQ = require("conditionalDepQ");
