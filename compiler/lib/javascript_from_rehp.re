@@ -136,7 +136,6 @@ and from_expression = e =>
   }
 and from_statement = e =>
   switch (e) {
-  | Rehp.Raw_statement(p, r, s) => Raw_statement(p, r, s)
   | Rehp.Block(stms) => Block(from_statement_list(stms))
   | Rehp.Variable_statement(lst) =>
     Javascript.Variable_statement(

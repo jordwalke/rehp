@@ -116,7 +116,6 @@ and expression =
 and statement =
   | Block(block)
   /* Provides, requires, content */
-  | Raw_statement(list(string), list(string), string)
   | Variable_statement(list(variable_declaration))
   | Empty_statement
   | Expression_statement(expression)

@@ -63,7 +63,6 @@ class map : mapper =
     method statement s =
       match s with
       | Block b -> Block (m#statements b)
-      | Raw_statement (p, r, s) -> Raw_statement (p, r, s)
       | Variable_statement l ->
           Variable_statement
             (List.map l ~f:(fun (id, eo) -> m#ident id, m#initialiser_o eo))
