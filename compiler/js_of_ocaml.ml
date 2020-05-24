@@ -67,7 +67,7 @@ let get_project_root () =
     let trimmed = String.trim(p) in
     let fcp = RehpFp.testForPathExn (PathUtils.normalizeSeps trimmed) in
     let abs = rel_to_cwd_absolute fcp in
-    if String.is_empty trimmed then None else Some (Fp.dirName abs)
+    if String.is_empty trimmed then None else Some abs
 
   
 let compute_hashes

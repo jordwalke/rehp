@@ -466,6 +466,7 @@ let primName = prim =>
   | "isNone" => "caml_js_is_none"
   | "toNull" => "caml_js_nullable"
   | "toString" => "caml_js_from_string"
+  | "fromString" => "caml_js_to_string"
   | "toBool" => "caml_js_from_bool"
   | "fromBool" => "caml_js_to_bool"
   | "require" => "%caml_require"
@@ -946,6 +947,9 @@ let rec normalize = (~file=?, ~projectRoot=?, md, nodeList, ~forBackend) => {
         "%caml_require",
         [Prim("projectRoot", _, []), Raw(path)],
       ) =>
+      /* Relative requires are from the persecive of a dummy file that exists
+       * in a directory with the same name as the calling file. */
+      let dirNameOfFile = Fp.dirName(file);
       let path = String.trim(path);
       let path = removeQuotes(path);
       let len = String.length(path);
@@ -956,7 +960,7 @@ let rec normalize = (~file=?, ~projectRoot=?, md, nodeList, ~forBackend) => {
         raiseRelativeRequires(path, projectRoot, md);
       };
       let s =
-        Fp.relativizeExn(~source=file, ~dest=Fp.append(root, path))
+        Fp.relativizeExn(~source=dirNameOfFile, ~dest=Fp.append(root, path))
         |> Fp.toDebugString;
       let len = String.length(s);
       /* Normalize require("./../foo") to require("../foo") for style. */
