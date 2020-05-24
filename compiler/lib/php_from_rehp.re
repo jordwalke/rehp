@@ -975,13 +975,6 @@ and statement = (curOut, input: input, x) => {
     | Rehp.Block(b) =>
       let (out, mappedStatements) = statements(curOut, input, b);
       (out, Php.Block(mappedStatements));
-    | Rehp.Raw_statement(provides, requires, s) =>
-      let out = {
-        dec: List.fold_left(~f=addOneString, ~init=curOut.dec, provides),
-        use: List.fold_left(~f=addOneString, ~init=curOut.use, requires),
-        free_labels: [],
-      };
-      (out, Raw_statement(s));
     | Rehp.Variable_statement(l) =>
       /* print_string(String.make(indent.contents, ' ') ++ "<vars>"); */
       indent.contents = indent.contents + 2;
