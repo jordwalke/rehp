@@ -549,6 +549,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
   let unop_str = op =>
     switch (op) {
     | ToInt => "(int)"
+    | IntToString => "(string)"
     | Not => "!"
     | Neg => "-"
     | Pl => "+"

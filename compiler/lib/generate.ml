@@ -1136,12 +1136,7 @@ let register_bin_math_prim name prim =
 let _ =
   register_un_prim_ctx "%caml_format_int_special" `Pure (fun ctx cx loc ->
       let p = Share.get_prim (runtime_fun ctx) "caml_new_string" ctx.Ctx.share in
-   (*
-   * TODO: This makes an assumption that any backend may concatenate an integer
-   * with a string. Instead setup a high level Rehp operation for
-   * int_to_string.
-   *)
-      J.ECall (p, [ J.EBin (J.Plus, str_js "", cx) ], loc));
+      J.ECall (p, [ J.EUn (J.IntToString, cx) ], loc));
   register_module_exporter
     "%caml_register_global_module_metadata"
     (fun ctx cx cy cz md loc ->

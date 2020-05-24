@@ -63,6 +63,7 @@ and unop =
   | Typeof
   | IsInt
   | ToInt
+  | IntToString
   | Void
   | Delete
   | Bnot

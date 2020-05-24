@@ -29,7 +29,7 @@ final class Stdlib__int {
       return $runtime["caml_int_compare"]($b_, $a_);
     };
     $to_string = (dynamic $x) : dynamic ==> {
-      return $runtime["caml_new_string"]("" . $x);
+      return $runtime["caml_new_string"]((string) $x);
     };
     $Stdlib_int = Vector{
       0,
