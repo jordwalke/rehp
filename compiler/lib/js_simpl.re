@@ -349,7 +349,7 @@ let rec get_variable = acc =>
   | J.ESeq(e1, e2)
   | J.EBin(_, e1, e2)
   | J.EAccess(e1, e2) => get_variable(get_variable(acc, e1), e2)
-  | J.EStructAccess(e1, e2) => get_variable(get_variable(acc, e1), e2)
+  | J.EStructAccess(e, _) => get_variable(acc, e)
   | J.EVectlength(e1) => get_variable(acc, e1)
   | J.EArrAccess(e1, e2) => get_variable(get_variable(acc, e1), e2)
   | J.ECond(e1, e2, e3) =>
@@ -371,7 +371,7 @@ let rec get_variable = acc =>
   | J.ERaw(_)
   | J.ERegexp(_) => acc
   | J.EStruct(el) => List.fold_left(get_variable, acc, el)
-  | J.ETag(i, el) => List.fold_left(get_variable, acc, [i, ...el])
+  | J.ETag(_, el) => List.fold_left(get_variable, acc, el)
   | J.EArr(a) =>
     List.fold_left(
       (acc, i) =>

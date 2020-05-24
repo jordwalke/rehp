@@ -1392,10 +1392,10 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
          in
          (x, prop, queue), []
       *)
-      (J.ETag (int tag, contents), prop, queue), []
+      (J.ETag (tag, contents), prop, queue), []
   | Field (x, n) ->
       let (px, cx), queue = access_queue queue x in
-      (J.EStructAccess (cx, int (n + 1)), or_p px mutable_p, queue), []
+      (J.EStructAccess (cx, n + 1), or_p px mutable_p, queue), []
   | Closure (args, ((pc, _) as cont)) ->
       let loc = source_location ctx ~after:true pc in
       let clo = compile_closure ctx false cont in
@@ -1651,7 +1651,7 @@ and translate_instr ctx expr_queue loc instr =
       flush_queue
         expr_queue
         mutator_p
-        [ ( J.Expression_statement (J.EBin (J.Eq, J.EStructAccess (cx, int (n + 1)), cy))
+        [ ( J.Expression_statement (J.EBin (J.Eq, J.EStructAccess (cx, n + 1), cy))
           , loc )
         ]
   (* --/++ post/prefix is difficult to get working in all languages. Use +=
@@ -1663,7 +1663,7 @@ and translate_instr ctx expr_queue loc instr =
         expr_queue
         mutator_p
         [ ( J.Expression_statement
-              (J.EBin (J.PlusEq, J.EStructAccess (cx, J.EInt 1), int n))
+              (J.EBin (J.PlusEq, J.EStructAccess (cx, 1), int n))
           , loc )
         ]
   | Array_set (x, y, z) ->
@@ -2028,7 +2028,7 @@ and compile_conditional st queue pc last handler backs frontier interm succs =
             interm
             succs
             loc
-            (J.EStructAccess (cx, J.EInt 0))
+            (J.EStructAccess (cx, 0))
             (DTree.build_switch a2)
         in
         flush_all queue code
@@ -2076,7 +2076,7 @@ and compile_conditional st queue pc last handler backs frontier interm succs =
             interm
             succs
             loc
-            (J.EStructAccess (var x, J.EInt 0))
+            (J.EStructAccess (var x, 0))
             (DTree.build_switch a2)
         in
         let code =

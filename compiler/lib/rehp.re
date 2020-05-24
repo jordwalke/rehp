@@ -145,10 +145,10 @@ and expression =
   | EArr(array_literal)
   /* An ML fixed-size struct (record/variant) - when the compiler knows the
      layout of memory. */
-  | EStructAccess(expression, expression)
+  | EStructAccess(expression, int)
   | EStruct(arguments)
   /* Like Struct but for cases where you have a tag */
-  | ETag(expression, arguments)
+  | ETag(int, arguments)
   /* Target specific object structure - no ML equivalent. Typically for
      interop, or when parsing platform stubs written in Php etc.*/
   | EDot(expression, Id.identifier) /* An x->y operation */
