@@ -160,6 +160,10 @@ and expression =
   | EInt(int)
   | EQuote(string)
   | ERegexp(string, option(string))
+  | ECustomRequire(string)
+  | ECustomRegister(expression)
+  | ERequire(string)
+  | ERuntime
 /****/
 /* A.4 Statements */
 and statement =
@@ -173,20 +177,7 @@ and statement =
       (statement, Loc.t),
       option((statement, Loc.t)),
     )
-  | Do_while_statement((statement, Loc.t), expression)
-  | While_statement(expression, (statement, Loc.t))
-  | For_statement(
-      either(option(expression), list(variable_declaration)),
-      option(expression),
-      option(expression),
-      (statement, Loc.t),
-      option(int),
-    )
-  | ForIn_statement(
-      either(expression, variable_declaration),
-      expression,
-      (statement, Loc.t),
-    )
+  | Loop_statement(statement, Loc.t)
   | Continue_statement(option(Javascript.Label.t), option(int))
   | Break_statement(option(Javascript.Label.t))
   | Return_statement(option(expression))
@@ -195,8 +186,7 @@ and statement =
   | Switch_statement(
       expression,
       list(case_clause),
-      option(statement_list),
-      list(case_clause),
+      statement_list,
     )
   | Throw_statement(expression)
   | Try_statement(block, option((Id.t, block)), option(block))

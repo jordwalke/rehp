@@ -287,13 +287,6 @@ let topLevelIdentifiersSt = (newVarsSoFar, st) =>
   | Rehp.Variable_statement(l) =>
     let augmentEnv = (env, (id, _eopt)) => addOne(env, id);
     List.fold_left(~f=augmentEnv, ~init=newVarsSoFar, l);
-  | For_statement(Right(l), _e2, _e3, (_s, _loc), _depth) =>
-    let augmentEnv = (env, (id, _eopt)) => addOne(env, id);
-    let addedVars = List.fold_left(~f=augmentEnv, ~init=empty, l);
-    append(newVarsSoFar, addedVars);
-  | ForIn_statement(Right((id, _eopt)), _e2, (_s, _loc)) =>
-    let addedVars = useOneVar(id);
-    append(newVarsSoFar, addedVars);
   /*
    * TODO: Probably need to go one level deeper on the try body.
    */
@@ -893,28 +886,16 @@ and statements = (curOut, input: input, l) => {
   /* print_newline(); */
   ret;
 }
-and for_statement = (curOut, input: input, e1, e2, e3, (s, loc), label) => {
-  let (e1Out, e1Mapped) =
-    switch (e1) {
-    | Left(x) =>
-      let (xOut, x_mapped) = optOutput(expression(input), x);
-      (xOut, Left(x_mapped));
-    | Right(l) =>
-      let (output, res) = foldVars(initialiser, curOut, input, [], l);
-      (output, Right(res));
-    };
+and for_statement = (curOut, input: input, (s, loc), label) => {
   let nextInput = {
-    vars: append(input.vars, e1Out.dec),
+    vars: input.vars,
     enclosed_by:
       switch (label) {
       | None => UnlabelledLoop
       | Some(label) => LabelledForLoop(label)
       },
   };
-  let (e2Out, e2Mapped) = optOutput(expression(nextInput), e2);
-  let (e3Out, e3Mapped) = optOutput(expression(nextInput), e3);
-  let (sOut, sMapped) = statement(curOut, nextInput, s);
-  let outs = outAppend(outAppend(outAppend(e1Out, e2Out), e3Out), sOut);
+  let (outs, sMapped) = statement(curOut, nextInput, s);
 
   /* Always wrapped for loop contents in a block */
   /* Reset the continue_label whenever entering a labelled loop */
@@ -932,7 +913,7 @@ and for_statement = (curOut, input: input, e1, e2, e3, (s, loc), label) => {
       )
     };
   let for_statement_node = (
-    Php.For_statement(e1Mapped, e2Mapped, e3Mapped, (sMapped, loc)),
+    Php.For_statement(Left(None), None, None, (sMapped, loc)),
     loc,
   );
 
@@ -1043,60 +1024,8 @@ and statement = (curOut, input: input, x) => {
       let (soptOut, soptMapped) = optOutput(statementLocation, sopt);
       let output = outAppend(outAppend(exprOutput, ifOutput), soptOut);
       (output, If_statement(exprMapped, ifMapped, soptMapped, false));
-    | Rehp.Do_while_statement((s, loc), e) =>
-      let nextInput = {...input, enclosed_by: UnlabelledLoop};
-      let (sOut, sMapped) = statement(curOut, nextInput, s);
-      let (eOut, eMapped) = expression(nextInput, e);
-      let out = outAppend(sOut, eOut);
-      let out = {
-        ...out,
-        free_labels: List.filter(label => label == "", out.free_labels),
-      };
-      (out, Do_while_statement((sMapped, loc), eMapped));
-    | Rehp.While_statement(e, (s, loc)) =>
-      let nextInput = {...input, enclosed_by: UnlabelledLoop};
-      let (sOut, sMapped) = statement(curOut, nextInput, s);
-      let (eOut, eMapped) = expression(nextInput, e);
-      let out = outAppend(sOut, eOut);
-      let out = {
-        ...out,
-        free_labels: List.filter(label => label == "", out.free_labels),
-      };
-      (out, While_statement(eMapped, (sMapped, loc)));
-    | Rehp.For_statement(e1, e2, e3, (s, loc), _) =>
-      for_statement(curOut, input, e1, e2, e3, (s, loc), None)
-    | Rehp.ForIn_statement(e1, e2, (s, loc)) =>
-      let continueWithAugmentedScope = (input, _) => {
-        let (e1Out, e1Mapped) =
-          switch (e1) {
-          | Left(e) =>
-            let (eOut, eMapped) = expression(input, e);
-            (eOut, Left(eMapped));
-          | Right((id, e)) =>
-            let identMapped = ident(input, id);
-            let (initOut, initMapped) = optOutput(initialiser(input), e);
-            (initOut, Right((Php.EVar(identMapped), initMapped)));
-          };
-        let nextInput = {...input, enclosed_by: UnlabelledLoop};
-        let (e2Out, e2Mapped) = expression(nextInput, e2);
-        let (sOut, sMapped) = statement(curOut, nextInput, s);
-        let outs = outAppend(outAppend(e1Out, e2Out), sOut);
-        let outs = {
-          ...outs,
-          free_labels: List.filter(label => label == "", outs.free_labels),
-        };
-        (outs, Php.ForIn_statement(e1Mapped, e2Mapped, (sMapped, loc)));
-      };
-      switch (e1) {
-      | Left(_) => continueWithAugmentedScope(input, x)
-      | Right((id, _eopt)) =>
-        let addedVars = useOneVar(id);
-        let augmentedInput = {...input, vars: append(input.vars, addedVars)};
-        let (out, res) = continueWithAugmentedScope(augmentedInput, x);
-        let out = {...out, dec: append(out.dec, addedVars)};
-        (out, res);
-      };
-
+    | Rehp.Loop_statement(s, loc) =>
+      for_statement(curOut, input, (s, loc), None)
     /*
      * TODO: For Php, the exception is not actually block scoped and so we don't
      * need to do any special handling here.
@@ -1141,14 +1070,11 @@ and statement = (curOut, input: input, x) => {
       (outAppend(curOut, eOut), Return_statement(eMapped));
     | Rehp.Labelled_statement(
         lbl,
-        (Rehp.For_statement(e1, e2, e3, (s, loc), _), _loc2),
+        (Rehp.Loop_statement(s, loc), _loc2),
       ) =>
       for_statement(
         curOut,
         input,
-        e1,
-        e2,
-        e3,
         (s, loc),
         Some(Javascript.Label.to_string(lbl)),
       )
@@ -1159,10 +1085,16 @@ and statement = (curOut, input: input, x) => {
     | Rehp.Throw_statement(e) =>
       let (eOut, eMapped) = expression(input, e);
       (outAppend(curOut, eOut), Throw_statement(eMapped));
-    | Rehp.Switch_statement(e, l, def, l') =>
+    | Rehp.Switch_statement(e, l, def) =>
       let nextInput = {vars: input.vars, enclosed_by: Switch};
       let (eOut, eMapped) = expression(nextInput, e);
-      let (dOut, dMapped) = optOutput(statements(curOut, nextInput), def);
+      /* Backward-compatible behavior, TODO: cleanup PHP Ast and printing */
+      let defo =
+        switch (def) {
+        | [] => None
+        | _ => Some(def)
+        };
+      let (dOut, dMapped) = optOutput(statements(curOut, nextInput), defo);
       let forEach = ((e, s)) => {
         let (eOut, eMapped) = switchCase(nextInput, e);
         let (stmOut, stmMapped) = statements(curOut, nextInput, s);
@@ -1170,16 +1102,9 @@ and statement = (curOut, input: input, x) => {
         (outs, (eMapped, stmMapped));
       };
       let (lOut, lMapped) = List.split(List.map(~f=forEach, l));
-      let forEach = ((e, s)) => {
-        let (eOut, eMapped) = switchCase(nextInput, e);
-        let (stmOut, stmMapped) = statements(curOut, nextInput, s);
-        let outs = outAppend(eOut, stmOut);
-        (outs, (eMapped, stmMapped));
-      };
-      let (lOut', lMapped') = List.split(List.map(~f=forEach, l'));
-      let outs = joinAll([eOut, dOut, ...lOut @ lOut']);
+      let outs = joinAll([eOut, dOut, ...lOut]);
       let switch_node = (
-        Php.Switch_statement(eMapped, lMapped, dMapped, lMapped'),
+        Php.Switch_statement(eMapped, lMapped, dMapped, []),
         Loc.N,
       );
 

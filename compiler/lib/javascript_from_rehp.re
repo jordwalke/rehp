@@ -157,37 +157,8 @@ and from_statement = e =>
       | Some((elstmt, elloc)) => Some((from_statement(elstmt), elloc))
       },
     )
-  | Rehp.Do_while_statement((stmt, loc), e) =>
-    Do_while_statement((from_statement(stmt), loc), from_expression(e))
-  | Rehp.While_statement(e, (stmt, loc)) =>
-    While_statement(from_expression(e), (from_statement(stmt), loc))
-  | Rehp.For_statement(init, test, incr, (stmt, loc), _depth) =>
-    let init =
-      switch (init) {
-      | Left(None) => Left(None)
-      | Left(Some(e)) => Left(Some(from_expression(e)))
-      | Right(vars) => Right(List.map(~f=from_variable_declaration, vars))
-      };
-    let test =
-      switch (test) {
-      | None => None
-      | Some(e) => Some(from_expression(e))
-      };
-    let incr =
-      switch (incr) {
-      | None => None
-      | Some(e) => Some(from_expression(e))
-      };
-    For_statement(init, test, incr, (from_statement(stmt), loc));
-  | Rehp.ForIn_statement(init, e, (stmt, loc)) =>
-    let init =
-      switch (init) {
-      | Left(e) => Left(from_expression(e))
-      | Right(vd) => Right(from_variable_declaration(vd))
-      };
-    let e = from_expression(e);
-    let stmt = from_statement(stmt);
-    ForIn_statement(init, e, (stmt, loc));
+  | Rehp.Loop_statement(stmt, loc) =>
+    For_statement(Left(None), None, None, (from_statement(stmt), loc));
   | Rehp.Continue_statement(lbl, _depth) => Continue_statement(lbl)
   | Rehp.Break_statement(lbl) => Break_statement(lbl)
   | Rehp.Return_statement(eo) =>
@@ -197,16 +168,18 @@ and from_statement = e =>
     Labelled_statement(lbl, (from_statement(stmt), loc))
   | Rehp.Switch_statement(
       e,
-      case_clause_list1,
-      stmt_lst_opt,
-      case_clause_list2,
+      case_clause_list,
+      stmt_lst,
     ) =>
     let e = from_expression(e);
-    let case_clause_lst1 = from_case_clause_list(case_clause_list1);
-    let case_clause_lst2 = from_case_clause_list(case_clause_list2);
-    let stmt_lst_opt =
-      Stdlib.Option.map(~f=from_statement_list, stmt_lst_opt);
-    Switch_statement(e, case_clause_lst1, stmt_lst_opt, case_clause_lst2);
+    let case_clause_lst = from_case_clause_list(case_clause_list);
+    /* Backward-compatible behavior, TODO: cleanup JS Ast and printing */
+    let stmt_lst =
+      switch (stmt_lst) {
+      | [] => None
+      | _ => Some(from_statement_list(stmt_lst))
+      };
+    Switch_statement(e, case_clause_lst, stmt_lst, []);
   | Rehp.Throw_statement(e) => Throw_statement(from_expression(e))
   | Rehp.Try_statement(block, ident_block_opt, block_opt) =>
     let block = from_statement_list(block);

@@ -1848,21 +1848,17 @@ and compile_block st queue (pc : Addr.t) frontier interm =
         | [] -> assert false
       in
       let st =
-        ( J.For_statement
-            ( Left None
-            , None
-            , None
-            , ( J.Block
-                  (if Addr.Set.cardinal frontier > 0
-                  then (
-                    if debug ()
-                    then Format.eprintf "@ break (%d); }@]" (Addr.Set.choose new_frontier);
-                    body @ [ J.Break_statement None, Loc.N ])
-                  else (
-                    if debug () then Format.eprintf "}@]";
-                    body))
-              , Loc.N )
-            , Some (List.length st.loop_stack) )
+        ( J.Loop_statement
+            ( J.Block
+                (if Addr.Set.cardinal frontier > 0
+                then (
+                  if debug ()
+                  then Format.eprintf "@ break (%d); }@]" (Addr.Set.choose new_frontier);
+                  body @ [ J.Break_statement None, Loc.N ])
+                else (
+                  if debug () then Format.eprintf "}@]";
+                  body))
+            , Loc.N )
         , source_location st.ctx pc )
       in
       match label with
@@ -1968,7 +1964,7 @@ and compile_decision_tree st _queue handler backs frontier interm succs loc cx d
             (List.map l ~f:(fun (ints, br) ->
                  map_last (fun last i -> J.EInt i, if last then br else []) ints))
         in
-        !all_never, [ J.Switch_statement (cx, l, Some last, []), loc ]
+        !all_never, [ J.Switch_statement (cx, l, last), loc ]
   in
   let cx, binds =
     match cx with
