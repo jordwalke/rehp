@@ -182,16 +182,10 @@ and from_statement = e =>
       };
     Switch_statement(e, case_clause_lst, stmt_lst, []);
   | Rehp.Throw_statement(e) => Throw_statement(from_expression(e))
-  | Rehp.Try_statement(block, ident_block_opt, block_opt) =>
-    let block = from_statement_list(block);
-    let ident_block_opt =
-      switch (ident_block_opt) {
-      | None => None
-      | Some((ident, block)) => Some((ident, from_statement_list(block)))
-      };
-
-    let block_opt = Stdlib.Option.map(~f=from_statement_list, block_opt);
-    Try_statement(block, ident_block_opt, block_opt);
+  | Rehp.Try_statement(b1, (ident, b2)) =>
+    let b1 = from_statement_list(b1);
+    let ident_block = (ident, from_statement_list(b2));
+    Try_statement(b1, Some(ident_block), None);
   | Rehp.Debugger_statement => Debugger_statement
   }
 and from_case_clause_list = lst =>

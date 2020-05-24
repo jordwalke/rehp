@@ -290,7 +290,7 @@ let topLevelIdentifiersSt = (newVarsSoFar, st) =>
   /*
    * TODO: Probably need to go one level deeper on the try body.
    */
-  | Try_statement(_, _, _) => newVarsSoFar
+  | Try_statement(_, _) => newVarsSoFar
   | _ => newVarsSoFar
   };
 
@@ -1178,7 +1178,7 @@ and statement = (curOut, input: input, x) => {
           ];
         };
       (outs, Statement_list(li));
-    | Rehp.Try_statement(b, catch, final) =>
+    | Rehp.Try_statement(b, catch) =>
       /*
        * Customization that augments the scope with catch identifier.
        */
@@ -1195,20 +1195,17 @@ and statement = (curOut, input: input, x) => {
         (out, (identMapped, stMapped));
       };
       let (bOut, bMapped) = statements(curOut, input, b);
-      let (catchOut, catchMapped) = optOutput(identAndStatements, catch);
-      let (finalOut, finalMapped) =
-        optOutput(statements(curOut, input), final);
+      let (catchOut, catchMapped) = identAndStatements(catch);
       let out = {
-        use: append(bOut.use, append(catchOut.use, finalOut.use)),
-        dec: append(bOut.dec, append(catchOut.dec, finalOut.dec)),
+        use: append(bOut.use, catchOut.use),
+        dec: append(bOut.dec, catchOut.dec),
         free_labels:
           List.concat([
             bOut.free_labels,
             catchOut.free_labels,
-            finalOut.free_labels,
           ]),
       };
-      (out, Try_statement(bMapped, catchMapped, finalMapped));
+      (out, Try_statement(bMapped, Some(catchMapped), None));
     };
   (outAppend(curOut, out), mapped);
 }
