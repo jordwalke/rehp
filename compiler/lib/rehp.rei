@@ -138,7 +138,7 @@ and statement =
       statement_list,
     )
   | Throw_statement(expression)
-  | Try_statement(block, option((Id.t, block)), option(block))
+  | Try_statement(block, (Id.t, block))
   | Debugger_statement
 and block = statement_list
 and statement_list = list((statement, Loc.t))

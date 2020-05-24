@@ -84,16 +84,10 @@ class map : mapper =
             ( m#expression e
             , List.map l ~f:(fun (e, s) -> m#switch_case e, m#statements s)
             , (m#statements def) )
-      | Try_statement (b, catch, final) ->
+      | Try_statement (b1, (id, b2)) ->
           Try_statement
-            ( m#statements b
-            , (match catch with
-              | None -> None
-              | Some (id, b) -> Some (m#ident id, m#statements b))
-            , match final with
-              | None -> None
-              | Some s -> Some (m#statements s) )
-
+            ( m#statements b1
+            , (m#ident id, m#statements b2) )
     method statement_o x =
       match x with
       | None -> None
@@ -446,48 +440,40 @@ class free =
       | Loop_statement (s, loc) ->
           Loop_statement
             (m#statement s, loc)
-      | Try_statement (b, w, f) ->
-          let b = m#statements b in
+      | Try_statement (b1, (id, b2)) ->
+          let b = m#statements b1 in
           let tbody = {<state_ = empty; level>} in
           let w =
-            match w with
-            | None -> None
-            | Some (id, block) ->
-                let block = tbody#statements block in
-                let () = tbody#def_var id in
-                tbody#block ~catch:true [id];
-                (* special merge here *)
-                (* we need to propagate both def and use .. *)
-                (* .. except 'id' because its scope is limitied to 'block' *)
-                let clean set sets =
-                  match id with
-                  | S {name; _} -> set, StringSet.remove name sets
-                  | V i -> S.remove i set, sets
-                in
-                let def, def_name = clean tbody#state.def tbody#state.def_name in
-                let use, use_name = clean tbody#state.use tbody#state.use_name in
-                let count =
-                  Id.IdentMap.fold
-                    (fun v k acc ->
-                      let n = try Id.IdentMap.find v acc with Not_found -> 0 in
-                      Id.IdentMap.add v (k + n) acc)
-                    tbody#state.count
-                    m#state.count
-                in
-                state_ <-
-                  { use = S.union state_.use use
-                  ; use_name = StringSet.union state_.use_name use_name
-                  ; def = S.union state_.def def
-                  ; def_name = StringSet.union state_.def_name def_name
-                  ; count };
-                Some (id, block)
+            let block = tbody#statements b2 in
+            let () = tbody#def_var id in
+            tbody#block ~catch:true [id];
+            (* special merge here *)
+            (* we need to propagate both def and use .. *)
+            (* .. except 'id' because its scope is limitied to 'block' *)
+            let clean set sets =
+              match id with
+              | S {name; _} -> set, StringSet.remove name sets
+              | V i -> S.remove i set, sets
+            in
+            let def, def_name = clean tbody#state.def tbody#state.def_name in
+            let use, use_name = clean tbody#state.use tbody#state.use_name in
+            let count =
+              Id.IdentMap.fold
+                (fun v k acc ->
+                  let n = try Id.IdentMap.find v acc with Not_found -> 0 in
+                  Id.IdentMap.add v (k + n) acc)
+                tbody#state.count
+                m#state.count
+            in
+            state_ <-
+              { use = S.union state_.use use
+              ; use_name = StringSet.union state_.use_name use_name
+              ; def = S.union state_.def def
+              ; def_name = StringSet.union state_.def_name def_name
+              ; count };
+            (id, block)
           in
-          let f =
-            match f with
-            | None -> None
-            | Some block -> Some (m#statements block)
-          in
-          Try_statement (b, w, f)
+          Try_statement (b, w)
       | _ -> super#statement x
   end
 
@@ -526,20 +512,17 @@ class rename_variable keeps =
     method statement x =
       let x = super#statement x in
       match x with
-      | Try_statement (b, w, f) ->
+      | Try_statement (b, (S {name; _}, block)) ->
           let w =
-            match w with
-            | Some (S {name; _}, block) ->
-                let v = Code.Var.fresh_n name in
-                let sub = function
-                  | Id.S {name = name'; _} when name' = name -> Id.V v
-                  | x -> x
-                in
-                let s = new subst sub in
-                Some (Id.V v, s#statements block)
-            | x -> x
+            let v = Code.Var.fresh_n name in
+            let sub = function
+              | Id.S {name = name'; _} when name' = name -> Id.V v
+              | x -> x
+            in
+            let s = new subst sub in
+            (Id.V v, s#statements block)
           in
-          Try_statement (b, w, f)
+          Try_statement (b, w)
       | _ -> x
 
     method source x =
@@ -587,11 +570,9 @@ class compact_vardecl =
       | Variable_statement l -> m#translate_st l
       | Loop_statement (s, loc) ->
           Loop_statement (s, loc)
-      | Try_statement (b, w, f) ->
-          (match w with
-          | None -> ()
-          | Some (id, _) -> m#except id);
-          Try_statement (b, w, f)
+      | Try_statement (b, (id, b2)) ->
+          m#except id;
+          Try_statement (b, (id, b2))
       | s -> s
 
     method block ?(catch = false) params =

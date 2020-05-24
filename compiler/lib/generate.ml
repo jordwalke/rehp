@@ -1813,7 +1813,7 @@ and compile_block st queue (pc : Addr.t) frontier interm =
           Addr.Set.iter (decr_preds st) grey;
           flush_all
             queue
-            (( J.Try_statement (body, Some (Id.V x, handler), None)
+            (( J.Try_statement (body, (Id.V x, handler))
              , source_location st.ctx pc )
             ::
             (if not (Addr.Set.is_empty grey')
