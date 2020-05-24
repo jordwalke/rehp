@@ -117,7 +117,7 @@ class map : mapper =
       | ECall (e1, e2, loc) -> ECall (m#expression e1, List.map e2 ~f:m#expression, loc)
       | ECopy (e1, loc) -> ECopy (m#expression e1, loc)
       | EAccess (e1, e2) -> EAccess (m#expression e1, m#expression e2)
-      | EStructAccess (e1, e2) -> EStructAccess (m#expression e1, m#expression e2)
+      | EStructAccess (e1, index) -> EStructAccess (m#expression e1, index)
       | EArrAccess (e1, e2) -> EArrAccess (m#expression e1, m#expression e2)
       | EDot (e1, id) -> EDot (m#expression e1, id)
       | ENew (e1, Some args) ->
@@ -135,7 +135,7 @@ class map : mapper =
       | EVectlength e -> EVectlength (m#expression e)
       | EArrLen e -> EArrLen (m#expression e)
       | EStruct l -> EStruct (List.map ~f:(fun x -> m#expression x) l)
-      | ETag (i, l) -> ETag (m#expression i, List.map ~f:(fun x -> m#expression x) l)
+      | ETag (i, l) -> ETag (i, List.map ~f:(fun x -> m#expression x) l)
       | EArr l -> EArr (List.map l ~f:(fun x -> m#expression_o x))
       | EObj l -> EObj (List.map l ~f:(fun (i, e) -> i, m#expression e))
       | (EStr _ as x)

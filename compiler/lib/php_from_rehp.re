@@ -571,11 +571,9 @@ let rec expression = (input: input, x) =>
     let (e1Out, e1Mapped) = expression(input, e1);
     let (e2Out, e2Mapped) = expression(input, e2);
     (outAppend(e1Out, e2Out), Php.EAccess(e1Mapped, e2Mapped));
-  | Rehp.EStructAccess(e1, e2) =>
-    let (e1Out, e1Mapped) = expression(input, e1);
-    let (e2Out, e2Mapped) = expression(input, e2);
-    let joined = outAppend(e1Out, e2Out);
-    (joined, Php.EStructAccess(e1Mapped, e2Mapped));
+  | Rehp.EStructAccess(e, index) =>
+    let (eOut, eMapped) = expression(input, e);
+    (eOut, Php.EStructAccess(eMapped, Php.EInt(index)));
   | Rehp.EArrAccess(e1, e2) =>
     let (e1Out, e1Mapped) = expression(input, e1);
     let (e2Out, e2Mapped) = expression(input, e2);
@@ -674,9 +672,8 @@ let rec expression = (input: input, x) =>
   | Rehp.EStruct(l) =>
     foldExprs([], expression, input, emptyOutput, wrapInStruct, l)
   | Rehp.ETag(i, l) =>
-    let (iOut, iMapped) = expression(input, i);
     let (outs, mappeds) = List.split(List.map(~f=expression(input), l));
-    (joinAll([iOut, ...outs]), Php.ETag(iMapped, mappeds));
+    (joinAll(outs), Php.ETag(Php.EInt(i), mappeds));
   /* Should have already converted EArr to functions. */
   | Rehp.EArr(l) => (
       emptyOutput,

@@ -94,13 +94,15 @@ and from_expression = e =>
     Javascript.ESeq(from_expression(e1), from_expression(e2))
   | ETag(index, itms) =>
     Javascript.EArr([
-      Some(from_expression(index)),
+      Some(Javascript.ENum(float_of_int(index))),
       ...List.map(~f=itm => Some(from_expression(itm)), itms),
     ])
   | EStruct(itms) =>
     Javascript.EArr(List.map(~f=itm => Some(from_expression(itm)), itms))
-  | EAccess(e1, e2)
-  | EStructAccess(e1, e2)
+  | EAccess(e1, e2) =>
+    Javascript.EAccess(from_expression(e1), from_expression(e2))
+  | EStructAccess(e, i) =>
+    Javascript.EAccess(from_expression(e), Javascript.ENum(float_of_int(i)))
   | EArrAccess(e1, e2) =>
     Javascript.EAccess(from_expression(e1), from_expression(e2))
   | EVectlength(e) =>
