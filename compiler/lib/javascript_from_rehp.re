@@ -33,7 +33,6 @@ and from_unop = (unop, jsExpr) =>
   | ToInt => Expand.toInt(jsExpr)
   | IntToString => Expand.intToString(jsExpr)
   | Neg => EUn(Javascript.Neg, jsExpr)
-  | Pl => EUn(Javascript.Pl, jsExpr)
   | Typeof => EUn(Javascript.Typeof, jsExpr)
   | Void => EUn(Javascript.Void, jsExpr)
   | Delete => EUn(Javascript.Delete, jsExpr)
@@ -68,7 +67,6 @@ and from_binop =
   | Gt => Gt
   | Ge => Ge
   | InstanceOf => InstanceOf
-  | In => In
   | Lsl => Lsl
   | Lsr => Lsr
   | Asr => Asr
