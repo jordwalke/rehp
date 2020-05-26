@@ -79,8 +79,6 @@ and binop =
   | Ge
   /* TODO: Can delete this from Rehp when JS is never converted to Rehp */
   | InstanceOf
-  /* TODO: Can delete this from Rehp when JS is never converted to Rehp */
-  | In
   /* JS equivalent of Lsl is << (Left Shift Operator) */
   | Lsl
   /* JS equivalent of Lsr is >>> (The Unsigned Right Shift Operator) */
@@ -97,7 +95,6 @@ and binop =
 and unop =
   | Not
   | Neg
-  | Pl
   /* Used as a special "FFI" to represent the underlying language's "typeof"
    * operator. In general, the compiler (generate.ml) should use `IsInt`. Only
    * FFI application code should ever want to use the `typeof` of the

@@ -150,7 +150,6 @@ let binop_from_rehp = binop =>
   | Gt => Gt
   | Ge => Ge
   | InstanceOf => InstanceOf
-  | In => In
   | Lsl =>
     raise(
       Invalid_argument(
@@ -728,9 +727,6 @@ and unop_from_rehp = (input, unop, rehpExpr) =>
   | Neg =>
     let (outMapped, exprMapped) = expression(input, rehpExpr);
     (outMapped, EUn(Neg, exprMapped));
-  | Pl =>
-    let (outMapped, exprMapped) = expression(input, rehpExpr);
-    (outMapped, EUn(Pl, exprMapped));
   | Typeof =>
     let (outMapped, exprMapped) = expression(input, rehpExpr);
     (outMapped, EUn(Typeof, exprMapped));

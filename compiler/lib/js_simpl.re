@@ -56,7 +56,7 @@ let rec enot_rec = e => {
       }
     | J.EUn(J.Not, e) => (e, 0)
     | J.EUn(
-        J.Neg | J.Pl | J.IsInt | J.Typeof | J.Void | J.Delete | J.Bnot |
+        J.Neg | J.IsInt | J.Typeof | J.Void | J.Delete | J.Bnot |
         J.ToInt,
         _,
       ) => (

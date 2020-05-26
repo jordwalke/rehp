@@ -45,7 +45,6 @@ and binop =
   | Gt
   | Ge
   | InstanceOf
-  | In
   | Lsl
   | Lsr
   | Asr
@@ -59,7 +58,6 @@ and binop =
 and unop =
   | Not
   | Neg
-  | Pl
   | Typeof
   | IsInt
   | ToInt
