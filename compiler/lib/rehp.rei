@@ -38,12 +38,18 @@ and binop =
   | Band
   | EqEq
   | NotEq
+  | FloatEqEq
+  | FloatNotEq
   | EqEqEq
   | NotEqEq
   | Lt
   | Le
   | Gt
   | Ge
+  | FloatLt
+  | FloatLe
+  | FloatGt
+  | FloatGe
   | InstanceOf
   | Lsl
   | Lsr
@@ -52,16 +58,23 @@ and binop =
   | IntPlus
   | Plus
   | Minus
+  | FloatMinus
   | Mul
+  | FloatMul
   | Div
+  | FloatDiv
   | Mod
+  | FloatMod
 and unop =
   | Not
   | Neg
+  | FloatNeg
   | Typeof
   | IsInt
   | ToInt
+  | ToBool
   | IntToString
+  | FloatToInt
   | Void
   | Delete
   | Bnot

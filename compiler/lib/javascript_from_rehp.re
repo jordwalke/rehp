@@ -30,13 +30,16 @@ and from_unop = (unop, jsExpr) =>
   switch (unop) {
   | Rehp.Not => EUn(Javascript.Not, jsExpr)
   | IsInt => Expand.isIntCheck(jsExpr)
+  | ToBool
+  | FloatToInt
   | ToInt => Expand.toInt(jsExpr)
   | IntToString => Expand.intToString(jsExpr)
+  | FloatNeg
   | Neg => EUn(Javascript.Neg, jsExpr)
   | Typeof => EUn(Javascript.Typeof, jsExpr)
   | Void => EUn(Javascript.Void, jsExpr)
   | Delete => EUn(Javascript.Delete, jsExpr)
-  | Bnot => EUn(Javascript.Bnot, jsExpr)
+  | Bnot => EBin(Minus, ENum(1.0), jsExpr)
   | IncrA => EUn(Javascript.IncrA, jsExpr)
   | DecrA => EUn(Javascript.DecrA, jsExpr)
   | IncrB => EUn(Javascript.IncrB, jsExpr)
@@ -60,12 +63,18 @@ and from_binop =
   | Band => Band
   | EqEq => EqEq
   | NotEq => NotEq
+  | FloatEqEq => EqEq
+  | FloatNotEq => NotEq
   | EqEqEq => EqEqEq
   | NotEqEq => NotEqEq
   | Lt => Lt
   | Le => Le
   | Gt => Gt
   | Ge => Ge
+  | FloatLt => Lt
+  | FloatLe => Le
+  | FloatGt => Gt
+  | FloatGe => Ge
   | InstanceOf => InstanceOf
   | Lsl => Lsl
   | Lsr => Lsr
@@ -74,9 +83,13 @@ and from_binop =
   | FloatPlus => Plus
   | IntPlus => Plus
   | Minus => Minus
+  | FloatMinus => Minus
   | Mul => Mul
+  | FloatMul => Mul
   | Div => Div
+  | FloatDiv => Div
   | Mod => Mod
+  | FloatMod => Mod
 and from_expression_loc = ((e, loc)) => (from_expression(e), loc)
 and from_expression = e =>
   switch (e) {

@@ -143,12 +143,18 @@ let binop_from_rehp = binop =>
   | Band => Band
   | EqEq => EqEq
   | NotEq => NotEq
+  | FloatEqEq => EqEq
+  | FloatNotEq => NotEq
   | EqEqEq => EqEqEq
   | NotEqEq => NotEqEq
   | Lt => Lt
   | Le => Le
   | Gt => Gt
   | Ge => Ge
+  | FloatLt => Lt
+  | FloatLe => Le
+  | FloatGt => Gt
+  | FloatGe => Ge
   | InstanceOf => InstanceOf
   | Lsl =>
     raise(
@@ -178,9 +184,13 @@ let binop_from_rehp = binop =>
   | IntPlus => IntPlus
   /*  | StrPlus => StrPlus  */
   | Minus => Minus
+  | FloatMinus => Minus
   | Mul => Mul
+  | FloatMul => Mul
   | Div => Div
+  | FloatDiv => Div
   | Mod => Mod
+  | FloatMod => Mod
   };
 
 let empty = {names: StringMap.empty, vars: Code.Var.Map.empty};
@@ -718,13 +728,16 @@ and unop_from_rehp = (input, unop, rehpExpr) =>
   | Rehp.Not =>
     let (outMapped, exprMapped) = expression(input, rehpExpr);
     (outMapped, Php.EUn(Php.Not, exprMapped));
+  | ToBool
+  | FloatToInt
   | ToInt =>
     let (outMapped, exprMapped) = expression(input, rehpExpr);
     (outMapped, EUn(ToInt, exprMapped));
   | IntToString =>
     let (outMapped, exprMapped) = expression(input, rehpExpr);
     (outMapped, EUn(IntToString, exprMapped));
-  | Neg =>
+  | Neg
+  | FloatNeg =>
     let (outMapped, exprMapped) = expression(input, rehpExpr);
     (outMapped, EUn(Neg, exprMapped));
   | Typeof =>
@@ -747,7 +760,7 @@ and unop_from_rehp = (input, unop, rehpExpr) =>
     (outMapped, EUn(Delete, exprMapped));
   | Bnot =>
     let (outMapped, exprMapped) = expression(input, rehpExpr);
-    (outMapped, EUn(Bnot, exprMapped));
+    (outMapped, EBin(Minus, EInt(1), exprMapped));
   | IncrA =>
     let (outMapped, exprMapped) = expression(input, rehpExpr);
     (outMapped, EUn(IncrA, exprMapped));

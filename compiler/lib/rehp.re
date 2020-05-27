@@ -71,12 +71,18 @@ and binop =
   | Band
   | EqEq
   | NotEq
+  | FloatEqEq
+  | FloatNotEq
   | EqEqEq
   | NotEqEq
   | Lt
   | Le
   | Gt
   | Ge
+  | FloatLt
+  | FloatLe
+  | FloatGt
+  | FloatGe
   /* TODO: Can delete this from Rehp when JS is never converted to Rehp */
   | InstanceOf
   /* JS equivalent of Lsl is << (Left Shift Operator) */
@@ -89,12 +95,17 @@ and binop =
   | IntPlus
   | Plus
   | Minus
+  | FloatMinus
   | Mul
+  | FloatMul
   | Div
+  | FloatDiv
   | Mod
+  | FloatMod
 and unop =
   | Not
   | Neg
+  | FloatNeg
   /* Used as a special "FFI" to represent the underlying language's "typeof"
    * operator. In general, the compiler (generate.ml) should use `IsInt`. Only
    * FFI application code should ever want to use the `typeof` of the
@@ -105,7 +116,9 @@ and unop =
   | IsInt
   /* Backend specific integer conversion */
   | ToInt
+  | ToBool
   | IntToString
+  | FloatToInt
   | Void /* Only for stubs */
   | Delete /* Only for stubs */
   | Bnot
