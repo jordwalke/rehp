@@ -1243,29 +1243,29 @@ let _ =
         ~fallback:(fun () -> J.EBin (J.Asr, cx, cy)));
   register_un_prim "%int_neg" `Pure (fun cx _ -> to_int (J.EUn (J.Neg, cx)));
   register_bin_prim "caml_eq_float" `Pure (fun cx cy _ ->
-      bool (J.EBin (J.EqEq, float_val cx, float_val cy)));
+      bool (J.EBin (J.FloatEqEq, float_val cx, float_val cy)));
   register_bin_prim "caml_neq_float" `Pure (fun cx cy _ ->
-      bool (J.EBin (J.NotEq, float_val cx, float_val cy)));
+      bool (J.EBin (J.FloatNotEq, float_val cx, float_val cy)));
   register_bin_prim "caml_ge_float" `Pure (fun cx cy _ ->
-      bool (J.EBin (J.Le, float_val cy, float_val cx)));
+      bool (J.EBin (J.FloatLe, float_val cy, float_val cx)));
   register_bin_prim "caml_le_float" `Pure (fun cx cy _ ->
-      bool (J.EBin (J.Le, float_val cx, float_val cy)));
+      bool (J.EBin (J.FloatLe, float_val cx, float_val cy)));
   register_bin_prim "caml_gt_float" `Pure (fun cx cy _ ->
-      bool (J.EBin (J.Lt, float_val cy, float_val cx)));
+      bool (J.EBin (J.FloatLt, float_val cy, float_val cx)));
   register_bin_prim "caml_lt_float" `Pure (fun cx cy _ ->
-      bool (J.EBin (J.Lt, float_val cx, float_val cy)));
+      bool (J.EBin (J.FloatLt, float_val cx, float_val cy)));
   register_bin_prim "caml_add_float" `Pure (fun cx cy _ ->
       val_float (J.EBin (J.FloatPlus, float_val cx, float_val cy)));
   register_bin_prim "caml_sub_float" `Pure (fun cx cy _ ->
-      val_float (J.EBin (J.Minus, float_val cx, float_val cy)));
+      val_float (J.EBin (J.FloatMinus, float_val cx, float_val cy)));
   register_bin_prim "caml_mul_float" `Pure (fun cx cy _ ->
-      val_float (J.EBin (J.Mul, float_val cx, float_val cy)));
+      val_float (J.EBin (J.FloatMul, float_val cx, float_val cy)));
   register_bin_prim "caml_div_float" `Pure (fun cx cy _ ->
-      val_float (J.EBin (J.Div, float_val cx, float_val cy)));
+      val_float (J.EBin (J.FloatDiv, float_val cx, float_val cy)));
   register_un_prim "caml_neg_float" `Pure (fun cx _ ->
-      val_float (J.EUn (J.Neg, float_val cx)));
+      val_float (J.EUn (J.FloatNeg, float_val cx)));
   register_bin_prim "caml_fmod_float" `Pure (fun cx cy _ ->
-      val_float (J.EBin (J.Mod, float_val cx, float_val cy)));
+      val_float (J.EBin (J.FloatMod, float_val cx, float_val cy)));
   register_tern_prim "caml_array_unsafe_set" (fun cx cy cz _ ->
       J.EBin (J.Eq, J.EArrAccess (cx, plus_int cy one), cz));
   register_un_prim "caml_alloc_dummy" `Pure (fun cx loc ->
@@ -1276,7 +1276,7 @@ let _ =
       "This is a bug in the compiler. Please report it.")
   );
   register_un_prim "caml_obj_dup" `Mutable (fun cx loc -> J.ECopy (cx, loc));
-  register_un_prim "caml_int_of_float" `Pure (fun cx _loc -> to_int cx);
+  register_un_prim "caml_int_of_float" `Pure (fun cx _loc -> (J.EUn (J.FloatToInt, cx)));
   register_un_math_prim "caml_abs_float" "abs";
   register_un_math_prim "caml_acos_float" "acos";
   register_un_math_prim "caml_asin_float" "asin";
@@ -1293,7 +1293,7 @@ let _ =
   register_un_math_prim "caml_tan_float" "tan";
   register_un_prim "caml_js_from_bool" `Pure (fun cx _ ->
       J.EUn (J.Not, J.EUn (J.Not, cx)));
-  register_un_prim "caml_js_to_bool" `Pure (fun cx _ -> to_int cx);
+  register_un_prim "caml_js_to_bool" `Pure (fun cx _ -> (J.EUn (J.ToBool, cx)));
   register_un_prim "caml_js_from_string" `Mutable (fun cx loc ->
       J.ECall (J.EDot (cx, "toString"), [], loc));
   register_tern_prim "caml_js_set" (fun cx cy cz _ ->
@@ -1572,11 +1572,9 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
                     ~init:([], prim_kind, queue)
                 in
                 J.ECall (prim, args, loc), prop, queue)
-        (* TODO: Stop using 1 - x to represent "Not". This won't work in all
-           * language backends. *)
         | Not, [ x ] ->
             let (px, cx), queue = access_queue' ~ctx queue x in
-            J.EBin (J.Minus, one, cx), px, queue
+            J.EUn (J.Bnot, cx), px, queue
         | Lt, [ x; y ] ->
             let (px, cx), queue = access_queue' ~ctx queue x in
             let (py, cy), queue = access_queue' ~ctx queue y in
