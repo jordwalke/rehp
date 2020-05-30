@@ -33,6 +33,7 @@ var cst_two = string("two");
 var cst_two__0 = string("two");
 var cst_hi = string("hi");
 var cst_Second_Part_Of_Tuple = string("Second Part Of Tuple:");
+var strKeyDetached = string("ThisWasDetached");
 var Stdlib = require("Stdlib.js");
 var Calls_Macros = require("Calls__Macros.js");
 var c_ = [0,100,0];
@@ -179,6 +180,10 @@ if (z) {
   call1(Stdlib[42], h_);
 }
 
+var myTwoObject = {"firstField": 1,"secondField": 0};
+var myTwoObjectWithWeirdKeys = {"first/Field": 1,"second$Field": 0};
+var myTwoObjectDetachedKey = {"ThisWasDetached": 1,"secondField": 0};
+
 call1(Calls_Macros[8], 0);
 
 var Calls = [
@@ -215,7 +220,11 @@ var Calls = [
   ReexportedMacros,
   callsAFunctionWithSuppression,
   f,
-  z
+  z,
+  strKeyDetached,
+  myTwoObject,
+  myTwoObjectWithWeirdKeys,
+  myTwoObjectDetachedKey
 ];
 
 module.exports = Calls;
@@ -254,6 +263,10 @@ module.exports = Calls;
   callsAFunctionWithSuppression: (param: any) => any,
   f: any,
   z: any,
+  strKeyDetached: any,
+  myTwoObject: any,
+  myTwoObjectWithWeirdKeys: any,
+  myTwoObjectDetachedKey: any,
 }*/
 /** @type {{
   foo: any,
@@ -289,6 +302,10 @@ module.exports = Calls;
   callsAFunctionWithSuppression: (param: any) => any,
   f: any,
   z: any,
+  strKeyDetached: any,
+  myTwoObject: any,
+  myTwoObjectWithWeirdKeys: any,
+  myTwoObjectDetachedKey: any,
 }} */
 module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.foo = module.exports[1];
@@ -324,5 +341,9 @@ module.exports.ReexportedMacros = module.exports[30];
 module.exports.callsAFunctionWithSuppression = module.exports[31];
 module.exports.f = module.exports[32];
 module.exports.z = module.exports[33];
+module.exports.strKeyDetached = module.exports[34];
+module.exports.myTwoObject = module.exports[35];
+module.exports.myTwoObjectWithWeirdKeys = module.exports[36];
+module.exports.myTwoObjectDetachedKey = module.exports[37];
 
 /* Hashing disabled */

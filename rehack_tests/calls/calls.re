@@ -179,4 +179,14 @@ switch (z) {
 | Some((f, str)) => print_string(str ++ string_of_int(f(0, 0)))
 };
 
+
+let strKeyDetached = "ThisWasDetached";
+
+external createObj2: (string, 'a, string, 'b) => str = "caml_js_object_args";
+
+let myTwoObject = createObj2("firstField", true, "secondField", false);
+let myTwoObjectWithWeirdKeys = createObj2("first/Field", true, "second$Field", false);
+
+let myTwoObjectDetachedKey = createObj2(strKeyDetached, true, "secondField", false);
+
 Macros.includeMe();

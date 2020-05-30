@@ -29,6 +29,7 @@ final class Calls {
     $cst_two__0 = $string("two");
     $cst_hi = $string("hi");
     $cst_Second_Part_Of_Tuple = $string("Second Part Of Tuple:");
+    $strKeyDetached = $string("ThisWasDetached");
     $Stdlib = Stdlib::get();
     $Calls_Macros = Calls__Macros::get();
     $c_ = Vector{0, 100, 0} as dynamic;
@@ -189,6 +190,10 @@ SomeUtilityClass::foo($cst_fix, $cst_me)
       $call1($Stdlib[42], $h_);
     }
     
+    $myTwoObject = darray["firstField"=>1,"secondField"=>0];
+    $myTwoObjectWithWeirdKeys = darray["first/Field"=>1,"second$Field"=>0];
+    $myTwoObjectDetachedKey = darray["ThisWasDetached"=>1,"secondField"=>0];
+    
     $call1($Calls_Macros[8], 0);
     
     $Calls = Vector{
@@ -225,7 +230,11 @@ SomeUtilityClass::foo($cst_fix, $cst_me)
       $ReexportedMacros,
       $callsAFunctionWithSuppression,
       $f,
-      $z
+      $z,
+      $strKeyDetached,
+      $myTwoObject,
+      $myTwoObjectWithWeirdKeys,
+      $myTwoObjectDetachedKey
     } as dynamic;
     
     return($Calls);
