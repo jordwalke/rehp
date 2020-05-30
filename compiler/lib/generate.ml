@@ -390,6 +390,11 @@ let source_location ctx ?after pc =
   | Some pi -> Loc.Pi pi
   | None -> Loc.N
 
+let maybe_parse_info loc = match loc with
+  | Loc.Pi pi -> Some pi
+  | _ -> None
+
+
 (****)
 
 let float_const f = val_float (J.EFloat f)
@@ -1189,6 +1194,12 @@ let _ =
       ctx.Ctx.share);
     | _ -> failwith(Errors.weirdArgumentsToCamlRequire));
 
+  (* This codepath unlikely to be hit since raw macro provides a better error *)
+  register_un_prim "%caml_js_to_string_from_raw" `Mutable (fun cx loc ->
+    raise (
+      Errors.UserError(
+        Errors.invalidStringFromMacro "Unknown macro contents", maybe_parse_info loc)));
+
   register_un_prim "polymorphic_log" `Mutable (fun cx loc ->
       J.ECall (s_var "polymorphic_log", [ cx ], loc));
   register_bin_prim "caml_array_unsafe_get" `Mutable (fun cx cy _ ->
@@ -1266,7 +1277,7 @@ let _ =
     match cx with
     | J.EInt i -> J.EStruct (Array.make i (J.EInt 0) |> Array.to_list)
     | _ -> failwith(
-      "Encountered a caml_alloc_dummy without an integer size supplied. " ^ 
+      "Encountered a caml_alloc_dummy without an integer size supplied. " ^
       "This is a bug in the compiler. Please report it.")
   );
   register_un_prim "caml_obj_dup" `Mutable (fun cx loc -> J.ECopy (cx, loc));
@@ -2251,7 +2262,7 @@ let generate_shared_value ctx =
       applies
     else []
   in
- 
+
   let strings =
     ( J.Statement
         (J.Variable_statement

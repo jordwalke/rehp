@@ -751,6 +751,12 @@ type rawIfExpansionMode =
   | DontExpandPrimsInRawIfBranches
   | ExpandPrimsInUnknownBranches;
 
+let bindConstString = (bindVar, s) =>
+  Code.Let(bindVar, Code.Constant(Code.IString(s)));
+
+let bindExtern = (bindVar, externName, args) =>
+  Code.Let(bindVar, Prim(Extern(externName), args));
+
 /**
  * For a caml_js_expanded_raw_macro, expands primitives inside of macro calls
  * into a their own bindings, and then shifts that binding onto the newly
@@ -826,12 +832,34 @@ let expandPrimBindingsAndArgs = (~mode, md, origArgs, nodeList) => {
         expand(~doExpand=true, ~inIf=true, unknowns, revArgs);
       let nextRevBindings = List.concat([revBindingsUnknown, revBinds]);
       (nextRevBindings, curTxt ++ sUnknown, revArgs);
+    /* A special primitive that only macros can/should target. Creates a raw
+     * string segment from a program (ML) string. Make a special exception and
+     * expand these regardless of mode. Opens up more opportunities for eval
+     * optimization earlier on and if they end up not being used, they'll be
+     * DCE. */
+    | (
+        Prim(t, "%caml_js_to_string_from_raw", [Prim(_, p, [Raw(r)])]),
+        _,
+        _,
+        _,
+      )
+        when String.equal(p, "%caml_js_expanded_raw_macro_done") =>
+      let bindVar = Code.Var.fresh();
+      let revBindingsWithThis = [bindConstString(bindVar, r), ...revBinds];
+      let nextRevArgsWithBinding = [Code.Pv(bindVar), ...revArgs];
+      (
+        revBindingsWithThis,
+        curTxt ++ renderPos(List.length(nextRevArgsWithBinding)),
+        nextRevArgsWithBinding,
+      );
+    | (Prim(t, "%caml_js_to_string_from_raw", _), _, _, _) =>
+      raiseInvalidStringFromRawMacro(md)
     | (Prim(tag, "%caml_require", [Raw(normalizedPath)]), true, _, _) =>
       let bindVar = Code.Var.fresh();
 
       let args = [Code.Pc(Code.IString(normalizedPath))];
       let revBindingsWithThis = [
-        ((tag, "%caml_require", bindVar), args),
+        bindExtern(bindVar, "%caml_require", args),
         ...revBinds,
       ];
       let nextRevArgsWithBinding = [Code.Pv(bindVar), ...revArgs];
@@ -864,7 +892,7 @@ let expandPrimBindingsAndArgs = (~mode, md, origArgs, nodeList) => {
           ? [Code.Pc(Code.String(subTxt)), ...List.rev(subRevArgs)]
           : List.rev(subRevArgs);
       let revBindingsWithThis = [
-        ((tag, prim, bindVar), args),
+        bindExtern(bindVar, prim, args),
         ...revPrimBindings,
       ];
       let nextRevArgsWithBinding = [Code.Pv(bindVar), ...revArgs];
@@ -1167,7 +1195,6 @@ module Eval = {
   };
   let evalConditionalMacros = (~testVal, x, macroData, nodeList, args) =>
     evalRawIfsInExpanded(nodeList, macroData, args, ~testVal);
-
   let expandMacros = (x, macroData, nodeList, args) => {
     /* let macroText = printNodeList(nodeList); */
     /* _printNewBinding(~title="preexpanded :", x, ~firstArg=macroText, args); */
@@ -1177,18 +1204,9 @@ module Eval = {
     let (expandedBindings, finalBindingData) =
       expandPrimBindingsAndArgs(~mode, macroData, args, nodeList);
     let (nextMacroText, nextMacroArgs) = finalBindingData;
-    let newBindings =
-      List.map(expandedBindings, ~f=(((_tag, externName, bindVar), args)) => {
-        /* let title = "  expanded binding " ++ externName; */
-        /* _printNewBinding(~title, bindVar, ~firstArg="", args); */
-        Code.Let(
-          bindVar,
-          Prim(Extern(externName), args),
-        )
-      });
     /* let title = ="expanded :"; */
     /* _printNewBinding( ~title, x, ~firstArg=nextMacroText, nextMacroArgs,); */
-    (newBindings, nextMacroText, nextMacroArgs);
+    (expandedBindings, nextMacroText, nextMacroArgs);
   };
 
   let take_the_unknown_case_of_macro = (x, macroData, args) => {
@@ -1199,18 +1217,8 @@ module Eval = {
     let (expandedBindings, finalBindingData) =
       expandPrimBindingsAndArgs(~mode, macroData, args, nodeList);
     let (nextMacroText, nextMacroArgs) = finalBindingData;
-    let newBindings =
-      List.map(expandedBindings, ~f=(((_tag, externName, bindVar), args)) => {
-        /* let title = */
-        /*   "  expanded macro binding for unknown cases " ++ externName; */
-        /* _printNewBinding(~title, bindVar, ~firstArg="", args); */
-        Code.Let(
-          bindVar,
-          Prim(Extern(externName), args),
-        )
-      });
     /* let title = "expanded unknown : "; */
     /* _printNewBinding(~title, x, ~firstArg=nextMacroText, args); */
-    (newBindings, nextMacroText, nextMacroArgs);
+    (expandedBindings, nextMacroText, nextMacroArgs);
   };
 };

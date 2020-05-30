@@ -287,6 +287,18 @@ function caml_js_object (a) {
   return o;
 }
 
+//Provides: caml_js_object_args const
+function caml_js_object_args () {
+  var o = {};
+  for (var i = 0; i < arguments.length; i+=2) {
+    var k = a[i];
+    var v = a[i + 1];
+    o[k.toString()] = v;
+  }
+  return o;
+}
+
+
 
 //Provides: caml_js_export_var
 function caml_js_export_var (){

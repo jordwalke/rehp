@@ -327,6 +327,27 @@ let specialize_instr addr info i rem =
           Let (x, Prim (Extern "%caml_js_opt_new", c :: Array.to_list a))
       | _ -> i)
       :: rem
+  | Let (x, Prim (Extern "caml_js_object_args", args)) ->
+      let rec expand_pairs ?(cur=[]) ~f lst = match lst with
+      | [] -> List.rev cur
+      | [hd] -> raise Exit
+      | hd :: tl :: rest ->
+          let k, v = f hd tl in
+          expand_pairs ~cur:(v :: k :: cur) ~f rest
+      in
+      (try
+         let a =
+           expand_pairs args ~f:(fun k v ->
+               let k =
+                 match the_string_of info k with
+                 | Some s -> Pc (String s)
+                 | _ -> raise Exit
+               in
+               (k, v))
+         in
+         Let (x, Prim (Extern "%caml_js_opt_object", a))
+       with Exit -> i)
+      :: rem
   | Let (x, Prim (Extern "caml_js_object", [a])) ->
       (try
          let a =
@@ -344,10 +365,17 @@ let specialize_instr addr info i rem =
                      | _ -> raise Exit
                    in
                    [k; Pv v]
-               | _ -> raise Exit)
+               | _ ->
+                raise Exit)
          in
          Let (x, Prim (Extern "%caml_js_opt_object", List.flatten (Array.to_list a)))
        with Exit -> i)
+      :: rem
+  | Let (x, Prim (Extern "caml_js_make_block", [t; a])) ->
+      (match the_block_of info a, the_int info t with
+      | Some a, Some t ->
+          Let (x, Block (Int32.to_int t, a, NotArray))
+      | _ -> i)
       :: rem
   | Let (x, Prim (Extern (("caml_js_get" | "caml_js_property_get") as fn_name), [o; f]))
     ->
