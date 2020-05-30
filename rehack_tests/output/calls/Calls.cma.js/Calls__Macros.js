@@ -123,6 +123,8 @@ var pullsInDep2 = alwaysPulledInDepY(0) +
   alwaysPulledInDepZ(1) +
   conditionalDepQ()+
   0;
+var formattedInt = string("200");
+var ErrorTests = [0];
 var Calls_Macros = [
   0,
   null__0,
@@ -149,7 +151,9 @@ var Calls_Macros = [
   createDivWithUnknowns,
   smartLoggingResult,
   pullsInDep1,
-  pullsInDep2
+  pullsInDep2,
+  formattedInt,
+  ErrorTests
 ];
 
 module.exports = Calls_Macros;
@@ -180,6 +184,8 @@ module.exports = Calls_Macros;
   smartLoggingResult: any,
   pullsInDep1: any,
   pullsInDep2: any,
+  formattedInt: any,
+  ErrorTests: any,
 }*/
 /** @type {{
   _null_: any,
@@ -207,6 +213,8 @@ module.exports = Calls_Macros;
   smartLoggingResult: any,
   pullsInDep1: any,
   pullsInDep2: any,
+  formattedInt: any,
+  ErrorTests: any,
 }} */
 module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports._null_ = module.exports[1];
@@ -234,5 +242,7 @@ module.exports.createDivWithUnknowns = module.exports[22];
 module.exports.smartLoggingResult = module.exports[23];
 module.exports.pullsInDep1 = module.exports[24];
 module.exports.pullsInDep2 = module.exports[25];
+module.exports.formattedInt = module.exports[26];
+module.exports.ErrorTests = module.exports[27];
 
 /* Hashing disabled */

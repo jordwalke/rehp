@@ -108,6 +108,8 @@ $runtime["outerOuter"](
     $smartLoggingResult = "Test not applicable to PHP";
     $pullsInDep1 = "Test Doesn't apply to Php";
     $pullsInDep2 = "Test Doesn't apply to Php";
+    $formattedInt = $string("200");
+    $ErrorTests = Vector{0} as dynamic;
     $Calls_Macros = Vector{
       0,
       $null__0,
@@ -134,7 +136,9 @@ $runtime["outerOuter"](
       $createDivWithUnknowns,
       $smartLoggingResult,
       $pullsInDep1,
-      $pullsInDep2
+      $pullsInDep2,
+      $formattedInt,
+      $ErrorTests
     } as dynamic;
     
     return($Calls_Macros);

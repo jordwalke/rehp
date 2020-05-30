@@ -454,3 +454,35 @@ let pullsInDep1 = conditionallyPullsDepA(true);
  * hoisted.  */
 
 let pullsInDep2 = conditionallyPullsDepB(true);
+
+
+
+/**
+ * Ability to create "Reason strings" inside of a macro, such that they will
+ * partake in other optimizations that require language (not backend) strings.
+ */
+external createsReasonStringInMacro : int => string = {|
+raw-macro:
+<@caml_format_int>
+  <@%caml_js_to_string_from_raw><@>%d</@></@%caml_js_to_string_from_raw>
+  <@1/>
+</@caml_format_int>
+|};
+
+let formattedInt = createsReasonStringInMacro(200);
+
+module ErrorTests = {
+  /**
+   * If the caml_js_to_string_from_raw is passed the wrong kind of data or
+   * wrong arg count.
+   */
+  external createsReasonStringInMacro : int => string = {|
+  raw-macro:
+  <@caml_format_int>
+    <@%caml_js_to_string_from_raw><@>%d</@><@>%d</@></@%caml_js_to_string_from_raw>
+    <@1/>
+  </@caml_format_int>
+  |};
+
+  /* createsReasonStringInMacro(100); */
+};
