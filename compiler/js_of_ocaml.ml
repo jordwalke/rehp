@@ -159,6 +159,7 @@ let gen_file file f =
     close_out ch;
     (try Sys.remove (Fp.toString file) with Sys_error _ -> ());
     Sys.rename (Fp.toString f_tmp) (Fp.toString file)
+  (* THIS MASKS DEEPER ERROR LOCATIONS (and I've tried reraise to no avail) *)
   with exc ->
     Format.eprintf "Error: cannot generate %s@." (Fp.toString file);
     Sys.remove (Fp.toString f_tmp);

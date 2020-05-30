@@ -206,7 +206,23 @@ let formatForError = s => {
   |> String.concat(~sep="\n");
 };
 
-let commonError = {|There is a problem with the macro being called at this approximate location.|};
+/*
+ * To get refmterr to print errors nicely, js_of_ocaml.ml catches UserErrors
+ * and then prints them out so they look like OCaml compiler errors. But we
+ * don't want the majority of the error detail to show up in the "original
+ * error" section, instead we want it printed in plain text under the refmterr
+ * output. refmterr looks for:
+ * Error: sometext
+ *        some more text indented 7 spaces
+ *        and more lines continued 7 spaces
+ *   And then any text after a newline, or not indented 7 spaces such as this
+ *   here, will be printed not as part of refmterr but below refmterr output.
+ *   So for all macro errors the only part we want to be parsed as part of
+ *   refmterr is the first line "Macro Error". We will indent this text here
+ *   two spaces.
+ */
+let commonError = {|Macro Error
+  Problem with the macro being called in this module. The location is approximate.|};
 
 type tokens =
   | TOpen(string)
@@ -284,22 +300,12 @@ let raiseMacroUnsupportedTag = (~hint="", tagName, macroData) => {
 
 let raiseEmptyRequirePaths = (~which, macroData) => {
   let msg =
-    Printf.sprintf(
-      {|%s
-  The macro being called here uses a %s which is empty.
-  The macro contents are:
-%s
-|},
-      commonError,
-      which,
-      formatForError(macroData.macro),
-    );
+    Errors.emptyRequirePaths(~which, formatForError(macroData.macro));
   raise(Errors.UserError(msg, macroData.callerLoc));
 };
 
 let raiseNoOutputFileButProjectRoot = macroData => {
-  let msg =
-    Errors.macroNoOutputFile(commonError, formatForError(macroData.macro));
+  let msg = Errors.macroNoOutputFile(formatForError(macroData.macro));
   raise(Errors.UserError(msg, macroData.callerLoc));
 };
 
@@ -349,11 +355,14 @@ let raiseMacroMalformedRequire = macroData => {
 let raiseRelativeRequires = (path, projectRoot, macroData) => {
   let msg =
     Errors.relativeRequiresNotSupported(
-      commonError,
       path,
       projectRoot,
       formatForError(macroData.macro),
     );
+  raise(Errors.UserError(msg, macroData.callerLoc));
+};
+let raiseInvalidStringFromRawMacro = macroData => {
+  let msg = Errors.invalidStringFromMacro(formatForError(macroData.macro));
   raise(Errors.UserError(msg, macroData.callerLoc));
 };
 
@@ -758,13 +767,16 @@ let expandPrimBindingsAndArgs = (~mode, md, origArgs, nodeList) => {
     switch (curNode, doExpand, inIf, mode) {
     | (Raw(r), _, _, _) => (revBinds, curTxt ++ r, revArgs)
     | (Arg(i), _, _, _) =>
+      if (i <= 0) {
+        raiseIndexNotSupported(i, List.length(origArgs), md);
+      };
       switch (List.nth_opt(origArgs, i - 1)) {
       /* TODO: Throw if empty subs */
       | None => raiseIndexNotSupported(i, List.length(origArgs), md)
       | Some(a) =>
         let nextArgs = [a, ...revArgs];
         (revBinds, curTxt ++ renderPos(List.length(nextArgs)), nextArgs);
-      }
+      };
     | (RawIf(test, ts, fs, us), _, true, _) => raiseNestedMacro(md)
     /* This is still part of the raw content */
     | (RawIf(test, ts, fs, us), _, false, DontExpandPrimsInRawIfBranches) =>

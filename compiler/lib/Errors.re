@@ -39,6 +39,9 @@ let rec normalizeLeading = text => {
   String.concat(~sep="\n", lines);
 };
 
+let commonMacroError = {|Macro Error
+  Problem with the macro being called in this module. The location is approximate.|};
+
 let backendUnsupportedRequire = path =>
   "The macro called here contains a <@require> and your backend was not "
   ++ "capable of loading this particular require statement. ";
@@ -66,14 +69,31 @@ let weirdArgumentsToCamlRequire = {|
   correctly.
 |};
 
+let invalidStringFromMacro = formattedMacro =>
+  Printf.sprintf(
+    {|%s
+
+  Some code calls a macro that uses a caml_js_to_string_from_raw which couldn't
+  be inlined or is misconfigured. caml_js_to_string_from_raw is a utility
+  used by syntax transformers - typically when creating Object literals.
+
+  It's likely a problem with a syntax transform or rehp. Please find
+  a minimally reproducible example and report the issue.
+
+  The macro contents are:
+%s
+|},
+    commonMacroError,
+    formattedMacro,
+  );
+
 let macroUndefinedProjectRoot = {|
   The macro called here uses a <@projectRoot/> in a <@require>, but we
   cannot determine the projectRoot. The env variables $cur__original_root and
   $ESY__ROOT_PACKAGE_CONFIG_PATH were checked but not set.
 |};
 
-let relativeRequiresNotSupported =
-    (commonMacroError, path, projectRoot, formattedMacro) => {
+let relativeRequiresNotSupported = (path, projectRoot, formattedMacro) => {
   let rootMsg =
     switch (projectRoot) {
     | None => {|
@@ -110,7 +130,7 @@ let relativeRequiresNotSupported =
   );
 };
 
-let macroNoOutputFile = (commonMacroError, formattedMacro) => {
+let macroNoOutputFile = formattedMacro => {
   Printf.sprintf(
     {|%s
   The macro being called here uses a <@require> with a <@projectRoot/>, but
@@ -120,6 +140,19 @@ let macroNoOutputFile = (commonMacroError, formattedMacro) => {
 %s
 |},
     commonMacroError,
+    formattedMacro,
+  );
+};
+
+let emptyRequirePaths = (~which, formattedMacro) => {
+  Printf.sprintf(
+    {|%s
+  The macro being called here uses a %s which is empty.
+  The macro contents are:
+%s
+|},
+    commonMacroError,
+    which,
     formattedMacro,
   );
 };
