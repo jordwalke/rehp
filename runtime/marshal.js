@@ -365,11 +365,13 @@ var caml_output_val = function (){
       return this.chunk;
     }
   }
+  // Added in rehp: This is more compatible with iframes.
+  var hasIsArray = 'isArray' in Array;
   return function (v) {
     var writer = new Writer ();
     var stack = [];
     function extern_rec (v) {
-      if (v instanceof Array && v[0] === (v[0]|0)) {
+      if ((hasIsArray ? Array.isArray(v) : v instanceof Array) && v[0] === (v[0]|0)) {
         if (v[0] == 255) {
           // Int64
           writer.write (8, 0x12 /*cst.CODE_CUSTOM*/);
