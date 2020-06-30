@@ -718,6 +718,11 @@ let rec expression = (input: input, x) =>
   | Rehp.EInt(n) => (emptyOutput, Php.EInt(n))
   | Rehp.EQuote(s) => (emptyOutput, Php.EQuote(s))
   | Rehp.ERegexp(x, y) => (emptyOutput, Php.ERegexp(x, y))
+  | Rehp.ECustomRequire(_) => failwith("ECustomRequire not supported for PHP")
+  | Rehp.ECustomRegister(_) =>
+    failwith("ECustonRegister not supported for PHP")
+  | Rehp.ERequire(_) => failwith("ERequire not supported for PHP")
+  | Rehp.ERuntime => failwith("ERuntime not supported for PHP")
   }
 /*
  * For a given Rehp unary operator, and an expression that has already been
@@ -1070,10 +1075,7 @@ and statement = (curOut, input: input, x) => {
     | Rehp.Return_statement(e) =>
       let (eOut, eMapped) = optOutput(expression(input), e);
       (outAppend(curOut, eOut), Return_statement(eMapped));
-    | Rehp.Labelled_statement(
-        lbl,
-        (Rehp.Loop_statement(s, loc), _loc2),
-      ) =>
+    | Rehp.Labelled_statement(lbl, (Rehp.Loop_statement(s, loc), _loc2)) =>
       for_statement(
         curOut,
         input,
