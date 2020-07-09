@@ -215,12 +215,12 @@ function trim(s) {
   var i = [0,0];
   for (; ; ) {
     if (i[1] < len) {
-      if (is_space(caml_bytes_unsafe_get(s, i[1]))) {i[1] += 1;continue;}
+      if (is_space(caml_bytes_unsafe_get(s, i[1]))) {i[1] = i[1] + 1;continue;}
     }
     var j = [0,len + -1 | 0];
     for (; ; ) {
       if (i[1] <= j[1]) {
-        if (is_space(caml_bytes_unsafe_get(s, j[1]))) {j[1] += -1;continue;}
+        if (is_space(caml_bytes_unsafe_get(s, j[1]))) {j[1] = j[1] + -1;continue;}
       }
       return i[1] <= j[1] ? sub(s, i[1], (j[1] - i[1] | 0) + 1 | 0) : empty;
     }

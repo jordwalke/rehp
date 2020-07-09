@@ -1665,16 +1665,15 @@ and translate_instr ctx expr_queue loc instr =
         [ ( J.Expression_statement (J.EBin (J.Eq, J.EStructAccess (cx, int (n + 1)), cy))
           , loc )
         ]
-  (* --/++ post/prefix is difficult to get working in all languages. Use +=
-     instead. For example x[1]++ isn't supported in PHP. *)
   | Offset_ref (x, n) ->
       (* FIX: may overflow.. *)
       let (_px, cx), expr_queue = access_queue expr_queue x in
+      let sa = J.EStructAccess (cx, J.EInt 1) in
       flush_queue
         expr_queue
         mutator_p
         [ ( J.Expression_statement
-              (J.EBin (J.PlusEq, J.EStructAccess (cx, J.EInt 1), int n))
+              (J.EBin (J.Eq, sa, (J.EBin (J.IntPlus, sa, int n))))
           , loc )
         ]
   | Array_set (x, y, z) ->

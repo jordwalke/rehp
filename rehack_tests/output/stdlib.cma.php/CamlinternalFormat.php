@@ -5124,7 +5124,7 @@ final class CamlinternalFormat {
           for (;;) {
             $match = $caml_string_unsafe_get($s, $i__0);
             $switcher__0 = (int) ($match + -48) as dynamic;
-            if (! (9 < $unsigned_right_shift_32($switcher__0, 0))) {$n[1] += 1;}
+            if (! (9 < $unsigned_right_shift_32($switcher__0, 0))) {$n[1] = $n[1] + 1;}
             $c9_ = (int) ($i__0 + 1) as dynamic;
             if ($c5_ !== $i__0) {$i__0 = $c9_;continue;}
             break;
@@ -5140,7 +5140,7 @@ final class CamlinternalFormat {
         $put =
           (dynamic $c) : dynamic ==> {
             $caml_bytes_set($buf, $pos[1], $c);
-            $pos[1] += 1;
+            $pos[1] = $pos[1] + 1;
             return 0;
           };
         $left = Vector{0, (int) ((int) ((int) ($digits + -1) % 3) + 1)} as dynamic;
@@ -5154,7 +5154,7 @@ final class CamlinternalFormat {
             if (9 < $unsigned_right_shift_32($switcher, 0)) {$put($c);}
             else {
               if (0 === $left[1]) {$put(95);$left[1] = 3;}
-              $left[1] += -1;
+              $left[1] = $left[1] + -1;
               $put($c);
             }
             $c8_ = (int) ($i + 1) as dynamic;

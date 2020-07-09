@@ -1292,7 +1292,7 @@ final class Stdlib__format {
           $call3($Stdlib_string[4], $s, $left[1], (int) ($right[1] - $left[1])
           )
         );
-        $right[1] += 1;
+        $right[1] = $right[1] + 1;
         $left[1] = $right[1];
         return 0;
       };
@@ -1308,7 +1308,7 @@ final class Stdlib__format {
               $flush(0);
               $pp_print_space($ppf, 0);
             }
-            else {$right[1] += 1;}
+            else {$right[1] = $right[1] + 1;}
           }
           continue;
         }

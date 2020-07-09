@@ -341,7 +341,7 @@ final class Stdlib__stream {
         (dynamic $param) : dynamic ==> {
           $c = $count[1];
           if ($c < $runtime["caml_ml_string_length"]($s)) {
-            $count[1] += 1;
+            $count[1] = $count[1] + 1;
             return Vector{0, $runtime["caml_string_get"]($s, $c)};
           }
           return 0;
@@ -354,7 +354,7 @@ final class Stdlib__stream {
         (dynamic $param) : dynamic ==> {
           $c = $count[1];
           if ($c < $caml_ml_bytes_length($s)) {
-            $count[1] += 1;
+            $count[1] = $count[1] + 1;
             return Vector{0, $runtime["caml_bytes_get"]($s, $c)};
           }
           return 0;

@@ -4086,7 +4086,7 @@ function transform_int_alt(iconv, s) {
       for (; ; ) {
         match = caml_string_unsafe_get(s, i__0);
         switcher__0 = match + -48 | 0;
-        if (! (9 < switcher__0 >>> 0)) {n[1] += 1;}
+        if (! (9 < switcher__0 >>> 0)) {n[1] = n[1] + 1;}
         c9_ = i__0 + 1 | 0;
         if (c5_ !== i__0) {i__0 = c9_;continue;}
         break;
@@ -4098,7 +4098,12 @@ function transform_int_alt(iconv, s) {
         caml_ml_string_length(s) + ((digits + -1 | 0) / 3 | 0) | 0
       );
     pos = [0,0];
-    put = function(c) {caml_bytes_set(buf, pos[1], c);pos[1] += 1;return 0;};
+    put =
+      function(c) {
+        caml_bytes_set(buf, pos[1], c);
+        pos[1] = pos[1] + 1;
+        return 0;
+      };
     left = [0,((digits + -1 | 0) % 3 | 0) + 1 | 0];
     c7_ = caml_ml_string_length(s) + -1 | 0;
     c6_ = 0;
@@ -4108,7 +4113,11 @@ function transform_int_alt(iconv, s) {
         c = caml_string_unsafe_get(s, i);
         switcher = c + -48 | 0;
         if (9 < switcher >>> 0) put(c);
-        else {if (0 === left[1]) {put(95);left[1] = 3;}left[1] += -1;put(c);}
+        else {
+          if (0 === left[1]) {put(95);left[1] = 3;}
+          left[1] = left[1] + -1;
+          put(c);
+        }
         c8_ = i + 1 | 0;
         if (c7_ !== i) {i = c8_;continue;}
         break;

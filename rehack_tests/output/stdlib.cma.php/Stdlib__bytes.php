@@ -347,12 +347,12 @@ final class Stdlib__bytes {
       $i = Vector{0, 0} as dynamic;
       for (;;) {
         if ($i[1] < $len) {
-          if ($is_space($caml_bytes_unsafe_get($s, $i[1]))) {$i[1] += 1;continue;}
+          if ($is_space($caml_bytes_unsafe_get($s, $i[1]))) {$i[1] = $i[1] + 1;continue;}
         }
         $j = Vector{0, (int) ($len + -1)} as dynamic;
         for (;;) {
           if ($i[1] <= $j[1]) {
-            if ($is_space($caml_bytes_unsafe_get($s, $j[1]))) {$j[1] += -1;continue;}
+            if ($is_space($caml_bytes_unsafe_get($s, $j[1]))) {$j[1] = $j[1] + -1;continue;}
           }
           return $i[1] <= $j[1]
             ? $sub($s, $i[1], (int) ((int) ($j[1] - $i[1]) + 1))
@@ -439,28 +439,28 @@ final class Stdlib__bytes {
                   // FALLTHROUGH
                   case 8:
                     $caml_bytes_unsafe_set($s__0, $n[1], 92);
-                    $n[1] += 1;
+                    $n[1] = $n[1] + 1;
                     $caml_bytes_unsafe_set($s__0, $n[1], 98);
                     $switch__2 = 3 as dynamic;
                     break;
                   // FALLTHROUGH
                   case 9:
                     $caml_bytes_unsafe_set($s__0, $n[1], 92);
-                    $n[1] += 1;
+                    $n[1] = $n[1] + 1;
                     $caml_bytes_unsafe_set($s__0, $n[1], 116);
                     $switch__2 = 3 as dynamic;
                     break;
                   // FALLTHROUGH
                   case 10:
                     $caml_bytes_unsafe_set($s__0, $n[1], 92);
-                    $n[1] += 1;
+                    $n[1] = $n[1] + 1;
                     $caml_bytes_unsafe_set($s__0, $n[1], 110);
                     $switch__2 = 3 as dynamic;
                     break;
                   // FALLTHROUGH
                   case 13:
                     $caml_bytes_unsafe_set($s__0, $n[1], 92);
-                    $n[1] += 1;
+                    $n[1] = $n[1] + 1;
                     $caml_bytes_unsafe_set($s__0, $n[1], 114);
                     $switch__2 = 3 as dynamic;
                     break;
@@ -475,21 +475,21 @@ final class Stdlib__bytes {
             // FALLTHROUGH
             case 0:
               $caml_bytes_unsafe_set($s__0, $n[1], 92);
-              $n[1] += 1;
+              $n[1] = $n[1] + 1;
               $caml_bytes_unsafe_set(
                 $s__0,
                 $n[1],
                 (int)
                 (48 + (int) ($c / 100))
               );
-              $n[1] += 1;
+              $n[1] = $n[1] + 1;
               $caml_bytes_unsafe_set(
                 $s__0,
                 $n[1],
                 (int)
                 (48 + (int) ((int) ($c / 10) % 10))
               );
-              $n[1] += 1;
+              $n[1] = $n[1] + 1;
               $caml_bytes_unsafe_set(
                 $s__0,
                 $n[1],
@@ -500,7 +500,7 @@ final class Stdlib__bytes {
             // FALLTHROUGH
             case 1:
               $caml_bytes_unsafe_set($s__0, $n[1], 92);
-              $n[1] += 1;
+              $n[1] = $n[1] + 1;
               $caml_bytes_unsafe_set($s__0, $n[1], $c);
               break;
             // FALLTHROUGH
@@ -508,7 +508,7 @@ final class Stdlib__bytes {
               $caml_bytes_unsafe_set($s__0, $n[1], $c);
               break;
             }
-          $n[1] += 1;
+          $n[1] = $n[1] + 1;
           $at_ = (int) ($i + 1) as dynamic;
           if ($as_ !== $i) {$i = $at_;continue;}
           break;
@@ -771,7 +771,7 @@ final class Stdlib__bytes {
       $W_ = (dynamic $c) : dynamic ==> {
         if ($n[1] === $caml_ml_bytes_length($buf[1])) {$resize(0);}
         $caml_bytes_set($buf[1], $n[1], $c);
-        $n[1] += 1;
+        $n[1] = $n[1] + 1;
         return 0;
       };
       $call2($Stdlib_seq[8], $W_, $i);

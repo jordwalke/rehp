@@ -128,14 +128,6 @@ exception Unsupported_statement;
 let binop_from_rehp = binop =>
   switch (binop) {
   | Rehp.Eq => Php.Eq
-  | StarEq => StarEq
-  | SlashEq => SlashEq
-  | ModEq => ModEq
-  | PlusEq => PlusEq
-  | MinusEq => MinusEq
-  | BandEq => BandEq
-  | BxorEq => BandEq
-  | BorEq => BorEq
   | Or => Or
   | And => And
   | Bor => Bor
@@ -752,18 +744,6 @@ and unop_from_rehp = (input, unop, rehpExpr) =>
   | Bnot =>
     let (outMapped, exprMapped) = expression(input, rehpExpr);
     (outMapped, EUn(Bnot, exprMapped));
-  | IncrA =>
-    let (outMapped, exprMapped) = expression(input, rehpExpr);
-    (outMapped, EUn(IncrA, exprMapped));
-  | DecrA =>
-    let (outMapped, exprMapped) = expression(input, rehpExpr);
-    (outMapped, EUn(DecrA, exprMapped));
-  | IncrB =>
-    let (outMapped, exprMapped) = expression(input, rehpExpr);
-    (outMapped, EUn(IncrB, exprMapped));
-  | DecrB =>
-    let (outMapped, exprMapped) = expression(input, rehpExpr);
-    (outMapped, EUn(DecrB, exprMapped));
   }
 and switchCase = (input, e) => expression(input, e)
 and initialiser = (input: input, (e, pc)) => {

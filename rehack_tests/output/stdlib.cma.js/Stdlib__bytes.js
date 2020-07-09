@@ -331,12 +331,12 @@ function trim(s) {
   var i = [0,0];
   for (; ; ) {
     if (i[1] < len) {
-      if (is_space(caml_bytes_unsafe_get(s, i[1]))) {i[1] += 1;continue;}
+      if (is_space(caml_bytes_unsafe_get(s, i[1]))) {i[1] = i[1] + 1;continue;}
     }
     j = [0,len + -1 | 0];
     for (; ; ) {
       if (i[1] <= j[1]) {
-        if (is_space(caml_bytes_unsafe_get(s, j[1]))) {j[1] += -1;continue;}
+        if (is_space(caml_bytes_unsafe_get(s, j[1]))) {j[1] = j[1] + -1;continue;}
       }
       return i[1] <= j[1] ? sub(s, i[1], (j[1] - i[1] | 0) + 1 | 0) : empty;
     }
@@ -398,25 +398,25 @@ function escaped(s) {
       else switch (c) {
         case 8:
           caml_bytes_unsafe_set(s__0, n[1], 92);
-          n[1] += 1;
+          n[1] = n[1] + 1;
           caml_bytes_unsafe_set(s__0, n[1], 98);
           switch__2 = 3;
           break;
         case 9:
           caml_bytes_unsafe_set(s__0, n[1], 92);
-          n[1] += 1;
+          n[1] = n[1] + 1;
           caml_bytes_unsafe_set(s__0, n[1], 116);
           switch__2 = 3;
           break;
         case 10:
           caml_bytes_unsafe_set(s__0, n[1], 92);
-          n[1] += 1;
+          n[1] = n[1] + 1;
           caml_bytes_unsafe_set(s__0, n[1], 110);
           switch__2 = 3;
           break;
         case 13:
           caml_bytes_unsafe_set(s__0, n[1], 92);
-          n[1] += 1;
+          n[1] = n[1] + 1;
           caml_bytes_unsafe_set(s__0, n[1], 114);
           switch__2 = 3;
           break;
@@ -426,23 +426,23 @@ function escaped(s) {
       switch (switch__2) {
         case 0:
           caml_bytes_unsafe_set(s__0, n[1], 92);
-          n[1] += 1;
+          n[1] = n[1] + 1;
           caml_bytes_unsafe_set(s__0, n[1], 48 + (c / 100 | 0) | 0);
-          n[1] += 1;
+          n[1] = n[1] + 1;
           caml_bytes_unsafe_set(s__0, n[1], 48 + ((c / 10 | 0) % 10 | 0) | 0);
-          n[1] += 1;
+          n[1] = n[1] + 1;
           caml_bytes_unsafe_set(s__0, n[1], 48 + (c % 10 | 0) | 0);
           break;
         case 1:
           caml_bytes_unsafe_set(s__0, n[1], 92);
-          n[1] += 1;
+          n[1] = n[1] + 1;
           caml_bytes_unsafe_set(s__0, n[1], c);
           break;
         case 2:
           caml_bytes_unsafe_set(s__0, n[1], c);
           break
         }
-      n[1] += 1;
+      n[1] = n[1] + 1;
       at_ = i + 1 | 0;
       if (as_ !== i) {i = at_;continue;}
       break;
@@ -683,7 +683,7 @@ function of_seq(i) {
   function W_(c) {
     if (n[1] === caml_ml_bytes_length(buf[1])) {resize(0);}
     caml_bytes_set(buf[1], n[1], c);
-    n[1] += 1;
+    n[1] = n[1] + 1;
     return 0;
   }
   call2(Stdlib_seq[8], W_, i);

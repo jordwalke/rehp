@@ -23,14 +23,6 @@ type array_literal = element_list
 and element_list = list(option(expression))
 and binop =
   | Eq
-  | StarEq
-  | SlashEq
-  | ModEq
-  | PlusEq
-  | MinusEq
-  | BandEq
-  | BxorEq
-  | BorEq
   | Or
   | And
   | Bor
@@ -66,10 +58,6 @@ and unop =
   | Void
   | Delete
   | Bnot
-  | IncrA
-  | DecrA
-  | IncrB
-  | DecrB
 and arguments = list(expression)
 and property_name_and_value_list = list((Id.property_name, expression))
 and raw_segment =

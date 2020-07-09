@@ -779,7 +779,7 @@ final class Stdlib__float {
                     ($j[1] + 1),
                     $caml_array_get($dst, $j[1])
                   );
-                  $j[1] += -1;
+                  $j[1] = $j[1] + -1;
                   continue;
                 }
               }

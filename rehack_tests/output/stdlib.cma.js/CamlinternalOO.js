@@ -109,7 +109,7 @@ function new_table(pub_labels) {
   var az_;
   var ay_;
   var i;
-  table_count[1] += 1;
+  table_count[1] = table_count[1] + 1;
   var len = pub_labels.length - 1;
   var methods = caml_make_vect((len * 2 | 0) + 2 | 0, dummy_met);
   caml_check_bound(methods, 0)[1] = len;
@@ -184,7 +184,7 @@ function get_method_labels(table, names) {
 }
 
 function set_method(table, label, element) {
-  method_count[1] += 1;
+  method_count[1] = method_count[1] + 1;
   if (call2(Labs[27], label, table[4])) {return put(table, label, element);}
   table[6] = [0,[0,label,element],table[6]];
   return 0;
@@ -736,7 +736,7 @@ function method_impl(table, i, arr) {
   var m__5;
   var n__18;
   function next(param) {
-    i[1] += 1;
+    i[1] = i[1] + 1;
     var i_ = i[1];
     return caml_check_bound(arr, i_)[i_ + 1];
   }
@@ -864,7 +864,7 @@ function set_methods(table, methods) {
       label = caml_check_bound(methods, h_)[h_ + 1];
       clo = method_impl(table, i, methods);
       set_method(table, label, clo);
-      i[1] += 1;
+      i[1] = i[1] + 1;
       continue;
     }
     return 0;

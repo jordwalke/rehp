@@ -775,41 +775,6 @@ class clean =
       List.rev sources_rev
   end
 
-let translate_assign_op = function
-  | Div -> SlashEq
-  | Mod -> ModEq
-  | Band -> BandEq
-  | Bor -> BorEq
-  | Bxor -> BxorEq
-  | Mul -> StarEq
-  | Plus -> PlusEq
-  | Minus -> MinusEq
-  | _ -> assert false
-
-let assign_op = function
-  | exp, EBin (Plus, exp', exp'') -> (
-    match exp = exp', exp = exp'' with
-    | false, false -> None
-    | true, false ->
-        if exp'' = EInt 1
-        then Some (EUn (IncrB, exp))
-        else Some (EBin (PlusEq, exp, exp''))
-    | false, true ->
-        if exp' = EInt 1
-        then Some (EUn (IncrB, exp))
-        else Some (EBin (PlusEq, exp, exp'))
-    | true, true -> Some (EBin (StarEq, exp, EInt 1)))
-  | exp, EBin (Minus, exp', y) when exp = exp' ->
-      if y = EInt 1 then Some (EUn (DecrB, exp)) else Some (EBin (MinusEq, exp, y))
-  | exp, EBin (Mul, exp', exp'') -> (
-    match exp = exp', exp = exp'' with
-    | false, false -> None
-    | true, _ -> Some (EBin (StarEq, exp, exp''))
-    | _, true -> Some (EBin (StarEq, exp, exp')))
-  | exp, EBin (((Div | Mod | Band | Bxor | Bor) as unop), exp', y) when exp = exp' ->
-      Some (EBin (translate_assign_op unop, exp, y))
-  | _ -> None
-
 (* Performs very simple local simplifications on code that don't require
    analysis of side effects *)
 class simpl =
@@ -862,18 +827,8 @@ class simpl =
               (Expression_statement (EBin (Eq, v1, ECond (cond, e1, e2))), loc) :: rem
           | Variable_statement l1 ->
               let x =
-                List.map l1 ~f:(function
-                    | ident, None -> Variable_statement [ident, None], loc
-                    | ident, Some (exp, pc) -> (
-                      (* var x = x + x
-                 Can be simplified into x *= 2 because x must have already been in scope so
-                 no other var declaration necessary. This optimizations forms an assumption
-                 on the nature of scope in Rehp. (TODO: Document this as part of Rehp's
-                 semantics).
-              *)
-                      match assign_op (EVar ident, exp) with
-                      | Some e -> Expression_statement e, loc
-                      | None -> Variable_statement [ident, Some (exp, pc)], loc))
+                List.map l1 ~f:(fun (ident, eo) ->
+                  Variable_statement [ident, eo], loc)
               in
               x @ rem
           | _ -> (st, loc) :: rem)
