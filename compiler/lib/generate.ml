@@ -1275,7 +1275,15 @@ let _ =
       J.EBin (J.Eq, J.EArrAccess (cx, plus_int cy one), cz));
   register_un_prim "caml_alloc_dummy" `Pure (fun cx loc ->
     match cx with
-    | J.EInt i -> J.EStruct (Array.make i (J.EInt 0) |> Array.to_list)
+    | J.EInt i ->
+      (* This allocates a "dummy" cell which will later be updated in-place.
+      This primitive is emitted by OCaml compiler during processing of
+      recursive let-bindings. Requested size is `i`, but as block tags are
+      stored as first elements of an array, we allocate `i+1` to have enough
+      room for that. All values except for integers and float arrays/records
+      are tagged in OCaml, so assuming tag will be present during consequent
+      update is a sane thing to do. *)
+      J.EStruct (Array.make (i + 1) (J.EInt 0) |> Array.to_list)
     | _ -> failwith(
       "Encountered a caml_alloc_dummy without an integer size supplied. " ^
       "This is a bug in the compiler. Please report it.")

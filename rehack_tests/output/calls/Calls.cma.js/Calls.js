@@ -164,7 +164,7 @@ console.log(cst_fix, cst_me));
 }
 
 var f = runtime["caml_alloc_dummy_function"](1, 2);
-var z = [0];
+var z = [0,0];
 
 caml_update_dummy(f, function(x, y) {return 1;});
 
