@@ -120,3 +120,20 @@ echo "./rehack_tests/output/stringHelper.js"
 echo "./rehack_tests/output/strings.js"
 export OCAMLRUNPARAM=b && time js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/common-js-module-header.js" "${1}"/default/rehack_tests/strings/.strings.eobjs/byte/stringHelper.cmo -o ./rehack_tests/output/stringHelper.js
 export OCAMLRUNPARAM=b && time js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/common-js-module-header.js" "${1}"/default/rehack_tests/strings/.strings.eobjs/byte/strings.cmo -o ./rehack_tests/output/strings.js
+
+# Tests recursive functions
+echo "./rehack_tests/output/recursion/Recursion-vardecl-inline.cma.php"
+export OCAMLRUNPARAM=b && time refmterr js_of_ocaml --enable vardecl --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/php-module-header.php" --backend php "${1}"/default/rehack_tests/recursion/Recursion.cma -o ./rehack_tests/output/recursion/Recursion-vardecl-inline.cma.php/
+
+echo "./rehack_tests/output/recursion/Recursion-novardecl-inline.cma.php"
+export OCAMLRUNPARAM=b && time refmterr js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/php-module-header.php" --backend php "${1}"/default/rehack_tests/recursion/Recursion.cma -o ./rehack_tests/output/recursion/Recursion-novardecl-inline.cma.php/
+
+echo "./rehack_tests/output/recursion/Recursion-vardecl-noinline.cma.php"
+export OCAMLRUNPARAM=b && time refmterr js_of_ocaml --enable vardecl --noinline --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/php-module-header.php" --backend php "${1}"/default/rehack_tests/recursion/Recursion.cma -o ./rehack_tests/output/recursion/Recursion-vardecl-noinline.cma.php/
+
+echo "./rehack_tests/output/recursion/Recursion-novardecl-noinline.cma.php"
+export OCAMLRUNPARAM=b && time refmterr js_of_ocaml --noinline --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/php-module-header.php" --backend php "${1}"/default/rehack_tests/recursion/Recursion.cma -o ./rehack_tests/output/recursion/Recursion-novardecl-noinline.cma.php/
+
+# Tests recursive functions
+echo "./rehack_tests/output/recursion/Recursion.cma.js"
+export OCAMLRUNPARAM=b && time refmterr js_of_ocaml --enable vardecl --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/common-js-module-header.js" --backend js "${1}"/default/rehack_tests/recursion/Recursion.cma -o ./rehack_tests/output/recursion/Recursion.cma.js/
