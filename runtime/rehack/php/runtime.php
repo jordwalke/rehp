@@ -1633,7 +1633,7 @@ function caml_update_dummy(dynamic $x, KeyedContainer<int, mixed> $y): int {
     return 0;
   }
   for ($i = 0; $i < C\count($y); $i++) {
-    $x[] = $y[$i];
+    $x[$i] = $y[$i];
   }
   return 0;
 }
