@@ -289,7 +289,7 @@ let output =
       ~source_map=?,
       ((rehp, module_export_metadatas), linkinfos),
     ) => {
-  let addOneStr = (env, name) => Php_from_rehp.addOne(env, Id.ident(name));
+  let addOneStr = (env, name) => Php_from_rehp.addVar(env, Id.ident(name));
 
   /* let missing = StringSet.diff(used, languageProvided); */
 
@@ -298,13 +298,13 @@ let output =
   let initialEnv =
     List.fold_left(
       ~f=addOneStr,
-      ~init=Php_from_rehp.empty,
+      ~init=Php_from_rehp.emptyVars,
       StringSet.elements(provided()),
     );
   let env =
     Php_from_rehp.{
       vars: initialEnv,
-      enclosed_by: Php_from_rehp.NoLoopOrSwitch,
+      enclosedBy: Php_from_rehp.NoLoopOrSwitch,
     };
 
   let (_, php) = Php_from_rehp.(program(env, rehp));
