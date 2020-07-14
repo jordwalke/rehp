@@ -1231,10 +1231,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       };
     output_debug_info(f, loc);
     switch (s) {
-    | Raw_statement(s) =>
-      PP.break(f);
-      PP.string(f, s);
-      PP.break(f);
+    | Raw_statement(s) => PP.string(f, s)
     | Block(b) => block(f, b)
     | Statement_list(b) =>
       PP.start_group(f, 0);
