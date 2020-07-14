@@ -21,6 +21,13 @@ type vars = {
   vars: Code.Var.Map.t(int),
 };
 
+let debugVars = false;
+let string_of_vars = vars =>
+  String.concat(
+    ",",
+    List.map(e => fst(e), StringMap.bindings(vars.names)),
+  );
+
 type continueKind =
   | NoContinue
   | ContinueWithLabel(list(string))
@@ -1014,7 +1021,28 @@ and statement = (output, input, x) => {
   (mergeOutputs(output, nextOutput), mapped);
 }
 
-and foldStatements = (origOutput, output, input, revMapped, remain) =>
+and foldStatements = (origOutput, output, input, revMapped, remain) => {
+  let revMapped =
+    if (debugVars) {
+      let debugStatements =
+        List.map(
+          ((name, vars)) =>
+            (
+              Php.Raw_statement(
+                "// " ++ name ++ ": " ++ string_of_vars(vars),
+              ),
+              Loc.N,
+            ),
+          [
+            ("output.dec", output.dec),
+            ("output.use", output.use),
+            ("input.vars", input.vars),
+          ],
+        );
+      List.concat([debugStatements, revMapped]);
+    } else {
+      revMapped;
+    };
   switch (remain) {
   | [] => (output, List.rev(revMapped))
   | [(s, loc), ...tl] =>
@@ -1033,7 +1061,8 @@ and foldStatements = (origOutput, output, input, revMapped, remain) =>
       [(thisMapped, loc), ...revMapped],
       tl,
     );
-  }
+  };
+}
 
 and statements = (output, input, l) => {
   /* print_string(String.make(indent.contents, ' ') ++ "<statements>"); */
@@ -1069,7 +1098,28 @@ and source = (output, input, x) =>
     (nextOutput, Php.Statement(mapped));
   }
 
-and foldSources = (output, input, revMapped, remain) =>
+and foldSources = (output, input, revMapped, remain) => {
+  let revMapped =
+    if (debugVars) {
+      let debugStatements =
+        List.map(
+          ((name, vars)) =>
+            (
+              Php.Statement(
+                Raw_statement("// " ++ name ++ ": " ++ string_of_vars(vars)),
+              ),
+              Loc.N,
+            ),
+          [
+            ("output.dec", output.dec),
+            ("output.use", output.use),
+            ("source input.vars", input.vars),
+          ],
+        );
+      List.concat([debugStatements, revMapped]);
+    } else {
+      revMapped;
+    };
   switch (remain) {
   | [] => (output, List.rev(revMapped))
   | [(s, loc), ...tl] =>
@@ -1085,7 +1135,8 @@ and foldSources = (output, input, revMapped, remain) =>
       [(thisMapped, loc), ...revMapped],
       tl,
     );
-  }
+  };
+}
 
 /*
  * Ensures that all the declared variables in a function body contributes to
