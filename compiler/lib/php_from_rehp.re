@@ -71,6 +71,12 @@ type output = {
   dec: vars,
   use: vars,
   /*
+   * "refs" are variables which need to be stored inside Refs. Their value
+   * is set and read from the '->contents' field on the Ref. Examples of this
+   * are recursive functions.
+   */
+  refs: vars,
+  /*
    * "freeLabels" tracks the labels used in continue statements that haven't
    * been enclosed with the corresponding loop yet.
    *
@@ -204,7 +210,12 @@ let binopFromRehp = binop =>
   };
 
 let emptyVars = {names: StringMap.empty, vars: Code.Var.Map.empty};
-let emptyOutput = {dec: emptyVars, use: emptyVars, freeLabels: []};
+let emptyOutput = {
+  dec: emptyVars,
+  use: emptyVars,
+  refs: emptyVars,
+  freeLabels: [],
+};
 
 let exists = (vars, id) =>
   switch (id) {
@@ -282,6 +293,7 @@ let exists = (vars: vars, id) =>
 let mergeOutputs = (a, b) => {
   dec: mergeVars(a.dec, b.dec),
   use: mergeVars(a.use, b.use),
+  refs: mergeVars(a.refs, b.refs),
   freeLabels: List.concat([a.freeLabels, b.freeLabels]),
 };
 
@@ -295,28 +307,6 @@ let createRef = ((name, _)) => {
     Some((newRef, Loc.N)),
   );
 };
-
-let topLevelIdentifiersSt = (newVarsSoFar, st) =>
-  switch (st) {
-  /*
-   * This doesn't handle the case where a variable is used *before* it is
-   * defined somewhere. That's okay, we'll consider that to be invalid Rehp IR.
-   */
-  | Rehp.Variable_statement(l) =>
-    let augmentEnv = (env, (id, _eopt)) => addVar(env, id);
-    List.fold_left(~f=augmentEnv, ~init=newVarsSoFar, l);
-  /*
-   * TODO: Probably need to go one level deeper on the try body.
-   */
-  | Try_statement(_, _) => newVarsSoFar
-  | _ => newVarsSoFar
-  };
-
-let topLevelIdentifiers = (newVarsSoFar: vars, (src, _)) =>
-  switch (src) {
-  | Rehp.Function_declaration((id, _, _, _)) => addVar(newVarsSoFar, id)
-  | Statement(stmt) => topLevelIdentifiersSt(newVarsSoFar, stmt)
-  };
 
 /* No inputs to each stage, and no other output but the computed AST */
 let optOutput = (f, x) =>
@@ -871,9 +861,20 @@ and foldVars =
       | Some((rhs, loc)) =>
         let (rhsOutput, rhsMapped) = expression(input, rhs);
         /* TODO: Add a !exists(output.dec) to fix the validFloatLexem case */
+        /*
+         * If the variable has not yet been declared, but the expression
+         * used to declare it references itself, or if an expression earlier
+         * in the function body used it, then it needs to be stored inside a
+         * Ref since Hack does not allow variables to reference themselves
+         * inside their own declaration.
+         */
         if (!exists(output.dec, id)
             && (exists(output.use, id) || exists(rhsOutput.use, id))) {
           let nextOutput = mergeOutputs(output, rhsOutput);
+          let nextOutput = {
+            ...nextOutput,
+            refs: addVar(nextOutput.refs, id),
+          };
           let dummy = (
             Php.EDot(EVar(identMapped), "contents"),
             Some((rhsMapped, loc)),
@@ -1152,15 +1153,8 @@ and foldSources = (output, input, revMapped, remain) => {
 and sources = (output, input, x) => {
   /* print_string ("SOURCES"); */
   /* print_newline (); */
-  let topLevelIdents =
-    List.fold_left(~f=topLevelIdentifiers, ~init=input.vars, x);
   let (nextOutput, mappeds) = foldSources(output, input, [], x);
-  let toHoist =
-    remove(
-      remove(intersect(nextOutput.use, topLevelIdents), nextOutput.dec),
-      input.vars,
-    );
-  if (isEmpty(toHoist)) {
+  if (isEmpty(nextOutput.refs)) {
     (
       /* print_string ("/SOURCES"); */
       /* print_newline (); */
@@ -1168,7 +1162,7 @@ and sources = (output, input, x) => {
       mappeds,
     );
   } else {
-    let identsAndInits = StringMap.bindings(toHoist.names);
+    let identsAndInits = StringMap.bindings(nextOutput.refs.names);
     let refs = List.map(~f=createRef, identsAndInits);
     let refDecls = Php.Statement(Variable_statement(refs));
     /*
@@ -1176,7 +1170,7 @@ and sources = (output, input, x) => {
      */
     let nextOutput = {
       ...nextOutput,
-      dec: mergeVars(nextOutput.dec, toHoist),
+      dec: mergeVars(nextOutput.dec, nextOutput.refs),
     };
     /* print_string ("/SOURCES"); */
     /* print_newline (); */

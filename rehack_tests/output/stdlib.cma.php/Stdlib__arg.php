@@ -504,6 +504,7 @@ final class Stdlib__arg {
                 $treat_action__0 =
                   
                   (dynamic $s, dynamic $no_arg, dynamic $get_arg, dynamic $consume_arg) : dynamic ==> {
+                    $treat_action = new Ref();
                     $treat_action->contents = (dynamic $param) : dynamic ==> {
                       $after = null as dynamic;
                       $before = null as dynamic;
