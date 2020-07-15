@@ -173,10 +173,10 @@ final class Stdlib__arg {
     $Help = Vector{248, $cst_Stdlib_Arg_Help, $caml_fresh_oo_id(0)} as dynamic;
     $Stop = Vector{248, $cst_Stdlib_Arg_Stop, $caml_fresh_oo_id(0)} as dynamic;
     $assoc3 = (dynamic $x, dynamic $l) : dynamic ==> {
-      $t = null as dynamic;
       $match = null as dynamic;
-      $y2 = null as dynamic;
+      $t = null as dynamic;
       $y1 = null as dynamic;
+      $y2 = null as dynamic;
       $l__0 = $l;
       for (;;) {
         if ($l__0) {
@@ -206,28 +206,27 @@ final class Stdlib__arg {
     };
     $make_symlist = 
     (dynamic $prefix, dynamic $sep, dynamic $suffix, dynamic $l) : dynamic ==> {
-      $aC_ = null as dynamic;
-      $aB_ = null as dynamic;
       $aA_ = null as dynamic;
+      $aB_ = null as dynamic;
+      $aC_ = null as dynamic;
       $h = null as dynamic;
       $t = null as dynamic;
       if ($l) {
         $t = $l[2];
         $h = $l[1];
         $aA_ = $call2($Stdlib[28], $prefix, $h);
-        $aB_ =
-          (dynamic $x, dynamic $y) : dynamic ==> {
-            $aD_ = $call2($Stdlib[28], $sep, $y);
-            return $call2($Stdlib[28], $x, $aD_);
-          };
+        $aB_ = (dynamic $x, dynamic $y) : dynamic ==> {
+          $aD_ = $call2($Stdlib[28], $sep, $y);
+          return $call2($Stdlib[28], $x, $aD_);
+        };
         $aC_ = $call3($Stdlib_list[21], $aB_, $aA_, $t);
         return $call2($Stdlib[28], $aC_, $suffix);
       }
       return $cst_none;
     };
     $print_spec = (dynamic $buf, dynamic $param) : dynamic ==> {
-      $l = null as dynamic;
       $az_ = null as dynamic;
+      $l = null as dynamic;
       $doc = $param[3];
       $spec = $param[2];
       $key = $param[1];
@@ -246,29 +245,28 @@ final class Stdlib__arg {
       throw $caml_wrap_thrown_exception(Vector{0, $Stop, $c_}) as \Throwable;
     };
     $add_help = (dynamic $speclist) : dynamic ==> {
-      $av_ = null as dynamic;
-      $au_ = null as dynamic;
       $add2 = null as dynamic;
-      $as_ = null as dynamic;
-      $ar_ = null as dynamic;
       $aq_ = null as dynamic;
+      $ar_ = null as dynamic;
+      $as_ = null as dynamic;
+      $au_ = null as dynamic;
+      $av_ = null as dynamic;
       try {$assoc3($cst_help__2, $speclist);$av_ = 0 as dynamic;$ar_ = $av_;}
       catch(\Throwable $ax_) {
         $ax_ = $runtime["caml_wrap_exception"]($ax_);
         if ($ax_ !== $Stdlib[8]) {
           throw $caml_wrap_thrown_exception_reraise($ax_) as \Throwable;
         }
-        $aq_ =
+        $aq_ = Vector{
+          0,
           Vector{
             0,
-            Vector{
-              0,
-              $cst_help,
-              Vector{0, $help_action},
-              $cst_Display_this_list_of_options
-            },
-            0
-          } as dynamic;
+            $cst_help,
+            Vector{0, $help_action},
+            $cst_Display_this_list_of_options
+          },
+          0
+        } as dynamic;
         $ar_ = $aq_;
       }
       try {$assoc3($cst_help__1, $speclist);$au_ = 0 as dynamic;$add2 = $au_;}
@@ -277,17 +275,16 @@ final class Stdlib__arg {
         if ($aw_ !== $Stdlib[8]) {
           throw $caml_wrap_thrown_exception_reraise($aw_) as \Throwable;
         }
-        $as_ =
+        $as_ = Vector{
+          0,
           Vector{
             0,
-            Vector{
-              0,
-              $cst_help__0,
-              Vector{0, $help_action},
-              $cst_Display_this_list_of_options__0
-            },
-            0
-          } as dynamic;
+            $cst_help__0,
+            Vector{0, $help_action},
+            $cst_Display_this_list_of_options__0
+          },
+          0
+        } as dynamic;
         $add2 = $as_;
       }
       $at_ = $call2($Stdlib[37], $ar_, $add2);
@@ -344,33 +341,33 @@ final class Stdlib__arg {
     };
     $parse_and_expand_argv_dynamic_aux = 
     (dynamic $allow_expand, dynamic $current, dynamic $argv, dynamic $speclist, dynamic $anonfun, dynamic $errmsg) : dynamic ==> {
-      $m = null as dynamic;
-      $e = null as dynamic;
       $X_ = null as dynamic;
-      $s = null as dynamic;
-      $match = null as dynamic;
-      $arg = null as dynamic;
-      $keyword = null as dynamic;
-      $follow = null as dynamic;
       $Y_ = null as dynamic;
-      $follow__0 = null as dynamic;
-      $action = null as dynamic;
-      $no_arg = null as dynamic;
-      $get_arg = null as dynamic;
-      $consume_arg = null as dynamic;
-      $treat_action = null as dynamic;
-      $follow__1 = null as dynamic;
       $Z_ = null as dynamic;
-      $treat_action__0 = null as dynamic;
+      $action = null as dynamic;
+      $arg = null as dynamic;
+      $consume_arg = null as dynamic;
       $consume_arg__0 = null as dynamic;
+      $e = null as dynamic;
+      $follow = null as dynamic;
+      $follow__0 = null as dynamic;
+      $follow__1 = null as dynamic;
+      $get_arg = null as dynamic;
       $get_arg__0 = null as dynamic;
+      $keyword = null as dynamic;
+      $m = null as dynamic;
+      $match = null as dynamic;
+      $no_arg = null as dynamic;
       $no_arg__0 = null as dynamic;
+      $s = null as dynamic;
       $switch__0 = null as dynamic;
+      $treat_action = null as dynamic;
+      $treat_action__0 = null as dynamic;
       $initpos = $current[1];
       $convert_error = (dynamic $error) : dynamic ==> {
         $af_ = null as dynamic;
-        $expected = null as dynamic;
         $arg = null as dynamic;
+        $expected = null as dynamic;
         $opt = null as dynamic;
         $s = null as dynamic;
         $s__0 = null as dynamic;
@@ -459,269 +456,267 @@ final class Stdlib__arg {
                   $action = $Y_;
                   $follow__0 = $follow;
                 }
-                $no_arg__0 =
-                  (dynamic $s, dynamic $follow) : dynamic ==> {
-                    $no_arg = (dynamic $param) : dynamic ==> {
-                      $arg = null as dynamic;
-                      if ($follow) {
-                        $arg = $follow[1];
-                        throw $caml_wrap_thrown_exception(
-                                Vector{0, $Stop, Vector{1, $s, $arg, $cst_no_argument}}
-                              ) as \Throwable;
-                      }
-                      return 0;
-                    };
-                    return $no_arg;
-                  };
-                $no_arg = $no_arg__0($s, $follow__0);
-                $get_arg__0 =
-                  (dynamic $s, dynamic $follow) : dynamic ==> {
-                    $get_arg = (dynamic $param) : dynamic ==> {
-                      $ac_ = null as dynamic;
-                      $arg = null as dynamic;
-                      if ($follow) {$arg = $follow[1];return $arg;}
-                      if ((int) ($current[1] + 1) < $argv[1]->count() - 1) {
-                        $ac_ = (int) ($current[1] + 1) as dynamic;
-                        return $caml_check_bound($argv[1], $ac_)[$ac_ + 1];
-                      }
+                $no_arg__0 = (dynamic $s, dynamic $follow) : dynamic ==> {
+                  $no_arg = (dynamic $param) : dynamic ==> {
+                    if ($follow) {
+                      $arg = $follow[1];
                       throw $caml_wrap_thrown_exception(
-                              Vector{0, $Stop, Vector{2, $s}}
+                              Vector{0, $Stop, Vector{1, $s, $arg, $cst_no_argument}}
                             ) as \Throwable;
-                    };
-                    return $get_arg;
+                    }
+                    return 0;
                   };
+                  return $no_arg;
+                };
+                $no_arg = $no_arg__0($s, $follow__0);
+                $get_arg__0 = (dynamic $s, dynamic $follow) : dynamic ==> {
+                  $get_arg = (dynamic $param) : dynamic ==> {
+                    $ac_ = null as dynamic;
+                    if ($follow) {$arg = $follow[1];return $arg;}
+                    if ((int) ($current[1] + 1) < $argv[1]->count() - 1) {
+                      $ac_ = (int) ($current[1] + 1) as dynamic;
+                      return $caml_check_bound($argv[1], $ac_)[$ac_ + 1];
+                    }
+                    throw $caml_wrap_thrown_exception(
+                            Vector{0, $Stop, Vector{2, $s}}
+                          ) as \Throwable;
+                  };
+                  return $get_arg;
+                };
                 $get_arg = $get_arg__0($s, $follow__0);
-                $consume_arg__0 =
-                  (dynamic $follow) : dynamic ==> {
-                    $consume_arg = (dynamic $param) : dynamic ==> {
-                      if ($follow) {return 0;}
-                      $current[1] += 1;
-                      return 0;
-                    };
-                    return $consume_arg;
+                $consume_arg__0 = (dynamic $follow) : dynamic ==> {
+                  $consume_arg = (dynamic $param) : dynamic ==> {
+                    if ($follow) {return 0;}
+                    $current[1] += 1;
+                    return 0;
                   };
+                  return $consume_arg;
+                };
                 $consume_arg = $consume_arg__0($follow__0);
-                $treat_action__0 =
-                  
-                  (dynamic $s, dynamic $no_arg, dynamic $get_arg, dynamic $consume_arg) : dynamic ==> {
-                    $treat_action = new Ref();
-                    $treat_action->contents = (dynamic $param) : dynamic ==> {
-                      $after = null as dynamic;
-                      $before = null as dynamic;
-                      $newarg = null as dynamic;
-                      $arg__6 = null as dynamic;
-                      $f__6 = null as dynamic;
-                      $ab_ = null as dynamic;
-                      $f__5 = null as dynamic;
-                      $aa_ = null as dynamic;
-                      $arg__5 = null as dynamic;
-                      $symb = null as dynamic;
-                      $f__4 = null as dynamic;
-                      $specs = null as dynamic;
-                      $x__2 = null as dynamic;
-                      $match__3 = null as dynamic;
-                      $arg__4 = null as dynamic;
-                      $r__3 = null as dynamic;
-                      $x__1 = null as dynamic;
-                      $match__2 = null as dynamic;
-                      $arg__3 = null as dynamic;
-                      $f__3 = null as dynamic;
-                      $x__0 = null as dynamic;
-                      $match__1 = null as dynamic;
-                      $arg__2 = null as dynamic;
-                      $r__2 = null as dynamic;
-                      $x = null as dynamic;
-                      $match__0 = null as dynamic;
-                      $arg__1 = null as dynamic;
-                      $f__2 = null as dynamic;
-                      $r__1 = null as dynamic;
-                      $arg__0 = null as dynamic;
-                      $f__1 = null as dynamic;
-                      $r__0 = null as dynamic;
-                      $r = null as dynamic;
-                      $s__0 = null as dynamic;
-                      $match = null as dynamic;
-                      $arg = null as dynamic;
-                      $f__0 = null as dynamic;
-                      $f = null as dynamic;
-                      switch($param[0]) {
-                        // FALLTHROUGH
-                        case 0:
-                          $f = $param[1];
-                          $no_arg(0);
-                          return $call1($f, 0);
-                        // FALLTHROUGH
-                        case 1:
-                          $f__0 = $param[1];
-                          $arg = $get_arg(0);
-                          $match = $bool_of_string_opt($arg);
-                          if ($match) {
-                            $s__0 = $match[1];
-                            $call1($f__0, $s__0);
-                            return $consume_arg(0);
-                          }
-                          throw $caml_wrap_thrown_exception(
-                                  Vector{0, $Stop, Vector{1, $s, $arg, $cst_a_boolean}}
-                                ) as \Throwable;
-                        // FALLTHROUGH
-                        case 2:
-                          $r = $param[1];
-                          $no_arg(0);
-                          $r[1] = 1;
-                          return 0;
-                        // FALLTHROUGH
-                        case 3:
-                          $r__0 = $param[1];
-                          $no_arg(0);
-                          $r__0[1] = 0;
-                          return 0;
-                        // FALLTHROUGH
-                        case 4:
-                          $f__1 = $param[1];
-                          $arg__0 = $get_arg(0);
-                          $call1($f__1, $arg__0);
+                $treat_action__0 = 
+                (dynamic $s, dynamic $no_arg, dynamic $get_arg, dynamic $consume_arg) : dynamic ==> {
+                  $treat_action = new Ref();
+                  $treat_action->contents = (dynamic $param) : dynamic ==> {
+                    $aa_ = null as dynamic;
+                    $ab_ = null as dynamic;
+                    $after = null as dynamic;
+                    $arg__0 = null as dynamic;
+                    $arg__1 = null as dynamic;
+                    $arg__2 = null as dynamic;
+                    $arg__3 = null as dynamic;
+                    $arg__4 = null as dynamic;
+                    $arg__5 = null as dynamic;
+                    $arg__6 = null as dynamic;
+                    $before = null as dynamic;
+                    $f = null as dynamic;
+                    $f__0 = null as dynamic;
+                    $f__1 = null as dynamic;
+                    $f__2 = null as dynamic;
+                    $f__3 = null as dynamic;
+                    $f__4 = null as dynamic;
+                    $f__5 = null as dynamic;
+                    $f__6 = null as dynamic;
+                    $match__0 = null as dynamic;
+                    $match__1 = null as dynamic;
+                    $match__2 = null as dynamic;
+                    $match__3 = null as dynamic;
+                    $newarg = null as dynamic;
+                    $r = null as dynamic;
+                    $r__0 = null as dynamic;
+                    $r__1 = null as dynamic;
+                    $r__2 = null as dynamic;
+                    $r__3 = null as dynamic;
+                    $s__0 = null as dynamic;
+                    $specs = null as dynamic;
+                    $symb = null as dynamic;
+                    $x = null as dynamic;
+                    $x__0 = null as dynamic;
+                    $x__1 = null as dynamic;
+                    $x__2 = null as dynamic;
+                    switch($param[0]) {
+                      // FALLTHROUGH
+                      case 0:
+                        $f = $param[1];
+                        $no_arg(0);
+                        return $call1($f, 0);
+                      // FALLTHROUGH
+                      case 1:
+                        $f__0 = $param[1];
+                        $arg = $get_arg(0);
+                        $match = $bool_of_string_opt($arg);
+                        if ($match) {
+                          $s__0 = $match[1];
+                          $call1($f__0, $s__0);
                           return $consume_arg(0);
-                        // FALLTHROUGH
-                        case 5:
-                          $r__1 = $param[1];
-                          $r__1[1] = $get_arg(0);
+                        }
+                        throw $caml_wrap_thrown_exception(
+                                Vector{0, $Stop, Vector{1, $s, $arg, $cst_a_boolean}}
+                              ) as \Throwable;
+                      // FALLTHROUGH
+                      case 2:
+                        $r = $param[1];
+                        $no_arg(0);
+                        $r[1] = 1;
+                        return 0;
+                      // FALLTHROUGH
+                      case 3:
+                        $r__0 = $param[1];
+                        $no_arg(0);
+                        $r__0[1] = 0;
+                        return 0;
+                      // FALLTHROUGH
+                      case 4:
+                        $f__1 = $param[1];
+                        $arg__0 = $get_arg(0);
+                        $call1($f__1, $arg__0);
+                        return $consume_arg(0);
+                      // FALLTHROUGH
+                      case 5:
+                        $r__1 = $param[1];
+                        $r__1[1] = $get_arg(0);
+                        return $consume_arg(0);
+                      // FALLTHROUGH
+                      case 6:
+                        $f__2 = $param[1];
+                        $arg__1 = $get_arg(0);
+                        $match__0 = $int_of_string_opt($arg__1);
+                        if ($match__0) {
+                          $x = $match__0[1];
+                          $call1($f__2, $x);
                           return $consume_arg(0);
-                        // FALLTHROUGH
-                        case 6:
-                          $f__2 = $param[1];
-                          $arg__1 = $get_arg(0);
-                          $match__0 = $int_of_string_opt($arg__1);
-                          if ($match__0) {
-                            $x = $match__0[1];
-                            $call1($f__2, $x);
-                            return $consume_arg(0);
+                        }
+                        throw $caml_wrap_thrown_exception(
+                                Vector{0, $Stop, Vector{1, $s, $arg__1, $cst_an_integer}}
+                              ) as \Throwable;
+                      // FALLTHROUGH
+                      case 7:
+                        $r__2 = $param[1];
+                        $arg__2 = $get_arg(0);
+                        $match__1 = $int_of_string_opt($arg__2);
+                        if ($match__1) {
+                          $x__0 = $match__1[1];
+                          $r__2[1] = $x__0;
+                          return $consume_arg(0);
+                        }
+                        throw $caml_wrap_thrown_exception(
+                                Vector{0, $Stop, Vector{1, $s, $arg__2, $cst_an_integer__0}}
+                              ) as \Throwable;
+                      // FALLTHROUGH
+                      case 8:
+                        $f__3 = $param[1];
+                        $arg__3 = $get_arg(0);
+                        $match__2 = $float_of_string_opt($arg__3);
+                        if ($match__2) {
+                          $x__1 = $match__2[1];
+                          $call1($f__3, $x__1);
+                          return $consume_arg(0);
+                        }
+                        throw $caml_wrap_thrown_exception(
+                                Vector{0, $Stop, Vector{1, $s, $arg__3, $cst_a_float}}
+                              ) as \Throwable;
+                      // FALLTHROUGH
+                      case 9:
+                        $r__3 = $param[1];
+                        $arg__4 = $get_arg(0);
+                        $match__3 = $float_of_string_opt($arg__4);
+                        if ($match__3) {
+                          $x__2 = $match__3[1];
+                          $r__3[1] = $x__2;
+                          return $consume_arg(0);
+                        }
+                        throw $caml_wrap_thrown_exception(
+                                Vector{0, $Stop, Vector{1, $s, $arg__4, $cst_a_float__0}}
+                              ) as \Throwable;
+                      // FALLTHROUGH
+                      case 10:
+                        $specs = $param[1];
+                        $no_arg(0);
+                        return $call2(
+                          $Stdlib_list[15],
+                          $treat_action->contents,
+                          $specs
+                        );
+                      // FALLTHROUGH
+                      case 11:
+                        $f__4 = $param[2];
+                        $symb = $param[1];
+                        $arg__5 = $get_arg(0);
+                        if ($call2($Stdlib_list[32], $arg__5, $symb)) {
+                          $call1($f__4, $arg__5);
+                          return $consume_arg(0);
+                        }
+                        $aa_ = $make_symlist($cst__5, $cst__4, $cst__3, $symb);
+                        throw $caml_wrap_thrown_exception(
+                                Vector{
+                                  0,
+                                  $Stop,
+                                  Vector{
+                                    1,
+                                    $s,
+                                    $arg__5,
+                                    $call2($Stdlib[28], $cst_one_of, $aa_)
+                                  }
+                                }
+                              ) as \Throwable;
+                      // FALLTHROUGH
+                      case 12:
+                        $f__5 = $param[1];
+                        $no_arg(0);
+                        for (;;) {
+                          if ($current[1] < (int) ($argv[1]->count() - 1 + -1)) {
+                            $ab_ = (int) ($current[1] + 1) as dynamic;
+                            $call1($f__5, $caml_check_bound($argv[1], $ab_)[$ab_ + 1]);
+                            $consume_arg(0);
+                            continue;
                           }
-                          throw $caml_wrap_thrown_exception(
-                                  Vector{0, $Stop, Vector{1, $s, $arg__1, $cst_an_integer}}
-                                ) as \Throwable;
-                        // FALLTHROUGH
-                        case 7:
-                          $r__2 = $param[1];
-                          $arg__2 = $get_arg(0);
-                          $match__1 = $int_of_string_opt($arg__2);
-                          if ($match__1) {
-                            $x__0 = $match__1[1];
-                            $r__2[1] = $x__0;
-                            return $consume_arg(0);
-                          }
-                          throw $caml_wrap_thrown_exception(
-                                  Vector{0, $Stop, Vector{1, $s, $arg__2, $cst_an_integer__0}}
-                                ) as \Throwable;
-                        // FALLTHROUGH
-                        case 8:
-                          $f__3 = $param[1];
-                          $arg__3 = $get_arg(0);
-                          $match__2 = $float_of_string_opt($arg__3);
-                          if ($match__2) {
-                            $x__1 = $match__2[1];
-                            $call1($f__3, $x__1);
-                            return $consume_arg(0);
-                          }
-                          throw $caml_wrap_thrown_exception(
-                                  Vector{0, $Stop, Vector{1, $s, $arg__3, $cst_a_float}}
-                                ) as \Throwable;
-                        // FALLTHROUGH
-                        case 9:
-                          $r__3 = $param[1];
-                          $arg__4 = $get_arg(0);
-                          $match__3 = $float_of_string_opt($arg__4);
-                          if ($match__3) {
-                            $x__2 = $match__3[1];
-                            $r__3[1] = $x__2;
-                            return $consume_arg(0);
-                          }
-                          throw $caml_wrap_thrown_exception(
-                                  Vector{0, $Stop, Vector{1, $s, $arg__4, $cst_a_float__0}}
-                                ) as \Throwable;
-                        // FALLTHROUGH
-                        case 10:
-                          $specs = $param[1];
-                          $no_arg(0);
-                          return $call2($Stdlib_list[15], $treat_action, $specs);
-                        // FALLTHROUGH
-                        case 11:
-                          $f__4 = $param[2];
-                          $symb = $param[1];
-                          $arg__5 = $get_arg(0);
-                          if ($call2($Stdlib_list[32], $arg__5, $symb)) {
-                            $call1($f__4, $arg__5);
-                            return $consume_arg(0);
-                          }
-                          $aa_ = $make_symlist($cst__5, $cst__4, $cst__3, $symb);
+                          return 0;
+                        }
+                      // FALLTHROUGH
+                      default:
+                        $f__6 = $param[1];
+                        if (1 - $allow_expand) {
                           throw $caml_wrap_thrown_exception(
                                   Vector{
                                     0,
-                                    $Stop,
-                                    Vector{
-                                      1,
-                                      $s,
-                                      $arg__5,
-                                      $call2($Stdlib[28], $cst_one_of, $aa_)
-                                    }
+                                    $Stdlib[6],
+                                    $cst_Arg_Expand_is_is_only_allowed_with_Arg_parse_and_expand_argv_dynamic
                                   }
                                 ) as \Throwable;
-                        // FALLTHROUGH
-                        case 12:
-                          $f__5 = $param[1];
-                          $no_arg(0);
-                          for (;;) {
-                            if ($current[1] < (int) ($argv[1]->count() - 1 + -1)) {
-                              $ab_ = (int) ($current[1] + 1) as dynamic;
-                              $call1($f__5, $caml_check_bound($argv[1], $ab_)[$ab_ + 1]);
-                              $consume_arg(0);
-                              continue;
-                            }
-                            return 0;
-                          }
-                        // FALLTHROUGH
-                        default:
-                          $f__6 = $param[1];
-                          if (1 - $allow_expand) {
-                            throw $caml_wrap_thrown_exception(
-                                    Vector{
-                                      0,
-                                      $Stdlib[6],
-                                      $cst_Arg_Expand_is_is_only_allowed_with_Arg_parse_and_expand_argv_dynamic
-                                    }
-                                  ) as \Throwable;
-                          }
-                          $arg__6 = $get_arg(0);
-                          $newarg = $call1($f__6, $arg__6);
-                          $consume_arg(0);
-                          $before =
-                            $call3(
-                              $Stdlib_array[7],
-                              $argv[1],
-                              0,
-                              (int)
-                              ($current[1] + 1)
-                            );
-                          $after =
-                            $call3(
-                              $Stdlib_array[7],
-                              $argv[1],
-                              (int)
-                              ($current[1] + 1),
-                              (int)
-                              ((int) ($argv[1]->count() - 1 - $current[1]) + -1)
-                            );
-                          $argv[1] =
-                            $call1(
-                              $Stdlib_array[6],
-                              Vector{0, $before, Vector{0, $newarg, Vector{0, $after, 0}}}
-                            );
-                          return 0;
                         }
-                    };
-                    return $treat_action;
+                        $arg__6 = $get_arg(0);
+                        $newarg = $call1($f__6, $arg__6);
+                        $consume_arg(0);
+                        $before = $call3(
+                          $Stdlib_array[7],
+                          $argv[1],
+                          0,
+                          (int)
+                          ($current[1] + 1)
+                        );
+                        $after = $call3(
+                          $Stdlib_array[7],
+                          $argv[1],
+                          (int)
+                          ($current[1] + 1),
+                          (int)
+                          ((int) ($argv[1]->count() - 1 - $current[1]) + -1)
+                        );
+                        $argv[1] =
+                          $call1(
+                            $Stdlib_array[6],
+                            Vector{0, $before, Vector{0, $newarg, Vector{0, $after, 0}}}
+                          );
+                        return 0;
+                      }
                   };
-                $treat_action =
-                  $treat_action__0($s, $no_arg, $get_arg, $consume_arg);
+                  return $treat_action->contents;
+                };
+                $treat_action = $treat_action__0(
+                  $s,
+                  $no_arg,
+                  $get_arg,
+                  $consume_arg
+                );
                 $treat_action($action);
                 $switch__0 = 1 as dynamic;
               }
@@ -796,8 +791,8 @@ final class Stdlib__arg {
     };
     $parse = (dynamic $l, dynamic $f, dynamic $msg) : dynamic ==> {
       $W_ = null as dynamic;
-      $msg__1 = null as dynamic;
       $msg__0 = null as dynamic;
+      $msg__1 = null as dynamic;
       try {$W_ = $parse_argv(0, $Stdlib_sys[1], $l, $f, $msg);return $W_;}
       catch(\Throwable $exn) {
         $exn = $runtime["caml_wrap_exception"]($exn);
@@ -816,8 +811,8 @@ final class Stdlib__arg {
     };
     $parse_dynamic = (dynamic $l, dynamic $f, dynamic $msg) : dynamic ==> {
       $V_ = null as dynamic;
-      $msg__1 = null as dynamic;
       $msg__0 = null as dynamic;
+      $msg__1 = null as dynamic;
       try {
         $V_ = $parse_argv_dynamic(0, $Stdlib_sys[1], $l, $f, $msg);
         return $V_;
@@ -839,17 +834,22 @@ final class Stdlib__arg {
     };
     $parse_expand = (dynamic $l, dynamic $f, dynamic $msg) : dynamic ==> {
       $U_ = null as dynamic;
-      $current__0 = null as dynamic;
-      $spec = null as dynamic;
       $argv = null as dynamic;
-      $msg__1 = null as dynamic;
+      $current__0 = null as dynamic;
       $msg__0 = null as dynamic;
+      $msg__1 = null as dynamic;
+      $spec = null as dynamic;
       try {
         $argv = Vector{0, $Stdlib_sys[1]} as dynamic;
         $spec = Vector{0, $l} as dynamic;
         $current__0 = Vector{0, $current[1]} as dynamic;
-        $U_ =
-          $parse_and_expand_argv_dynamic($current__0, $argv, $spec, $f, $msg);
+        $U_ = $parse_and_expand_argv_dynamic(
+          $current__0,
+          $argv,
+          $spec,
+          $f,
+          $msg
+        );
         return $U_;
       }
       catch(\Throwable $exn) {
@@ -919,21 +919,21 @@ final class Stdlib__arg {
       return $call2($Stdlib_string[10], $Q_, $s);
     };
     $add_padding = (dynamic $len, dynamic $ksd) : dynamic ==> {
-      $msg = null as dynamic;
-      $cutcol = null as dynamic;
-      $kwd_len = null as dynamic;
-      $diff = null as dynamic;
-      $spaces = null as dynamic;
       $L_ = null as dynamic;
-      $prefix = null as dynamic;
-      $suffix = null as dynamic;
       $M_ = null as dynamic;
-      $msg__0 = null as dynamic;
-      $cutcol__0 = null as dynamic;
       $N_ = null as dynamic;
-      $spaces__0 = null as dynamic;
       $O_ = null as dynamic;
       $P_ = null as dynamic;
+      $cutcol = null as dynamic;
+      $cutcol__0 = null as dynamic;
+      $diff = null as dynamic;
+      $kwd_len = null as dynamic;
+      $msg = null as dynamic;
+      $msg__0 = null as dynamic;
+      $prefix = null as dynamic;
+      $spaces = null as dynamic;
+      $spaces__0 = null as dynamic;
+      $suffix = null as dynamic;
       $J_ = $ksd[2];
       $K_ = $ksd[1];
       if ($caml_string_notequal($ksd[3], $cst__6)) {
@@ -954,14 +954,13 @@ final class Stdlib__arg {
           $spaces = $call2($Stdlib_string[1], $diff, 32);
           $L_ = $replace_leading_tab($msg);
           $prefix = $call3($Stdlib_string[4], $L_, 0, $cutcol);
-          $suffix =
-            $call3(
-              $Stdlib_string[4],
-              $msg,
-              $cutcol,
-              (int)
-              ($caml_ml_string_length($msg) - $cutcol)
-            );
+          $suffix = $call3(
+            $Stdlib_string[4],
+            $msg,
+            $cutcol,
+            (int)
+            ($caml_ml_string_length($msg) - $cutcol)
+          );
           $M_ = $call2($Stdlib[28], $spaces, $suffix);
           return Vector{0, $K_, $J_, $call2($Stdlib[28], $prefix, $M_)};
         }

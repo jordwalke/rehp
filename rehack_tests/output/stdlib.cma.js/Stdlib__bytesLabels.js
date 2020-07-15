@@ -9,9 +9,6 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
-
-;
-
 var Stdlib_bytes = require("./Stdlib__bytes.js");
 var make = Stdlib_bytes[1];
 var init = Stdlib_bytes[2];

@@ -9,15 +9,15 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
+var caml_bytes_unsafe_set = runtime["caml_bytes_unsafe_set"];
+var caml_create_bytes = runtime["caml_create_bytes"];
+var string = runtime["caml_new_string"];
+var caml_string_of_bytes = runtime["caml_string_of_bytes"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-var caml_bytes_unsafe_set = runtime["caml_bytes_unsafe_set"];
-var caml_create_bytes = runtime["caml_create_bytes"];
-var string = runtime["caml_new_string"];
-var caml_string_of_bytes = runtime["caml_string_of_bytes"];
 var cst = string("\\\\");
 var cst__0 = string("\\'");
 var cst_b = string("\\b");
@@ -33,17 +33,15 @@ function chr(n) {
 }
 
 function escaped(c) {
-  var switch__0;
-  var s__0;
   if (40 <= c) {
     if (92 === c) {return cst;}
-    switch__0 = 127 <= c ? 0 : 1;
+    var switch__0 = 127 <= c ? 0 : 1;
   }
   else if (32 <= c) {
     if (39 <= c) {return cst__0;}
-    switch__0 = 1;
+    var switch__0 = 1;
   }
-  else if (14 <= c) switch__0 = 0;
+  else if (14 <= c) var switch__0 = 0;
   else switch (c) {
     case 8:
       return cst_b;
@@ -54,10 +52,10 @@ function escaped(c) {
     case 13:
       return cst_r;
     default:
-      switch__0 = 0
+      var switch__0 = 0
     }
   if (switch__0) {
-    s__0 = caml_create_bytes(1);
+    var s__0 = caml_create_bytes(1);
     caml_bytes_unsafe_set(s__0, 0, c);
     return caml_string_of_bytes(s__0);
   }
@@ -70,13 +68,11 @@ function escaped(c) {
 }
 
 function lowercase(c) {
-  var switch__1;
-  var switch__2;
   var switch__0 = 65 <= c ? 90 < c ? 0 : 1 : 0;
   if (! switch__0) {
-    switch__1 = 192 <= c ? 214 < c ? 0 : 1 : 0;
+    var switch__1 = 192 <= c ? 214 < c ? 0 : 1 : 0;
     if (! switch__1) {
-      switch__2 = 216 <= c ? 222 < c ? 1 : 0 : 1;
+      var switch__2 = 216 <= c ? 222 < c ? 1 : 0 : 1;
       if (switch__2) {return c;}
     }
   }
@@ -84,13 +80,11 @@ function lowercase(c) {
 }
 
 function uppercase(c) {
-  var switch__1;
-  var switch__2;
   var switch__0 = 97 <= c ? 122 < c ? 0 : 1 : 0;
   if (! switch__0) {
-    switch__1 = 224 <= c ? 246 < c ? 0 : 1 : 0;
+    var switch__1 = 224 <= c ? 246 < c ? 0 : 1 : 0;
     if (! switch__1) {
-      switch__2 = 248 <= c ? 254 < c ? 1 : 0 : 1;
+      var switch__2 = 248 <= c ? 254 < c ? 1 : 0 : 1;
       if (switch__2) {return c;}
     }
   }

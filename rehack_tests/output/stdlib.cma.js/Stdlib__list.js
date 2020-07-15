@@ -9,6 +9,9 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
+var caml_compare = runtime["caml_compare"];
+var string = runtime["caml_new_string"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -24,9 +27,6 @@ function call3(f, a0, a1, a2) {
     runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-var caml_compare = runtime["caml_compare"];
-var string = runtime["caml_new_string"];
-var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 var cst_List_map2 = string("List.map2");
 var cst_List_iter2 = string("List.iter2");
 var cst_List_fold_left2 = string("List.fold_left2");
@@ -49,16 +49,14 @@ var d_ = [0,0,0];
 var e_ = [0,string("list.ml"),282,11];
 
 function length_aux(len, param) {
-  var param__1;
-  var len__1;
   var len__0 = len;
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      param__1 = param__0[2];
-      len__1 = len__0 + 1 | 0;
-      len__0 = len__1;
-      param__0 = param__1;
+      var param__1 = param__0[2];
+      var len__1 = len__0 + 1 | 0;
+      var len__0 = len__1;
+      var param__0 = param__1;
       continue;
     }
     return len__0;
@@ -70,68 +68,56 @@ function length(l) {return length_aux(0, l);}
 function cons(a, l) {return [0,a,l];}
 
 function hd(param) {
-  var a;
-  if (param) {a = param[1];return a;}
+  if (param) {var a = param[1];return a;}
   return call1(Stdlib[2], cst_hd);
 }
 
 function tl(param) {
-  var l;
-  if (param) {l = param[2];return l;}
+  if (param) {var l = param[2];return l;}
   return call1(Stdlib[2], cst_tl);
 }
 
 function nth(l, n) {
-  var nth_aux;
   if (0 <= n) {
-    nth_aux =
-      function(l, n) {
-        var l__1;
-        var a;
-        var n__1;
-        var l__0 = l;
-        var n__0 = n;
-        for (; ; ) {
-          if (l__0) {
-            l__1 = l__0[2];
-            a = l__0[1];
-            if (0 === n__0) {return a;}
-            n__1 = n__0 + -1 | 0;
-            l__0 = l__1;
-            n__0 = n__1;
-            continue;
-          }
-          return call1(Stdlib[2], cst_nth);
+    var nth_aux = function(l, n) {
+      var l__0 = l;
+      var n__0 = n;
+      for (; ; ) {
+        if (l__0) {
+          var l__1 = l__0[2];
+          var a = l__0[1];
+          if (0 === n__0) {return a;}
+          var n__1 = n__0 + -1 | 0;
+          var l__0 = l__1;
+          var n__0 = n__1;
+          continue;
         }
-      };
+        return call1(Stdlib[2], cst_nth);
+      }
+    };
     return nth_aux(l, n);
   }
   return call1(Stdlib[1], cst_List_nth);
 }
 
 function nth_opt(l, n) {
-  var nth_aux;
   if (0 <= n) {
-    nth_aux =
-      function(l, n) {
-        var l__1;
-        var a;
-        var n__1;
-        var l__0 = l;
-        var n__0 = n;
-        for (; ; ) {
-          if (l__0) {
-            l__1 = l__0[2];
-            a = l__0[1];
-            if (0 === n__0) {return [0,a];}
-            n__1 = n__0 + -1 | 0;
-            l__0 = l__1;
-            n__0 = n__1;
-            continue;
-          }
-          return 0;
+    var nth_aux = function(l, n) {
+      var l__0 = l;
+      var n__0 = n;
+      for (; ; ) {
+        if (l__0) {
+          var l__1 = l__0[2];
+          var a = l__0[1];
+          if (0 === n__0) {return [0,a];}
+          var n__1 = n__0 + -1 | 0;
+          var l__0 = l__1;
+          var n__0 = n__1;
+          continue;
         }
-      };
+        return 0;
+      }
+    };
     return nth_aux(l, n);
   }
   return call1(Stdlib[1], cst_List_nth__0);
@@ -140,18 +126,15 @@ function nth_opt(l, n) {
 var a_ = Stdlib[37];
 
 function rev_append(l1, l2) {
-  var l1__1;
-  var a;
-  var l2__1;
   var l1__0 = l1;
   var l2__0 = l2;
   for (; ; ) {
     if (l1__0) {
-      l1__1 = l1__0[2];
-      a = l1__0[1];
-      l2__1 = [0,a,l2__0];
-      l1__0 = l1__1;
-      l2__0 = l2__1;
+      var l1__1 = l1__0[2];
+      var a = l1__0[1];
+      var l2__1 = [0,a,l2__0];
+      var l1__0 = l1__1;
+      var l2__0 = l2__1;
       continue;
     }
     return l2__0;
@@ -161,16 +144,14 @@ function rev_append(l1, l2) {
 function rev(l) {return rev_append(l, 0);}
 
 function init_tailrec_aux(acc, i, n, f) {
-  var i__1;
-  var acc__1;
   var acc__0 = acc;
   var i__0 = i;
   for (; ; ) {
     if (n <= i__0) {return acc__0;}
-    i__1 = i__0 + 1 | 0;
-    acc__1 = [0,call1(f, i__0),acc__0];
-    acc__0 = acc__1;
-    i__0 = i__1;
+    var i__1 = i__0 + 1 | 0;
+    var acc__1 = [0,call1(f, i__0),acc__0];
+    var acc__0 = acc__1;
+    var i__0 = i__1;
     continue;
   }
 }
@@ -192,39 +173,30 @@ function init(len, f) {
 }
 
 function flatten(param) {
-  var I_;
-  var l;
-  var r;
   if (param) {
-    r = param[2];
-    l = param[1];
-    I_ = flatten(r);
+    var r = param[2];
+    var l = param[1];
+    var I_ = flatten(r);
     return call2(Stdlib[37], l, I_);
   }
   return 0;
 }
 
 function map(f, param) {
-  var r;
-  var a;
-  var l;
   if (param) {
-    l = param[2];
-    a = param[1];
-    r = call1(f, a);
+    var l = param[2];
+    var a = param[1];
+    var r = call1(f, a);
     return [0,r,map(f, l)];
   }
   return 0;
 }
 
 function b_(i, f, param) {
-  var r;
-  var a;
-  var l;
   if (param) {
-    l = param[2];
-    a = param[1];
-    r = call2(f, i, a);
+    var l = param[2];
+    var a = param[1];
+    var r = call2(f, i, a);
     return [0,r,b_(i + 1 | 0, f, l)];
   }
   return 0;
@@ -234,18 +206,15 @@ function mapi(f, l) {return b_(0, f, l);}
 
 function rev_map(f, l) {
   function rmap_f(accu, param) {
-    var param__1;
-    var a;
-    var accu__1;
     var accu__0 = accu;
     var param__0 = param;
     for (; ; ) {
       if (param__0) {
-        param__1 = param__0[2];
-        a = param__0[1];
-        accu__1 = [0,call1(f, a),accu__0];
-        accu__0 = accu__1;
-        param__0 = param__1;
+        var param__1 = param__0[2];
+        var a = param__0[1];
+        var accu__1 = [0,call1(f, a),accu__0];
+        var accu__0 = accu__1;
+        var param__0 = param__1;
         continue;
       }
       return accu__0;
@@ -255,15 +224,13 @@ function rev_map(f, l) {
 }
 
 function iter(f, param) {
-  var param__1;
-  var a;
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      param__1 = param__0[2];
-      a = param__0[1];
+      var param__1 = param__0[2];
+      var a = param__0[1];
       call1(f, a);
-      param__0 = param__1;
+      var param__0 = param__1;
       continue;
     }
     return 0;
@@ -271,19 +238,16 @@ function iter(f, param) {
 }
 
 function c_(i, f, param) {
-  var param__1;
-  var a;
-  var i__1;
   var i__0 = i;
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      param__1 = param__0[2];
-      a = param__0[1];
+      var param__1 = param__0[2];
+      var a = param__0[1];
       call2(f, i__0, a);
-      i__1 = i__0 + 1 | 0;
-      i__0 = i__1;
-      param__0 = param__1;
+      var i__1 = i__0 + 1 | 0;
+      var i__0 = i__1;
+      var param__0 = param__1;
       continue;
     }
     return 0;
@@ -293,18 +257,15 @@ function c_(i, f, param) {
 function iteri(f, l) {return c_(0, f, l);}
 
 function fold_left(f, accu, l) {
-  var l__1;
-  var a;
-  var accu__1;
   var accu__0 = accu;
   var l__0 = l;
   for (; ; ) {
     if (l__0) {
-      l__1 = l__0[2];
-      a = l__0[1];
-      accu__1 = call2(f, accu__0, a);
-      accu__0 = accu__1;
-      l__0 = l__1;
+      var l__1 = l__0[2];
+      var a = l__0[1];
+      var accu__1 = call2(f, accu__0, a);
+      var accu__0 = accu__1;
+      var l__0 = l__1;
       continue;
     }
     return accu__0;
@@ -312,25 +273,22 @@ function fold_left(f, accu, l) {
 }
 
 function fold_right(f, l, accu) {
-  var a;
-  var l__0;
-  if (l) {l__0 = l[2];a = l[1];return call2(f, a, fold_right(f, l__0, accu));}
+  if (l) {
+    var l__0 = l[2];
+    var a = l[1];
+    return call2(f, a, fold_right(f, l__0, accu));
+  }
   return accu;
 }
 
 function map2(f, l1, l2) {
-  var r;
-  var a1;
-  var l1__0;
-  var a2;
-  var l2__0;
   if (l1) {
     if (l2) {
-      l2__0 = l2[2];
-      a2 = l2[1];
-      l1__0 = l1[2];
-      a1 = l1[1];
-      r = call2(f, a1, a2);
+      var l2__0 = l2[2];
+      var a2 = l2[1];
+      var l1__0 = l1[2];
+      var a1 = l1[1];
+      var r = call2(f, a1, a2);
       return [0,r,map2(f, l1__0, l2__0)];
     }
   }
@@ -340,25 +298,20 @@ function map2(f, l1, l2) {
 
 function rev_map2(f, l1, l2) {
   function rmap2_f(accu, l1, l2) {
-    var l2__1;
-    var a2;
-    var l1__1;
-    var a1;
-    var accu__1;
     var accu__0 = accu;
     var l1__0 = l1;
     var l2__0 = l2;
     for (; ; ) {
       if (l1__0) {
         if (l2__0) {
-          l2__1 = l2__0[2];
-          a2 = l2__0[1];
-          l1__1 = l1__0[2];
-          a1 = l1__0[1];
-          accu__1 = [0,call2(f, a1, a2),accu__0];
-          accu__0 = accu__1;
-          l1__0 = l1__1;
-          l2__0 = l2__1;
+          var l2__1 = l2__0[2];
+          var a2 = l2__0[1];
+          var l1__1 = l1__0[2];
+          var a1 = l1__0[1];
+          var accu__1 = [0,call2(f, a1, a2),accu__0];
+          var accu__0 = accu__1;
+          var l1__0 = l1__1;
+          var l2__0 = l2__1;
           continue;
         }
       }
@@ -370,22 +323,18 @@ function rev_map2(f, l1, l2) {
 }
 
 function iter2(f, l1, l2) {
-  var l2__1;
-  var a2;
-  var l1__1;
-  var a1;
   var l1__0 = l1;
   var l2__0 = l2;
   for (; ; ) {
     if (l1__0) {
       if (l2__0) {
-        l2__1 = l2__0[2];
-        a2 = l2__0[1];
-        l1__1 = l1__0[2];
-        a1 = l1__0[1];
+        var l2__1 = l2__0[2];
+        var a2 = l2__0[1];
+        var l1__1 = l1__0[2];
+        var a1 = l1__0[1];
         call2(f, a1, a2);
-        l1__0 = l1__1;
-        l2__0 = l2__1;
+        var l1__0 = l1__1;
+        var l2__0 = l2__1;
         continue;
       }
     }
@@ -395,25 +344,20 @@ function iter2(f, l1, l2) {
 }
 
 function fold_left2(f, accu, l1, l2) {
-  var l2__1;
-  var a2;
-  var l1__1;
-  var a1;
-  var accu__1;
   var accu__0 = accu;
   var l1__0 = l1;
   var l2__0 = l2;
   for (; ; ) {
     if (l1__0) {
       if (l2__0) {
-        l2__1 = l2__0[2];
-        a2 = l2__0[1];
-        l1__1 = l1__0[2];
-        a1 = l1__0[1];
-        accu__1 = call3(f, accu__0, a1, a2);
-        accu__0 = accu__1;
-        l1__0 = l1__1;
-        l2__0 = l2__1;
+        var l2__1 = l2__0[2];
+        var a2 = l2__0[1];
+        var l1__1 = l1__0[2];
+        var a1 = l1__0[1];
+        var accu__1 = call3(f, accu__0, a1, a2);
+        var accu__0 = accu__1;
+        var l1__0 = l1__1;
+        var l2__0 = l2__1;
         continue;
       }
     }
@@ -423,16 +367,12 @@ function fold_left2(f, accu, l1, l2) {
 }
 
 function fold_right2(f, l1, l2, accu) {
-  var a1;
-  var l1__0;
-  var a2;
-  var l2__0;
   if (l1) {
     if (l2) {
-      l2__0 = l2[2];
-      a2 = l2[1];
-      l1__0 = l1[2];
-      a1 = l1[1];
+      var l2__0 = l2[2];
+      var a2 = l2[1];
+      var l1__0 = l1[2];
+      var a1 = l1[1];
       return call3(f, a1, a2, fold_right2(f, l1__0, l2__0, accu));
     }
   }
@@ -441,16 +381,13 @@ function fold_right2(f, l1, l2, accu) {
 }
 
 function for_all(p, param) {
-  var l;
-  var a;
-  var H_;
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      l = param__0[2];
-      a = param__0[1];
-      H_ = call1(p, a);
-      if (H_) {param__0 = l;continue;}
+      var l = param__0[2];
+      var a = param__0[1];
+      var H_ = call1(p, a);
+      if (H_) {var param__0 = l;continue;}
       return H_;
     }
     return 1;
@@ -458,17 +395,14 @@ function for_all(p, param) {
 }
 
 function exists(p, param) {
-  var l;
-  var a;
-  var G_;
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      l = param__0[2];
-      a = param__0[1];
-      G_ = call1(p, a);
+      var l = param__0[2];
+      var a = param__0[1];
+      var G_ = call1(p, a);
       if (G_) {return G_;}
-      param__0 = l;
+      var param__0 = l;
       continue;
     }
     return 0;
@@ -476,22 +410,17 @@ function exists(p, param) {
 }
 
 function for_all2(p, l1, l2) {
-  var l2__1;
-  var a2;
-  var l1__1;
-  var a1;
-  var F_;
   var l1__0 = l1;
   var l2__0 = l2;
   for (; ; ) {
     if (l1__0) {
       if (l2__0) {
-        l2__1 = l2__0[2];
-        a2 = l2__0[1];
-        l1__1 = l1__0[2];
-        a1 = l1__0[1];
-        F_ = call2(p, a1, a2);
-        if (F_) {l1__0 = l1__1;l2__0 = l2__1;continue;}
+        var l2__1 = l2__0[2];
+        var a2 = l2__0[1];
+        var l1__1 = l1__0[2];
+        var a1 = l1__0[1];
+        var F_ = call2(p, a1, a2);
+        if (F_) {var l1__0 = l1__1;var l2__0 = l2__1;continue;}
         return F_;
       }
     }
@@ -501,24 +430,19 @@ function for_all2(p, l1, l2) {
 }
 
 function exists2(p, l1, l2) {
-  var l2__1;
-  var a2;
-  var l1__1;
-  var a1;
-  var E_;
   var l1__0 = l1;
   var l2__0 = l2;
   for (; ; ) {
     if (l1__0) {
       if (l2__0) {
-        l2__1 = l2__0[2];
-        a2 = l2__0[1];
-        l1__1 = l1__0[2];
-        a1 = l1__0[1];
-        E_ = call2(p, a1, a2);
+        var l2__1 = l2__0[2];
+        var a2 = l2__0[1];
+        var l1__1 = l1__0[2];
+        var a1 = l1__0[1];
+        var E_ = call2(p, a1, a2);
         if (E_) {return E_;}
-        l1__0 = l1__1;
-        l2__0 = l2__1;
+        var l1__0 = l1__1;
+        var l2__0 = l2__1;
         continue;
       }
     }
@@ -528,17 +452,14 @@ function exists2(p, l1, l2) {
 }
 
 function mem(x, param) {
-  var l;
-  var a;
-  var D_;
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      l = param__0[2];
-      a = param__0[1];
-      D_ = 0 === caml_compare(a, x) ? 1 : 0;
+      var l = param__0[2];
+      var a = param__0[1];
+      var D_ = 0 === caml_compare(a, x) ? 1 : 0;
       if (D_) {return D_;}
-      param__0 = l;
+      var param__0 = l;
       continue;
     }
     return 0;
@@ -546,17 +467,14 @@ function mem(x, param) {
 }
 
 function memq(x, param) {
-  var l;
-  var a;
-  var C_;
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      l = param__0[2];
-      a = param__0[1];
-      C_ = a === x ? 1 : 0;
+      var l = param__0[2];
+      var a = param__0[1];
+      var C_ = a === x ? 1 : 0;
       if (C_) {return C_;}
-      param__0 = l;
+      var param__0 = l;
       continue;
     }
     return 0;
@@ -564,19 +482,15 @@ function memq(x, param) {
 }
 
 function assoc(x, param) {
-  var l;
-  var match;
-  var b;
-  var a;
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      l = param__0[2];
-      match = param__0[1];
-      b = match[2];
-      a = match[1];
+      var l = param__0[2];
+      var match = param__0[1];
+      var b = match[2];
+      var a = match[1];
       if (0 === caml_compare(a, x)) {return b;}
-      param__0 = l;
+      var param__0 = l;
       continue;
     }
     throw caml_wrap_thrown_exception(Stdlib[8]);
@@ -584,19 +498,15 @@ function assoc(x, param) {
 }
 
 function assoc_opt(x, param) {
-  var l;
-  var match;
-  var b;
-  var a;
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      l = param__0[2];
-      match = param__0[1];
-      b = match[2];
-      a = match[1];
+      var l = param__0[2];
+      var match = param__0[1];
+      var b = match[2];
+      var a = match[1];
       if (0 === caml_compare(a, x)) {return [0,b];}
-      param__0 = l;
+      var param__0 = l;
       continue;
     }
     return 0;
@@ -604,19 +514,15 @@ function assoc_opt(x, param) {
 }
 
 function assq(x, param) {
-  var l;
-  var match;
-  var b;
-  var a;
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      l = param__0[2];
-      match = param__0[1];
-      b = match[2];
-      a = match[1];
+      var l = param__0[2];
+      var match = param__0[1];
+      var b = match[2];
+      var a = match[1];
       if (a === x) {return b;}
-      param__0 = l;
+      var param__0 = l;
       continue;
     }
     throw caml_wrap_thrown_exception(Stdlib[8]);
@@ -624,19 +530,15 @@ function assq(x, param) {
 }
 
 function assq_opt(x, param) {
-  var l;
-  var match;
-  var b;
-  var a;
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      l = param__0[2];
-      match = param__0[1];
-      b = match[2];
-      a = match[1];
+      var l = param__0[2];
+      var match = param__0[1];
+      var b = match[2];
+      var a = match[1];
       if (a === x) {return [0,b];}
-      param__0 = l;
+      var param__0 = l;
       continue;
     }
     return 0;
@@ -644,19 +546,15 @@ function assq_opt(x, param) {
 }
 
 function mem_assoc(x, param) {
-  var l;
-  var match;
-  var a;
-  var B_;
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      l = param__0[2];
-      match = param__0[1];
-      a = match[1];
-      B_ = 0 === caml_compare(a, x) ? 1 : 0;
+      var l = param__0[2];
+      var match = param__0[1];
+      var a = match[1];
+      var B_ = 0 === caml_compare(a, x) ? 1 : 0;
       if (B_) {return B_;}
-      param__0 = l;
+      var param__0 = l;
       continue;
     }
     return 0;
@@ -664,19 +562,15 @@ function mem_assoc(x, param) {
 }
 
 function mem_assq(x, param) {
-  var l;
-  var match;
-  var a;
-  var A_;
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      l = param__0[2];
-      match = param__0[1];
-      a = match[1];
-      A_ = a === x ? 1 : 0;
+      var l = param__0[2];
+      var match = param__0[1];
+      var a = match[1];
+      var A_ = a === x ? 1 : 0;
       if (A_) {return A_;}
-      param__0 = l;
+      var param__0 = l;
       continue;
     }
     return 0;
@@ -684,41 +578,33 @@ function mem_assq(x, param) {
 }
 
 function remove_assoc(x, param) {
-  var a;
-  var pair;
-  var l;
   if (param) {
-    l = param[2];
-    pair = param[1];
-    a = pair[1];
+    var l = param[2];
+    var pair = param[1];
+    var a = pair[1];
     return 0 === caml_compare(a, x) ? l : [0,pair,remove_assoc(x, l)];
   }
   return 0;
 }
 
 function remove_assq(x, param) {
-  var a;
-  var pair;
-  var l;
   if (param) {
-    l = param[2];
-    pair = param[1];
-    a = pair[1];
+    var l = param[2];
+    var pair = param[1];
+    var a = pair[1];
     return a === x ? l : [0,pair,remove_assq(x, l)];
   }
   return 0;
 }
 
 function find(p, param) {
-  var l;
-  var x;
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      l = param__0[2];
-      x = param__0[1];
+      var l = param__0[2];
+      var x = param__0[1];
       if (call1(p, x)) {return x;}
-      param__0 = l;
+      var param__0 = l;
       continue;
     }
     throw caml_wrap_thrown_exception(Stdlib[8]);
@@ -726,15 +612,13 @@ function find(p, param) {
 }
 
 function find_opt(p, param) {
-  var l;
-  var x;
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      l = param__0[2];
-      x = param__0[1];
+      var l = param__0[2];
+      var x = param__0[1];
       if (call1(p, x)) {return [0,x];}
-      param__0 = l;
+      var param__0 = l;
       continue;
     }
     return 0;
@@ -743,22 +627,19 @@ function find_opt(p, param) {
 
 function find_all(p) {
   function find(accu, param) {
-    var l;
-    var x;
-    var accu__1;
     var accu__0 = accu;
     var param__0 = param;
     for (; ; ) {
       if (param__0) {
-        l = param__0[2];
-        x = param__0[1];
+        var l = param__0[2];
+        var x = param__0[1];
         if (call1(p, x)) {
-          accu__1 = [0,x,accu__0];
-          accu__0 = accu__1;
-          param__0 = l;
+          var accu__1 = [0,x,accu__0];
+          var accu__0 = accu__1;
+          var param__0 = l;
           continue;
         }
-        param__0 = l;
+        var param__0 = l;
         continue;
       }
       return rev(accu__0);
@@ -770,26 +651,21 @@ function find_all(p) {
 
 function filter_map(f) {
   function aux(accu, param) {
-    var l;
-    var x;
-    var match;
-    var v;
-    var accu__1;
     var accu__0 = accu;
     var param__0 = param;
     for (; ; ) {
       if (param__0) {
-        l = param__0[2];
-        x = param__0[1];
-        match = call1(f, x);
+        var l = param__0[2];
+        var x = param__0[1];
+        var match = call1(f, x);
         if (match) {
-          v = match[1];
-          accu__1 = [0,v,accu__0];
-          accu__0 = accu__1;
-          param__0 = l;
+          var v = match[1];
+          var accu__1 = [0,v,accu__0];
+          var accu__0 = accu__1;
+          var param__0 = l;
           continue;
         }
-        param__0 = l;
+        var param__0 = l;
         continue;
       }
       return rev(accu__0);
@@ -801,30 +677,25 @@ function filter_map(f) {
 
 function partition(p, l) {
   function part(yes, no, param) {
-    var l;
-    var x;
-    var yes__1;
-    var no__1;
-    var v_;
     var yes__0 = yes;
     var no__0 = no;
     var param__0 = param;
     for (; ; ) {
       if (param__0) {
-        l = param__0[2];
-        x = param__0[1];
+        var l = param__0[2];
+        var x = param__0[1];
         if (call1(p, x)) {
-          yes__1 = [0,x,yes__0];
-          yes__0 = yes__1;
-          param__0 = l;
+          var yes__1 = [0,x,yes__0];
+          var yes__0 = yes__1;
+          var param__0 = l;
           continue;
         }
-        no__1 = [0,x,no__0];
-        no__0 = no__1;
-        param__0 = l;
+        var no__1 = [0,x,no__0];
+        var no__0 = no__1;
+        var param__0 = l;
         continue;
       }
-      v_ = rev(no__0);
+      var v_ = rev(no__0);
       return [0,rev(yes__0),v_];
     }
   }
@@ -832,37 +703,26 @@ function partition(p, l) {
 }
 
 function split(param) {
-  var rx;
-  var ry;
-  var match__0;
-  var x;
-  var y;
-  var match;
-  var l;
   if (param) {
-    l = param[2];
-    match = param[1];
-    y = match[2];
-    x = match[1];
-    match__0 = split(l);
-    ry = match__0[2];
-    rx = match__0[1];
+    var l = param[2];
+    var match = param[1];
+    var y = match[2];
+    var x = match[1];
+    var match__0 = split(l);
+    var ry = match__0[2];
+    var rx = match__0[1];
     return [0,[0,x,rx],[0,y,ry]];
   }
   return d_;
 }
 
 function combine(l1, l2) {
-  var a1;
-  var l1__0;
-  var a2;
-  var l2__0;
   if (l1) {
     if (l2) {
-      l2__0 = l2[2];
-      a2 = l2[1];
-      l1__0 = l1[2];
-      a1 = l1[1];
+      var l2__0 = l2[2];
+      var a2 = l2[1];
+      var l1__0 = l1[2];
+      var a1 = l1[1];
       return [0,[0,a1,a2],combine(l1__0, l2__0)];
     }
   }
@@ -871,16 +731,12 @@ function combine(l1, l2) {
 }
 
 function merge(cmp, l1, match) {
-  var h1;
-  var t1;
-  var h2;
-  var t2;
   if (l1) {
     if (match) {
-      t2 = match[2];
-      h2 = match[1];
-      t1 = l1[2];
-      h1 = l1[1];
+      var t2 = match[2];
+      var h2 = match[1];
+      var t1 = l1[2];
+      var h1 = l1[1];
       return 0 < call2(cmp, h1, h2) ?
         [0,h2,merge(cmp, l1, t2)] :
         [0,h1,merge(cmp, t1, match)];
@@ -891,17 +747,15 @@ function merge(cmp, l1, match) {
 }
 
 function chop(k, l) {
-  var l__1;
-  var k__1;
   var k__0 = k;
   var l__0 = l;
   for (; ; ) {
     if (0 === k__0) {return l__0;}
     if (l__0) {
-      l__1 = l__0[2];
-      k__1 = k__0 + -1 | 0;
-      k__0 = k__1;
-      l__0 = l__1;
+      var l__1 = l__0[2];
+      var k__1 = k__0 + -1 | 0;
+      var k__0 = k__1;
+      var l__0 = l__1;
       continue;
     }
     throw caml_wrap_thrown_exception([0,Assert_failure,e_]);
@@ -910,31 +764,25 @@ function chop(k, l) {
 
 function stable_sort(cmp, l) {
   function rev_merge(l1, l2, accu) {
-    var t2;
-    var h2;
-    var t1;
-    var h1;
-    var accu__1;
-    var accu__2;
     var l1__0 = l1;
     var l2__0 = l2;
     var accu__0 = accu;
     for (; ; ) {
       if (l1__0) {
         if (l2__0) {
-          t2 = l2__0[2];
-          h2 = l2__0[1];
-          t1 = l1__0[2];
-          h1 = l1__0[1];
+          var t2 = l2__0[2];
+          var h2 = l2__0[1];
+          var t1 = l1__0[2];
+          var h1 = l1__0[1];
           if (0 < call2(cmp, h1, h2)) {
-            accu__1 = [0,h2,accu__0];
-            l2__0 = t2;
-            accu__0 = accu__1;
+            var accu__1 = [0,h2,accu__0];
+            var l2__0 = t2;
+            var accu__0 = accu__1;
             continue;
           }
-          accu__2 = [0,h1,accu__0];
-          l1__0 = t1;
-          accu__0 = accu__2;
+          var accu__2 = [0,h1,accu__0];
+          var l1__0 = t1;
+          var accu__0 = accu__2;
           continue;
         }
         return rev_append(l1__0, accu__0);
@@ -943,31 +791,25 @@ function stable_sort(cmp, l) {
     }
   }
   function rev_merge_rev(l1, l2, accu) {
-    var t2;
-    var h2;
-    var t1;
-    var h1;
-    var accu__1;
-    var accu__2;
     var l1__0 = l1;
     var l2__0 = l2;
     var accu__0 = accu;
     for (; ; ) {
       if (l1__0) {
         if (l2__0) {
-          t2 = l2__0[2];
-          h2 = l2__0[1];
-          t1 = l1__0[2];
-          h1 = l1__0[1];
+          var t2 = l2__0[2];
+          var h2 = l2__0[1];
+          var t1 = l1__0[2];
+          var h1 = l1__0[1];
           if (0 < call2(cmp, h1, h2)) {
-            accu__1 = [0,h1,accu__0];
-            l1__0 = t1;
-            accu__0 = accu__1;
+            var accu__1 = [0,h1,accu__0];
+            var l1__0 = t1;
+            var accu__0 = accu__1;
             continue;
           }
-          accu__2 = [0,h2,accu__0];
-          l2__0 = t2;
-          accu__0 = accu__2;
+          var accu__2 = [0,h2,accu__0];
+          var l2__0 = t2;
+          var accu__0 = accu__2;
           continue;
         }
         return rev_append(l1__0, accu__0);
@@ -976,33 +818,25 @@ function stable_sort(cmp, l) {
     }
   }
   function sort(n, l) {
-    var x1__0;
-    var x2__0;
-    var x3;
-    var u_;
-    var t_;
-    var x1;
-    var x2;
-    var s_;
     if (2 === n) {
       if (l) {
-        s_ = l[2];
+        var s_ = l[2];
         if (s_) {
-          x2 = s_[1];
-          x1 = l[1];
+          var x2 = s_[1];
+          var x1 = l[1];
           return 0 < call2(cmp, x1, x2) ? [0,x2,[0,x1,0]] : [0,x1,[0,x2,0]];
         }
       }
     }
     else if (3 === n) {
       if (l) {
-        t_ = l[2];
+        var t_ = l[2];
         if (t_) {
-          u_ = t_[2];
+          var u_ = t_[2];
           if (u_) {
-            x3 = u_[1];
-            x2__0 = t_[1];
-            x1__0 = l[1];
+            var x3 = u_[1];
+            var x2__0 = t_[1];
+            var x1__0 = l[1];
             return 0 < call2(cmp, x1__0, x2__0) ?
               0 < call2(cmp, x1__0, x3) ?
                0 < call2(cmp, x2__0, x3) ?
@@ -1026,33 +860,25 @@ function stable_sort(cmp, l) {
     return rev_merge_rev(s1, s2, 0);
   }
   function rev_sort(n, l) {
-    var x1__0;
-    var x2__0;
-    var x3;
-    var r_;
-    var q_;
-    var x1;
-    var x2;
-    var p_;
     if (2 === n) {
       if (l) {
-        p_ = l[2];
+        var p_ = l[2];
         if (p_) {
-          x2 = p_[1];
-          x1 = l[1];
+          var x2 = p_[1];
+          var x1 = l[1];
           return 0 < call2(cmp, x1, x2) ? [0,x1,[0,x2,0]] : [0,x2,[0,x1,0]];
         }
       }
     }
     else if (3 === n) {
       if (l) {
-        q_ = l[2];
+        var q_ = l[2];
         if (q_) {
-          r_ = q_[2];
+          var r_ = q_[2];
           if (r_) {
-            x3 = r_[1];
-            x2__0 = q_[1];
-            x1__0 = l[1];
+            var x3 = r_[1];
+            var x2__0 = q_[1];
+            var x1__0 = l[1];
             return 0 < call2(cmp, x1__0, x2__0) ?
               0 < call2(cmp, x2__0, x3) ?
                [0,x1__0,[0,x2__0,[0,x3,0]]] :
@@ -1081,41 +907,33 @@ function stable_sort(cmp, l) {
 
 function sort_uniq(cmp, l) {
   function rev_merge(l1, l2, accu) {
-    var t2;
-    var h2;
-    var t1;
-    var h1;
-    var c;
-    var accu__1;
-    var accu__2;
-    var accu__3;
     var l1__0 = l1;
     var l2__0 = l2;
     var accu__0 = accu;
     for (; ; ) {
       if (l1__0) {
         if (l2__0) {
-          t2 = l2__0[2];
-          h2 = l2__0[1];
-          t1 = l1__0[2];
-          h1 = l1__0[1];
-          c = call2(cmp, h1, h2);
+          var t2 = l2__0[2];
+          var h2 = l2__0[1];
+          var t1 = l1__0[2];
+          var h1 = l1__0[1];
+          var c = call2(cmp, h1, h2);
           if (0 === c) {
-            accu__1 = [0,h1,accu__0];
-            l1__0 = t1;
-            l2__0 = t2;
-            accu__0 = accu__1;
+            var accu__1 = [0,h1,accu__0];
+            var l1__0 = t1;
+            var l2__0 = t2;
+            var accu__0 = accu__1;
             continue;
           }
           if (0 <= c) {
-            accu__2 = [0,h2,accu__0];
-            l2__0 = t2;
-            accu__0 = accu__2;
+            var accu__2 = [0,h2,accu__0];
+            var l2__0 = t2;
+            var accu__0 = accu__2;
             continue;
           }
-          accu__3 = [0,h1,accu__0];
-          l1__0 = t1;
-          accu__0 = accu__3;
+          var accu__3 = [0,h1,accu__0];
+          var l1__0 = t1;
+          var accu__0 = accu__3;
           continue;
         }
         return rev_append(l1__0, accu__0);
@@ -1124,41 +942,33 @@ function sort_uniq(cmp, l) {
     }
   }
   function rev_merge_rev(l1, l2, accu) {
-    var t2;
-    var h2;
-    var t1;
-    var h1;
-    var c;
-    var accu__1;
-    var accu__2;
-    var accu__3;
     var l1__0 = l1;
     var l2__0 = l2;
     var accu__0 = accu;
     for (; ; ) {
       if (l1__0) {
         if (l2__0) {
-          t2 = l2__0[2];
-          h2 = l2__0[1];
-          t1 = l1__0[2];
-          h1 = l1__0[1];
-          c = call2(cmp, h1, h2);
+          var t2 = l2__0[2];
+          var h2 = l2__0[1];
+          var t1 = l1__0[2];
+          var h1 = l1__0[1];
+          var c = call2(cmp, h1, h2);
           if (0 === c) {
-            accu__1 = [0,h1,accu__0];
-            l1__0 = t1;
-            l2__0 = t2;
-            accu__0 = accu__1;
+            var accu__1 = [0,h1,accu__0];
+            var l1__0 = t1;
+            var l2__0 = t2;
+            var accu__0 = accu__1;
             continue;
           }
           if (0 < c) {
-            accu__2 = [0,h1,accu__0];
-            l1__0 = t1;
-            accu__0 = accu__2;
+            var accu__2 = [0,h1,accu__0];
+            var l1__0 = t1;
+            var accu__0 = accu__2;
             continue;
           }
-          accu__3 = [0,h2,accu__0];
-          l2__0 = t2;
-          accu__0 = accu__3;
+          var accu__3 = [0,h2,accu__0];
+          var l2__0 = t2;
+          var accu__0 = accu__3;
           continue;
         }
         return rev_append(l1__0, accu__0);
@@ -1167,28 +977,13 @@ function sort_uniq(cmp, l) {
     }
   }
   function sort(n, l) {
-    var c__5;
-    var c__4;
-    var c__3;
-    var c__2;
-    var c__1;
-    var c__0;
-    var x1__0;
-    var x2__0;
-    var x3;
-    var o_;
-    var n_;
-    var c;
-    var x1;
-    var x2;
-    var m_;
     if (2 === n) {
       if (l) {
-        m_ = l[2];
+        var m_ = l[2];
         if (m_) {
-          x2 = m_[1];
-          x1 = l[1];
-          c = call2(cmp, x1, x2);
+          var x2 = m_[1];
+          var x1 = l[1];
+          var c = call2(cmp, x1, x2);
           return 0 === c ?
             [0,x1,0] :
             0 <= c ? [0,x2,[0,x1,0]] : [0,x1,[0,x2,0]];
@@ -1197,25 +992,25 @@ function sort_uniq(cmp, l) {
     }
     else if (3 === n) {
       if (l) {
-        n_ = l[2];
+        var n_ = l[2];
         if (n_) {
-          o_ = n_[2];
+          var o_ = n_[2];
           if (o_) {
-            x3 = o_[1];
-            x2__0 = n_[1];
-            x1__0 = l[1];
-            c__0 = call2(cmp, x1__0, x2__0);
+            var x3 = o_[1];
+            var x2__0 = n_[1];
+            var x1__0 = l[1];
+            var c__0 = call2(cmp, x1__0, x2__0);
             if (0 === c__0) {
-              c__1 = call2(cmp, x2__0, x3);
+              var c__1 = call2(cmp, x2__0, x3);
               return 0 === c__1 ?
                 [0,x2__0,0] :
                 0 <= c__1 ? [0,x3,[0,x2__0,0]] : [0,x2__0,[0,x3,0]];
             }
             if (0 <= c__0) {
-              c__2 = call2(cmp, x1__0, x3);
+              var c__2 = call2(cmp, x1__0, x3);
               if (0 === c__2) {return [0,x2__0,[0,x1__0,0]];}
               if (0 <= c__2) {
-                c__3 = call2(cmp, x2__0, x3);
+                var c__3 = call2(cmp, x2__0, x3);
                 return 0 === c__3 ?
                   [0,x2__0,[0,x1__0,0]] :
                   0 <= c__3 ?
@@ -1224,10 +1019,10 @@ function sort_uniq(cmp, l) {
               }
               return [0,x2__0,[0,x1__0,[0,x3,0]]];
             }
-            c__4 = call2(cmp, x2__0, x3);
+            var c__4 = call2(cmp, x2__0, x3);
             if (0 === c__4) {return [0,x1__0,[0,x2__0,0]];}
             if (0 <= c__4) {
-              c__5 = call2(cmp, x1__0, x3);
+              var c__5 = call2(cmp, x1__0, x3);
               return 0 === c__5 ?
                 [0,x1__0,[0,x2__0,0]] :
                 0 <= c__5 ?
@@ -1247,28 +1042,13 @@ function sort_uniq(cmp, l) {
     return rev_merge_rev(s1, s2, 0);
   }
   function rev_sort(n, l) {
-    var c__5;
-    var c__4;
-    var c__3;
-    var c__2;
-    var c__1;
-    var c__0;
-    var x1__0;
-    var x2__0;
-    var x3;
-    var l_;
-    var k_;
-    var c;
-    var x1;
-    var x2;
-    var j_;
     if (2 === n) {
       if (l) {
-        j_ = l[2];
+        var j_ = l[2];
         if (j_) {
-          x2 = j_[1];
-          x1 = l[1];
-          c = call2(cmp, x1, x2);
+          var x2 = j_[1];
+          var x1 = l[1];
+          var c = call2(cmp, x1, x2);
           return 0 === c ?
             [0,x1,0] :
             0 < c ? [0,x1,[0,x2,0]] : [0,x2,[0,x1,0]];
@@ -1277,35 +1057,35 @@ function sort_uniq(cmp, l) {
     }
     else if (3 === n) {
       if (l) {
-        k_ = l[2];
+        var k_ = l[2];
         if (k_) {
-          l_ = k_[2];
+          var l_ = k_[2];
           if (l_) {
-            x3 = l_[1];
-            x2__0 = k_[1];
-            x1__0 = l[1];
-            c__0 = call2(cmp, x1__0, x2__0);
+            var x3 = l_[1];
+            var x2__0 = k_[1];
+            var x1__0 = l[1];
+            var c__0 = call2(cmp, x1__0, x2__0);
             if (0 === c__0) {
-              c__1 = call2(cmp, x2__0, x3);
+              var c__1 = call2(cmp, x2__0, x3);
               return 0 === c__1 ?
                 [0,x2__0,0] :
                 0 < c__1 ? [0,x2__0,[0,x3,0]] : [0,x3,[0,x2__0,0]];
             }
             if (0 < c__0) {
-              c__2 = call2(cmp, x2__0, x3);
+              var c__2 = call2(cmp, x2__0, x3);
               if (0 === c__2) {return [0,x1__0,[0,x2__0,0]];}
               if (0 < c__2) {return [0,x1__0,[0,x2__0,[0,x3,0]]];}
-              c__3 = call2(cmp, x1__0, x3);
+              var c__3 = call2(cmp, x1__0, x3);
               return 0 === c__3 ?
                 [0,x1__0,[0,x2__0,0]] :
                 0 < c__3 ?
                  [0,x1__0,[0,x3,[0,x2__0,0]]] :
                  [0,x3,[0,x1__0,[0,x2__0,0]]];
             }
-            c__4 = call2(cmp, x1__0, x3);
+            var c__4 = call2(cmp, x1__0, x3);
             if (0 === c__4) {return [0,x2__0,[0,x1__0,0]];}
             if (0 < c__4) {return [0,x2__0,[0,x1__0,[0,x3,0]]];}
-            c__5 = call2(cmp, x2__0, x3);
+            var c__5 = call2(cmp, x2__0, x3);
             return 0 === c__5 ?
               [0,x2__0,[0,x1__0,0]] :
               0 < c__5 ?
@@ -1327,17 +1107,15 @@ function sort_uniq(cmp, l) {
 }
 
 function compare_lengths(l1, l2) {
-  var l2__1;
-  var l1__1;
   var l1__0 = l1;
   var l2__0 = l2;
   for (; ; ) {
     if (l1__0) {
       if (l2__0) {
-        l2__1 = l2__0[2];
-        l1__1 = l1__0[2];
-        l1__0 = l1__1;
-        l2__0 = l2__1;
+        var l2__1 = l2__0[2];
+        var l1__1 = l1__0[2];
+        var l1__0 = l1__1;
+        var l2__0 = l2__1;
         continue;
       }
       return 1;
@@ -1347,14 +1125,17 @@ function compare_lengths(l1, l2) {
 }
 
 function compare_length_with(l, n) {
-  var l__1;
-  var n__1;
   var l__0 = l;
   var n__0 = n;
   for (; ; ) {
     if (l__0) {
-      l__1 = l__0[2];
-      if (0 < n__0) {n__1 = n__0 + -1 | 0;l__0 = l__1;n__0 = n__1;continue;}
+      var l__1 = l__0[2];
+      if (0 < n__0) {
+        var n__1 = n__0 + -1 | 0;
+        var l__0 = l__1;
+        var n__0 = n__1;
+        continue;
+      }
       return 1;
     }
     return 0 === n__0 ? 0 : 0 < n__0 ? -1 : 1;
@@ -1363,11 +1144,9 @@ function compare_length_with(l, n) {
 
 function to_seq(l) {
   function aux(l, param) {
-    var x;
-    var tail;
     if (l) {
-      tail = l[2];
-      x = l[1];
+      var tail = l[2];
+      var x = l[1];
       return [0,x,function(i_) {return aux(tail, i_);}];
     }
     return 0;
@@ -1377,19 +1156,15 @@ function to_seq(l) {
 
 function of_seq(seq) {
   function direct(depth, seq) {
-    var x;
-    var next;
-    var g_;
-    var f_;
     if (0 === depth) {
-      f_ = 0;
-      g_ = function(acc, x) {return [0,x,acc];};
+      var f_ = 0;
+      var g_ = function(acc, x) {return [0,x,acc];};
       return rev(call3(Stdlib_seq[7], g_, f_, seq));
     }
     var match = call1(seq, 0);
     if (match) {
-      next = match[2];
-      x = match[1];
+      var next = match[2];
+      var x = match[1];
       return [0,x,direct(depth + -1 | 0, next)];
     }
     return 0;

@@ -43,10 +43,10 @@ final class Stdlib__array {
     };
     $Floatarray = Vector{0} as dynamic;
     $init = (dynamic $l, dynamic $f) : dynamic ==> {
+      $aq_ = null as dynamic;
+      $ar_ = null as dynamic;
       $as_ = null as dynamic;
       $i = null as dynamic;
-      $ar_ = null as dynamic;
-      $aq_ = null as dynamic;
       $res = null as dynamic;
       if (0 === $l) {return Vector{0};}
       if (0 <= $l) {
@@ -67,8 +67,8 @@ final class Stdlib__array {
       return $call1($Stdlib[1], $cst_Array_init);
     };
     $make_matrix = (dynamic $sx, dynamic $sy, dynamic $init) : dynamic ==> {
-      $x = null as dynamic;
       $ap_ = null as dynamic;
+      $x = null as dynamic;
       $res = $caml_make_vect($sx, Vector{0});
       $ao_ = (int) ($sx + -1) as dynamic;
       $an_ = 0 as dynamic;
@@ -104,9 +104,9 @@ final class Stdlib__array {
       return $call1($Stdlib[1], $cst_Array_sub);
     };
     $fill = (dynamic $a, dynamic $ofs, dynamic $len, dynamic $v) : dynamic ==> {
+      $al_ = null as dynamic;
       $am_ = null as dynamic;
       $i = null as dynamic;
-      $al_ = null as dynamic;
       if (0 <= $ofs) {
         if (0 <= $len) {
           if (! ((int) ($a->count() - 1 - $len) < $ofs)) {
@@ -148,8 +148,8 @@ final class Stdlib__array {
       return $call1($Stdlib[1], $cst_Array_blit);
     };
     $iter = (dynamic $f, dynamic $a) : dynamic ==> {
-      $i = null as dynamic;
       $ak_ = null as dynamic;
+      $i = null as dynamic;
       $aj_ = (int) ($a->count() - 1 + -1) as dynamic;
       $ai_ = 0 as dynamic;
       if (! ($aj_ < 0)) {
@@ -186,8 +186,8 @@ final class Stdlib__array {
       return 0;
     };
     $map = (dynamic $f, dynamic $a) : dynamic ==> {
-      $i = null as dynamic;
       $ae_ = null as dynamic;
+      $i = null as dynamic;
       $l = $a->count() - 1;
       if (0 === $l) {return Vector{0};}
       $r = $caml_make_vect($l, $call1($f, $a[1]));
@@ -205,8 +205,8 @@ final class Stdlib__array {
       return $r;
     };
     $map2 = (dynamic $f, dynamic $a, dynamic $b) : dynamic ==> {
-      $i = null as dynamic;
       $ab_ = null as dynamic;
+      $i = null as dynamic;
       $la = $a->count() - 1;
       $lb = $b->count() - 1;
       if ($la !== $lb) {
@@ -231,8 +231,8 @@ final class Stdlib__array {
       return $r;
     };
     $iteri = (dynamic $f, dynamic $a) : dynamic ==> {
-      $i = null as dynamic;
       $Y_ = null as dynamic;
+      $i = null as dynamic;
       $X_ = (int) ($a->count() - 1 + -1) as dynamic;
       $W_ = 0 as dynamic;
       if (! ($X_ < 0)) {
@@ -247,8 +247,8 @@ final class Stdlib__array {
       return 0;
     };
     $mapi = (dynamic $f, dynamic $a) : dynamic ==> {
-      $i = null as dynamic;
       $V_ = null as dynamic;
+      $i = null as dynamic;
       $l = $a->count() - 1;
       if (0 === $l) {return Vector{0};}
       $r = $caml_make_vect($l, $call2($f, 0, $a[1]));
@@ -267,8 +267,8 @@ final class Stdlib__array {
     };
     $to_list = (dynamic $a) : dynamic ==> {
       $tolist = (dynamic $i, dynamic $res) : dynamic ==> {
-        $res__1 = null as dynamic;
         $i__1 = null as dynamic;
+        $res__1 = null as dynamic;
         $i__0 = $i;
         $res__0 = $res;
         for (;;) {
@@ -285,8 +285,8 @@ final class Stdlib__array {
       return $tolist((int) ($a->count() - 1 + -1), 0);
     };
     $list_length = (dynamic $accu, dynamic $param) : dynamic ==> {
-      $param__1 = null as dynamic;
       $accu__1 = null as dynamic;
+      $param__1 = null as dynamic;
       $accu__0 = $accu;
       $param__0 = $param;
       for (;;) {
@@ -301,7 +301,6 @@ final class Stdlib__array {
       }
     };
     $of_list = (dynamic $l) : dynamic ==> {
-      $fill = null as dynamic;
       $a = null as dynamic;
       $hd = null as dynamic;
       $tl = null as dynamic;
@@ -309,33 +308,31 @@ final class Stdlib__array {
         $tl = $l[2];
         $hd = $l[1];
         $a = $caml_make_vect($list_length(0, $l), $hd);
-        $fill =
-          (dynamic $i, dynamic $param) : dynamic ==> {
-            $param__1 = null as dynamic;
-            $hd = null as dynamic;
-            $i__1 = null as dynamic;
-            $i__0 = $i;
-            $param__0 = $param;
-            for (;;) {
-              if ($param__0) {
-                $param__1 = $param__0[2];
-                $hd = $param__0[1];
-                $a[$i__0 + 1] = $hd;
-                $i__1 = (int) ($i__0 + 1) as dynamic;
-                $i__0 = $i__1;
-                $param__0 = $param__1;
-                continue;
-              }
-              return $a;
+        $fill = (dynamic $i, dynamic $param) : dynamic ==> {
+          $i__1 = null as dynamic;
+          $param__1 = null as dynamic;
+          $i__0 = $i;
+          $param__0 = $param;
+          for (;;) {
+            if ($param__0) {
+              $param__1 = $param__0[2];
+              $hd = $param__0[1];
+              $a[$i__0 + 1] = $hd;
+              $i__1 = (int) ($i__0 + 1) as dynamic;
+              $i__0 = $i__1;
+              $param__0 = $param__1;
+              continue;
             }
-          };
+            return $a;
+          }
+        };
         return $fill(1, $tl);
       }
       return Vector{0};
     };
     $fold_left = (dynamic $f, dynamic $x, dynamic $a) : dynamic ==> {
-      $i = null as dynamic;
       $S_ = null as dynamic;
+      $i = null as dynamic;
       $r = Vector{0, $x} as dynamic;
       $R_ = (int) ($a->count() - 1 + -1) as dynamic;
       $Q_ = 0 as dynamic;
@@ -351,8 +348,8 @@ final class Stdlib__array {
       return $r[1];
     };
     $fold_right = (dynamic $f, dynamic $a, dynamic $x) : dynamic ==> {
-      $i = null as dynamic;
       $P_ = null as dynamic;
+      $i = null as dynamic;
       $r = Vector{0, $x} as dynamic;
       $O_ = (int) ($a->count() - 1 + -1) as dynamic;
       if (! ($O_ < 0)) {
@@ -434,13 +431,13 @@ final class Stdlib__array {
       $runtime["caml_fresh_oo_id"](0)
     } as dynamic;
     $sort = (dynamic $cmp, dynamic $a) : dynamic ==> {
-      $e = null as dynamic;
-      $z_ = null as dynamic;
-      $i = null as dynamic;
-      $e__0 = null as dynamic;
       $A_ = null as dynamic;
-      $i__0 = null as dynamic;
       $B_ = null as dynamic;
+      $e = null as dynamic;
+      $e__0 = null as dynamic;
+      $i = null as dynamic;
+      $i__0 = null as dynamic;
+      $z_ = null as dynamic;
       $maxson = (dynamic $l, dynamic $i) : dynamic ==> {
         $H_ = null as dynamic;
         $I_ = null as dynamic;
@@ -473,8 +470,8 @@ final class Stdlib__array {
         throw $caml_wrap_thrown_exception(Vector{0, $Bottom, $i}) as \Throwable;
       };
       $trickledown = (dynamic $l, dynamic $i, dynamic $e) : dynamic ==> {
-        $j = null as dynamic;
         $G_ = null as dynamic;
+        $j = null as dynamic;
         $i__0 = $i;
         for (;;) {
           $j = $maxson($l, $i__0);
@@ -503,8 +500,8 @@ final class Stdlib__array {
         }
       };
       $bubbledown = (dynamic $l, dynamic $i) : dynamic ==> {
-        $i__1 = null as dynamic;
         $E_ = null as dynamic;
+        $i__1 = null as dynamic;
         $i__0 = $i;
         for (;;) {
           $i__1 = $maxson($l, $i__0);
@@ -525,8 +522,8 @@ final class Stdlib__array {
         }
       };
       $trickleup = (dynamic $i, dynamic $e) : dynamic ==> {
-        $father = null as dynamic;
         $C_ = null as dynamic;
+        $father = null as dynamic;
         $i__0 = $i;
         for (;;) {
           $father = (int) ((int) ($i__0 + -1) / 3) as dynamic;
@@ -585,12 +582,12 @@ final class Stdlib__array {
         $src2r = (int) ($src2ofs + $src2len) as dynamic;
         $loop = 
         (dynamic $i1, dynamic $s1, dynamic $i2, dynamic $s2, dynamic $d) : dynamic ==> {
-          $i2__1 = null as dynamic;
           $d__1 = null as dynamic;
-          $s2__1 = null as dynamic;
-          $i1__1 = null as dynamic;
           $d__2 = null as dynamic;
+          $i1__1 = null as dynamic;
+          $i2__1 = null as dynamic;
           $s1__1 = null as dynamic;
+          $s2__1 = null as dynamic;
           $i1__0 = $i1;
           $s1__0 = $s1;
           $i2__0 = $i2;
@@ -650,10 +647,10 @@ final class Stdlib__array {
       };
       $isortto = 
       (dynamic $srcofs, dynamic $dst, dynamic $dstofs, dynamic $len) : dynamic ==> {
-        $i = null as dynamic;
-        $o_ = null as dynamic;
         $e = null as dynamic;
+        $i = null as dynamic;
         $j = null as dynamic;
+        $o_ = null as dynamic;
         $p_ = null as dynamic;
         $q_ = null as dynamic;
         $r_ = null as dynamic;
@@ -769,36 +766,33 @@ final class Stdlib__array {
       return (dynamic $f_) : dynamic ==> {return $aux->contents($e_, $f_);};
     };
     $of_rev_list = (dynamic $l) : dynamic ==> {
-      $fill = null as dynamic;
       $a = null as dynamic;
-      $len = null as dynamic;
       $hd = null as dynamic;
+      $len = null as dynamic;
       $tl = null as dynamic;
       if ($l) {
         $tl = $l[2];
         $hd = $l[1];
         $len = $list_length(0, $l);
         $a = $caml_make_vect($len, $hd);
-        $fill =
-          (dynamic $i, dynamic $param) : dynamic ==> {
-            $param__1 = null as dynamic;
-            $hd = null as dynamic;
-            $i__1 = null as dynamic;
-            $i__0 = $i;
-            $param__0 = $param;
-            for (;;) {
-              if ($param__0) {
-                $param__1 = $param__0[2];
-                $hd = $param__0[1];
-                $a[$i__0 + 1] = $hd;
-                $i__1 = (int) ($i__0 + -1) as dynamic;
-                $i__0 = $i__1;
-                $param__0 = $param__1;
-                continue;
-              }
-              return $a;
+        $fill = (dynamic $i, dynamic $param) : dynamic ==> {
+          $i__1 = null as dynamic;
+          $param__1 = null as dynamic;
+          $i__0 = $i;
+          $param__0 = $param;
+          for (;;) {
+            if ($param__0) {
+              $param__1 = $param__0[2];
+              $hd = $param__0[1];
+              $a[$i__0 + 1] = $hd;
+              $i__1 = (int) ($i__0 + -1) as dynamic;
+              $i__0 = $i__1;
+              $param__0 = $param__1;
+              continue;
             }
-          };
+            return $a;
+          }
+        };
         return $fill((int) ($len + -2), $tl);
       }
       return Vector{0};

@@ -66,22 +66,22 @@ final class Stdlib__stream {
       return 0;
     };
     $get_data->contents = (dynamic $count, dynamic $d) : dynamic ==> {
-      $d2 = null as dynamic;
-      $d1 = null as dynamic;
-      $match = null as dynamic;
-      $d11 = null as dynamic;
       $a = null as dynamic;
-      $f = null as dynamic;
-      $q_ = null as dynamic;
+      $a__0 = null as dynamic;
+      $a__1 = null as dynamic;
+      $b = null as dynamic;
+      $d1 = null as dynamic;
+      $d11 = null as dynamic;
+      $d2 = null as dynamic;
       $d__1 = null as dynamic;
+      $f = null as dynamic;
+      $match = null as dynamic;
+      $match__0 = null as dynamic;
+      $q_ = null as dynamic;
+      $r = null as dynamic;
       $r_ = null as dynamic;
       $s_ = null as dynamic;
       $t_ = null as dynamic;
-      $a__0 = null as dynamic;
-      $match__0 = null as dynamic;
-      $a__1 = null as dynamic;
-      $b = null as dynamic;
-      $r = null as dynamic;
       $d__0 = $d;
       for (;;) {
         if (! $is_int($d__0)) {
@@ -110,10 +110,9 @@ final class Stdlib__stream {
             case 2:
               $f = $d__0[1];
               $q_ = $caml_obj_tag($f);
-              $d__1 =
-                250 === $q_
-                  ? $f[1]
-                  : (246 === $q_ ? $call1($CamlinternalLazy[2], $f) : ($f));
+              $d__1 = 250 === $q_
+                ? $f[1]
+                : (246 === $q_ ? $call1($CamlinternalLazy[2], $f) : ($f));
               $d__0 = $d__1;
               $continue_label = "#";break;
             // FALLTHROUGH
@@ -151,18 +150,18 @@ final class Stdlib__stream {
       }
     };
     $peek_data = (dynamic $s) : dynamic ==> {
-      $b = null as dynamic;
-      $x = null as dynamic;
-      $a__1 = null as dynamic;
-      $p_ = null as dynamic;
-      $o_ = null as dynamic;
-      $n_ = null as dynamic;
-      $m_ = null as dynamic;
-      $f = null as dynamic;
-      $a__0 = null as dynamic;
-      $d = null as dynamic;
       $a = null as dynamic;
+      $a__0 = null as dynamic;
+      $a__1 = null as dynamic;
+      $b = null as dynamic;
+      $d = null as dynamic;
+      $f = null as dynamic;
       $l_ = null as dynamic;
+      $m_ = null as dynamic;
+      $n_ = null as dynamic;
+      $o_ = null as dynamic;
+      $p_ = null as dynamic;
+      $x = null as dynamic;
       for (;;) {
         $l_ = $s[2];
         if ($is_int($l_)) {return 0;}
@@ -191,10 +190,9 @@ final class Stdlib__stream {
             case 2:
               $f = $l_[1];
               $m_ = $caml_obj_tag($f);
-              $n_ =
-                250 === $m_
-                  ? $f[1]
-                  : (246 === $m_ ? $call1($CamlinternalLazy[2], $f) : ($f));
+              $n_ = 250 === $m_
+                ? $f[1]
+                : (246 === $m_ ? $call1($CamlinternalLazy[2], $f) : ($f));
               $s[2] = $n_;
               $continue_label = "#";break;
             // FALLTHROUGH
@@ -223,10 +221,10 @@ final class Stdlib__stream {
     };
     $junk_data = (dynamic $s) : dynamic ==> {
       $b = null as dynamic;
-      $k_ = null as dynamic;
       $d = null as dynamic;
-      $match = null as dynamic;
       $j_ = null as dynamic;
+      $k_ = null as dynamic;
+      $match = null as dynamic;
       for (;;) {
         $j_ = $s[2];
         if (! $is_int($j_)) {
@@ -258,17 +256,16 @@ final class Stdlib__stream {
       }
     };
     $junk = (dynamic $param) : dynamic ==> {
-      $data = null as dynamic;
       if ($param) {$data = $param[1];return $junk_data($data);}
       return 0;
     };
     $nget_data->contents = (dynamic $n, dynamic $s) : dynamic ==> {
+      $a = null as dynamic;
       $al = null as dynamic;
       $d = null as dynamic;
       $k = null as dynamic;
-      $match__0 = null as dynamic;
-      $a = null as dynamic;
       $match = null as dynamic;
+      $match__0 = null as dynamic;
       if (0 < $n) {
         $match = $peek_data($s);
         if ($match) {
@@ -464,10 +461,10 @@ final class Stdlib__stream {
       return $call1($Stdlib[47], 0);
     };
     $dump_data->contents = (dynamic $f, dynamic $param) : dynamic ==> {
-      $d1 = null as dynamic;
-      $d2 = null as dynamic;
       $a = null as dynamic;
       $d = null as dynamic;
+      $d1 = null as dynamic;
+      $d2 = null as dynamic;
       if ($is_int($param)) {
         return $call1($Stdlib[42], $cst_Sempty);
       }

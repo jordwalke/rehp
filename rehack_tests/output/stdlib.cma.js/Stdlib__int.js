@@ -9,9 +9,6 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
-
-;
-
 var zero = 0;
 var one = 1;
 var minus_one = -1;

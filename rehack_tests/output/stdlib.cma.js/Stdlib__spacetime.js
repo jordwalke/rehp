@@ -9,15 +9,15 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
+var string = runtime["caml_new_string"];
+var caml_spacetime_enabled = runtime["caml_spacetime_enabled"];
+var caml_spacetime_only_works_for_native_code = runtime
+ ["caml_spacetime_only_works_for_native_code"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-var string = runtime["caml_new_string"];
-var caml_spacetime_enabled = runtime["caml_spacetime_enabled"];
-var caml_spacetime_only_works_for_native_code = runtime
- ["caml_spacetime_only_works_for_native_code"];
 var cst_Series_is_closed__0 = string("Series is closed");
 var cst_Series_is_closed = string("Series is closed");
 var Stdlib = require("./Stdlib.js");
@@ -26,11 +26,9 @@ var enabled = caml_spacetime_enabled(0);
 function if_spacetime_enabled(f) {return enabled ? call1(f, 0) : 0;}
 
 function create(path) {
-  var t;
-  var channel;
   if (caml_spacetime_enabled(0)) {
-    channel = call1(Stdlib[60], path);
-    t = [0,channel,0];
+    var channel = call1(Stdlib[60], path);
+    var t = [0,channel,0];
     caml_spacetime_only_works_for_native_code(t[1]);
     return t;
   }

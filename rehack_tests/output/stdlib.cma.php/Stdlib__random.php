@@ -112,10 +112,10 @@ final class Stdlib__random {
       $g_ = null as dynamic;
       $h_ = null as dynamic;
       $i = null as dynamic;
-      $j = null as dynamic;
-      $k = null as dynamic;
       $i_ = null as dynamic;
+      $j = null as dynamic;
       $j_ = null as dynamic;
+      $k = null as dynamic;
       $k_ = null as dynamic;
       $l_ = null as dynamic;
       $m_ = null as dynamic;
@@ -187,8 +187,8 @@ final class Stdlib__random {
       return $newval30;
     };
     $intaux = (dynamic $s, dynamic $n) : dynamic ==> {
-      $v = null as dynamic;
       $r = null as dynamic;
+      $v = null as dynamic;
       for (;;) {
         $r = $bits($s);
         $v = $caml_mod($r, $n);
@@ -203,10 +203,10 @@ final class Stdlib__random {
       return $call1($Stdlib[1], $cst_Random_int);
     };
     $int32aux = (dynamic $s, dynamic $n) : dynamic ==> {
-      $v = null as dynamic;
-      $r = null as dynamic;
-      $b2 = null as dynamic;
       $b1 = null as dynamic;
+      $b2 = null as dynamic;
+      $r = null as dynamic;
+      $v = null as dynamic;
       for (;;) {
         $b1 = $bits($s);
         $b2 = $left_shift_32($bits($s) & 1, 30);
@@ -229,11 +229,11 @@ final class Stdlib__random {
         : ($int32aux($s, $bound));
     };
     $int64aux = (dynamic $s, dynamic $n) : dynamic ==> {
-      $v = null as dynamic;
-      $r = null as dynamic;
-      $b3 = null as dynamic;
-      $b2 = null as dynamic;
       $b1 = null as dynamic;
+      $b2 = null as dynamic;
+      $b3 = null as dynamic;
+      $r = null as dynamic;
+      $v = null as dynamic;
       for (;;) {
         $b1 = $caml_int64_of_int32($bits($s));
         $b2 = $caml_int64_shift_left($caml_int64_of_int32($bits($s)), 30);

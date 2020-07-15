@@ -12,9 +12,6 @@ final class Stdlib__unit {
   public static function get() : Vector<dynamic> {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
-    
-    ;
-    
     $cst = $runtime["caml_new_string"]("()");
     $equal = (dynamic $param, dynamic $b_) : dynamic ==> {return 1;};
     $compare = (dynamic $param, dynamic $a_) : dynamic ==> {return 0;};

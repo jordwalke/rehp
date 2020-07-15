@@ -12,9 +12,6 @@ final class Console__ {
   public static function get() : Vector<dynamic> {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
-    
-    ;
-    
     $Console = Vector{0} as dynamic;
     
     return($Console);

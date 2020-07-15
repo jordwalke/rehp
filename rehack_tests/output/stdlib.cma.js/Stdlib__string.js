@@ -9,6 +9,14 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
+var caml_blit_string = runtime["caml_blit_string"];
+var caml_ml_string_length = runtime["caml_ml_string_length"];
+var string = runtime["caml_new_string"];
+var caml_string_equal = runtime["caml_string_equal"];
+var caml_string_unsafe_get = runtime["caml_string_unsafe_get"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -24,14 +32,6 @@ function call3(f, a0, a1, a2) {
     runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-var caml_blit_string = runtime["caml_blit_string"];
-var caml_ml_string_length = runtime["caml_ml_string_length"];
-var string = runtime["caml_new_string"];
-var caml_string_equal = runtime["caml_string_equal"];
-var caml_string_unsafe_get = runtime["caml_string_unsafe_get"];
-var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
-var caml_wrap_thrown_exception_reraise = runtime
- ["caml_wrap_thrown_exception_reraise"];
 var cst_String_rcontains_from_Bytes_rcontains_from = string(
   "String.rcontains_from / Bytes.rcontains_from"
 );
@@ -80,23 +80,19 @@ function ensure_ge(x, y) {
 }
 
 function sum_lengths(acc, seplen, param) {
-  var I_;
-  var J_;
-  var acc__1;
   var acc__0 = acc;
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      I_ = param__0[2];
-      J_ = param__0[1];
+      var I_ = param__0[2];
+      var J_ = param__0[1];
       if (I_) {
-        acc__1 =
-          ensure_ge(
-            (caml_ml_string_length(J_) + seplen | 0) + acc__0 | 0,
-            acc__0
-          );
-        acc__0 = acc__1;
-        param__0 = I_;
+        var acc__1 = ensure_ge(
+          (caml_ml_string_length(J_) + seplen | 0) + acc__0 | 0,
+          acc__0
+        );
+        var acc__0 = acc__1;
+        var param__0 = I_;
         continue;
       }
       return caml_ml_string_length(J_) + acc__0 | 0;
@@ -106,15 +102,12 @@ function sum_lengths(acc, seplen, param) {
 }
 
 function unsafe_blits(dst, pos, sep, seplen, param) {
-  var G_;
-  var H_;
-  var pos__1;
   var pos__0 = pos;
   var param__0 = param;
   for (; ; ) {
     if (param__0) {
-      G_ = param__0[2];
-      H_ = param__0[1];
+      var G_ = param__0[2];
+      var H_ = param__0[1];
       if (G_) {
         caml_blit_string(H_, 0, dst, pos__0, caml_ml_string_length(H_));
         caml_blit_string(
@@ -124,9 +117,9 @@ function unsafe_blits(dst, pos, sep, seplen, param) {
           pos__0 + caml_ml_string_length(H_) | 0,
           seplen
         );
-        pos__1 = (pos__0 + caml_ml_string_length(H_) | 0) + seplen | 0;
-        pos__0 = pos__1;
-        param__0 = G_;
+        var pos__1 = (pos__0 + caml_ml_string_length(H_) | 0) + seplen | 0;
+        var pos__0 = pos__1;
+        var param__0 = G_;
         continue;
       }
       caml_blit_string(H_, 0, dst, pos__0, caml_ml_string_length(H_));
@@ -137,9 +130,8 @@ function unsafe_blits(dst, pos, sep, seplen, param) {
 }
 
 function concat(sep, l) {
-  var seplen;
   if (l) {
-    seplen = caml_ml_string_length(sep);
+    var seplen = caml_ml_string_length(sep);
     return call1(
       bts,
       unsafe_blits(
@@ -155,16 +147,14 @@ function concat(sep, l) {
 }
 
 function iter(f, s) {
-  var i;
-  var F_;
   var E_ = caml_ml_string_length(s) + -1 | 0;
   var D_ = 0;
   if (! (E_ < 0)) {
-    i = D_;
+    var i = D_;
     for (; ; ) {
       call1(f, caml_string_unsafe_get(s, i));
-      F_ = i + 1 | 0;
-      if (E_ !== i) {i = F_;continue;}
+      var F_ = i + 1 | 0;
+      if (E_ !== i) {var i = F_;continue;}
       break;
     }
   }
@@ -172,16 +162,14 @@ function iter(f, s) {
 }
 
 function iteri(f, s) {
-  var i;
-  var C_;
   var B_ = caml_ml_string_length(s) + -1 | 0;
   var A_ = 0;
   if (! (B_ < 0)) {
-    i = A_;
+    var i = A_;
     for (; ; ) {
       call2(f, i, caml_string_unsafe_get(s, i));
-      C_ = i + 1 | 0;
-      if (B_ !== i) {i = C_;continue;}
+      var C_ = i + 1 | 0;
+      if (B_ !== i) {var i = C_;continue;}
       break;
     }
   }
@@ -218,24 +206,20 @@ function trim(s) {
 
 function escaped(s) {
   function escape_if_needed(s, n, i) {
-    var match;
-    var u_;
-    var v_;
-    var i__1;
-    var switch__0;
     var i__0 = i;
     for (; ; ) {
       if (n <= i__0) {return s;}
-      match = caml_string_unsafe_get(s, i__0);
-      u_ = match + -32 | 0;
-      switch__0 =
-        59 < u_ >>> 0 ? 33 < (u_ + -61 | 0) >>> 0 ? 1 : 0 : 2 === u_ ? 1 : 0;
+      var match = caml_string_unsafe_get(s, i__0);
+      var u_ = match + -32 | 0;
+      var switch__0 = 59 < u_ >>> 0 ?
+        33 < (u_ + -61 | 0) >>> 0 ? 1 : 0 :
+        2 === u_ ? 1 : 0;
       if (switch__0) {
-        v_ = call1(bos, s);
+        var v_ = call1(bos, s);
         return call1(bts, call1(Stdlib_bytes[20], v_));
       }
-      i__1 = i__0 + 1 | 0;
-      i__0 = i__1;
+      var i__1 = i__0 + 1 | 0;
+      var i__0 = i__1;
       continue;
     }
   }
@@ -243,13 +227,12 @@ function escaped(s) {
 }
 
 function index_rec(s, lim, i, c) {
-  var i__1;
   var i__0 = i;
   for (; ; ) {
     if (lim <= i__0) {throw caml_wrap_thrown_exception(Stdlib[8]);}
     if (caml_string_unsafe_get(s, i__0) === c) {return i__0;}
-    i__1 = i__0 + 1 | 0;
-    i__0 = i__1;
+    var i__1 = i__0 + 1 | 0;
+    var i__0 = i__1;
     continue;
   }
 }
@@ -257,13 +240,12 @@ function index_rec(s, lim, i, c) {
 function index(s, c) {return index_rec(s, caml_ml_string_length(s), 0, c);}
 
 function index_rec_opt(s, lim, i, c) {
-  var i__1;
   var i__0 = i;
   for (; ; ) {
     if (lim <= i__0) {return 0;}
     if (caml_string_unsafe_get(s, i__0) === c) {return [0,i__0];}
-    i__1 = i__0 + 1 | 0;
-    i__0 = i__1;
+    var i__1 = i__0 + 1 | 0;
+    var i__0 = i__1;
     continue;
   }
 }
@@ -285,13 +267,12 @@ function index_from_opt(s, i, c) {
 }
 
 function rindex_rec(s, i, c) {
-  var i__1;
   var i__0 = i;
   for (; ; ) {
     if (0 <= i__0) {
       if (caml_string_unsafe_get(s, i__0) === c) {return i__0;}
-      i__1 = i__0 + -1 | 0;
-      i__0 = i__1;
+      var i__1 = i__0 + -1 | 0;
+      var i__0 = i__1;
       continue;
     }
     throw caml_wrap_thrown_exception(Stdlib[8]);
@@ -310,13 +291,12 @@ function rindex_from(s, i, c) {
 }
 
 function rindex_rec_opt(s, i, c) {
-  var i__1;
   var i__0 = i;
   for (; ; ) {
     if (0 <= i__0) {
       if (caml_string_unsafe_get(s, i__0) === c) {return [0,i__0];}
-      i__1 = i__0 + -1 | 0;
-      i__0 = i__1;
+      var i__1 = i__0 + -1 | 0;
+      var i__0 = i__1;
       continue;
     }
     return 0;
@@ -335,11 +315,10 @@ function rindex_from_opt(s, i, c) {
 }
 
 function contains_from(s, i, c) {
-  var s_;
   var l = caml_ml_string_length(s);
   if (0 <= i) {
     if (! (l < i)) {
-      try {index_rec(s, l, i, c);s_ = 1;return s_;}
+      try {index_rec(s, l, i, c);var s_ = 1;return s_;}
       catch(t_) {
         t_ = runtime["caml_wrap_exception"](t_);
         if (t_ === Stdlib[8]) {return 0;}
@@ -353,10 +332,9 @@ function contains_from(s, i, c) {
 function contains(s, c) {return contains_from(s, 0, c);}
 
 function rcontains_from(s, i, c) {
-  var q_;
   if (0 <= i) {
     if (! (caml_ml_string_length(s) <= i)) {
-      try {rindex_rec(s, i, c);q_ = 1;return q_;}
+      try {rindex_rec(s, i, c);var q_ = 1;return q_;}
       catch(r_) {
         r_ = runtime["caml_wrap_exception"](r_);
         if (r_ === Stdlib[8]) {return 0;}
@@ -390,22 +368,19 @@ function uncapitalize_ascii(s) {
 function compare(x, y) {return runtime["caml_string_compare"](x, y);}
 
 function split_on_char(sep, s) {
-  var i;
-  var k_;
-  var l_;
   var r = [0,0];
   var j = [0,caml_ml_string_length(s)];
   var i_ = caml_ml_string_length(s) + -1 | 0;
   if (! (i_ < 0)) {
-    i = i_;
+    var i = i_;
     for (; ; ) {
       if (caml_string_unsafe_get(s, i) === sep) {
-        k_ = r[1];
+        var k_ = r[1];
         r[1] = [0,sub(s, i + 1 | 0, (j[1] - i | 0) + -1 | 0),k_];
         j[1] = i;
       }
-      l_ = i + -1 | 0;
-      if (0 !== i) {i = l_;continue;}
+      var l_ = i + -1 | 0;
+      if (0 !== i) {var i = l_;continue;}
       break;
     }
   }

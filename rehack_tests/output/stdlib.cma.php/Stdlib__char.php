@@ -30,8 +30,8 @@ final class Stdlib__char {
       return $call1($Stdlib[1], $cst_Char_chr);
     };
     $escaped = (dynamic $c) : dynamic ==> {
-      $switch__0 = null as dynamic;
       $s__0 = null as dynamic;
+      $switch__0 = null as dynamic;
       if (40 <= $c) {
         if (92 === $c) {return $cst;}
         $switch__0 = 127 <= $c ? 0 : (1);

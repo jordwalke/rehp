@@ -12,9 +12,6 @@ final class Stdlib__bytesLabels {
   public static function get() : Vector<dynamic> {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
-    
-    ;
-    
     $Stdlib_bytes = Stdlib__bytes::get();
     $make = $Stdlib_bytes[1];
     $init = $Stdlib_bytes[2];

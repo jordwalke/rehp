@@ -26,24 +26,25 @@ final class Stdlib__seq {
       return Vector{0, $x, $empty};
     };
     $map->contents = (dynamic $f, dynamic $seq, dynamic $param) : dynamic ==> {
+      $g_ = null as dynamic;
       $next = null as dynamic;
       $x = null as dynamic;
-      $g_ = null as dynamic;
       $match = $call1($seq, 0);
       if ($match) {
         $next = $match[2];
         $x = $match[1];
-        $g_ =
-          (dynamic $h_) : dynamic ==> {return $map->contents($f, $next, $h_);};
+        $g_ = (dynamic $h_) : dynamic ==> {
+          return $map->contents($f, $next, $h_);
+        };
         return Vector{0, $call1($f, $x), $g_};
       }
       return 0;
     };
     $filter_map->contents = (dynamic $f, dynamic $seq, dynamic $param) : dynamic ==> {
       $match = null as dynamic;
+      $match__0 = null as dynamic;
       $next = null as dynamic;
       $x = null as dynamic;
-      $match__0 = null as dynamic;
       $y = null as dynamic;
       $seq__0 = $seq;
       for (;;) {
@@ -95,11 +96,11 @@ final class Stdlib__seq {
     };
     $flat_map__0 = 
     (dynamic $counter, dynamic $f, dynamic $seq, dynamic $param) : dynamic ==> {
+      $c_ = null as dynamic;
+      $counter__0 = null as dynamic;
+      $d_ = null as dynamic;
       $next = null as dynamic;
       $x = null as dynamic;
-      $c_ = null as dynamic;
-      $d_ = null as dynamic;
-      $counter__0 = null as dynamic;
       $match = $call1($seq, 0);
       if ($match) {
         $next = $match[2];
@@ -119,9 +120,9 @@ final class Stdlib__seq {
     };
     $flat_map_app__0->contents = 
     (dynamic $counter, dynamic $f, dynamic $seq, dynamic $tail, dynamic $param) : dynamic ==> {
+      $counter__0 = null as dynamic;
       $next = null as dynamic;
       $x = null as dynamic;
-      $counter__0 = null as dynamic;
       $match = $call1($seq, 0);
       if ($match) {
         $next = $match[2];
@@ -152,10 +153,10 @@ final class Stdlib__seq {
     };
     $fold_left = (dynamic $f, dynamic $acc, dynamic $seq) : dynamic ==> {
       $aux = (dynamic $f, dynamic $acc, dynamic $seq) : dynamic ==> {
+        $acc__1 = null as dynamic;
         $match = null as dynamic;
         $seq__1 = null as dynamic;
         $x = null as dynamic;
-        $acc__1 = null as dynamic;
         $acc__0 = $acc;
         $seq__0 = $seq;
         for (;;) {

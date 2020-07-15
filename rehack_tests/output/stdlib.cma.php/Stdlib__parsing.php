@@ -84,23 +84,27 @@ final class Stdlib__parsing {
     $yyparse = 
     (dynamic $tables, dynamic $start, dynamic $lexer, dynamic $lexbuf) : dynamic ==> {
       $curr_char = null as dynamic;
-      $v = null as dynamic;
       $i_ = null as dynamic;
+      $v = null as dynamic;
       $loop = (dynamic $cmd, dynamic $arg) : dynamic ==> {
-        $match = null as dynamic;
         $arg__1 = null as dynamic;
-        $k_ = null as dynamic;
-        $l_ = null as dynamic;
         $arg__2 = null as dynamic;
         $cmd__1 = null as dynamic;
+        $k_ = null as dynamic;
+        $l_ = null as dynamic;
         $m_ = null as dynamic;
+        $match = null as dynamic;
         $n_ = null as dynamic;
         $o_ = null as dynamic;
         $cmd__0 = $cmd;
         $arg__0 = $arg;
         for (;;) {
-          $match =
-            $runtime["caml_parse_engine"]($tables, $env, $cmd__0, $arg__0);
+          $match = $runtime["caml_parse_engine"](
+            $tables,
+            $env,
+            $cmd__0,
+            $arg__0
+          );
           $continue_label = null;
           switch($match) {
             // FALLTHROUGH
@@ -130,8 +134,8 @@ final class Stdlib__parsing {
             case 4:
               try {
                 $m_ = $env[13];
-                $n_ =
-                  $call1($caml_check_bound($tables[1], $m_)[$m_ + 1], $env);
+                $n_ = $call1($caml_check_bound($tables[1], $m_)[$m_ + 1], $env
+                );
                 $o_ = 4 as dynamic;
                 $cmd__1 = $o_;
                 $arg__2 = $n_;
@@ -204,11 +208,11 @@ final class Stdlib__parsing {
     $symbol_start_pos = (dynamic $param) : dynamic ==> {
       $loop = (dynamic $i) : dynamic ==> {
         $e_ = null as dynamic;
-        $st = null as dynamic;
-        $f_ = null as dynamic;
         $en = null as dynamic;
-        $i__1 = null as dynamic;
+        $f_ = null as dynamic;
         $g_ = null as dynamic;
+        $i__1 = null as dynamic;
+        $st = null as dynamic;
         $i__0 = $i;
         for (;;) {
           if (0 < $i__0) {

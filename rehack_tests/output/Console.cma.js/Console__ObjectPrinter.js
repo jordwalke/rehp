@@ -9,6 +9,10 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
+var caml_ml_string_length = runtime["caml_ml_string_length"];
+var string = runtime["caml_new_string"];
+var caml_obj_tag = runtime["caml_obj_tag"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -24,10 +28,6 @@ function call3(f, a0, a1, a2) {
     runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-var caml_ml_string_length = runtime["caml_ml_string_length"];
-var string = runtime["caml_new_string"];
-var caml_obj_tag = runtime["caml_obj_tag"];
-var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 var cst = string("  ");
 var cst__0 = string("");
 var cst__1 = string("  ");
@@ -90,35 +90,27 @@ function setMaxLength(l) {
 }
 
 function detectList(maxLength, o) {
-  var tag;
-  var match;
-  var size;
-  var ab_;
-  var ac_;
-  var o__1;
-  var maxLength__1;
-  var ad_;
   var maxLength__0 = maxLength;
   var o__0 = o;
   for (; ; ) {
     if (0 === maxLength__0) {return 1;}
-    tag = caml_obj_tag(o__0);
-    match = tag === Stdlib_obj[18] ? 1 : 0;
+    var tag = caml_obj_tag(o__0);
+    var match = tag === Stdlib_obj[18] ? 1 : 0;
     if (0 === match) {
-      size = o__0.length - 1;
-      ab_ = tag === Stdlib_obj[4] ? 1 : 0;
+      var size = o__0.length - 1;
+      var ab_ = tag === Stdlib_obj[4] ? 1 : 0;
       if (ab_) {
-        ac_ = 2 === size ? 1 : 0;
+        var ac_ = 2 === size ? 1 : 0;
         if (ac_) {
-          o__1 = o__0[2];
-          maxLength__1 = maxLength__0 + -1 | 0;
-          maxLength__0 = maxLength__1;
-          o__0 = o__1;
+          var o__1 = o__0[2];
+          var maxLength__1 = maxLength__0 + -1 | 0;
+          var maxLength__0 = maxLength__1;
+          var o__0 = o__1;
           continue;
         }
-        ad_ = ac_;
+        var ad_ = ac_;
       }
-      else ad_ = ab_;
+      else var ad_ = ab_;
       return ad_;
     }
     return runtime["caml_equal"](o__0, 0);
@@ -136,9 +128,6 @@ function extractList(maxNum, o) {
 
 function extractFields(maxNum, o) {
   function extractFields(maxNum, fieldsSoFar, numFields) {
-    var numFields__1;
-    var fieldsSoFar__1;
-    var maxNum__1;
     var maxNum__0 = maxNum;
     var fieldsSoFar__0 = fieldsSoFar;
     var numFields__0 = numFields;
@@ -147,12 +136,12 @@ function extractFields(maxNum, o) {
         return [0,0 < numFields__0 ? 1 : 0,fieldsSoFar__0];
       }
       if (0 === numFields__0) {return [0,0,fieldsSoFar__0];}
-      numFields__1 = numFields__0 + -1 | 0;
-      fieldsSoFar__1 = [0,o[(numFields__0 + -1 | 0) + 1],fieldsSoFar__0];
-      maxNum__1 = maxNum__0 + -1 | 0;
-      maxNum__0 = maxNum__1;
-      fieldsSoFar__0 = fieldsSoFar__1;
-      numFields__0 = numFields__1;
+      var numFields__1 = numFields__0 + -1 | 0;
+      var fieldsSoFar__1 = [0,o[(numFields__0 + -1 | 0) + 1],fieldsSoFar__0];
+      var maxNum__1 = maxNum__0 + -1 | 0;
+      var maxNum__0 = maxNum__1;
+      var fieldsSoFar__0 = fieldsSoFar__1;
+      var numFields__0 = numFields__1;
       continue;
     }
   }
@@ -178,9 +167,8 @@ function getBreakData(itms) {
 }
 
 function indentForDepth(n) {
-  var Z_;
   if (8 < n >>> 0) {
-    Z_ = indentForDepth(n + -1 | 0);
+    var Z_ = indentForDepth(n + -1 | 0);
     return call2(Stdlib[28], Z_, cst);
   }
   switch (n) {
@@ -206,14 +194,6 @@ function indentForDepth(n) {
 }
 
 function printTreeShape(pair, self, depth, o) {
-  var truncationMsg;
-  var T_;
-  var U_;
-  var truncationMsg__0;
-  var V_;
-  var W_;
-  var X_;
-  var Y_;
   var right = pair[2];
   var left = pair[1];
   var match = extractFields(maxLength[1], o);
@@ -232,23 +212,22 @@ function printTreeShape(pair, self, depth, o) {
   (colWidth[1] <= ((caml_ml_string_length(indent) + 2 | 0) + allItemsLen | 0))
   ) {
     if (! someChildBroke) {
-      if (0 === wasTruncated) truncationMsg__0 =
-        cst__14;
+      if (0 === wasTruncated) var truncationMsg__0 = cst__14;
       else {
-        Y_ = call1(self[6], self);
-        truncationMsg__0 = call2(Stdlib[28], cst__16, Y_);
+        var Y_ = call1(self[6], self);
+        var truncationMsg__0 = call2(Stdlib[28], cst__16, Y_);
       }
-      V_ = call2(Stdlib[28], truncationMsg__0, right);
-      W_ = call2(Stdlib_string[7], cst__15, itms);
-      X_ = call2(Stdlib[28], W_, V_);
+      var V_ = call2(Stdlib[28], truncationMsg__0, right);
+      var W_ = call2(Stdlib_string[7], cst__15, itms);
+      var X_ = call2(Stdlib[28], W_, V_);
       return call2(Stdlib[28], left, X_);
     }
   }
-  if (0 === wasTruncated) truncationMsg = cst__9;
+  if (0 === wasTruncated) var truncationMsg = cst__9;
   else {
-    T_ = call1(self[6], self);
-    U_ = call2(Stdlib[28], indentNext, T_);
-    truncationMsg = call2(Stdlib[28], cst__13, U_);
+    var T_ = call1(self[6], self);
+    var U_ = call2(Stdlib[28], indentNext, T_);
+    var truncationMsg = call2(Stdlib[28], cst__13, U_);
   }
   var L_ = call2(Stdlib[28], indent, right);
   var M_ = call2(Stdlib[28], cst__10, L_);
@@ -262,14 +241,6 @@ function printTreeShape(pair, self, depth, o) {
 }
 
 function printListShape(self, depth, o) {
-  var truncationMsg;
-  var E_;
-  var F_;
-  var truncationMsg__0;
-  var G_;
-  var H_;
-  var I_;
-  var J_;
   var match = extractList(maxLength[1], o);
   var lst = match[2];
   var wasTruncated = match[1];
@@ -286,23 +257,22 @@ function printListShape(self, depth, o) {
   (colWidth[1] <= ((caml_ml_string_length(indent) + 2 | 0) + allItemsLen | 0))
   ) {
     if (! someChildBroke) {
-      if (0 === wasTruncated) truncationMsg__0 =
-        cst__24;
+      if (0 === wasTruncated) var truncationMsg__0 = cst__24;
       else {
-        J_ = call1(self[6], self);
-        truncationMsg__0 = call2(Stdlib[28], cst__28, J_);
+        var J_ = call1(self[6], self);
+        var truncationMsg__0 = call2(Stdlib[28], cst__28, J_);
       }
-      G_ = call2(Stdlib[28], truncationMsg__0, cst__25);
-      H_ = call2(Stdlib_string[7], cst__26, itms);
-      I_ = call2(Stdlib[28], H_, G_);
+      var G_ = call2(Stdlib[28], truncationMsg__0, cst__25);
+      var H_ = call2(Stdlib_string[7], cst__26, itms);
+      var I_ = call2(Stdlib[28], H_, G_);
       return call2(Stdlib[28], cst__27, I_);
     }
   }
-  if (0 === wasTruncated) truncationMsg = cst__17;
+  if (0 === wasTruncated) var truncationMsg = cst__17;
   else {
-    E_ = call1(self[6], self);
-    F_ = call2(Stdlib[28], indentNext, E_);
-    truncationMsg = call2(Stdlib[28], cst__23, F_);
+    var E_ = call1(self[6], self);
+    var F_ = call2(Stdlib[28], indentNext, E_);
+    var truncationMsg = call2(Stdlib[28], cst__23, F_);
   }
   var w_ = call2(Stdlib[28], indent, cst__18);
   var x_ = call2(Stdlib[28], cst__19, w_);
@@ -316,18 +286,15 @@ function printListShape(self, depth, o) {
 }
 
 function d_(self, opt, o) {
-  var match;
-  var depth;
-  var sth;
   if (opt) {
-    sth = opt[1];
-    depth = sth;
+    var sth = opt[1];
+    var depth = sth;
   }
-  else depth = 0;
+  else var depth = 0;
   if (maxDepth[1] < depth) {return call1(self[5], self);}
   var tag = caml_obj_tag(o);
   if (tag === Stdlib_obj[13]) {
-    match = 0 === depth ? 1 : 0;
+    var match = 0 === depth ? 1 : 0;
     return 0 === match ? call2(self[3], self, o) : call2(self[2], self, o);
   }
   return tag === Stdlib_obj[18] ?
@@ -348,24 +315,20 @@ function d_(self, opt, o) {
 }
 
 function e_(self, opt, o) {
-  var depth;
-  var sth;
   if (opt) {
-    sth = opt[1];
-    depth = sth;
+    var sth = opt[1];
+    var depth = sth;
   }
-  else depth = 0;
+  else var depth = 0;
   return printListShape(self, depth, o);
 }
 
 function f_(self, opt, o) {
-  var depth;
-  var sth;
   if (opt) {
-    sth = opt[1];
-    depth = sth;
+    var sth = opt[1];
+    var depth = sth;
   }
-  else depth = 0;
+  else var depth = 0;
   return printTreeShape(g_, self, depth, o);
 }
 
@@ -376,13 +339,11 @@ function h_(self, f) {
 }
 
 function i_(self, opt, o) {
-  var depth;
-  var sth;
   if (opt) {
-    sth = opt[1];
-    depth = sth;
+    var sth = opt[1];
+    var depth = sth;
   }
-  else depth = 0;
+  else var depth = 0;
   return printTreeShape(j_, self, depth, o);
 }
 

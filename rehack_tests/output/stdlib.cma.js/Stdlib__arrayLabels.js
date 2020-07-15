@@ -9,9 +9,6 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
-
-;
-
 var Stdlib_array = require("./Stdlib__array.js");
 var make_float = Stdlib_array[1];
 var init = Stdlib_array[2];

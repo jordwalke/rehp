@@ -9,6 +9,14 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
+var caml_create_bytes = runtime["caml_create_bytes"];
+var caml_float_of_string = runtime["caml_float_of_string"];
+var string = runtime["caml_new_string"];
+var caml_trampoline = runtime["caml_trampoline"];
+var caml_trampoline_return = runtime["caml_trampoline_return"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -30,14 +38,6 @@ function call5(f, a0, a1, a2, a3, a4) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
-var caml_create_bytes = runtime["caml_create_bytes"];
-var caml_float_of_string = runtime["caml_float_of_string"];
-var string = runtime["caml_new_string"];
-var caml_trampoline = runtime["caml_trampoline"];
-var caml_trampoline_return = runtime["caml_trampoline_return"];
-var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
-var caml_wrap_thrown_exception_reraise = runtime
- ["caml_wrap_thrown_exception_reraise"];
 var cst = string("");
 var cst__0 = string("");
 var cst__1 = string("");
@@ -63,9 +63,8 @@ function reset_buffer(param) {
 }
 
 function store(c) {
-  var newbuffer;
   if (runtime["caml_ml_bytes_length"](buffer[1]) <= bufpos[1]) {
-    newbuffer = caml_create_bytes(2 * bufpos[1] | 0);
+    var newbuffer = caml_create_bytes(2 * bufpos[1] | 0);
     call5(Stdlib_bytes[11], buffer[1], 0, newbuffer, 0, bufpos[1]);
     buffer[1] = newbuffer;
   }
@@ -85,8 +84,7 @@ function make_lexer(keywords) {
   function a_(s) {return call3(Stdlib_hashtbl[5], kwd_table, s, [0,s]);}
   call2(Stdlib_list[15], a_, keywords);
   function ident_or_keyword(id) {
-    var C_;
-    try {C_ = call2(Stdlib_hashtbl[6], kwd_table, id);return C_;}
+    try {var C_ = call2(Stdlib_hashtbl[6], kwd_table, id);return C_;}
     catch(D_) {
       D_ = runtime["caml_wrap_exception"](D_);
       if (D_ === Stdlib[8]) {return [1,id];}
@@ -94,28 +92,23 @@ function make_lexer(keywords) {
     }
   }
   function keyword_or_error(c) {
-    var z_;
-    var A_;
     var s = call2(Stdlib_string[1], 1, c);
-    try {A_ = call2(Stdlib_hashtbl[6], kwd_table, s);return A_;}
+    try {var A_ = call2(Stdlib_hashtbl[6], kwd_table, s);return A_;}
     catch(B_) {
       B_ = runtime["caml_wrap_exception"](B_);
       if (B_ === Stdlib[8]) {
-        z_ = call2(Stdlib[28], cst_Illegal_character, s);
+        var z_ = call2(Stdlib[28], cst_Illegal_character, s);
         throw caml_wrap_thrown_exception([0,Stdlib_stream[2],z_]);
       }
       throw caml_wrap_thrown_exception_reraise(B_);
     }
   }
   function end_exponent_part(strm) {
-    var switcher;
-    var y_;
-    var match;
     for (; ; ) {
-      match = call1(Stdlib_stream[11], strm);
+      var match = call1(Stdlib_stream[11], strm);
       if (match) {
-        y_ = match[1];
-        switcher = y_ + -48 | 0;
+        var y_ = match[1];
+        var switcher = y_ + -48 | 0;
         if (! (9 < switcher >>> 0)) {
           call1(Stdlib_stream[12], strm);
           store(y_);
@@ -126,12 +119,10 @@ function make_lexer(keywords) {
     }
   }
   function exponent_part(strm) {
-    var x_;
-    var switch__0;
     var match = call1(Stdlib_stream[11], strm);
     if (match) {
-      x_ = match[1];
-      switch__0 = 43 === x_ ? 0 : 45 === x_ ? 0 : 1;
+      var x_ = match[1];
+      var switch__0 = 43 === x_ ? 0 : 45 === x_ ? 0 : 1;
       if (! switch__0) {
         call1(Stdlib_stream[12], strm);
         store(x_);
@@ -141,18 +132,13 @@ function make_lexer(keywords) {
     return end_exponent_part(strm);
   }
   function decimal_part(strm) {
-    var switcher__0;
-    var switcher;
-    var w_;
-    var v_;
-    var match;
     for (; ; ) {
-      match = call1(Stdlib_stream[11], strm);
+      var match = call1(Stdlib_stream[11], strm);
       if (match) {
-        v_ = match[1];
-        w_ = v_ + -69 | 0;
+        var v_ = match[1];
+        var w_ = v_ + -69 | 0;
         if (32 < w_ >>> 0) {
-          switcher = w_ + 21 | 0;
+          var switcher = w_ + 21 | 0;
           if (! (9 < switcher >>> 0)) {
             call1(Stdlib_stream[12], strm);
             store(v_);
@@ -160,7 +146,7 @@ function make_lexer(keywords) {
           }
         }
         else {
-          switcher__0 = w_ + -1 | 0;
+          var switcher__0 = w_ + -1 | 0;
           if (30 < switcher__0 >>> 0) {
             call1(Stdlib_stream[12], strm);
             store(69);
@@ -172,15 +158,12 @@ function make_lexer(keywords) {
     }
   }
   function number(strm) {
-    var switch__0;
-    var u_;
-    var match;
     for (; ; ) {
-      match = call1(Stdlib_stream[11], strm);
+      var match = call1(Stdlib_stream[11], strm);
       if (match) {
-        u_ = match[1];
+        var u_ = match[1];
         if (58 <= u_) {
-          switch__0 = 69 === u_ ? 0 : 101 === u_ ? 0 : 1;
+          var switch__0 = 69 === u_ ? 0 : 101 === u_ ? 0 : 1;
           if (! switch__0) {
             call1(Stdlib_stream[12], strm);
             store(69);
@@ -200,20 +183,18 @@ function make_lexer(keywords) {
     }
   }
   function ident2(strm) {
-    var switch__0;
-    var t_;
-    var s_;
-    var match;
     for (; ; ) {
-      match = call1(Stdlib_stream[11], strm);
+      var match = call1(Stdlib_stream[11], strm);
       if (match) {
-        s_ = match[1];
+        var s_ = match[1];
         if (94 <= s_) {
-          t_ = s_ + -95 | 0;
-          switch__0 = 30 < t_ >>> 0 ? 32 <= t_ ? 1 : 0 : 29 === t_ ? 0 : 1;
+          var t_ = s_ + -95 | 0;
+          var switch__0 = 30 < t_ >>> 0 ? 32 <= t_ ? 1 : 0 : 29 === t_ ? 0 : 1;
         }
-        else if (65 <= s_) switch__0 =
-          92 === s_ ? 0 : 1;
+        else if (65 <= s_) var switch__0 = 92 ===
+           s_ ?
+          0 :
+          1;
         else if (33 <= s_) switch (
           s_ + -33 | 0
         ) {
@@ -232,24 +213,22 @@ function make_lexer(keywords) {
           case 29:
           case 30:
           case 31:
-            switch__0 = 0;
+            var switch__0 = 0;
             break;
           default:
-            switch__0 = 1
+            var switch__0 = 1
           }
-        else switch__0 = 1;
+        else var switch__0 = 1;
         if (! switch__0) {call1(Stdlib_stream[12], strm);store(s_);continue;}
       }
       return [0,ident_or_keyword(get_string(0))];
     }
   }
   function neg_number(strm) {
-    var r_;
-    var switcher;
     var match = call1(Stdlib_stream[11], strm);
     if (match) {
-      r_ = match[1];
-      switcher = r_ + -48 | 0;
+      var r_ = match[1];
+      var switcher = r_ + -48 | 0;
       if (! (9 < switcher >>> 0)) {
         call1(Stdlib_stream[12], strm);
         reset_buffer(0);
@@ -263,46 +242,36 @@ function make_lexer(keywords) {
     return ident2(strm);
   }
   function ident(strm) {
-    var switch__0;
-    var q_;
-    var p_;
-    var match;
     for (; ; ) {
-      match = call1(Stdlib_stream[11], strm);
+      var match = call1(Stdlib_stream[11], strm);
       if (match) {
-        p_ = match[1];
+        var p_ = match[1];
         if (91 <= p_) {
-          q_ = p_ + -95 | 0;
-          switch__0 = 27 < q_ >>> 0 ? 97 <= q_ ? 0 : 1 : 1 === q_ ? 1 : 0;
+          var q_ = p_ + -95 | 0;
+          var switch__0 = 27 < q_ >>> 0 ? 97 <= q_ ? 0 : 1 : 1 === q_ ? 1 : 0;
         }
-        else switch__0 =
-          48 <= p_ ? 6 < (p_ + -58 | 0) >>> 0 ? 0 : 1 : 39 === p_ ? 0 : 1;
+        else var switch__0 = 48 <= p_ ?
+          6 < (p_ + -58 | 0) >>> 0 ? 0 : 1 :
+          39 === p_ ? 0 : 1;
         if (! switch__0) {call1(Stdlib_stream[12], strm);store(p_);continue;}
       }
       return [0,ident_or_keyword(get_string(0))];
     }
   }
   function next_token__0(counter, strm) {
-    var switch__0;
-    var counter__0;
-    var n_;
-    var match__0;
-    var c;
-    var switcher;
-    var m_;
-    var l_;
-    var match;
     for (; ; ) {
-      match = call1(Stdlib_stream[11], strm);
+      var match = call1(Stdlib_stream[11], strm);
       if (match) {
-        l_ = match[1];
-        if (124 <= l_) switch__0 =
-          127 <= l_ ? 192 <= l_ ? 1 : 0 : 125 === l_ ? 0 : 2;
+        var l_ = match[1];
+        if (124 <= l_) var switch__0 = 127 <=
+           l_ ?
+          192 <= l_ ? 1 : 0 :
+          125 === l_ ? 0 : 2;
         else {
-          m_ = l_ + -65 | 0;
-          if (57 < m_ >>> 0) if (58 <= m_) switch__0 = 0;
+          var m_ = l_ + -65 | 0;
+          if (57 < m_ >>> 0) if (58 <= m_) var switch__0 = 0;
           else {
-            switcher = m_ + 65 | 0;
+            var switcher = m_ + 65 | 0;
             switch (switcher) {
               case 34:
                 call1(Stdlib_stream[12], strm);
@@ -310,7 +279,7 @@ function make_lexer(keywords) {
                 return [0,[4,string(strm)]];
               case 39:
                 call1(Stdlib_stream[12], strm);
-                try {c = char__0(strm);}
+                try {var c = char__0(strm);}
                 catch(o_) {
                   o_ = runtime["caml_wrap_exception"](o_);
                   if (o_ === Stdlib_stream[1]) {
@@ -318,7 +287,7 @@ function make_lexer(keywords) {
                   }
                   throw caml_wrap_thrown_exception_reraise(o_);
                 }
-                match__0 = call1(Stdlib_stream[11], strm);
+                var match__0 = call1(Stdlib_stream[11], strm);
                 if (match__0) {
                   if (39 === match__0[1]) {
                     call1(Stdlib_stream[12], strm);
@@ -329,7 +298,7 @@ function make_lexer(keywords) {
               case 40:
                 call1(Stdlib_stream[12], strm);
                 if (counter < 50) {
-                  counter__0 = counter + 1 | 0;
+                  var counter__0 = counter + 1 | 0;
                   return maybe_comment(counter__0, strm);
                 }
                 return caml_trampoline_return(maybe_comment, [0,strm]);
@@ -372,25 +341,25 @@ function make_lexer(keywords) {
               case 62:
               case 63:
               case 64:
-                switch__0 = 2;
+                var switch__0 = 2;
                 break;
               default:
-                switch__0 = 0
+                var switch__0 = 0
               }
           }
           else {
-            n_ = m_ + -26 | 0;
-            if (5 < n_ >>> 0) switch__0 = 1;
+            var n_ = m_ + -26 | 0;
+            if (5 < n_ >>> 0) var switch__0 = 1;
             else switch (n_) {
               case 4:
-                switch__0 = 1;
+                var switch__0 = 1;
                 break;
               case 1:
               case 3:
-                switch__0 = 2;
+                var switch__0 = 2;
                 break;
               default:
-                switch__0 = 0
+                var switch__0 = 0
               }
           }
         }
@@ -414,14 +383,13 @@ function make_lexer(keywords) {
     }
   }
   function maybe_comment(counter, strm) {
-    var counter__0;
     var match = call1(Stdlib_stream[11], strm);
     if (match) {
       if (42 === match[1]) {
         call1(Stdlib_stream[12], strm);
         comment(strm);
         if (counter < 50) {
-          counter__0 = counter + 1 | 0;
+          var counter__0 = counter + 1 | 0;
           return next_token__0(counter__0, strm);
         }
         return caml_trampoline_return(next_token__0, [0,strm]);
@@ -431,17 +399,14 @@ function make_lexer(keywords) {
   }
   function next_token(strm) {return caml_trampoline(next_token__0(0, strm));}
   function string(strm) {
-    var c;
-    var j_;
-    var match;
     for (; ; ) {
-      match = call1(Stdlib_stream[11], strm);
+      var match = call1(Stdlib_stream[11], strm);
       if (match) {
-        j_ = match[1];
+        var j_ = match[1];
         if (34 === j_) {call1(Stdlib_stream[12], strm);return get_string(0);}
         if (92 === j_) {
           call1(Stdlib_stream[12], strm);
-          try {c = escape(strm);}
+          try {var c = escape(strm);}
           catch(k_) {
             k_ = runtime["caml_wrap_exception"](k_);
             if (k_ === Stdlib_stream[1]) {
@@ -460,14 +425,12 @@ function make_lexer(keywords) {
     }
   }
   function char__0(strm) {
-    var g_;
-    var h_;
     var match = call1(Stdlib_stream[11], strm);
     if (match) {
-      g_ = match[1];
+      var g_ = match[1];
       if (92 === g_) {
         call1(Stdlib_stream[12], strm);
-        try {h_ = escape(strm);return h_;}
+        try {var h_ = escape(strm);return h_;}
         catch(i_) {
           i_ = runtime["caml_wrap_exception"](i_);
           if (i_ === Stdlib_stream[1]) {
@@ -482,19 +445,11 @@ function make_lexer(keywords) {
     throw caml_wrap_thrown_exception(Stdlib_stream[1]);
   }
   function escape(strm) {
-    var d_;
-    var switcher;
-    var match__0;
-    var e_;
-    var switcher__0;
-    var match__1;
-    var f_;
-    var switcher__1;
     var match = call1(Stdlib_stream[11], strm);
     if (match) {
-      d_ = match[1];
+      var d_ = match[1];
       if (58 <= d_) {
-        switcher = d_ + -110 | 0;
+        var switcher = d_ + -110 | 0;
         if (! (6 < switcher >>> 0)) {
           switch (switcher) {
             case 0:
@@ -511,16 +466,16 @@ function make_lexer(keywords) {
       }
       else if (48 <= d_) {
         call1(Stdlib_stream[12], strm);
-        match__0 = call1(Stdlib_stream[11], strm);
+        var match__0 = call1(Stdlib_stream[11], strm);
         if (match__0) {
-          e_ = match__0[1];
-          switcher__0 = e_ + -48 | 0;
+          var e_ = match__0[1];
+          var switcher__0 = e_ + -48 | 0;
           if (! (9 < switcher__0 >>> 0)) {
             call1(Stdlib_stream[12], strm);
-            match__1 = call1(Stdlib_stream[11], strm);
+            var match__1 = call1(Stdlib_stream[11], strm);
             if (match__1) {
-              f_ = match__1[1];
-              switcher__1 = f_ + -48 | 0;
+              var f_ = match__1[1];
+              var switcher__1 = f_ + -48 | 0;
               if (! (9 < switcher__1 >>> 0)) {
                 call1(Stdlib_stream[12], strm);
                 return call1(
@@ -540,20 +495,16 @@ function make_lexer(keywords) {
     throw caml_wrap_thrown_exception(Stdlib_stream[1]);
   }
   function comment__0(counter, strm) {
-    var counter__1;
-    var counter__0;
-    var switcher;
-    var match;
     for (; ; ) {
-      match = call1(Stdlib_stream[11], strm);
+      var match = call1(Stdlib_stream[11], strm);
       if (match) {
-        switcher = match[1] + -40 | 0;
+        var switcher = match[1] + -40 | 0;
         if (! (2 < switcher >>> 0)) {
           switch (switcher) {
             case 0:
               call1(Stdlib_stream[12], strm);
               if (counter < 50) {
-                counter__1 = counter + 1 | 0;
+                var counter__1 = counter + 1 | 0;
                 return maybe_nested_comment(counter__1, strm);
               }
               return caml_trampoline_return(maybe_nested_comment, [0,strm]);
@@ -561,7 +512,7 @@ function make_lexer(keywords) {
             default:
               call1(Stdlib_stream[12], strm);
               if (counter < 50) {
-                counter__0 = counter + 1 | 0;
+                var counter__0 = counter + 1 | 0;
                 return maybe_end_comment(counter__0, strm);
               }
               return caml_trampoline_return(maybe_end_comment, [0,strm])
@@ -574,22 +525,20 @@ function make_lexer(keywords) {
     }
   }
   function maybe_nested_comment(counter, strm) {
-    var counter__0;
-    var counter__1;
     var match = call1(Stdlib_stream[11], strm);
     if (match) {
       if (42 === match[1]) {
         call1(Stdlib_stream[12], strm);
         comment(strm);
         if (counter < 50) {
-          counter__1 = counter + 1 | 0;
+          var counter__1 = counter + 1 | 0;
           return comment__0(counter__1, strm);
         }
         return caml_trampoline_return(comment__0, [0,strm]);
       }
       call1(Stdlib_stream[12], strm);
       if (counter < 50) {
-        counter__0 = counter + 1 | 0;
+        var counter__0 = counter + 1 | 0;
         return comment__0(counter__0, strm);
       }
       return caml_trampoline_return(comment__0, [0,strm]);
@@ -597,18 +546,15 @@ function make_lexer(keywords) {
     throw caml_wrap_thrown_exception(Stdlib_stream[1]);
   }
   function maybe_end_comment(counter, strm) {
-    var counter__0;
-    var c_;
-    var match;
     for (; ; ) {
-      match = call1(Stdlib_stream[11], strm);
+      var match = call1(Stdlib_stream[11], strm);
       if (match) {
-        c_ = match[1];
+        var c_ = match[1];
         if (41 === c_) {call1(Stdlib_stream[12], strm);return 0;}
         if (42 === c_) {call1(Stdlib_stream[12], strm);continue;}
         call1(Stdlib_stream[12], strm);
         if (counter < 50) {
-          counter__0 = counter + 1 | 0;
+          var counter__0 = counter + 1 | 0;
           return comment__0(counter__0, strm);
         }
         return caml_trampoline_return(comment__0, [0,strm]);

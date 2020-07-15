@@ -10,8 +10,6 @@
 
 var runtime = require("../../runtime/runtime.js");
 
-;
-
 function nobug1(x) {return 1 + nobug1(x) | 0;}
 
 nobug1(42);
@@ -19,50 +17,42 @@ nobug1(42);
 function nobug2(x) {function sub(x) {return 1 + sub(x) | 0;}return sub(x);}
 
 function bug(x) {
-  var sub;
-  if (0 === x) {sub = function(x) {return 1 + sub(x) | 0;};return sub(x);}
+  if (0 === x) {var sub = function(x) {return 1 + sub(x) | 0;};return sub(x);}
   return 0;
 }
 
 function bug__0(x) {
-  var sub;
-  if (0 === x) {sub = function(x) {return 1 + sub(x) | 0;};return sub(x);}
+  if (0 === x) {var sub = function(x) {return 1 + sub(x) | 0;};return sub(x);}
   return 0;
 }
 
 var M = [0,bug__0];
 
 function bug2(param) {
-  var sub;
-  var c_;
-  var d_;
   var k = [0,0];
   var x = 0;
   for (; ; ) {
-    sub = function(x) {return 1 + sub(x) | 0;};
-    c_ = sub(x);
+    var sub = function(x) {return 1 + sub(x) | 0;};
+    var c_ = sub(x);
     k[1] = k[1] + c_ | 0;
-    d_ = x + 1 | 0;
-    if (10 !== x) {x = d_;continue;}
+    var d_ = x + 1 | 0;
+    if (10 !== x) {var x = d_;continue;}
     return k;
   }
 }
 
 function bug3(param) {
-  var sub;
-  var a_;
-  var b_;
   var k = [0,0];
   var x = 0;
   for (; ; ) {
     if (0 === x) {
-      sub = function(x) {return 1 + sub(x) | 0;};
-      a_ = sub(x);
+      var sub = function(x) {return 1 + sub(x) | 0;};
+      var a_ = sub(x);
     }
-    else a_ = 0;
+    else var a_ = 0;
     k[1] = k[1] + a_ | 0;
-    b_ = x + 1 | 0;
-    if (10 !== x) {x = b_;continue;}
+    var b_ = x + 1 | 0;
+    if (10 !== x) {var x = b_;continue;}
     return k;
   }
 }

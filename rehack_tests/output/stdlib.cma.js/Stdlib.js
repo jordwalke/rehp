@@ -9,15 +9,6 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
-
-function call1(f, a0) {
-  return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
-}
-
-function call2(f, a0, a1) {
-  return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
-}
-
 var caml_blit_string = runtime["caml_blit_string"];
 var caml_create_bytes = runtime["caml_create_bytes"];
 var caml_float_of_string = runtime["caml_float_of_string"];
@@ -45,6 +36,15 @@ var caml_sys_open = runtime["caml_sys_open"];
 var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 var caml_wrap_thrown_exception_reraise = runtime
  ["caml_wrap_thrown_exception_reraise"];
+
+function call1(f, a0) {
+  return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
+}
+
+function call2(f, a0, a1) {
+  return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
+}
+
 var cst__0 = string("%,");
 var cst_really_input = string("really_input");
 var cst_input = string("input");
@@ -147,8 +147,7 @@ function bool_of_string_opt(param) {
 function string_of_int(n) {return string("" + n);}
 
 function int_of_string_opt(s) {
-  var ay_;
-  try {ay_ = [0,caml_int_of_string(s)];return ay_;}
+  try {var ay_ = [0,caml_int_of_string(s)];return ay_;}
   catch(az_) {
     az_ = runtime["caml_wrap_exception"](az_);
     if (az_[1] === Failure) {return 0;}
@@ -159,15 +158,12 @@ function int_of_string_opt(s) {
 function valid_float_lexem(s) {
   var l = caml_ml_string_length(s);
   function loop(i) {
-    var match;
-    var i__1;
-    var switch__0;
     var i__0 = i;
     for (; ; ) {
       if (l <= i__0) {return symbol(s, cst);}
-      match = runtime["caml_string_get"](s, i__0);
-      switch__0 = 48 <= match ? 58 <= match ? 0 : 1 : 45 === match ? 1 : 0;
-      if (switch__0) {i__1 = i__0 + 1 | 0;i__0 = i__1;continue;}
+      var match = runtime["caml_string_get"](s, i__0);
+      var switch__0 = 48 <= match ? 58 <= match ? 0 : 1 : 45 === match ? 1 : 0;
+      if (switch__0) {var i__1 = i__0 + 1 | 0;var i__0 = i__1;continue;}
       return s;
     }
   }
@@ -179,8 +175,7 @@ function string_of_float(f) {
 }
 
 function float_of_string_opt(s) {
-  var aw_;
-  try {aw_ = [0,caml_float_of_string(s)];return aw_;}
+  try {var aw_ = [0,caml_float_of_string(s)];return aw_;}
   catch(ax_) {
     ax_ = runtime["caml_wrap_exception"](ax_);
     if (ax_[1] === Failure) {return 0;}
@@ -189,9 +184,7 @@ function float_of_string_opt(s) {
 }
 
 function symbol__0(l1, l2) {
-  var hd;
-  var tl;
-  if (l1) {tl = l1[2];hd = l1[1];return [0,hd,symbol__0(tl, l2)];}
+  if (l1) {var tl = l1[2];var hd = l1[1];return [0,hd,symbol__0(tl, l2)];}
   return l2;
 }
 
@@ -211,13 +204,11 @@ function open_out_bin(name) {return open_out_gen(j_, 438, name);}
 
 function flush_all(param) {
   function iter(param) {
-    var l;
-    var a;
     var param__0 = param;
     for (; ; ) {
       if (param__0) {
-        l = param__0[2];
-        a = param__0[1];
+        var l = param__0[2];
+        var a = param__0[1];
         try {caml_ml_flush(a);}
         catch(av_) {
           av_ = runtime["caml_wrap_exception"](av_);
@@ -225,7 +216,7 @@ function flush_all(param) {
             throw caml_wrap_thrown_exception_reraise(av_);
           }
         }
-        param__0 = l;
+        var param__0 = l;
         continue;
       }
       return 0;
@@ -267,9 +258,8 @@ function output_value(chan, v) {
 function close_out(oc) {caml_ml_flush(oc);return caml_ml_close_channel(oc);}
 
 function close_out_noerr(oc) {
-  var as_;
   try {caml_ml_flush(oc);}catch(au_) {}
-  try {as_ = caml_ml_close_channel(oc);return as_;}catch(at_) {return 0;}
+  try {var as_ = caml_ml_close_channel(oc);return as_;}catch(at_) {return 0;}
 }
 
 function open_in_gen(mode, perm, name) {
@@ -292,19 +282,16 @@ function input(ic, s, ofs, len) {
 }
 
 function unsafe_really_input(ic, s, ofs, len) {
-  var r;
-  var len__1;
-  var ofs__1;
   var ofs__0 = ofs;
   var len__0 = len;
   for (; ; ) {
     if (0 < len__0) {
-      r = caml_ml_input(ic, s, ofs__0, len__0);
+      var r = caml_ml_input(ic, s, ofs__0, len__0);
       if (0 === r) {throw caml_wrap_thrown_exception(End_of_file);}
-      len__1 = len__0 - r | 0;
-      ofs__1 = ofs__0 + r | 0;
-      ofs__0 = ofs__1;
-      len__0 = len__1;
+      var len__1 = len__0 - r | 0;
+      var ofs__1 = ofs__0 + r | 0;
+      var ofs__0 = ofs__1;
+      var len__0 = len__1;
       continue;
     }
     return 0;
@@ -328,37 +315,27 @@ function really_input_string(ic, len) {
 
 function input_line(chan) {
   function build_result(buf, pos, param) {
-    var param__1;
-    var hd;
-    var len;
-    var pos__1;
     var pos__0 = pos;
     var param__0 = param;
     for (; ; ) {
       if (param__0) {
-        param__1 = param__0[2];
-        hd = param__0[1];
-        len = caml_ml_bytes_length(hd);
+        var param__1 = param__0[2];
+        var hd = param__0[1];
+        var len = caml_ml_bytes_length(hd);
         runtime["caml_blit_bytes"](hd, 0, buf, pos__0 - len | 0, len);
-        pos__1 = pos__0 - len | 0;
-        pos__0 = pos__1;
-        param__0 = param__1;
+        var pos__1 = pos__0 - len | 0;
+        var pos__0 = pos__1;
+        var param__0 = param__1;
         continue;
       }
       return buf;
     }
   }
   function scan(accu, len) {
-    var n;
-    var res;
-    var len__1;
-    var beg;
-    var len__2;
-    var accu__1;
     var accu__0 = accu;
     var len__0 = len;
     for (; ; ) {
-      n = runtime["caml_ml_input_scan_line"](chan);
+      var n = runtime["caml_ml_input_scan_line"](chan);
       if (0 === n) {
         if (accu__0) {
           return build_result(caml_create_bytes(len__0), len__0, accu__0);
@@ -366,11 +343,11 @@ function input_line(chan) {
         throw caml_wrap_thrown_exception(End_of_file);
       }
       if (0 < n) {
-        res = caml_create_bytes(n + -1 | 0);
+        var res = caml_create_bytes(n + -1 | 0);
         caml_ml_input(chan, res, 0, n + -1 | 0);
         caml_ml_input_char(chan);
         if (accu__0) {
-          len__1 = (len__0 + n | 0) + -1 | 0;
+          var len__1 = (len__0 + n | 0) + -1 | 0;
           return build_result(
             caml_create_bytes(len__1),
             len__1,
@@ -379,12 +356,12 @@ function input_line(chan) {
         }
         return res;
       }
-      beg = caml_create_bytes(- n | 0);
+      var beg = caml_create_bytes(- n | 0);
       caml_ml_input(chan, beg, 0, - n | 0);
-      len__2 = len__0 - n | 0;
-      accu__1 = [0,beg,accu__0];
-      accu__0 = accu__1;
-      len__0 = len__2;
+      var len__2 = len__0 - n | 0;
+      var accu__1 = [0,beg,accu__0];
+      var accu__0 = accu__1;
+      var len__0 = len__2;
       continue;
     }
   }
@@ -392,8 +369,7 @@ function input_line(chan) {
 }
 
 function close_in_noerr(ic) {
-  var aq_;
-  try {aq_ = caml_ml_close_channel(ic);return aq_;}catch(ar_) {return 0;}
+  try {var aq_ = caml_ml_close_channel(ic);return aq_;}catch(ar_) {return 0;}
 }
 
 function print_char(c) {return caml_ml_output_char(stdout, c);}

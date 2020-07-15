@@ -300,6 +300,15 @@ let mergeOutputs = (a, b) => {
 let mergeOutputList = lst =>
   List.fold_left(~f=mergeOutputs, ~init=emptyOutput, lst);
 
+let createInitializer = name => (
+  Php.Statement(
+    Variable_statement([
+      (Php.EVar(Id.ident(identStr(name))), nullExprLoc),
+    ]),
+  ),
+  Loc.N,
+);
+
 let createRef = ((name, _)) => {
   let newRef = Php.ENew(EVar(Id.S({name: "Ref", var: None, loc: N})), None);
   (
@@ -1140,6 +1149,28 @@ and foldSources = (output, input, revMapped, remain) => {
 }
 
 /*
+ * Returns all the variables declared in a function which are not
+ * declared inside nested blocks like if statements or loops.
+ */
+and getTopLevelVars =
+  List.fold_left(
+    ~f=
+      (topLevelVars, (s, loc)) =>
+        switch (s) {
+        | Rehp.Statement(Variable_statement(li)) =>
+          List.fold_left(
+            ~f=(topLevelVars, (id, _)) => addVar(topLevelVars, id),
+            ~init=topLevelVars,
+            li,
+          )
+        | Rehp.Function_declaration((id, _, _, _)) =>
+          addVar(topLevelVars, id)
+        | _ => topLevelVars
+        },
+    ~init=emptyVars,
+  )
+
+/*
  * Ensures that all the declared variables in a function body contributes to
  * the `input` lexical scope of the next binding. This satisfies very linearly
  * declared environments, but is not sufficient for mutually recursive
@@ -1154,6 +1185,31 @@ and sources = (output, input, x) => {
   /* print_string ("SOURCES"); */
   /* print_newline (); */
   let (nextOutput, mappeds) = foldSources(output, input, [], x);
+
+  let mappeds =
+    if (Config.Flag.compact_vardecl()) {
+      let toHoist = remove(nextOutput.dec, input.vars);
+      if (!isEmpty(toHoist)) {
+        let topLevelVars = getTopLevelVars(x);
+        let toHoist = remove(toHoist, topLevelVars);
+        if (!isEmpty(toHoist)) {
+          List.fold_left(
+            ~f=
+              (mappeds, (name, _)) =>
+                [createInitializer(name), ...mappeds],
+            ~init=mappeds,
+            List.rev(StringMap.bindings(toHoist.names)),
+          );
+        } else {
+          mappeds;
+        };
+      } else {
+        mappeds;
+      };
+    } else {
+      mappeds;
+    };
+
   if (isEmpty(nextOutput.refs)) {
     (
       /* print_string ("/SOURCES"); */

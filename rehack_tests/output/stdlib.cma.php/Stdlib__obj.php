@@ -60,10 +60,10 @@ final class Stdlib__obj {
     $out_of_heap_tag = 1001 as dynamic;
     $unaligned_tag = 1002 as dynamic;
     $of_val = (dynamic $x) : dynamic ==> {
-      $switch__1 = null as dynamic;
-      $switch__0 = null as dynamic;
       $name = null as dynamic;
       $slot = null as dynamic;
+      $switch__0 = null as dynamic;
+      $switch__1 = null as dynamic;
       if ($is_block($x)) {
         if ($caml_obj_tag($x) !== 248) {
           if (1 <= $x->count() - 1) {
@@ -133,18 +133,17 @@ final class Stdlib__obj {
     };
     $blit_key = 
     (dynamic $e1, dynamic $o1, dynamic $e2, dynamic $o2, dynamic $l) : dynamic ==> {
-      $o_ = null as dynamic;
       $n_ = null as dynamic;
+      $o_ = null as dynamic;
       if (0 <= $l) {
         if (0 <= $o1) {
           if (! ((int) ($length($e1) - $l) < $o1)) {
             if (0 <= $o2) {
               if (! ((int) ($length($e2) - $l) < $o2)) {
                 $n_ = 0 !== $l ? 1 : (0);
-                $o_ =
-                  $n_
-                    ? $runtime["caml_ephe_blit_key"]($e1, $o1, $e2, $o2, $l)
-                    : ($n_);
+                $o_ = $n_
+                  ? $runtime["caml_ephe_blit_key"]($e1, $o1, $e2, $o2, $l)
+                  : ($n_);
                 return $o_;
               }
             }

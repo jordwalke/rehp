@@ -33,8 +33,8 @@ final class Stdlib__stack {
       return 0;
     };
     $pop = (dynamic $s) : dynamic ==> {
-      $tl = null as dynamic;
       $hd = null as dynamic;
+      $tl = null as dynamic;
       $e_ = $s[1];
       if ($e_) {
         $tl = $e_[2];
@@ -46,8 +46,8 @@ final class Stdlib__stack {
       throw $caml_wrap_thrown_exception($Empty) as \Throwable;
     };
     $pop_opt = (dynamic $s) : dynamic ==> {
-      $tl = null as dynamic;
       $hd = null as dynamic;
+      $tl = null as dynamic;
       $d_ = $s[1];
       if ($d_) {
         $tl = $d_[2];

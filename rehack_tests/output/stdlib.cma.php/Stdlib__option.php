@@ -66,8 +66,8 @@ final class Stdlib__option {
       return 0;
     };
     $compare = (dynamic $cmp, dynamic $o0, dynamic $o1) : dynamic ==> {
-      $v1 = null as dynamic;
       $a_ = null as dynamic;
+      $v1 = null as dynamic;
       if ($o0) {
         $a_ = $o0[1];
         if ($o1) {$v1 = $o1[1];return $call2($cmp, $a_, $v1);}

@@ -79,10 +79,10 @@ final class Stdlib__result {
       return 0 === $param[0] ? 0 : (1);
     };
     $equal = (dynamic $ok, dynamic $error, dynamic $r0, dynamic $match) : dynamic ==> {
-      $e1 = null as dynamic;
-      $d_ = null as dynamic;
-      $v1 = null as dynamic;
       $c_ = null as dynamic;
+      $d_ = null as dynamic;
+      $e1 = null as dynamic;
+      $v1 = null as dynamic;
       if (0 === $r0[0]) {
         $c_ = $r0[1];
         if (0 === $match[0]) {$v1 = $match[1];return $call2($ok, $c_, $v1);}
@@ -97,8 +97,8 @@ final class Stdlib__result {
       return 0;
     };
     $compare = (dynamic $ok, dynamic $error, dynamic $r0, dynamic $match) : dynamic ==> {
-      $v1 = null as dynamic;
       $a_ = null as dynamic;
+      $v1 = null as dynamic;
       if (0 === $r0[0]) {
         $a_ = $r0[1];
         if (0 === $match[0]) {$v1 = $match[1];return $call2($ok, $a_, $v1);}

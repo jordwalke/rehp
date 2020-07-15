@@ -12,9 +12,6 @@ final class Stdlib__arrayLabels {
   public static function get() : Vector<dynamic> {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
-    
-    ;
-    
     $Stdlib_array = Stdlib__array::get();
     $make_float = $Stdlib_array[1];
     $init = $Stdlib_array[2];

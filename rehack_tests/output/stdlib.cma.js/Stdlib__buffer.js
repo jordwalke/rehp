@@ -9,6 +9,17 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
+var caml_bswap16 = runtime["caml_bswap16"];
+var caml_bytes_get = runtime["caml_bytes_get"];
+var caml_bytes_unsafe_set = runtime["caml_bytes_unsafe_set"];
+var caml_create_bytes = runtime["caml_create_bytes"];
+var caml_int32_bswap = runtime["caml_int32_bswap"];
+var caml_int64_bswap = runtime["caml_int64_bswap"];
+var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
+var caml_ml_string_length = runtime["caml_ml_string_length"];
+var string = runtime["caml_new_string"];
+var caml_string_get = runtime["caml_string_get"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -36,17 +47,6 @@ function call5(f, a0, a1, a2, a3, a4) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
-var caml_bswap16 = runtime["caml_bswap16"];
-var caml_bytes_get = runtime["caml_bytes_get"];
-var caml_bytes_unsafe_set = runtime["caml_bytes_unsafe_set"];
-var caml_create_bytes = runtime["caml_create_bytes"];
-var caml_int32_bswap = runtime["caml_int32_bswap"];
-var caml_int64_bswap = runtime["caml_int64_bswap"];
-var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
-var caml_ml_string_length = runtime["caml_ml_string_length"];
-var string = runtime["caml_new_string"];
-var caml_string_get = runtime["caml_string_get"];
-var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 var cst_Buffer_truncate = string("Buffer.truncate");
 var cst_Buffer_add_channel = string("Buffer.add_channel");
 var cst_Buffer_add_substring_add_subbytes = string(
@@ -135,7 +135,6 @@ function reset(b) {
 }
 
 function resize(b, more) {
-  var new_buffer;
   var len = b[3];
   var new_len = [0,len];
   for (; ; ) {
@@ -147,7 +146,7 @@ function resize(b, more) {
       if ((b[2] + more | 0) <= Stdlib_sys[13]) new_len[1] = Stdlib_sys[13];
       else call1(Stdlib[2], cst_Buffer_add_cannot_grow_buffer);
     }
-    new_buffer = caml_create_bytes(new_len[1]);
+    var new_buffer = caml_create_bytes(new_len[1]);
     call5(Stdlib_bytes[11], b[1], 0, new_buffer, 0, b[2]);
     b[1] = new_buffer;
     b[3] = new_len[1];
@@ -164,9 +163,6 @@ function add_char(b, c) {
 }
 
 function add_utf_8_uchar(b, u) {
-  var pos;
-  var pos__0;
-  var pos__1;
   var u__0 = call1(Stdlib_uchar[10], u);
   if (0 <= u__0) {
     if (127 < u__0) {
@@ -175,7 +171,7 @@ function add_utf_8_uchar(b, u) {
           if (1114111 < u__0) {
             throw caml_wrap_thrown_exception([0,Assert_failure,a_]);
           }
-          pos = b[2];
+          var pos = b[2];
           if (b[3] < (pos + 4 | 0)) {resize(b, 4);}
           caml_bytes_unsafe_set(b[1], pos, 240 | u__0 >>> 18 | 0);
           caml_bytes_unsafe_set(
@@ -189,7 +185,7 @@ function add_utf_8_uchar(b, u) {
           b[2] = pos + 4 | 0;
           return 0;
         }
-        pos__0 = b[2];
+        var pos__0 = b[2];
         if (b[3] < (pos__0 + 3 | 0)) {resize(b, 3);}
         caml_bytes_unsafe_set(b[1], pos__0, 224 | u__0 >>> 12 | 0);
         caml_bytes_unsafe_set(
@@ -201,7 +197,7 @@ function add_utf_8_uchar(b, u) {
         b[2] = pos__0 + 3 | 0;
         return 0;
       }
-      pos__1 = b[2];
+      var pos__1 = b[2];
       if (b[3] < (pos__1 + 2 | 0)) {resize(b, 2);}
       caml_bytes_unsafe_set(b[1], pos__1, 192 | u__0 >>> 6 | 0);
       caml_bytes_unsafe_set(b[1], pos__1 + 1 | 0, 128 | u__0 & 63);
@@ -214,21 +210,16 @@ function add_utf_8_uchar(b, u) {
 }
 
 function add_utf_16be_uchar(b, u) {
-  var u__1;
-  var hi;
-  var lo;
-  var pos;
-  var pos__0;
   var u__0 = call1(Stdlib_uchar[10], u);
   if (0 <= u__0) {
     if (65535 < u__0) {
       if (1114111 < u__0) {
         throw caml_wrap_thrown_exception([0,Assert_failure,c_]);
       }
-      u__1 = u__0 + -65536 | 0;
-      hi = 55296 | u__1 >>> 10 | 0;
-      lo = 56320 | u__1 & 1023;
-      pos = b[2];
+      var u__1 = u__0 + -65536 | 0;
+      var hi = 55296 | u__1 >>> 10 | 0;
+      var lo = 56320 | u__1 & 1023;
+      var pos = b[2];
       if (b[3] < (pos + 4 | 0)) {resize(b, 4);}
       caml_bytes_unsafe_set(b[1], pos, hi >>> 8 | 0);
       caml_bytes_unsafe_set(b[1], pos + 1 | 0, hi & 255);
@@ -237,7 +228,7 @@ function add_utf_16be_uchar(b, u) {
       b[2] = pos + 4 | 0;
       return 0;
     }
-    pos__0 = b[2];
+    var pos__0 = b[2];
     if (b[3] < (pos__0 + 2 | 0)) {resize(b, 2);}
     caml_bytes_unsafe_set(b[1], pos__0, u__0 >>> 8 | 0);
     caml_bytes_unsafe_set(b[1], pos__0 + 1 | 0, u__0 & 255);
@@ -248,21 +239,16 @@ function add_utf_16be_uchar(b, u) {
 }
 
 function add_utf_16le_uchar(b, u) {
-  var u__1;
-  var hi;
-  var lo;
-  var pos;
-  var pos__0;
   var u__0 = call1(Stdlib_uchar[10], u);
   if (0 <= u__0) {
     if (65535 < u__0) {
       if (1114111 < u__0) {
         throw caml_wrap_thrown_exception([0,Assert_failure,e_]);
       }
-      u__1 = u__0 + -65536 | 0;
-      hi = 55296 | u__1 >>> 10 | 0;
-      lo = 56320 | u__1 & 1023;
-      pos = b[2];
+      var u__1 = u__0 + -65536 | 0;
+      var hi = 55296 | u__1 >>> 10 | 0;
+      var lo = 56320 | u__1 & 1023;
+      var pos = b[2];
       if (b[3] < (pos + 4 | 0)) {resize(b, 4);}
       caml_bytes_unsafe_set(b[1], pos, hi & 255);
       caml_bytes_unsafe_set(b[1], pos + 1 | 0, hi >>> 8 | 0);
@@ -271,7 +257,7 @@ function add_utf_16le_uchar(b, u) {
       b[2] = pos + 4 | 0;
       return 0;
     }
-    pos__0 = b[2];
+    var pos__0 = b[2];
     if (b[3] < (pos__0 + 2 | 0)) {resize(b, 2);}
     caml_bytes_unsafe_set(b[1], pos__0, u__0 & 255);
     caml_bytes_unsafe_set(b[1], pos__0 + 1 | 0, u__0 >>> 8 | 0);
@@ -282,13 +268,11 @@ function add_utf_16le_uchar(b, u) {
 }
 
 function add_substring(b, s, offset, len) {
-  var z_;
-  var A_;
   var y_ = offset < 0 ? 1 : 0;
-  if (y_) z_ = y_;
+  if (y_) var z_ = y_;
   else {
-    A_ = len < 0 ? 1 : 0;
-    z_ = A_ ? A_ : (caml_ml_string_length(s) - len | 0) < offset ? 1 : 0;
+    var A_ = len < 0 ? 1 : 0;
+    var z_ = A_ ? A_ : (caml_ml_string_length(s) - len | 0) < offset ? 1 : 0;
   }
   if (z_) {call1(Stdlib[1], cst_Buffer_add_substring_add_subbytes);}
   var new_position = b[2] + len | 0;
@@ -316,18 +300,15 @@ function add_bytes(b, s) {return add_string(b, call1(Stdlib_bytes[42], s));}
 function add_buffer(b, bs) {return add_subbytes(b, bs[1], 0, bs[2]);}
 
 function add_channel_rec(b, ic, len) {
-  var x_;
-  var n;
-  var len__1;
   var len__0 = len;
   for (; ; ) {
-    x_ = 0 < len__0 ? 1 : 0;
+    var x_ = 0 < len__0 ? 1 : 0;
     if (x_) {
-      n = call4(Stdlib[84], ic, b[1], b[2], len__0);
+      var n = call4(Stdlib[84], ic, b[1], b[2], len__0);
       b[2] = b[2] + n | 0;
       if (0 === n) {throw caml_wrap_thrown_exception(Stdlib[12]);}
-      len__1 = len__0 - n | 0;
-      len__0 = len__1;
+      var len__1 = len__0 - n | 0;
+      var len__0 = len__1;
       continue;
     }
     return x_;
@@ -352,32 +333,27 @@ function closing(param) {
 
 function advance_to_closing(opening, closing, k, s, start) {
   function advance(k, i, lim) {
-    var i__1;
-    var k__1;
-    var i__2;
-    var k__2;
-    var i__3;
     var k__0 = k;
     var i__0 = i;
     for (; ; ) {
       if (lim <= i__0) {throw caml_wrap_thrown_exception(Stdlib[8]);}
       if (caml_string_get(s, i__0) === opening) {
-        i__1 = i__0 + 1 | 0;
-        k__1 = k__0 + 1 | 0;
-        k__0 = k__1;
-        i__0 = i__1;
+        var i__1 = i__0 + 1 | 0;
+        var k__1 = k__0 + 1 | 0;
+        var k__0 = k__1;
+        var i__0 = i__1;
         continue;
       }
       if (caml_string_get(s, i__0) === closing) {
         if (0 === k__0) {return i__0;}
-        i__2 = i__0 + 1 | 0;
-        k__2 = k__0 + -1 | 0;
-        k__0 = k__2;
-        i__0 = i__2;
+        var i__2 = i__0 + 1 | 0;
+        var k__2 = k__0 + -1 | 0;
+        var k__0 = k__2;
+        var i__0 = i__2;
         continue;
       }
-      i__3 = i__0 + 1 | 0;
-      i__0 = i__3;
+      var i__3 = i__0 + 1 | 0;
+      var i__0 = i__3;
       continue;
     }
   }
@@ -386,18 +362,14 @@ function advance_to_closing(opening, closing, k, s, start) {
 
 function advance_to_non_alpha(s, start) {
   function advance(i, lim) {
-    var match;
-    var i__1;
-    var switch__0;
     var i__0 = i;
     for (; ; ) {
       if (lim <= i__0) {return lim;}
-      match = caml_string_get(s, i__0);
-      switch__0 =
-        91 <= match ?
-          97 <= match ? 123 <= match ? 0 : 1 : 95 === match ? 1 : 0 :
-          58 <= match ? 65 <= match ? 1 : 0 : 48 <= match ? 1 : 0;
-      if (switch__0) {i__1 = i__0 + 1 | 0;i__0 = i__1;continue;}
+      var match = caml_string_get(s, i__0);
+      var switch__0 = 91 <= match ?
+        97 <= match ? 123 <= match ? 0 : 1 : 95 === match ? 1 : 0 :
+        58 <= match ? 65 <= match ? 1 : 0 : 48 <= match ? 1 : 0;
+      if (switch__0) {var i__1 = i__0 + 1 | 0;var i__0 = i__1;continue;}
       return i__0;
     }
   }
@@ -405,12 +377,11 @@ function advance_to_non_alpha(s, start) {
 }
 
 function find_ident(s, start, lim) {
-  var stop__0;
   if (lim <= start) {throw caml_wrap_thrown_exception(Stdlib[8]);}
   var c = caml_string_get(s, start);
   if (40 !== c) {
     if (123 !== c) {
-      stop__0 = advance_to_non_alpha(s, start + 1 | 0);
+      var stop__0 = advance_to_non_alpha(s, start + 1 | 0);
       return [0,call3(Stdlib_string[4], s, start, stop__0 - start | 0),stop__0
       ];
     }
@@ -427,59 +398,49 @@ function find_ident(s, start, lim) {
 function add_substitute(b, f, s) {
   var lim = caml_ml_string_length(s);
   function subst(previous, i) {
-    var current;
-    var i__1;
-    var j;
-    var match;
-    var i__2;
-    var ident;
-    var i__3;
-    var i__4;
-    var i__5;
-    var u_;
     var previous__0 = previous;
     var i__0 = i;
     for (; ; ) {
       if (i__0 < lim) {
-        current = caml_string_get(s, i__0);
+        var current = caml_string_get(s, i__0);
         if (36 === current) {
           if (92 === previous__0) {
             add_char(b, current);
-            i__1 = i__0 + 1 | 0;
-            previous__0 = 32;
-            i__0 = i__1;
+            var i__1 = i__0 + 1 | 0;
+            var previous__0 = 32;
+            var i__0 = i__1;
             continue;
           }
-          j = i__0 + 1 | 0;
-          match = find_ident(s, j, lim);
-          i__2 = match[2];
-          ident = match[1];
+          var j = i__0 + 1 | 0;
+          var match = find_ident(s, j, lim);
+          var i__2 = match[2];
+          var ident = match[1];
           add_string(b, call1(f, ident));
-          previous__0 = 32;
-          i__0 = i__2;
+          var previous__0 = 32;
+          var i__0 = i__2;
           continue;
         }
         if (92 === previous__0) {
           add_char(b, 92);
           add_char(b, current);
-          i__3 = i__0 + 1 | 0;
-          previous__0 = 32;
-          i__0 = i__3;
+          var i__3 = i__0 + 1 | 0;
+          var previous__0 = 32;
+          var i__0 = i__3;
           continue;
         }
         if (92 === current) {
-          i__4 = i__0 + 1 | 0;
-          previous__0 = current;
-          i__0 = i__4;
+          var i__4 = i__0 + 1 | 0;
+          var previous__0 = current;
+          var i__0 = i__4;
           continue;
         }
         add_char(b, current);
-        i__5 = i__0 + 1 | 0;
-        previous__0 = current;
-        i__0 = i__5;
+        var i__5 = i__0 + 1 | 0;
+        var previous__0 = current;
+        var i__0 = i__5;
         continue;
       }
-      u_ = 92 === previous__0 ? 1 : 0;
+      var u_ = 92 === previous__0 ? 1 : 0;
       return u_ ? add_char(b, previous__0) : u_;
     }
   }

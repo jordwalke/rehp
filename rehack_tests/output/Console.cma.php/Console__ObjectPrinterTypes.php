@@ -12,9 +12,6 @@ final class Console__ObjectPrinterTypes {
   public static function get() : Vector<dynamic> {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
-    
-    ;
-    
     $ObjectPrinter = Vector{0} as dynamic;
     $Console_ObjectPrinterTypes = Vector{0, $ObjectPrinter} as dynamic;
     

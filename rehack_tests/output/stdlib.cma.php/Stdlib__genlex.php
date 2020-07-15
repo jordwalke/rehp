@@ -87,8 +87,8 @@ final class Stdlib__genlex {
         }
       };
       $keyword_or_error = (dynamic $c) : dynamic ==> {
-        $z_ = null as dynamic;
         $A_ = null as dynamic;
+        $z_ = null as dynamic;
         $s = $call2($Stdlib_string[1], 1, $c);
         try {$A_ = $call2($Stdlib_hashtbl[6], $kwd_table, $s);return $A_;}
         catch(\Throwable $B_) {
@@ -103,9 +103,9 @@ final class Stdlib__genlex {
         }
       };
       $end_exponent_part = (dynamic $strm) : dynamic ==> {
+        $match = null as dynamic;
         $switcher = null as dynamic;
         $y_ = null as dynamic;
-        $match = null as dynamic;
         for (;;) {
           $match = $call1($Stdlib_stream[11], $strm);
           if ($match) {
@@ -121,8 +121,8 @@ final class Stdlib__genlex {
         }
       };
       $exponent_part = (dynamic $strm) : dynamic ==> {
-        $x_ = null as dynamic;
         $switch__0 = null as dynamic;
+        $x_ = null as dynamic;
         $match = $call1($Stdlib_stream[11], $strm);
         if ($match) {
           $x_ = $match[1];
@@ -136,11 +136,11 @@ final class Stdlib__genlex {
         return $end_exponent_part($strm);
       };
       $decimal_part = (dynamic $strm) : dynamic ==> {
-        $switcher__0 = null as dynamic;
-        $switcher = null as dynamic;
-        $w_ = null as dynamic;
-        $v_ = null as dynamic;
         $match = null as dynamic;
+        $switcher = null as dynamic;
+        $switcher__0 = null as dynamic;
+        $v_ = null as dynamic;
+        $w_ = null as dynamic;
         for (;;) {
           $match = $call1($Stdlib_stream[11], $strm);
           if ($match) {
@@ -167,9 +167,9 @@ final class Stdlib__genlex {
         }
       };
       $number = (dynamic $strm) : dynamic ==> {
+        $match = null as dynamic;
         $switch__0 = null as dynamic;
         $u_ = null as dynamic;
-        $match = null as dynamic;
         for (;;) {
           $match = $call1($Stdlib_stream[11], $strm);
           if ($match) {
@@ -202,20 +202,19 @@ final class Stdlib__genlex {
         }
       };
       $ident2 = (dynamic $strm) : dynamic ==> {
+        $match = null as dynamic;
+        $s_ = null as dynamic;
         $switch__0 = null as dynamic;
         $t_ = null as dynamic;
-        $s_ = null as dynamic;
-        $match = null as dynamic;
         for (;;) {
           $match = $call1($Stdlib_stream[11], $strm);
           if ($match) {
             $s_ = $match[1];
             if (94 <= $s_) {
               $t_ = (int) ($s_ + -95) as dynamic;
-              $switch__0 =
-                30 < $unsigned_right_shift_32($t_, 0)
-                  ? 32 <= $t_ ? 1 : (0)
-                  : (29 === $t_ ? 0 : (1));
+              $switch__0 = 30 < $unsigned_right_shift_32($t_, 0)
+                ? 32 <= $t_ ? 1 : (0)
+                : (29 === $t_ ? 0 : (1));
             }
             else {
               if (65 <= $s_) {
@@ -293,28 +292,24 @@ final class Stdlib__genlex {
         return $ident2($strm);
       };
       $ident = (dynamic $strm) : dynamic ==> {
-        $switch__0 = null as dynamic;
-        $q_ = null as dynamic;
-        $p_ = null as dynamic;
         $match = null as dynamic;
+        $p_ = null as dynamic;
+        $q_ = null as dynamic;
+        $switch__0 = null as dynamic;
         for (;;) {
           $match = $call1($Stdlib_stream[11], $strm);
           if ($match) {
             $p_ = $match[1];
             if (91 <= $p_) {
               $q_ = (int) ($p_ + -95) as dynamic;
-              $switch__0 =
-                27 < $unsigned_right_shift_32($q_, 0)
-                  ? 97 <= $q_ ? 0 : (1)
-                  : (1 === $q_ ? 1 : (0));
+              $switch__0 = 27 < $unsigned_right_shift_32($q_, 0)
+                ? 97 <= $q_ ? 0 : (1)
+                : (1 === $q_ ? 1 : (0));
             }
             else {
-              $switch__0 =
-                48 <= $p_
-                  ? 6 < $unsigned_right_shift_32((int) ($p_ + -58), 0)
-                   ? 0
-                   : (1)
-                  : (39 === $p_ ? 0 : (1));
+              $switch__0 = 48 <= $p_
+                ? 6 < $unsigned_right_shift_32((int) ($p_ + -58), 0) ? 0 : (1)
+                : (39 === $p_ ? 0 : (1));
             }
             if (! $switch__0) {
               $call1($Stdlib_stream[12], $strm);
@@ -326,22 +321,23 @@ final class Stdlib__genlex {
         }
       };
       $next_token__0 = (dynamic $counter, dynamic $strm) : dynamic ==> {
-        $switch__0 = null as dynamic;
-        $counter__0 = null as dynamic;
-        $n_ = null as dynamic;
-        $match__0 = null as dynamic;
         $c = null as dynamic;
-        $switcher = null as dynamic;
-        $m_ = null as dynamic;
+        $counter__0 = null as dynamic;
         $l_ = null as dynamic;
+        $m_ = null as dynamic;
         $match = null as dynamic;
+        $match__0 = null as dynamic;
+        $n_ = null as dynamic;
+        $switch__0 = null as dynamic;
+        $switcher = null as dynamic;
         for (;;) {
           $match = $call1($Stdlib_stream[11], $strm);
           if ($match) {
             $l_ = $match[1];
             if (124 <= $l_) {
-              $switch__0 =
-                127 <= $l_ ? 192 <= $l_ ? 1 : (0) : (125 === $l_ ? 0 : (2));
+              $switch__0 = 127 <= $l_
+                ? 192 <= $l_ ? 1 : (0)
+                : (125 === $l_ ? 0 : (2));
             }
             else {
               $m_ = (int) ($l_ + -65) as dynamic;
@@ -594,12 +590,12 @@ final class Stdlib__genlex {
       };
       $escape->contents = (dynamic $strm) : dynamic ==> {
         $d_ = null as dynamic;
-        $switcher = null as dynamic;
-        $match__0 = null as dynamic;
         $e_ = null as dynamic;
-        $switcher__0 = null as dynamic;
-        $match__1 = null as dynamic;
         $f_ = null as dynamic;
+        $match__0 = null as dynamic;
+        $match__1 = null as dynamic;
+        $switcher = null as dynamic;
+        $switcher__0 = null as dynamic;
         $switcher__1 = null as dynamic;
         $match = $call1($Stdlib_stream[11], $strm);
         if ($match) {
@@ -665,10 +661,10 @@ final class Stdlib__genlex {
         throw $caml_wrap_thrown_exception($Stdlib_stream[1]) as \Throwable;
       };
       $comment__0 = (dynamic $counter, dynamic $strm) : dynamic ==> {
-        $counter__1 = null as dynamic;
         $counter__0 = null as dynamic;
-        $switcher = null as dynamic;
+        $counter__1 = null as dynamic;
         $match = null as dynamic;
+        $switcher = null as dynamic;
         for (;;) {
           $match = $call1($Stdlib_stream[11], $strm);
           if ($match) {
@@ -731,8 +727,8 @@ final class Stdlib__genlex {
         throw $caml_wrap_thrown_exception($Stdlib_stream[1]) as \Throwable;
       };
       $maybe_end_comment->contents = (dynamic $counter, dynamic $strm) : dynamic ==> {
-        $counter__0 = null as dynamic;
         $c_ = null as dynamic;
+        $counter__0 = null as dynamic;
         $match = null as dynamic;
         for (;;) {
           $match = $call1($Stdlib_stream[11], $strm);

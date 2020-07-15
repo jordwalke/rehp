@@ -9,6 +9,7 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
+var string = runtime["caml_new_string"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -18,7 +19,6 @@ function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var string = runtime["caml_new_string"];
 var cst_result_is_Ok = string("result is Ok _");
 var cst_result_is_Error = string("result is Error _");
 var Stdlib_seq = require("./Stdlib__seq.js");
@@ -29,14 +29,12 @@ function ok(v) {return [0,v];}
 function error(e) {return [1,e];}
 
 function value(r, default__0) {
-  var v;
-  if (0 === r[0]) {v = r[1];return v;}
+  if (0 === r[0]) {var v = r[1];return v;}
   return default__0;
 }
 
 function get_ok(param) {
-  var v;
-  if (0 === param[0]) {v = param[1];return v;}
+  if (0 === param[0]) {var v = param[1];return v;}
   return call1(Stdlib[1], cst_result_is_Error);
 }
 
@@ -47,16 +45,14 @@ function get_error(param) {
 }
 
 function bind(r, f) {
-  var v;
-  if (0 === r[0]) {v = r[1];return call1(f, v);}
+  if (0 === r[0]) {var v = r[1];return call1(f, v);}
   return r;
 }
 
-function join(e) {var r;if (0 === e[0]) {r = e[1];return r;}return e;}
+function join(e) {if (0 === e[0]) {var r = e[1];return r;}return e;}
 
 function map(f, e) {
-  var v;
-  if (0 === e[0]) {v = e[1];return [0,call1(f, v)];}
+  if (0 === e[0]) {var v = e[1];return [0,call1(f, v)];}
   return e;
 }
 
@@ -67,15 +63,13 @@ function map_error(f, v) {
 }
 
 function fold(ok, error, param) {
-  var v;
-  if (0 === param[0]) {v = param[1];return call1(ok, v);}
+  if (0 === param[0]) {var v = param[1];return call1(ok, v);}
   var e = param[1];
   return call1(error, e);
 }
 
 function iter(f, param) {
-  var v;
-  if (0 === param[0]) {v = param[1];return call1(f, v);}
+  if (0 === param[0]) {var v = param[1];return call1(f, v);}
   return 0;
 }
 
@@ -90,27 +84,21 @@ function is_ok(param) {return 0 === param[0] ? 1 : 0;}
 function is_error(param) {return 0 === param[0] ? 0 : 1;}
 
 function equal(ok, error, r0, match) {
-  var e1;
-  var d_;
-  var v1;
-  var c_;
   if (0 === r0[0]) {
-    c_ = r0[1];
-    if (0 === match[0]) {v1 = match[1];return call2(ok, c_, v1);}
+    var c_ = r0[1];
+    if (0 === match[0]) {var v1 = match[1];return call2(ok, c_, v1);}
   }
   else {
-    d_ = r0[1];
-    if (0 !== match[0]) {e1 = match[1];return call2(error, d_, e1);}
+    var d_ = r0[1];
+    if (0 !== match[0]) {var e1 = match[1];return call2(error, d_, e1);}
   }
   return 0;
 }
 
 function compare(ok, error, r0, match) {
-  var v1;
-  var a_;
   if (0 === r0[0]) {
-    a_ = r0[1];
-    if (0 === match[0]) {v1 = match[1];return call2(ok, a_, v1);}
+    var a_ = r0[1];
+    if (0 === match[0]) {var v1 = match[1];return call2(ok, a_, v1);}
     return -1;
   }
   var b_ = r0[1];
@@ -120,20 +108,17 @@ function compare(ok, error, r0, match) {
 }
 
 function to_option(param) {
-  var v;
-  if (0 === param[0]) {v = param[1];return [0,v];}
+  if (0 === param[0]) {var v = param[1];return [0,v];}
   return 0;
 }
 
 function to_list(param) {
-  var v;
-  if (0 === param[0]) {v = param[1];return [0,v,0];}
+  if (0 === param[0]) {var v = param[1];return [0,v,0];}
   return 0;
 }
 
 function to_seq(param) {
-  var v;
-  if (0 === param[0]) {v = param[1];return call1(Stdlib_seq[2], v);}
+  if (0 === param[0]) {var v = param[1];return call1(Stdlib_seq[2], v);}
   return Stdlib_seq[1];
 }
 

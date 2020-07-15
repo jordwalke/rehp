@@ -9,15 +9,6 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
-
-function call1(f, a0) {
-  return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
-}
-
-function call2(f, a0, a1) {
-  return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
-}
-
 var caml_bytes_unsafe_set = runtime["caml_bytes_unsafe_set"];
 var caml_create_bytes = runtime["caml_create_bytes"];
 var caml_md5_string = runtime["caml_md5_string"];
@@ -27,6 +18,15 @@ var caml_string_get = runtime["caml_string_get"];
 var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 var caml_wrap_thrown_exception_reraise = runtime
  ["caml_wrap_thrown_exception_reraise"];
+
+function call1(f, a0) {
+  return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
+}
+
+function call2(f, a0, a1) {
+  return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
+}
+
 var cst_Digest_from_hex__0 = string__0("Digest.from_hex");
 var cst_Digest_from_hex = string__0("Digest.from_hex");
 var cst_Digest_to_hex = string__0("Digest.to_hex");
@@ -58,9 +58,8 @@ function subbytes(b, ofs, len) {
 }
 
 function file(filename) {
-  var d;
   var ic = call1(Stdlib[80], filename);
-  try {d = runtime["caml_md5_chan"](ic, -1);}
+  try {var d = runtime["caml_md5_chan"](ic, -1);}
   catch(e) {
     e = runtime["caml_wrap_exception"](e);
     call1(Stdlib[93], ic);
@@ -77,29 +76,24 @@ function input(chan) {return call2(Stdlib[86], chan, 16);}
 function char_hex(n) {var e_ = 10 <= n ? 87 : 48;return n + e_ | 0;}
 
 function to_hex(d) {
-  var d_;
-  var x;
   if (16 !== caml_ml_string_length(d)) {call1(Stdlib[1], cst_Digest_to_hex);}
   var result = caml_create_bytes(32);
   var i = 0;
   for (; ; ) {
-    x = caml_string_get(d, i);
+    var x = caml_string_get(d, i);
     caml_bytes_unsafe_set(result, i * 2 | 0, char_hex(x >>> 4 | 0));
     caml_bytes_unsafe_set(result, (i * 2 | 0) + 1 | 0, char_hex(x & 15));
-    d_ = i + 1 | 0;
-    if (15 !== i) {i = d_;continue;}
+    var d_ = i + 1 | 0;
+    if (15 !== i) {var i = d_;continue;}
     return call1(Stdlib_bytes[42], result);
   }
 }
 
 function from_hex(s) {
-  var b_;
-  var a_;
   if (32 !== caml_ml_string_length(s)) {
     call1(Stdlib[1], cst_Digest_from_hex);
   }
   function digit(c) {
-    var switcher;
     if (65 <= c) {
       if (97 <= c) {
         if (! (103 <= c)) {return (c - 97 | 0) + 10 | 0;}
@@ -107,7 +101,7 @@ function from_hex(s) {
       else if (! (71 <= c)) {return (c - 65 | 0) + 10 | 0;}
     }
     else {
-      switcher = c + -48 | 0;
+      var switcher = c + -48 | 0;
       if (! (9 < switcher >>> 0)) {return c - 48 | 0;}
     }
     throw caml_wrap_thrown_exception([0,Stdlib[6],cst_Digest_from_hex__0]);
@@ -119,10 +113,10 @@ function from_hex(s) {
   var result = caml_create_bytes(16);
   var i = 0;
   for (; ; ) {
-    a_ = byte__0(2 * i | 0);
+    var a_ = byte__0(2 * i | 0);
     runtime["caml_bytes_set"](result, i, call1(Stdlib_char[1], a_));
-    b_ = i + 1 | 0;
-    if (15 !== i) {i = b_;continue;}
+    var b_ = i + 1 | 0;
+    if (15 !== i) {var i = b_;continue;}
     return call1(Stdlib_bytes[42], result);
   }
 }

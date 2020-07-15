@@ -9,6 +9,8 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
+var caml_ml_string_length = runtime["caml_ml_string_length"];
+var string = runtime["caml_new_string"];
 
 function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
@@ -26,8 +28,6 @@ function call4(f, a0, a1, a2, a3) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
-var caml_ml_string_length = runtime["caml_ml_string_length"];
-var string = runtime["caml_new_string"];
 var Stdlib_sys = require("./Stdlib__sys.js");
 var Stdlib_printf = require("./Stdlib__printf.js");
 var a_ = [

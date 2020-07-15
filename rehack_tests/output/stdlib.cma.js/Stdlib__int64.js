@@ -52,8 +52,7 @@ function unsigned_to_int(n) {
 function to_string(n) {return runtime["caml_int64_format"](cst_d, n);}
 
 function of_string_opt(s) {
-  var e_;
-  try {e_ = [0,runtime["caml_int64_of_string"](s)];return e_;}
+  try {var e_ = [0,runtime["caml_int64_of_string"](s)];return e_;}
   catch(f_) {
     f_ = runtime["caml_wrap_exception"](f_);
     if (f_[1] === Stdlib[7]) {return 0;}

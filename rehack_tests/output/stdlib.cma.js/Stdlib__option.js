@@ -10,8 +10,6 @@
 
 var runtime = require("../runtime/runtime.js");
 
-;
-
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
@@ -28,36 +26,31 @@ var none = 0;
 function some(v) {return [0,v];}
 
 function value(o, default__0) {
-  var v;
-  if (o) {v = o[1];return v;}
+  if (o) {var v = o[1];return v;}
   return default__0;
 }
 
 function get(param) {
-  var v;
-  if (param) {v = param[1];return v;}
+  if (param) {var v = param[1];return v;}
   return call1(Stdlib[1], cst_option_is_None);
 }
 
-function bind(o, f) {var v;if (o) {v = o[1];return call1(f, v);}return 0;}
+function bind(o, f) {if (o) {var v = o[1];return call1(f, v);}return 0;}
 
 function join(param) {
-  var b_;
-  if (param) {b_ = param[1];if (b_) {return b_;}}
+  if (param) {var b_ = param[1];if (b_) {return b_;}}
   return 0;
 }
 
-function map(f, o) {var v;if (o) {v = o[1];return [0,call1(f, v)];}return 0;}
+function map(f, o) {if (o) {var v = o[1];return [0,call1(f, v)];}return 0;}
 
 function fold(none, some, param) {
-  var v;
-  if (param) {v = param[1];return call1(some, v);}
+  if (param) {var v = param[1];return call1(some, v);}
   return none;
 }
 
 function iter(f, param) {
-  var v;
-  if (param) {v = param[1];return call1(f, v);}
+  if (param) {var v = param[1];return call1(f, v);}
   return 0;
 }
 
@@ -66,41 +59,34 @@ function is_none(param) {return param ? 0 : 1;}
 function is_some(param) {return param ? 1 : 0;}
 
 function equal(eq, o0, o1) {
-  var v0;
-  var v1;
   if (o0) {
-    if (o1) {v1 = o1[1];v0 = o0[1];return call2(eq, v0, v1);}
+    if (o1) {var v1 = o1[1];var v0 = o0[1];return call2(eq, v0, v1);}
   }
   else if (! o1) {return 1;}
   return 0;
 }
 
 function compare(cmp, o0, o1) {
-  var v1;
-  var a_;
   if (o0) {
-    a_ = o0[1];
-    if (o1) {v1 = o1[1];return call2(cmp, a_, v1);}
+    var a_ = o0[1];
+    if (o1) {var v1 = o1[1];return call2(cmp, a_, v1);}
     return 1;
   }
   return o1 ? -1 : 0;
 }
 
 function to_result(none, param) {
-  var v;
-  if (param) {v = param[1];return [0,v];}
+  if (param) {var v = param[1];return [0,v];}
   return [1,none];
 }
 
 function to_list(param) {
-  var v;
-  if (param) {v = param[1];return [0,v,0];}
+  if (param) {var v = param[1];return [0,v,0];}
   return 0;
 }
 
 function to_seq(param) {
-  var v;
-  if (param) {v = param[1];return call1(Stdlib_seq[2], v);}
+  if (param) {var v = param[1];return call1(Stdlib_seq[2], v);}
   return Stdlib_seq[1];
 }
 
