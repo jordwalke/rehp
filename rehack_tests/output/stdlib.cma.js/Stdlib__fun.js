@@ -9,6 +9,9 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
+var caml_restore_raw_backtrace = runtime["caml_restore_raw_backtrace"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -18,9 +21,6 @@ function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var caml_restore_raw_backtrace = runtime["caml_restore_raw_backtrace"];
-var caml_wrap_thrown_exception_reraise = runtime
- ["caml_wrap_thrown_exception_reraise"];
 var cst_Stdlib_Fun_Finally_raised = runtime["caml_new_string"](
   "Stdlib.Fun.Finally_raised"
 );
@@ -39,25 +39,20 @@ var Finally_raised = [
 ];
 
 function protect(finally__0, work) {
-  var work_bt;
-  var result;
   function finally_no_exn(param) {
-    var a_;
-    var exn;
-    var bt;
-    try {a_ = call1(finally__0, 0);return a_;}
+    try {var a_ = call1(finally__0, 0);return a_;}
     catch(e) {
       e = runtime["caml_wrap_exception"](e);
-      bt = call1(Stdlib_printexc[9], 0);
-      exn = [0,Finally_raised,e];
+      var bt = call1(Stdlib_printexc[9], 0);
+      var exn = [0,Finally_raised,e];
       caml_restore_raw_backtrace(exn, bt);
       throw caml_wrap_thrown_exception_reraise(exn);
     }
   }
-  try {result = call1(work, 0);}
+  try {var result = call1(work, 0);}
   catch(work_exn) {
     work_exn = runtime["caml_wrap_exception"](work_exn);
-    work_bt = call1(Stdlib_printexc[9], 0);
+    var work_bt = call1(Stdlib_printexc[9], 0);
     finally_no_exn(0);
     caml_restore_raw_backtrace(work_exn, work_bt);
     throw caml_wrap_thrown_exception_reraise(work_exn);

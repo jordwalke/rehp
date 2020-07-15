@@ -447,19 +447,18 @@ final class Stdlib__scanf {
       return $bad_input($character_mismatch_err($c, $ci));
     };
     $skip_whites = (dynamic $ib) : dynamic ==> {
-      $switch__0 = null as dynamic;
-      $bt_ = null as dynamic;
       $bs_ = null as dynamic;
+      $bt_ = null as dynamic;
       $c = null as dynamic;
+      $switch__0 = null as dynamic;
       for (;;) {
         $c = $peek_char($ib);
         $bs_ = 1 - $eof($ib);
         if ($bs_) {
           $bt_ = (int) ($c + -9) as dynamic;
-          $switch__0 =
-            4 < $unsigned_right_shift_32($bt_, 0)
-              ? 23 === $bt_ ? 1 : (0)
-              : (1 < $unsigned_right_shift_32((int) ($bt_ + -2), 0) ? 1 : (0));
+          $switch__0 = 4 < $unsigned_right_shift_32($bt_, 0)
+            ? 23 === $bt_ ? 1 : (0)
+            : (1 < $unsigned_right_shift_32((int) ($bt_ + -2), 0) ? 1 : (0));
           if ($switch__0) {$invalidate_current_char($ib);continue;}
           return 0;
         }
@@ -526,11 +525,11 @@ final class Stdlib__scanf {
       throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $i_}) as \Throwable;
     };
     $token_int_literal = (dynamic $conv, dynamic $ib) : dynamic ==> {
-      $br_ = null as dynamic;
-      $bq_ = null as dynamic;
-      $bp_ = null as dynamic;
-      $tok = null as dynamic;
       $bo_ = null as dynamic;
+      $bp_ = null as dynamic;
+      $bq_ = null as dynamic;
+      $br_ = null as dynamic;
+      $tok = null as dynamic;
       switch($conv) {
         // FALLTHROUGH
         case 0:
@@ -697,9 +696,9 @@ final class Stdlib__scanf {
       return $scan_decimal_digit_plus($width__0, $ib);
     };
     $scan_unsigned_int = (dynamic $width, dynamic $ib) : dynamic ==> {
-      $width__0 = null as dynamic;
       $c__0 = null as dynamic;
       $switch__0 = null as dynamic;
+      $width__0 = null as dynamic;
       $c = $checked_peek_char($ib);
       if (48 === $c) {
         $width__0 = $store_char($width, $ib, $c);
@@ -779,8 +778,8 @@ final class Stdlib__scanf {
       return $scan_decimal_digit_star($width__0, $ib);
     };
     $scan_float = (dynamic $width, dynamic $precision, dynamic $ib) : dynamic ==> {
-      $width__1 = null as dynamic;
       $precision__0 = null as dynamic;
+      $width__1 = null as dynamic;
       $width__2 = null as dynamic;
       $width__0 = $scan_integer_part($width, $ib);
       if (0 === $width__0) {return Vector{0, $width__0, $precision};}
@@ -789,21 +788,20 @@ final class Stdlib__scanf {
       if (46 === $c) {
         $width__1 = $store_char($width__0, $ib, $c);
         $precision__0 = $call2($Stdlib[16], $width__1, $precision);
-        $width__2 =
-          (int)
-          ($width__1 -
-             (int)
-             ($precision__0 - $scan_fractional_part($precision__0, $ib))) as dynamic;
+        $width__2 = (int)
+        ($width__1 -
+           (int)
+           ($precision__0 - $scan_fractional_part($precision__0, $ib))) as dynamic;
         return Vector{0, $scan_exponent_part($width__2, $ib), $precision__0};
       }
       return Vector{0, $scan_exponent_part($width__0, $ib), $precision};
     };
     $check_case_insensitive_string = 
     (dynamic $width, dynamic $ib, dynamic $error, dynamic $str) : dynamic ==> {
-      $i = null as dynamic;
-      $c = null as dynamic;
       $bf_ = null as dynamic;
       $bg_ = null as dynamic;
+      $c = null as dynamic;
+      $i = null as dynamic;
       $lowercase = (dynamic $c) : dynamic ==> {
         $switcher = (int) ($c + -65) as dynamic;
         return 25 < $unsigned_right_shift_32($switcher, 0)
@@ -830,35 +828,35 @@ final class Stdlib__scanf {
       return $width__0[1];
     };
     $scan_hex_float = (dynamic $width, dynamic $precision, dynamic $ib) : dynamic ==> {
-      $switcher = null as dynamic;
-      $width__1 = null as dynamic;
       $a5_ = null as dynamic;
       $a6_ = null as dynamic;
-      $width__2 = null as dynamic;
       $a7_ = null as dynamic;
       $a8_ = null as dynamic;
-      $width__3 = null as dynamic;
       $a9_ = null as dynamic;
       $a__ = null as dynamic;
-      $width__4 = null as dynamic;
-      $match = null as dynamic;
       $ba_ = null as dynamic;
-      $width__5 = null as dynamic;
-      $c__0 = null as dynamic;
-      $width__6 = null as dynamic;
-      $width__7 = null as dynamic;
-      $width__8 = null as dynamic;
-      $c__1 = null as dynamic;
-      $width__9 = null as dynamic;
       $bb_ = null as dynamic;
       $bc_ = null as dynamic;
+      $c__0 = null as dynamic;
+      $c__1 = null as dynamic;
+      $match = null as dynamic;
       $match__0 = null as dynamic;
-      $width__10 = null as dynamic;
       $precision__0 = null as dynamic;
       $switch__0 = null as dynamic;
       $switch__1 = null as dynamic;
       $switch__2 = null as dynamic;
       $switch__3 = null as dynamic;
+      $switcher = null as dynamic;
+      $width__1 = null as dynamic;
+      $width__10 = null as dynamic;
+      $width__2 = null as dynamic;
+      $width__3 = null as dynamic;
+      $width__4 = null as dynamic;
+      $width__5 = null as dynamic;
+      $width__6 = null as dynamic;
+      $width__7 = null as dynamic;
+      $width__8 = null as dynamic;
+      $width__9 = null as dynamic;
       $a1_ = 0 === $width ? 1 : (0);
       $a2_ = $a1_ ? $a1_ : ($end_of_input($ib));
       if ($a2_) {$bad_hex_float(0);}
@@ -892,27 +890,24 @@ final class Stdlib__scanf {
           $a9_ = 0 === $width__3 ? 1 : (0);
           $a__ = $a9_ ? $a9_ : ($end_of_input($ib));
           if ($a__) {$bad_hex_float(0);}
-          $width__4 =
-            $check_case_insensitive_string(
-              $width__3,
-              $ib,
-              $bad_hex_float,
-              $cst_x
-            );
+          $width__4 = $check_case_insensitive_string(
+            $width__3,
+            $ib,
+            $bad_hex_float,
+            $cst_x
+          );
           if (0 !== $width__4) {
             if (! $end_of_input($ib)) {
               $match = $peek_char($ib);
               $ba_ = (int) ($match + -46) as dynamic;
-              $switch__1 =
-                34 < $unsigned_right_shift_32($ba_, 0)
-                  ? 66 === $ba_ ? 1 : (0)
-                  : (32 < $unsigned_right_shift_32((int) ($ba_ + -1), 0)
-                   ? 1
-                   : (0));
-              $width__5 =
-                $switch__1
-                  ? $width__4
-                  : ($scan_hexadecimal_int($width__4, $ib));
+              $switch__1 = 34 < $unsigned_right_shift_32($ba_, 0)
+                ? 66 === $ba_ ? 1 : (0)
+                : (32 < $unsigned_right_shift_32((int) ($ba_ + -1), 0)
+                 ? 1
+                 : (0));
+              $width__5 = $switch__1
+                ? $width__4
+                : ($scan_hexadecimal_int($width__4, $ib));
               if (0 !== $width__5) {
                 if (! $end_of_input($ib)) {
                   $c__0 = $peek_char($ib);
@@ -936,11 +931,10 @@ final class Stdlib__scanf {
                           }
                           else {
                             $precision__0 = $call2($Stdlib[16], $width__6, $precision);
-                            $width__10 =
-                              (int)
-                              ($width__6 -
-                                 (int)
-                                 ($precision__0 - $scan_hexadecimal_int($precision__0, $ib))) as dynamic;
+                            $width__10 = (int)
+                            ($width__6 -
+                               (int)
+                               ($precision__0 - $scan_hexadecimal_int($precision__0, $ib))) as dynamic;
                             $switch__3 = 1 as dynamic;
                           }
                         }
@@ -989,12 +983,12 @@ final class Stdlib__scanf {
       return $bad_hex_float(0);
     };
     $scan_caml_float_rest = (dynamic $width, dynamic $precision, dynamic $ib) : dynamic ==> {
-      $width__1 = null as dynamic;
-      $precision__0 = null as dynamic;
-      $width_precision = null as dynamic;
       $frac_width = null as dynamic;
-      $width__2 = null as dynamic;
+      $precision__0 = null as dynamic;
       $switcher__0 = null as dynamic;
+      $width__1 = null as dynamic;
+      $width__2 = null as dynamic;
+      $width_precision = null as dynamic;
       $aX_ = 0 === $width ? 1 : (0);
       $aY_ = $aX_ ? $aX_ : ($end_of_input($ib));
       if ($aY_) {$bad_float(0);}
@@ -1021,36 +1015,36 @@ final class Stdlib__scanf {
       return $bad_float(0);
     };
     $scan_caml_float = (dynamic $width, dynamic $precision, dynamic $ib) : dynamic ==> {
-      $width__1 = null as dynamic;
       $aN_ = null as dynamic;
       $aO_ = null as dynamic;
-      $width__2 = null as dynamic;
       $aP_ = null as dynamic;
       $aQ_ = null as dynamic;
-      $c__0 = null as dynamic;
-      $width__3 = null as dynamic;
       $aR_ = null as dynamic;
       $aS_ = null as dynamic;
-      $width__4 = null as dynamic;
       $aT_ = null as dynamic;
       $aU_ = null as dynamic;
+      $aV_ = null as dynamic;
+      $aW_ = null as dynamic;
+      $c__0 = null as dynamic;
       $c__1 = null as dynamic;
+      $c__2 = null as dynamic;
+      $match = null as dynamic;
+      $precision__0 = null as dynamic;
+      $switch__0 = null as dynamic;
+      $switch__1 = null as dynamic;
+      $switch__2 = null as dynamic;
       $switcher = null as dynamic;
+      $switcher__0 = null as dynamic;
+      $width__1 = null as dynamic;
+      $width__10 = null as dynamic;
+      $width__2 = null as dynamic;
+      $width__3 = null as dynamic;
+      $width__4 = null as dynamic;
       $width__5 = null as dynamic;
       $width__6 = null as dynamic;
       $width__7 = null as dynamic;
       $width__8 = null as dynamic;
-      $c__2 = null as dynamic;
       $width__9 = null as dynamic;
-      $aV_ = null as dynamic;
-      $aW_ = null as dynamic;
-      $match = null as dynamic;
-      $width__10 = null as dynamic;
-      $precision__0 = null as dynamic;
-      $switcher__0 = null as dynamic;
-      $switch__0 = null as dynamic;
-      $switch__1 = null as dynamic;
-      $switch__2 = null as dynamic;
       $aJ_ = 0 === $width ? 1 : (0);
       $aK_ = $aJ_ ? $aJ_ : ($end_of_input($ib));
       if ($aK_) {$bad_float(0);}
@@ -1111,11 +1105,10 @@ final class Stdlib__scanf {
                     }
                     else {
                       $precision__0 = $call2($Stdlib[16], $width__5, $precision);
-                      $width__10 =
-                        (int)
-                        ($width__5 -
-                           (int)
-                           ($precision__0 - $scan_hexadecimal_int($precision__0, $ib))) as dynamic;
+                      $width__10 = (int)
+                      ($width__5 -
+                         (int)
+                         ($precision__0 - $scan_hexadecimal_int($precision__0, $ib))) as dynamic;
                       $switch__2 = 1 as dynamic;
                     }
                   }
@@ -1154,12 +1147,12 @@ final class Stdlib__scanf {
     };
     $scan_string = (dynamic $stp, dynamic $width, dynamic $ib) : dynamic ==> {
       $loop = (dynamic $width) : dynamic ==> {
+        $aI_ = null as dynamic;
         $c = null as dynamic;
         $c__0 = null as dynamic;
-        $width__1 = null as dynamic;
-        $aI_ = null as dynamic;
-        $width__2 = null as dynamic;
         $switch__0 = null as dynamic;
+        $width__1 = null as dynamic;
+        $width__2 = null as dynamic;
         $width__0 = $width;
         for (;;) {
           if (0 === $width__0) {return $width__0;}
@@ -1173,10 +1166,9 @@ final class Stdlib__scanf {
             continue;
           }
           $aI_ = (int) ($c + -9) as dynamic;
-          $switch__0 =
-            4 < $unsigned_right_shift_32($aI_, 0)
-              ? 23 === $aI_ ? 1 : (0)
-              : (1 < $unsigned_right_shift_32((int) ($aI_ + -2), 0) ? 1 : (0));
+          $switch__0 = 4 < $unsigned_right_shift_32($aI_, 0)
+            ? 23 === $aI_ ? 1 : (0)
+            : (1 < $unsigned_right_shift_32((int) ($aI_ + -2), 0) ? 1 : (0));
           if ($switch__0) {return $width__0;}
           $width__2 = $store_char($width__0, $ib, $c);
           $width__0 = $width__2;
@@ -1243,14 +1235,14 @@ final class Stdlib__scanf {
       return $check_next_char($cst_a_String, $aB_, $aC_);
     };
     $scan_backslash_char = (dynamic $width, dynamic $ib) : dynamic ==> {
-      $switcher = null as dynamic;
-      $get_digit = null as dynamic;
       $c1 = null as dynamic;
-      $c2 = null as dynamic;
-      $get_digit__0 = null as dynamic;
       $c1__0 = null as dynamic;
+      $c2 = null as dynamic;
       $c2__0 = null as dynamic;
+      $get_digit = null as dynamic;
+      $get_digit__0 = null as dynamic;
       $switch__0 = null as dynamic;
+      $switcher = null as dynamic;
       $c = $check_next_char_for_char($width, $ib);
       if (40 <= $c) {
         if (58 <= $c) {
@@ -1260,19 +1252,18 @@ final class Stdlib__scanf {
             switch($switcher) {
               // FALLTHROUGH
               case 28:
-                $get_digit =
-                  (dynamic $param) : dynamic ==> {
-                    $c = $next_char($ib);
-                    $aA_ = (int) ($c + -48) as dynamic;
-                    $switch__0 = 22 < $unsigned_right_shift_32($aA_, 0)
-                      ? 5 < $unsigned_right_shift_32((int) ($aA_ + -49), 0)
-                       ? 0
-                       : (1)
-                      : (6 < $unsigned_right_shift_32((int) ($aA_ + -10), 0)
-                       ? 1
-                       : (0));
-                    return $switch__0 ? $c : ($bad_input_escape($c));
-                  };
+                $get_digit = (dynamic $param) : dynamic ==> {
+                  $c = $next_char($ib);
+                  $aA_ = (int) ($c + -48) as dynamic;
+                  $switch__0 = 22 < $unsigned_right_shift_32($aA_, 0)
+                    ? 5 < $unsigned_right_shift_32((int) ($aA_ + -49), 0)
+                     ? 0
+                     : (1)
+                    : (6 < $unsigned_right_shift_32((int) ($aA_ + -10), 0)
+                     ? 1
+                     : (0));
+                  return $switch__0 ? $c : ($bad_input_escape($c));
+                };
                 $c1 = $get_digit(0);
                 $c2 = $get_digit(0);
                 return $store_char(
@@ -1301,14 +1292,13 @@ final class Stdlib__scanf {
         }
         else {
           if (48 <= $c) {
-            $get_digit__0 =
-              (dynamic $param) : dynamic ==> {
-                $c = $next_char($ib);
-                $switcher = (int) ($c + -48) as dynamic;
-                return 9 < $unsigned_right_shift_32($switcher, 0)
-                  ? $bad_input_escape($c)
-                  : ($c);
-              };
+            $get_digit__0 = (dynamic $param) : dynamic ==> {
+              $c = $next_char($ib);
+              $switcher = (int) ($c + -48) as dynamic;
+              return 9 < $unsigned_right_shift_32($switcher, 0)
+                ? $bad_input_escape($c)
+                : ($c);
+            };
             $c1__0 = $get_digit__0(0);
             $c2__0 = $get_digit__0(0);
             return $store_char(
@@ -1352,10 +1342,10 @@ final class Stdlib__scanf {
       $skip_newline = new Ref();
       $skip_spaces = new Ref();
       $find_stop__0 = (dynamic $counter, dynamic $width) : dynamic ==> {
-        $c = null as dynamic;
         $az_ = null as dynamic;
-        $width__1 = null as dynamic;
+        $c = null as dynamic;
         $counter__0 = null as dynamic;
+        $width__1 = null as dynamic;
         $width__0 = $width;
         for (;;) {
           $c = $check_next_char_for_string($width__0, $ib);
@@ -1436,9 +1426,9 @@ final class Stdlib__scanf {
         return $caml_trampoline_return($find_stop__0, varray[0,$av_]);
       };
       $skip_spaces->contents = (dynamic $counter, dynamic $width) : dynamic ==> {
+        $counter__0 = null as dynamic;
         $match = null as dynamic;
         $width__1 = null as dynamic;
-        $counter__0 = null as dynamic;
         $width__0 = $width;
         for (;;) {
           $match = $check_next_char_for_string($width__0, $ib);
@@ -1474,15 +1464,15 @@ final class Stdlib__scanf {
     };
     $scan_chars_in_char_set = 
     (dynamic $char_set, dynamic $scan_indic, dynamic $width, dynamic $ib) : dynamic ==> {
-      $c = null as dynamic;
       $ap_ = null as dynamic;
+      $c = null as dynamic;
       $ci = null as dynamic;
       $scan_chars = (dynamic $i, dynamic $stp) : dynamic ==> {
-        $c = null as dynamic;
         $aq_ = null as dynamic;
         $ar_ = null as dynamic;
         $as_ = null as dynamic;
         $at_ = null as dynamic;
+        $c = null as dynamic;
         $i__1 = null as dynamic;
         $i__0 = $i;
         for (;;) {
@@ -1564,8 +1554,29 @@ final class Stdlib__scanf {
       return Vector{0, $stp, $sub_str};
     };
     $take_format_readers__0 = (dynamic $counter, dynamic $k, dynamic $fmt) : dynamic ==> {
+      $am_ = null as dynamic;
+      $an_ = null as dynamic;
+      $ao_ = null as dynamic;
+      $counter__0 = null as dynamic;
+      $counter__1 = null as dynamic;
       $fmt__1 = null as dynamic;
+      $fmt__10 = null as dynamic;
+      $fmt__11 = null as dynamic;
+      $fmt__12 = null as dynamic;
+      $fmt__13 = null as dynamic;
+      $fmt__14 = null as dynamic;
+      $fmt__15 = null as dynamic;
+      $fmt__16 = null as dynamic;
+      $fmt__17 = null as dynamic;
+      $fmt__18 = null as dynamic;
+      $fmt__19 = null as dynamic;
       $fmt__2 = null as dynamic;
+      $fmt__20 = null as dynamic;
+      $fmt__21 = null as dynamic;
+      $fmt__22 = null as dynamic;
+      $fmt__23 = null as dynamic;
+      $fmt__24 = null as dynamic;
+      $fmt__25 = null as dynamic;
       $fmt__3 = null as dynamic;
       $fmt__4 = null as dynamic;
       $fmt__5 = null as dynamic;
@@ -1573,36 +1584,15 @@ final class Stdlib__scanf {
       $fmt__7 = null as dynamic;
       $fmt__8 = null as dynamic;
       $fmt__9 = null as dynamic;
-      $fmt__10 = null as dynamic;
-      $fmt__11 = null as dynamic;
-      $fmt__12 = null as dynamic;
-      $fmt__13 = null as dynamic;
-      $fmt__14 = null as dynamic;
-      $rest = null as dynamic;
-      $fmtty = null as dynamic;
-      $am_ = null as dynamic;
-      $an_ = null as dynamic;
-      $fmt__15 = null as dynamic;
-      $fmt__16 = null as dynamic;
-      $fmt__17 = null as dynamic;
-      $ao_ = null as dynamic;
-      $rest__0 = null as dynamic;
-      $match = null as dynamic;
-      $fmt__18 = null as dynamic;
-      $fmt__19 = null as dynamic;
-      $rest__1 = null as dynamic;
-      $match__0 = null as dynamic;
-      $fmt__20 = null as dynamic;
-      $fmt__21 = null as dynamic;
       $fmt_rest = null as dynamic;
-      $fmt__22 = null as dynamic;
-      $fmt__23 = null as dynamic;
-      $fmt__24 = null as dynamic;
-      $rest__2 = null as dynamic;
+      $fmtty = null as dynamic;
       $ign = null as dynamic;
-      $fmt__25 = null as dynamic;
-      $counter__0 = null as dynamic;
-      $counter__1 = null as dynamic;
+      $match = null as dynamic;
+      $match__0 = null as dynamic;
+      $rest = null as dynamic;
+      $rest__0 = null as dynamic;
+      $rest__1 = null as dynamic;
+      $rest__2 = null as dynamic;
       $fmt__0 = $fmt;
       for (;;) {
         if ($is_int($fmt__0)) {return $call1($k, 0);
@@ -1721,16 +1711,22 @@ final class Stdlib__scanf {
                 $rest__0 = $fmt__0[2];
                 $match = $ao_[1];
                 $fmt__18 = $match[1];
-                $fmt__19 =
-                  $call2($CamlinternalFormatBasics[3], $fmt__18, $rest__0);
+                $fmt__19 = $call2(
+                  $CamlinternalFormatBasics[3],
+                  $fmt__18,
+                  $rest__0
+                );
                 $fmt__0 = $fmt__19;
                 $continue_label = "#";break;
               }
               $rest__1 = $fmt__0[2];
               $match__0 = $ao_[1];
               $fmt__20 = $match__0[1];
-              $fmt__21 =
-                $call2($CamlinternalFormatBasics[3], $fmt__20, $rest__1);
+              $fmt__21 = $call2(
+                $CamlinternalFormatBasics[3],
+                $fmt__20,
+                $rest__1
+              );
               $fmt__0 = $fmt__21;
               $continue_label = "#";break;
             // FALLTHROUGH
@@ -1786,7 +1782,15 @@ final class Stdlib__scanf {
     };
     $take_fmtty_format_readers__0->contents = 
     (dynamic $counter, dynamic $k, dynamic $fmtty, dynamic $fmt) : dynamic ==> {
+      $al_ = null as dynamic;
+      $counter__0 = null as dynamic;
+      $fmt_rest = null as dynamic;
+      $fmt_rest__0 = null as dynamic;
       $fmtty__1 = null as dynamic;
+      $fmtty__10 = null as dynamic;
+      $fmtty__11 = null as dynamic;
+      $fmtty__12 = null as dynamic;
+      $fmtty__13 = null as dynamic;
       $fmtty__2 = null as dynamic;
       $fmtty__3 = null as dynamic;
       $fmtty__4 = null as dynamic;
@@ -1796,17 +1800,9 @@ final class Stdlib__scanf {
       $fmtty__8 = null as dynamic;
       $fmtty__9 = null as dynamic;
       $rest = null as dynamic;
-      $ty2 = null as dynamic;
-      $ty1 = null as dynamic;
-      $al_ = null as dynamic;
       $ty = null as dynamic;
-      $fmtty__10 = null as dynamic;
-      $fmtty__11 = null as dynamic;
-      $fmtty__12 = null as dynamic;
-      $fmtty__13 = null as dynamic;
-      $fmt_rest = null as dynamic;
-      $fmt_rest__0 = null as dynamic;
-      $counter__0 = null as dynamic;
+      $ty1 = null as dynamic;
+      $ty2 = null as dynamic;
       $fmtty__0 = $fmtty;
       for (;;) {
         if ($is_int($fmtty__0)) {
@@ -1925,21 +1921,21 @@ final class Stdlib__scanf {
     };
     $take_ignored_format_readers->contents = 
     (dynamic $counter, dynamic $k, dynamic $ign, dynamic $fmt) : dynamic ==> {
-      $counter__14 = null as dynamic;
-      $counter__13 = null as dynamic;
-      $counter__12 = null as dynamic;
-      $counter__11 = null as dynamic;
-      $counter__10 = null as dynamic;
-      $counter__9 = null as dynamic;
-      $counter__8 = null as dynamic;
-      $counter__7 = null as dynamic;
-      $counter__6 = null as dynamic;
-      $counter__5 = null as dynamic;
-      $counter__4 = null as dynamic;
-      $counter__3 = null as dynamic;
-      $counter__2 = null as dynamic;
-      $counter__1 = null as dynamic;
       $counter__0 = null as dynamic;
+      $counter__1 = null as dynamic;
+      $counter__10 = null as dynamic;
+      $counter__11 = null as dynamic;
+      $counter__12 = null as dynamic;
+      $counter__13 = null as dynamic;
+      $counter__14 = null as dynamic;
+      $counter__2 = null as dynamic;
+      $counter__3 = null as dynamic;
+      $counter__4 = null as dynamic;
+      $counter__5 = null as dynamic;
+      $counter__6 = null as dynamic;
+      $counter__7 = null as dynamic;
+      $counter__8 = null as dynamic;
+      $counter__9 = null as dynamic;
       $fmtty = null as dynamic;
       if ($is_int($ign)) {
         switch($ign) {
@@ -2125,13 +2121,13 @@ final class Stdlib__scanf {
     };
     $pad_prec_scanf = 
     (dynamic $ib, dynamic $fmt, dynamic $readers, dynamic $pad, dynamic $prec, dynamic $scan, dynamic $token) : dynamic ==> {
-      $x__2 = null as dynamic;
-      $p__0 = null as dynamic;
-      $x__1 = null as dynamic;
       $ak_ = null as dynamic;
-      $x__0 = null as dynamic;
       $p = null as dynamic;
+      $p__0 = null as dynamic;
       $x = null as dynamic;
+      $x__0 = null as dynamic;
+      $x__1 = null as dynamic;
+      $x__2 = null as dynamic;
       if ($is_int($pad)) {
         if ($is_int($prec)) {
           if (0 === $prec) {
@@ -2173,143 +2169,143 @@ final class Stdlib__scanf {
       }
     };
     $make_scanf->contents = (dynamic $ib, dynamic $fmt, dynamic $readers) : dynamic ==> {
-      $rest = null as dynamic;
-      $c = null as dynamic;
-      $rest__0 = null as dynamic;
-      $c__0 = null as dynamic;
       $J_ = null as dynamic;
       $K_ = null as dynamic;
-      $scan = null as dynamic;
-      $rest__1 = null as dynamic;
-      $fmting_lit = null as dynamic;
-      $match = null as dynamic;
-      $str = null as dynamic;
-      $stp = null as dynamic;
-      $scan__0 = null as dynamic;
-      $str_rest = null as dynamic;
       $L_ = null as dynamic;
-      $rest__2 = null as dynamic;
-      $match__0 = null as dynamic;
-      $fmt__1 = null as dynamic;
-      $scan__1 = null as dynamic;
-      $rest__3 = null as dynamic;
-      $match__1 = null as dynamic;
-      $fmt__2 = null as dynamic;
-      $scan__2 = null as dynamic;
-      $rest__4 = null as dynamic;
-      $pad = null as dynamic;
-      $scan__3 = null as dynamic;
-      $rest__5 = null as dynamic;
-      $prec = null as dynamic;
-      $pad__0 = null as dynamic;
-      $iconv = null as dynamic;
-      $c__1 = null as dynamic;
-      $scan__4 = null as dynamic;
-      $rest__6 = null as dynamic;
-      $prec__0 = null as dynamic;
-      $pad__1 = null as dynamic;
-      $iconv__0 = null as dynamic;
-      $c__2 = null as dynamic;
-      $scan__5 = null as dynamic;
-      $rest__7 = null as dynamic;
-      $prec__1 = null as dynamic;
-      $pad__2 = null as dynamic;
-      $iconv__1 = null as dynamic;
-      $c__3 = null as dynamic;
-      $scan__6 = null as dynamic;
-      $rest__8 = null as dynamic;
-      $prec__2 = null as dynamic;
-      $pad__3 = null as dynamic;
-      $iconv__2 = null as dynamic;
-      $c__4 = null as dynamic;
-      $scan__7 = null as dynamic;
       $M_ = null as dynamic;
-      $rest__9 = null as dynamic;
-      $prec__3 = null as dynamic;
-      $pad__4 = null as dynamic;
-      $rest__10 = null as dynamic;
-      $prec__4 = null as dynamic;
-      $pad__5 = null as dynamic;
-      $rest__11 = null as dynamic;
-      $prec__5 = null as dynamic;
-      $pad__6 = null as dynamic;
-      $rest__12 = null as dynamic;
-      $pad__7 = null as dynamic;
-      $scan__8 = null as dynamic;
-      $rest__13 = null as dynamic;
-      $fmt__3 = null as dynamic;
-      $str__0 = null as dynamic;
       $N_ = null as dynamic;
-      $fmt__4 = null as dynamic;
-      $chr = null as dynamic;
-      $rest__14 = null as dynamic;
-      $fmtty = null as dynamic;
-      $pad_opt = null as dynamic;
-      $s = null as dynamic;
-      $msg = null as dynamic;
       $O_ = null as dynamic;
-      $fmt__5 = null as dynamic;
       $P_ = null as dynamic;
-      $rest__15 = null as dynamic;
-      $fmtty__0 = null as dynamic;
-      $pad_opt__0 = null as dynamic;
-      $s__0 = null as dynamic;
-      $msg__0 = null as dynamic;
       $Q_ = null as dynamic;
       $R_ = null as dynamic;
       $S_ = null as dynamic;
-      $fmt__6 = null as dynamic;
-      $fmt__7 = null as dynamic;
-      $match__2 = null as dynamic;
-      $fmt__8 = null as dynamic;
-      $match__3 = null as dynamic;
-      $fmt__9 = null as dynamic;
       $T_ = null as dynamic;
       $U_ = null as dynamic;
-      $fmt__10 = null as dynamic;
       $V_ = null as dynamic;
       $W_ = null as dynamic;
-      $fmt__11 = null as dynamic;
-      $formatting_lit = null as dynamic;
       $X_ = null as dynamic;
       $Y_ = null as dynamic;
       $Z_ = null as dynamic;
-      $rest__16 = null as dynamic;
-      $match__4 = null as dynamic;
-      $fmt__12 = null as dynamic;
-      $fmt__13 = null as dynamic;
-      $rest__17 = null as dynamic;
-      $match__5 = null as dynamic;
-      $fmt__14 = null as dynamic;
-      $fmt__15 = null as dynamic;
-      $fmt_rest = null as dynamic;
-      $readers_rest = null as dynamic;
-      $reader = null as dynamic;
-      $x = null as dynamic;
       $aa_ = null as dynamic;
       $ab_ = null as dynamic;
       $ac_ = null as dynamic;
-      $width = null as dynamic;
-      $s__1 = null as dynamic;
-      $rest__18 = null as dynamic;
-      $fmting_lit__0 = null as dynamic;
-      $match__6 = null as dynamic;
-      $str__1 = null as dynamic;
-      $stp__0 = null as dynamic;
-      $width__0 = null as dynamic;
-      $s__2 = null as dynamic;
-      $str_rest__0 = null as dynamic;
-      $rest__19 = null as dynamic;
-      $counter = null as dynamic;
-      $count = null as dynamic;
-      $rest__20 = null as dynamic;
-      $c__5 = null as dynamic;
-      $rest__21 = null as dynamic;
-      $ign = null as dynamic;
-      $match__7 = null as dynamic;
-      $fmt__16 = null as dynamic;
-      $match__8 = null as dynamic;
       $arg_rest = null as dynamic;
+      $c = null as dynamic;
+      $c__0 = null as dynamic;
+      $c__1 = null as dynamic;
+      $c__2 = null as dynamic;
+      $c__3 = null as dynamic;
+      $c__4 = null as dynamic;
+      $c__5 = null as dynamic;
+      $chr = null as dynamic;
+      $count = null as dynamic;
+      $counter = null as dynamic;
+      $fmt__1 = null as dynamic;
+      $fmt__10 = null as dynamic;
+      $fmt__11 = null as dynamic;
+      $fmt__12 = null as dynamic;
+      $fmt__13 = null as dynamic;
+      $fmt__14 = null as dynamic;
+      $fmt__15 = null as dynamic;
+      $fmt__16 = null as dynamic;
+      $fmt__2 = null as dynamic;
+      $fmt__3 = null as dynamic;
+      $fmt__4 = null as dynamic;
+      $fmt__5 = null as dynamic;
+      $fmt__6 = null as dynamic;
+      $fmt__7 = null as dynamic;
+      $fmt__8 = null as dynamic;
+      $fmt__9 = null as dynamic;
+      $fmt_rest = null as dynamic;
+      $fmting_lit = null as dynamic;
+      $fmting_lit__0 = null as dynamic;
+      $fmtty = null as dynamic;
+      $fmtty__0 = null as dynamic;
+      $formatting_lit = null as dynamic;
+      $iconv = null as dynamic;
+      $iconv__0 = null as dynamic;
+      $iconv__1 = null as dynamic;
+      $iconv__2 = null as dynamic;
+      $ign = null as dynamic;
+      $match = null as dynamic;
+      $match__0 = null as dynamic;
+      $match__1 = null as dynamic;
+      $match__2 = null as dynamic;
+      $match__3 = null as dynamic;
+      $match__4 = null as dynamic;
+      $match__5 = null as dynamic;
+      $match__6 = null as dynamic;
+      $match__7 = null as dynamic;
+      $match__8 = null as dynamic;
+      $msg = null as dynamic;
+      $msg__0 = null as dynamic;
+      $pad = null as dynamic;
+      $pad__0 = null as dynamic;
+      $pad__1 = null as dynamic;
+      $pad__2 = null as dynamic;
+      $pad__3 = null as dynamic;
+      $pad__4 = null as dynamic;
+      $pad__5 = null as dynamic;
+      $pad__6 = null as dynamic;
+      $pad__7 = null as dynamic;
+      $pad_opt = null as dynamic;
+      $pad_opt__0 = null as dynamic;
+      $prec = null as dynamic;
+      $prec__0 = null as dynamic;
+      $prec__1 = null as dynamic;
+      $prec__2 = null as dynamic;
+      $prec__3 = null as dynamic;
+      $prec__4 = null as dynamic;
+      $prec__5 = null as dynamic;
+      $reader = null as dynamic;
+      $readers_rest = null as dynamic;
+      $rest = null as dynamic;
+      $rest__0 = null as dynamic;
+      $rest__1 = null as dynamic;
+      $rest__10 = null as dynamic;
+      $rest__11 = null as dynamic;
+      $rest__12 = null as dynamic;
+      $rest__13 = null as dynamic;
+      $rest__14 = null as dynamic;
+      $rest__15 = null as dynamic;
+      $rest__16 = null as dynamic;
+      $rest__17 = null as dynamic;
+      $rest__18 = null as dynamic;
+      $rest__19 = null as dynamic;
+      $rest__2 = null as dynamic;
+      $rest__20 = null as dynamic;
+      $rest__21 = null as dynamic;
+      $rest__3 = null as dynamic;
+      $rest__4 = null as dynamic;
+      $rest__5 = null as dynamic;
+      $rest__6 = null as dynamic;
+      $rest__7 = null as dynamic;
+      $rest__8 = null as dynamic;
+      $rest__9 = null as dynamic;
+      $s = null as dynamic;
+      $s__0 = null as dynamic;
+      $s__1 = null as dynamic;
+      $s__2 = null as dynamic;
+      $scan = null as dynamic;
+      $scan__0 = null as dynamic;
+      $scan__1 = null as dynamic;
+      $scan__2 = null as dynamic;
+      $scan__3 = null as dynamic;
+      $scan__4 = null as dynamic;
+      $scan__5 = null as dynamic;
+      $scan__6 = null as dynamic;
+      $scan__7 = null as dynamic;
+      $scan__8 = null as dynamic;
+      $stp = null as dynamic;
+      $stp__0 = null as dynamic;
+      $str = null as dynamic;
+      $str__0 = null as dynamic;
+      $str__1 = null as dynamic;
+      $str_rest = null as dynamic;
+      $str_rest__0 = null as dynamic;
+      $width = null as dynamic;
+      $width__0 = null as dynamic;
+      $x = null as dynamic;
       $fmt__0 = $fmt;
       for (;;) {
         if ($is_int($fmt__0)) {return 0;}
@@ -2346,10 +2342,9 @@ final class Stdlib__scanf {
                     $match = $stopper_of_formatting_lit($fmting_lit);
                     $str = $match[2];
                     $stp = $match[1];
-                    $scan__0 =
-                      (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
-                        return $scan_string(Vector{0, $stp}, $width, $ib);
-                      };
+                    $scan__0 = (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
+                      return $scan_string(Vector{0, $stp}, $width, $ib);
+                    };
                     $str_rest = Vector{11, $str, $rest__1} as dynamic;
                     return $pad_prec_scanf(
                       $ib,
@@ -2367,10 +2362,9 @@ final class Stdlib__scanf {
                       $rest__2 = $J_[2];
                       $match__0 = $L_[1];
                       $fmt__1 = $match__0[1];
-                      $scan__1 =
-                        (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
-                          return $scan_string($q_, $width, $ib);
-                        };
+                      $scan__1 = (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
+                        return $scan_string($q_, $width, $ib);
+                      };
                       return $pad_prec_scanf(
                         $ib,
                         $call2($CamlinternalFormatBasics[3], $fmt__1, $rest__2),
@@ -2384,10 +2378,9 @@ final class Stdlib__scanf {
                     $rest__3 = $J_[2];
                     $match__1 = $L_[1];
                     $fmt__2 = $match__1[1];
-                    $scan__2 =
-                      (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
-                        return $scan_string($r_, $width, $ib);
-                      };
+                    $scan__2 = (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
+                      return $scan_string($r_, $width, $ib);
+                    };
                     return $pad_prec_scanf(
                       $ib,
                       $call2($CamlinternalFormatBasics[3], $fmt__2, $rest__3),
@@ -2399,10 +2392,9 @@ final class Stdlib__scanf {
                     );
                   }
               }
-              $scan =
-                (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
-                  return $scan_string(0, $width, $ib);
-                };
+              $scan = (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
+                return $scan_string(0, $width, $ib);
+              };
               return $pad_prec_scanf(
                 $ib,
                 $J_,
@@ -2416,10 +2408,9 @@ final class Stdlib__scanf {
             case 3:
               $rest__4 = $fmt__0[2];
               $pad = $fmt__0[1];
-              $scan__3 =
-                (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
-                  return $scan_caml_string($width, $ib);
-                };
+              $scan__3 = (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
+                return $scan_caml_string($width, $ib);
+              };
               return $pad_prec_scanf(
                 $ib,
                 $rest__4,
@@ -2435,14 +2426,12 @@ final class Stdlib__scanf {
               $prec = $fmt__0[3];
               $pad__0 = $fmt__0[2];
               $iconv = $fmt__0[1];
-              $c__1 =
-                $integer_conversion_of_char(
-                  $call1($CamlinternalFormat[16], $iconv)
-                );
-              $scan__4 =
-                (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
-                  return $scan_int_conversion($c__1, $width, $ib);
-                };
+              $c__1 = $integer_conversion_of_char(
+                $call1($CamlinternalFormat[16], $iconv)
+              );
+              $scan__4 = (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
+                return $scan_int_conversion($c__1, $width, $ib);
+              };
               return $pad_prec_scanf(
                 $ib,
                 $rest__5,
@@ -2458,14 +2447,12 @@ final class Stdlib__scanf {
               $prec__0 = $fmt__0[3];
               $pad__1 = $fmt__0[2];
               $iconv__0 = $fmt__0[1];
-              $c__2 =
-                $integer_conversion_of_char(
-                  $call1($CamlinternalFormat[16], $iconv__0)
-                );
-              $scan__5 =
-                (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
-                  return $scan_int_conversion($c__2, $width, $ib);
-                };
+              $c__2 = $integer_conversion_of_char(
+                $call1($CamlinternalFormat[16], $iconv__0)
+              );
+              $scan__5 = (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
+                return $scan_int_conversion($c__2, $width, $ib);
+              };
               return $pad_prec_scanf(
                 $ib,
                 $rest__6,
@@ -2483,14 +2470,12 @@ final class Stdlib__scanf {
               $prec__1 = $fmt__0[3];
               $pad__2 = $fmt__0[2];
               $iconv__1 = $fmt__0[1];
-              $c__3 =
-                $integer_conversion_of_char(
-                  $call1($CamlinternalFormat[16], $iconv__1)
-                );
-              $scan__6 =
-                (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
-                  return $scan_int_conversion($c__3, $width, $ib);
-                };
+              $c__3 = $integer_conversion_of_char(
+                $call1($CamlinternalFormat[16], $iconv__1)
+              );
+              $scan__6 = (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
+                return $scan_int_conversion($c__3, $width, $ib);
+              };
               return $pad_prec_scanf(
                 $ib,
                 $rest__7,
@@ -2508,14 +2493,12 @@ final class Stdlib__scanf {
               $prec__2 = $fmt__0[3];
               $pad__3 = $fmt__0[2];
               $iconv__2 = $fmt__0[1];
-              $c__4 =
-                $integer_conversion_of_char(
-                  $call1($CamlinternalFormat[16], $iconv__2)
-                );
-              $scan__7 =
-                (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
-                  return $scan_int_conversion($c__4, $width, $ib);
-                };
+              $c__4 = $integer_conversion_of_char(
+                $call1($CamlinternalFormat[16], $iconv__2)
+              );
+              $scan__7 = (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {
+                return $scan_int_conversion($c__4, $width, $ib);
+              };
               return $pad_prec_scanf(
                 $ib,
                 $rest__8,
@@ -2574,9 +2557,8 @@ final class Stdlib__scanf {
             case 9:
               $rest__12 = $fmt__0[2];
               $pad__7 = $fmt__0[1];
-              $scan__8 =
-                (dynamic $param, dynamic $af_, dynamic $ib) : dynamic ==> {return $scan_bool($ib);
-                };
+              $scan__8 = (dynamic $param, dynamic $af_, dynamic $ib) : dynamic ==> {return $scan_bool($ib);
+              };
               return $pad_prec_scanf(
                 $ib,
                 $rest__12,
@@ -2598,8 +2580,9 @@ final class Stdlib__scanf {
             case 11:
               $fmt__3 = $fmt__0[2];
               $str__0 = $fmt__0[1];
-              $N_ =
-                (dynamic $ae_) : dynamic ==> {return $check_char($ib, $ae_);};
+              $N_ = (dynamic $ae_) : dynamic ==> {
+                return $check_char($ib, $ae_);
+              };
               $call2($Stdlib_string[8], $N_, $str__0);
               $fmt__0 = $fmt__3;
               $continue_label = "#";break;
@@ -2687,8 +2670,9 @@ final class Stdlib__scanf {
               $fmt__11 = $fmt__0[2];
               $formatting_lit = $fmt__0[1];
               $X_ = $call1($CamlinternalFormat[17], $formatting_lit);
-              $Y_ =
-                (dynamic $ad_) : dynamic ==> {return $check_char($ib, $ad_);};
+              $Y_ = (dynamic $ad_) : dynamic ==> {
+                return $check_char($ib, $ad_);
+              };
               $call2($Stdlib_string[8], $Y_, $X_);
               $fmt__0 = $fmt__11;
               $continue_label = "#";break;
@@ -2701,8 +2685,11 @@ final class Stdlib__scanf {
                 $fmt__12 = $match__4[1];
                 $check_char($ib, 64);
                 $check_char($ib, 123);
-                $fmt__13 =
-                  $call2($CamlinternalFormatBasics[3], $fmt__12, $rest__16);
+                $fmt__13 = $call2(
+                  $CamlinternalFormatBasics[3],
+                  $fmt__12,
+                  $rest__16
+                );
                 $fmt__0 = $fmt__13;
                 $continue_label = "#";break;
               }
@@ -2711,8 +2698,11 @@ final class Stdlib__scanf {
               $fmt__14 = $match__5[1];
               $check_char($ib, 64);
               $check_char($ib, 91);
-              $fmt__15 =
-                $call2($CamlinternalFormatBasics[3], $fmt__14, $rest__17);
+              $fmt__15 = $call2(
+                $CamlinternalFormatBasics[3],
+                $fmt__14,
+                $rest__17
+              );
               $fmt__0 = $fmt__15;
               $continue_label = "#";break;
             // FALLTHROUGH
@@ -2809,8 +2799,8 @@ final class Stdlib__scanf {
       $fmt = $param[1];
       $apply = (dynamic $f, dynamic $args) : dynamic ==> {
         $args__1 = null as dynamic;
-        $x = null as dynamic;
         $f__1 = null as dynamic;
+        $x = null as dynamic;
         $f__0 = $f;
         $args__0 = $args;
         for (;;) {
@@ -2826,17 +2816,17 @@ final class Stdlib__scanf {
         }
       };
       $k = (dynamic $readers, dynamic $f) : dynamic ==> {
-        $switch__0 = null as dynamic;
-        $I_ = null as dynamic;
-        $H_ = null as dynamic;
-        $G_ = null as dynamic;
-        $F_ = null as dynamic;
-        $E_ = null as dynamic;
-        $D_ = null as dynamic;
-        $msg = null as dynamic;
-        $args = null as dynamic;
-        $C_ = null as dynamic;
         $B_ = null as dynamic;
+        $C_ = null as dynamic;
+        $D_ = null as dynamic;
+        $E_ = null as dynamic;
+        $F_ = null as dynamic;
+        $G_ = null as dynamic;
+        $H_ = null as dynamic;
+        $I_ = null as dynamic;
+        $args = null as dynamic;
+        $msg = null as dynamic;
+        $switch__0 = null as dynamic;
         $reset_token($ib);
         try {
           $I_ = Vector{0, $make_scanf->contents($ib, $fmt, $readers)} as dynamic;
@@ -2890,8 +2880,8 @@ final class Stdlib__scanf {
     $bscanf_format = (dynamic $ib, dynamic $format, dynamic $f) : dynamic ==> {
       $A_ = null as dynamic;
       $fmt = null as dynamic;
-      $z_ = null as dynamic;
       $msg = null as dynamic;
+      $z_ = null as dynamic;
       $scan_caml_string($Stdlib[19], $ib);
       $str = $token_string($ib);
       try {$A_ = $call2($CamlinternalFormat[15], $str, $format);$fmt = $A_;}

@@ -80,12 +80,11 @@ final class Stdlib__string {
           $I_ = $param__0[2];
           $J_ = $param__0[1];
           if ($I_) {
-            $acc__1 =
-              $ensure_ge(
-                (int)
-                ((int) ($caml_ml_string_length($J_) + $seplen) + $acc__0),
-                $acc__0
-              );
+            $acc__1 = $ensure_ge(
+              (int)
+              ((int) ($caml_ml_string_length($J_) + $seplen) + $acc__0),
+              $acc__0
+            );
             $acc__0 = $acc__1;
             $param__0 = $I_;
             continue;
@@ -122,9 +121,8 @@ final class Stdlib__string {
               ($pos__0 + $caml_ml_string_length($H_)),
               $seplen
             );
-            $pos__1 =
-              (int)
-              ((int) ($pos__0 + $caml_ml_string_length($H_)) + $seplen) as dynamic;
+            $pos__1 = (int)
+            ((int) ($pos__0 + $caml_ml_string_length($H_)) + $seplen) as dynamic;
             $pos__0 = $pos__1;
             $param__0 = $G_;
             continue;
@@ -154,8 +152,8 @@ final class Stdlib__string {
       return $cst;
     };
     $iter = (dynamic $f, dynamic $s) : dynamic ==> {
-      $i = null as dynamic;
       $F_ = null as dynamic;
+      $i = null as dynamic;
       $E_ = (int) ($caml_ml_string_length($s) + -1) as dynamic;
       $D_ = 0 as dynamic;
       if (! ($E_ < 0)) {
@@ -170,8 +168,8 @@ final class Stdlib__string {
       return 0;
     };
     $iteri = (dynamic $f, dynamic $s) : dynamic ==> {
-      $i = null as dynamic;
       $C_ = null as dynamic;
+      $i = null as dynamic;
       $B_ = (int) ($caml_ml_string_length($s) + -1) as dynamic;
       $A_ = 0 as dynamic;
       if (! ($B_ < 0)) {
@@ -219,20 +217,19 @@ final class Stdlib__string {
     };
     $escaped = (dynamic $s) : dynamic ==> {
       $escape_if_needed = (dynamic $s, dynamic $n, dynamic $i) : dynamic ==> {
+        $i__1 = null as dynamic;
         $match = null as dynamic;
+        $switch__0 = null as dynamic;
         $u_ = null as dynamic;
         $v_ = null as dynamic;
-        $i__1 = null as dynamic;
-        $switch__0 = null as dynamic;
         $i__0 = $i;
         for (;;) {
           if ($n <= $i__0) {return $s;}
           $match = $caml_string_unsafe_get($s, $i__0);
           $u_ = (int) ($match + -32) as dynamic;
-          $switch__0 =
-            59 < $unsigned_right_shift_32($u_, 0)
-              ? 33 < $unsigned_right_shift_32((int) ($u_ + -61), 0) ? 1 : (0)
-              : (2 === $u_ ? 1 : (0));
+          $switch__0 = 59 < $unsigned_right_shift_32($u_, 0)
+            ? 33 < $unsigned_right_shift_32((int) ($u_ + -61), 0) ? 1 : (0)
+            : (2 === $u_ ? 1 : (0));
           if ($switch__0) {
             $v_ = $call1($bos, $s);
             return $call1($bts, $call1($Stdlib_bytes[20], $v_));

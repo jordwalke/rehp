@@ -9,6 +9,7 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -18,7 +19,6 @@ function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 var cst_Stdlib_Queue_Empty = runtime["caml_new_string"]("Stdlib.Queue.Empty");
 var Stdlib_seq = require("./Stdlib__seq.js");
 var Empty = [248,cst_Stdlib_Queue_Empty,runtime["caml_fresh_oo_id"](0)];
@@ -38,26 +38,22 @@ function add(x, q) {
 }
 
 function peek(q) {
-  var content;
   var n_ = q[2];
-  if (n_) {content = n_[1];return content;}
+  if (n_) {var content = n_[1];return content;}
   throw caml_wrap_thrown_exception(Empty);
 }
 
 function peek_opt(q) {
-  var content;
   var m_ = q[2];
-  if (m_) {content = m_[1];return [0,content];}
+  if (m_) {var content = m_[1];return [0,content];}
   return 0;
 }
 
 function take(q) {
-  var k_;
-  var l_;
   var j_ = q[2];
   if (j_) {
-    k_ = j_[1];
-    l_ = j_[2];
+    var k_ = j_[1];
+    var l_ = j_[2];
     if (l_) {q[1] = q[1] + -1 | 0;q[2] = l_;return k_;}
     clear(q);
     return k_;
@@ -66,12 +62,10 @@ function take(q) {
 }
 
 function take_opt(q) {
-  var h_;
-  var i_;
   var g_ = q[2];
   if (g_) {
-    h_ = g_[1];
-    i_ = g_[2];
+    var h_ = g_[1];
+    var i_ = g_[2];
     if (i_) {q[1] = q[1] + -1 | 0;q[2] = i_;return [0,h_];}
     clear(q);
     return [0,h_];
@@ -80,20 +74,17 @@ function take_opt(q) {
 }
 
 function copy(q_res, prev, cell) {
-  var content;
-  var next;
-  var res;
   var prev__0 = prev;
   var cell__0 = cell;
   for (; ; ) {
     if (cell__0) {
-      content = cell__0[1];
-      next = cell__0[2];
-      res = [0,content,0];
+      var content = cell__0[1];
+      var next = cell__0[2];
+      var res = [0,content,0];
       if (prev__0) prev__0[2] = res;
       else q_res[2] = res;
-      prev__0 = res;
-      cell__0 = next;
+      var prev__0 = res;
+      var cell__0 = next;
       continue;
     }
     q_res[3] = prev__0;
@@ -108,15 +99,13 @@ function is_empty(q) {return 0 === q[1] ? 1 : 0;}
 function length(q) {return q[1];}
 
 function iter(f, cell) {
-  var content;
-  var cell__1;
   var cell__0 = cell;
   for (; ; ) {
     if (cell__0) {
-      content = cell__0[1];
-      cell__1 = cell__0[2];
+      var content = cell__0[1];
+      var cell__1 = cell__0[2];
       call1(f, content);
-      cell__0 = cell__1;
+      var cell__0 = cell__1;
       continue;
     }
     return 0;
@@ -126,18 +115,15 @@ function iter(f, cell) {
 function iter__0(f, q) {return iter(f, q[2]);}
 
 function fold(f, accu, cell) {
-  var content;
-  var cell__1;
-  var accu__1;
   var accu__0 = accu;
   var cell__0 = cell;
   for (; ; ) {
     if (cell__0) {
-      content = cell__0[1];
-      cell__1 = cell__0[2];
-      accu__1 = call2(f, accu__0, content);
-      accu__0 = accu__1;
-      cell__0 = cell__1;
+      var content = cell__0[1];
+      var cell__1 = cell__0[2];
+      var accu__1 = call2(f, accu__0, content);
+      var accu__0 = accu__1;
+      var cell__0 = cell__1;
       continue;
     }
     return accu__0;
@@ -147,10 +133,9 @@ function fold(f, accu, cell) {
 function fold__0(f, accu, q) {return fold(f, accu, q[2]);}
 
 function transfer(q1, q2) {
-  var f_;
   var e_ = 0 < q1[1] ? 1 : 0;
   if (e_) {
-    f_ = q2[3];
+    var f_ = q2[3];
     if (f_) {
       q2[1] = q2[1] + q1[1] | 0;
       f_[2] = q1[2];
@@ -167,11 +152,9 @@ function transfer(q1, q2) {
 
 function to_seq(q) {
   function aux(c, param) {
-    var next;
-    var x;
     if (c) {
-      x = c[1];
-      next = c[2];
+      var x = c[1];
+      var next = c[2];
       return [0,x,function(d_) {return aux(next, d_);}];
     }
     return 0;

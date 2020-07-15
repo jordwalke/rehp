@@ -147,15 +147,16 @@ final class Stdlib {
     $valid_float_lexem = (dynamic $s) : dynamic ==> {
       $l = $caml_ml_string_length($s);
       $loop = (dynamic $i) : dynamic ==> {
-        $match = null as dynamic;
         $i__1 = null as dynamic;
+        $match = null as dynamic;
         $switch__0 = null as dynamic;
         $i__0 = $i;
         for (;;) {
           if ($l <= $i__0) {return $symbol($s, $cst);}
           $match = $runtime["caml_string_get"]($s, $i__0);
-          $switch__0 =
-            48 <= $match ? 58 <= $match ? 0 : (1) : (45 === $match ? 1 : (0));
+          $switch__0 = 48 <= $match
+            ? 58 <= $match ? 0 : (1)
+            : (45 === $match ? 1 : (0));
           if ($switch__0) {
             $i__1 = (int) ($i__0 + 1) as dynamic;
             $i__0 = $i__1;
@@ -205,8 +206,8 @@ final class Stdlib {
     };
     $flush_all = (dynamic $param) : dynamic ==> {
       $iter = (dynamic $param) : dynamic ==> {
-        $l = null as dynamic;
         $a = null as dynamic;
+        $l = null as dynamic;
         $param__0 = $param;
         for (;;) {
           if ($param__0) {
@@ -283,9 +284,9 @@ final class Stdlib {
     };
     $unsafe_really_input = 
     (dynamic $ic, dynamic $s, dynamic $ofs, dynamic $len) : dynamic ==> {
-      $r = null as dynamic;
       $len__1 = null as dynamic;
       $ofs__1 = null as dynamic;
+      $r = null as dynamic;
       $ofs__0 = $ofs;
       $len__0 = $len;
       for (;;) {
@@ -318,9 +319,9 @@ final class Stdlib {
     };
     $input_line = (dynamic $chan) : dynamic ==> {
       $build_result = (dynamic $buf, dynamic $pos, dynamic $param) : dynamic ==> {
-        $param__1 = null as dynamic;
         $hd = null as dynamic;
         $len = null as dynamic;
+        $param__1 = null as dynamic;
         $pos__1 = null as dynamic;
         $pos__0 = $pos;
         $param__0 = $param;
@@ -346,12 +347,12 @@ final class Stdlib {
         }
       };
       $scan = (dynamic $accu, dynamic $len) : dynamic ==> {
+        $accu__1 = null as dynamic;
+        $beg = null as dynamic;
+        $len__1 = null as dynamic;
+        $len__2 = null as dynamic;
         $n = null as dynamic;
         $res = null as dynamic;
-        $len__1 = null as dynamic;
-        $beg = null as dynamic;
-        $len__2 = null as dynamic;
-        $accu__1 = null as dynamic;
         $accu__0 = $accu;
         $len__0 = $len;
         for (;;) {

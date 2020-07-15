@@ -44,8 +44,7 @@ function unsigned_to_int(n) {
 function to_string(n) {return runtime["caml_format_int"](cst_d, n);}
 
 function of_string_opt(s) {
-  var a_;
-  try {a_ = [0,runtime["caml_int_of_string"](s)];return a_;}
+  try {var a_ = [0,runtime["caml_int_of_string"](s)];return a_;}
   catch(b_) {
     b_ = runtime["caml_wrap_exception"](b_);
     if (b_[1] === Stdlib[7]) {return 0;}

@@ -9,6 +9,7 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -24,7 +25,6 @@ function call3(f, a0, a1, a2) {
     runtime["caml_call_gen"](f, [a0,a1,a2]);
 }
 
-var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 var cst_Stdlib_Stack_Empty = runtime["caml_new_string"]("Stdlib.Stack.Empty");
 var Stdlib_seq = require("./Stdlib__seq.js");
 var Stdlib_list = require("./Stdlib__list.js");
@@ -39,20 +39,22 @@ function copy(s) {return [0,s[1],s[2]];}
 function push(x, s) {s[1] = [0,x,s[1]];s[2] = s[2] + 1 | 0;return 0;}
 
 function pop(s) {
-  var tl;
-  var hd;
   var e_ = s[1];
-  if (e_) {tl = e_[2];hd = e_[1];s[1] = tl;s[2] = s[2] + -1 | 0;return hd;}
+  if (e_) {
+    var tl = e_[2];
+    var hd = e_[1];
+    s[1] = tl;
+    s[2] = s[2] + -1 | 0;
+    return hd;
+  }
   throw caml_wrap_thrown_exception(Empty);
 }
 
 function pop_opt(s) {
-  var tl;
-  var hd;
   var d_ = s[1];
   if (d_) {
-    tl = d_[2];
-    hd = d_[1];
+    var tl = d_[2];
+    var hd = d_[1];
     s[1] = tl;
     s[2] = s[2] + -1 | 0;
     return [0,hd];
@@ -61,16 +63,14 @@ function pop_opt(s) {
 }
 
 function top(s) {
-  var hd;
   var c_ = s[1];
-  if (c_) {hd = c_[1];return hd;}
+  if (c_) {var hd = c_[1];return hd;}
   throw caml_wrap_thrown_exception(Empty);
 }
 
 function top_opt(s) {
-  var hd;
   var b_ = s[1];
-  if (b_) {hd = b_[1];return [0,hd];}
+  if (b_) {var hd = b_[1];return [0,hd];}
   return 0;
 }
 

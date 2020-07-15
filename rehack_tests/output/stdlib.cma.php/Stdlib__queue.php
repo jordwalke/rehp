@@ -114,8 +114,8 @@ final class Stdlib__queue {
     $is_empty = (dynamic $q) : dynamic ==> {return 0 === $q[1] ? 1 : (0);};
     $length = (dynamic $q) : dynamic ==> {return $q[1];};
     $iter = (dynamic $f, dynamic $cell) : dynamic ==> {
-      $content = null as dynamic;
       $cell__1 = null as dynamic;
+      $content = null as dynamic;
       $cell__0 = $cell;
       for (;;) {
         if ($cell__0) {
@@ -132,9 +132,9 @@ final class Stdlib__queue {
       return $iter($f, $q[2]);
     };
     $fold = (dynamic $f, dynamic $accu, dynamic $cell) : dynamic ==> {
-      $content = null as dynamic;
-      $cell__1 = null as dynamic;
       $accu__1 = null as dynamic;
+      $cell__1 = null as dynamic;
+      $content = null as dynamic;
       $accu__0 = $accu;
       $cell__0 = $cell;
       for (;;) {

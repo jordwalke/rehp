@@ -9,6 +9,8 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
+var string = runtime["caml_new_string"];
+var caml_obj_tag = runtime["caml_obj_tag"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -18,8 +20,6 @@ function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var string = runtime["caml_new_string"];
-var caml_obj_tag = runtime["caml_obj_tag"];
 var cst_Obj_Ephemeron_blit_key = string("Obj.Ephemeron.blit_key");
 var cst_Obj_Ephemeron_check_key = string("Obj.Ephemeron.check_key");
 var cst_Obj_Ephemeron_unset_key = string("Obj.Ephemeron.unset_key");
@@ -66,23 +66,23 @@ var out_of_heap_tag = 1001;
 var unaligned_tag = 1002;
 
 function of_val(x) {
-  var switch__1;
-  var switch__0;
-  var name;
-  var slot;
   if (is_block(x)) if (
     caml_obj_tag(x) !== 248
-  ) if (1 <= x.length - 1) {slot = x[1];switch__0 = 1;}else switch__0 = 0;
-  else switch__0 = 0;
-  else switch__0 = 0;
-  if (! switch__0) {slot = x;}
+  ) if (1 <= x.length - 1) {
+    var slot = x[1];
+    var switch__0 = 1;
+  }
+  else var switch__0 = 0;
+  else var switch__0 = 0;
+  else var switch__0 = 0;
+  if (! switch__0) {var slot = x;}
   if (is_block(slot)) if (
     caml_obj_tag(slot) === 248
-  ) {name = slot[1];switch__1 = 1;}
-  else switch__1 = 0;
-  else switch__1 = 0;
+  ) {var name = slot[1];var switch__1 = 1;}
+  else var switch__1 = 0;
+  else var switch__1 = 0;
   if (! switch__1) {
-    name = call1(Stdlib[1], cst_Obj_extension_constructor__0);
+    var name = call1(Stdlib[1], cst_Obj_extension_constructor__0);
   }
   return caml_obj_tag(name) === 252 ?
     slot :
@@ -141,15 +141,15 @@ function check_key(e, o) {
 }
 
 function blit_key(e1, o1, e2, o2, l) {
-  var o_;
-  var n_;
   if (0 <= l) {
     if (0 <= o1) {
       if (! ((length(e1) - l | 0) < o1)) {
         if (0 <= o2) {
           if (! ((length(e2) - l | 0) < o2)) {
-            n_ = 0 !== l ? 1 : 0;
-            o_ = n_ ? runtime["caml_ephe_blit_key"](e1, o1, e2, o2, l) : n_;
+            var n_ = 0 !== l ? 1 : 0;
+            var o_ = n_ ?
+              runtime["caml_ephe_blit_key"](e1, o1, e2, o2, l) :
+              n_;
             return o_;
           }
         }

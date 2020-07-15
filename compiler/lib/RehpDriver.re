@@ -529,30 +529,18 @@ let coloring = (((rehp, module_export_metadatas), linkinfos)) => {
   ((rehp, module_export_metadatas), linkinfos);
 };
 
-let pack = rehp => {
+let pack = rehp =>
   /* pre pack optim */
-  let rehp =
-    if (Config.Flag.share_constant()) {
-      let t1 = Timer.make();
-      let rehp = (new Rehp_traverse.share_constant)#program(rehp);
-      if (times()) {
-        Format.eprintf("    share constant: %a@.", Timer.print, t1);
-      };
-      rehp;
-    } else {
-      rehp;
-    };
-  if (Config.Flag.compact_vardecl()) {
-    let t2 = Timer.make();
-    let rehp = (new Rehp_traverse.compact_vardecl)#program(rehp);
+  if (Config.Flag.share_constant()) {
+    let t1 = Timer.make();
+    let rehp = (new Rehp_traverse.share_constant)#program(rehp);
     if (times()) {
-      Format.eprintf("    compact var decl: %a@.", Timer.print, t2);
+      Format.eprintf("    share constant: %a@.", Timer.print, t1);
     };
     rehp;
   } else {
     rehp;
   };
-};
 
 let post_pack_optimizations = js => {
   /* post pack optim */

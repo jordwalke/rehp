@@ -35,12 +35,12 @@ final class Stdlib__fun {
       $runtime["caml_fresh_oo_id"](0)
     } as dynamic;
     $protect = (dynamic $finally__0, dynamic $work) : dynamic ==> {
-      $work_bt = null as dynamic;
       $result = null as dynamic;
+      $work_bt = null as dynamic;
       $finally_no_exn = (dynamic $param) : dynamic ==> {
         $a_ = null as dynamic;
-        $exn = null as dynamic;
         $bt = null as dynamic;
+        $exn = null as dynamic;
         try {$a_ = $call1($finally__0, 0);return $a_;}
         catch(\Throwable $e) {
           $e = $runtime["caml_wrap_exception"]($e);

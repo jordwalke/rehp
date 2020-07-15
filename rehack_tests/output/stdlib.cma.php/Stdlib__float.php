@@ -74,10 +74,9 @@ final class Stdlib__float {
     $min = (dynamic $x, dynamic $y) : dynamic ==> {
       $switch__0 = null as dynamic;
       if (! ($x < $y)) {
-        $switch__0 =
-          $runtime["caml_signbit_float"]($y)
-            ? 1
-            : ($runtime["caml_signbit_float"]($x) ? 0 : (1));
+        $switch__0 = $runtime["caml_signbit_float"]($y)
+          ? 1
+          : ($runtime["caml_signbit_float"]($x) ? 0 : (1));
         if ($switch__0) {return $is_nan($x) ? $x : ($y);}
       }
       return $is_nan($y) ? $y : ($x);
@@ -85,10 +84,9 @@ final class Stdlib__float {
     $max = (dynamic $x, dynamic $y) : dynamic ==> {
       $switch__0 = null as dynamic;
       if (! ($x < $y)) {
-        $switch__0 =
-          $runtime["caml_signbit_float"]($y)
-            ? 1
-            : ($runtime["caml_signbit_float"]($x) ? 0 : (1));
+        $switch__0 = $runtime["caml_signbit_float"]($y)
+          ? 1
+          : ($runtime["caml_signbit_float"]($x) ? 0 : (1));
         if ($switch__0) {return $is_nan($y) ? $y : ($x);}
       }
       return $is_nan($x) ? $x : ($y);
@@ -98,10 +96,9 @@ final class Stdlib__float {
       if (! $is_nan($x)) {
         if (! $is_nan($y)) {
           if (! ($x < $y)) {
-            $switch__0 =
-              $runtime["caml_signbit_float"]($y)
-                ? 1
-                : ($runtime["caml_signbit_float"]($x) ? 0 : (1));
+            $switch__0 = $runtime["caml_signbit_float"]($y)
+              ? 1
+              : ($runtime["caml_signbit_float"]($x) ? 0 : (1));
             if ($switch__0) {return Vector{0, $y, $x};}
           }
           return Vector{0, $x, $y};
@@ -112,10 +109,9 @@ final class Stdlib__float {
     $min_num = (dynamic $x, dynamic $y) : dynamic ==> {
       $switch__0 = null as dynamic;
       if (! ($x < $y)) {
-        $switch__0 =
-          $runtime["caml_signbit_float"]($y)
-            ? 1
-            : ($runtime["caml_signbit_float"]($x) ? 0 : (1));
+        $switch__0 = $runtime["caml_signbit_float"]($y)
+          ? 1
+          : ($runtime["caml_signbit_float"]($x) ? 0 : (1));
         if ($switch__0) {return $is_nan($y) ? $x : ($y);}
       }
       return $is_nan($x) ? $y : ($x);
@@ -123,10 +119,9 @@ final class Stdlib__float {
     $max_num = (dynamic $x, dynamic $y) : dynamic ==> {
       $switch__0 = null as dynamic;
       if (! ($x < $y)) {
-        $switch__0 =
-          $runtime["caml_signbit_float"]($y)
-            ? 1
-            : ($runtime["caml_signbit_float"]($x) ? 0 : (1));
+        $switch__0 = $runtime["caml_signbit_float"]($y)
+          ? 1
+          : ($runtime["caml_signbit_float"]($x) ? 0 : (1));
         if ($switch__0) {return $is_nan($x) ? $y : ($x);}
       }
       return $is_nan($y) ? $x : ($y);
@@ -136,10 +131,9 @@ final class Stdlib__float {
       if ($is_nan($x)) {return Vector{0, $y, $y};}
       if ($is_nan($y)) {return Vector{0, $x, $x};}
       if (! ($x < $y)) {
-        $switch__0 =
-          $runtime["caml_signbit_float"]($y)
-            ? 1
-            : ($runtime["caml_signbit_float"]($x) ? 0 : (1));
+        $switch__0 = $runtime["caml_signbit_float"]($y)
+          ? 1
+          : ($runtime["caml_signbit_float"]($x) ? 0 : (1));
         if ($switch__0) {return Vector{0, $y, $x};}
       }
       return Vector{0, $x, $y};
@@ -148,8 +142,8 @@ final class Stdlib__float {
       return $runtime["caml_hash"](10, 100, 0, $x);
     };
     $unsafe_fill = (dynamic $a, dynamic $ofs, dynamic $len, dynamic $v) : dynamic ==> {
-      $i = null as dynamic;
       $aO_ = null as dynamic;
+      $i = null as dynamic;
       $aN_ = (int) ((int) ($ofs + $len) + -1) as dynamic;
       if (! ($aN_ < $ofs)) {
         $i = $ofs;
@@ -164,8 +158,8 @@ final class Stdlib__float {
     };
     $unsafe_blit = 
     (dynamic $src, dynamic $sofs, dynamic $dst, dynamic $dofs, dynamic $len) : dynamic ==> {
-      $i = null as dynamic;
       $aM_ = null as dynamic;
+      $i = null as dynamic;
       $aL_ = (int) ($len + -1) as dynamic;
       $aK_ = 0 as dynamic;
       if (! ($aL_ < 0)) {
@@ -194,8 +188,9 @@ final class Stdlib__float {
         }
         else {
           $aJ_ = (int) ($ofs + $len) < 0 ? 1 : (0);
-          $aH_ =
-            $aJ_ ? $aJ_ : ($a->count() - 1 < (int) ($ofs + $len) ? 1 : (0));
+          $aH_ = $aJ_
+            ? $aJ_
+            : ($a->count() - 1 < (int) ($ofs + $len) ? 1 : (0));
         }
       }
       return $aH_ ? $call1($Stdlib[1], $msg) : ($aH_);
@@ -206,10 +201,10 @@ final class Stdlib__float {
       return $result;
     };
     $init = (dynamic $l, dynamic $f) : dynamic ==> {
+      $aD_ = null as dynamic;
+      $aE_ = null as dynamic;
       $aF_ = null as dynamic;
       $i = null as dynamic;
-      $aE_ = null as dynamic;
-      $aD_ = null as dynamic;
       $res = null as dynamic;
       if (0 <= $l) {
         $res = $caml_floatarray_create($l);
@@ -240,9 +235,9 @@ final class Stdlib__float {
       return $y <= $x ? $x : ($call1($Stdlib[1], $cst_Float_Array_concat));
     };
     $sum_lengths = (dynamic $acc, dynamic $param) : dynamic ==> {
-      $param__1 = null as dynamic;
-      $hd = null as dynamic;
       $acc__1 = null as dynamic;
+      $hd = null as dynamic;
+      $param__1 = null as dynamic;
       $acc__0 = $acc;
       $param__0 = $param;
       for (;;) {
@@ -261,10 +256,10 @@ final class Stdlib__float {
       $len = $sum_lengths(0, $l);
       $result = $caml_floatarray_create($len);
       $loop = (dynamic $l, dynamic $i) : dynamic ==> {
-        $l__1 = null as dynamic;
         $hd = null as dynamic;
         $hlen = null as dynamic;
         $i__1 = null as dynamic;
+        $l__1 = null as dynamic;
         $l__0 = $l;
         $i__0 = $i;
         for (;;) {
@@ -317,9 +312,9 @@ final class Stdlib__float {
     $of_list = (dynamic $l) : dynamic ==> {
       $result = $caml_floatarray_create($call1($Stdlib_list[1], $l));
       $fill = (dynamic $i, dynamic $l) : dynamic ==> {
-        $l__1 = null as dynamic;
         $h = null as dynamic;
         $i__1 = null as dynamic;
+        $l__1 = null as dynamic;
         $i__0 = $i;
         $l__0 = $l;
         for (;;) {
@@ -338,8 +333,8 @@ final class Stdlib__float {
       return $fill(0, $l);
     };
     $iter = (dynamic $f, dynamic $a) : dynamic ==> {
-      $i = null as dynamic;
       $ax_ = null as dynamic;
+      $i = null as dynamic;
       $aw_ = (int) ($a->count() - 1 + -1) as dynamic;
       $av_ = 0 as dynamic;
       if (! ($aw_ < 0)) {
@@ -376,8 +371,8 @@ final class Stdlib__float {
       return 0;
     };
     $map = (dynamic $f, dynamic $a) : dynamic ==> {
-      $i = null as dynamic;
       $ar_ = null as dynamic;
+      $i = null as dynamic;
       $l = $a->count() - 1;
       $r = $caml_floatarray_create($l);
       $aq_ = (int) ($l + -1) as dynamic;
@@ -394,8 +389,8 @@ final class Stdlib__float {
       return $r;
     };
     $map2 = (dynamic $f, dynamic $a, dynamic $b) : dynamic ==> {
-      $i = null as dynamic;
       $ao_ = null as dynamic;
+      $i = null as dynamic;
       $la = $a->count() - 1;
       $lb = $b->count() - 1;
       if ($la !== $lb) {
@@ -419,8 +414,8 @@ final class Stdlib__float {
       return $r;
     };
     $iteri = (dynamic $f, dynamic $a) : dynamic ==> {
-      $i = null as dynamic;
       $al_ = null as dynamic;
+      $i = null as dynamic;
       $ak_ = (int) ($a->count() - 1 + -1) as dynamic;
       $aj_ = 0 as dynamic;
       if (! ($ak_ < 0)) {
@@ -435,8 +430,8 @@ final class Stdlib__float {
       return 0;
     };
     $mapi = (dynamic $f, dynamic $a) : dynamic ==> {
-      $i = null as dynamic;
       $ai_ = null as dynamic;
+      $i = null as dynamic;
       $l = $a->count() - 1;
       $r = $caml_floatarray_create($l);
       $ah_ = (int) ($l + -1) as dynamic;
@@ -453,8 +448,8 @@ final class Stdlib__float {
       return $r;
     };
     $fold_left = (dynamic $f, dynamic $x, dynamic $a) : dynamic ==> {
-      $i = null as dynamic;
       $af_ = null as dynamic;
+      $i = null as dynamic;
       $r = Vector{0, $x} as dynamic;
       $ae_ = (int) ($a->count() - 1 + -1) as dynamic;
       $ad_ = 0 as dynamic;
@@ -470,8 +465,8 @@ final class Stdlib__float {
       return $r[1];
     };
     $fold_right = (dynamic $f, dynamic $a, dynamic $x) : dynamic ==> {
-      $i = null as dynamic;
       $ac_ = null as dynamic;
+      $i = null as dynamic;
       $r = Vector{0, $x} as dynamic;
       $ab_ = (int) ($a->count() - 1 + -1) as dynamic;
       if (! ($ab_ < 0)) {
@@ -553,13 +548,13 @@ final class Stdlib__float {
       $runtime["caml_fresh_oo_id"](0)
     } as dynamic;
     $sort = (dynamic $cmp, dynamic $a) : dynamic ==> {
-      $e = null as dynamic;
       $W_ = null as dynamic;
-      $i = null as dynamic;
-      $e__0 = null as dynamic;
       $X_ = null as dynamic;
-      $i__0 = null as dynamic;
       $Y_ = null as dynamic;
+      $e = null as dynamic;
+      $e__0 = null as dynamic;
+      $i = null as dynamic;
+      $i__0 = null as dynamic;
       $maxson = (dynamic $l, dynamic $i) : dynamic ==> {
         $i31 = (int) ((int) ((int) ($i + $i) + $i) + 1) as dynamic;
         $x = Vector{0, $i31} as dynamic;
@@ -694,12 +689,12 @@ final class Stdlib__float {
         $src2r = (int) ($src2ofs + $src2len) as dynamic;
         $loop = 
         (dynamic $i1, dynamic $s1, dynamic $i2, dynamic $s2, dynamic $d) : dynamic ==> {
-          $i2__1 = null as dynamic;
           $d__1 = null as dynamic;
-          $s2__1 = null as dynamic;
-          $i1__1 = null as dynamic;
           $d__2 = null as dynamic;
+          $i1__1 = null as dynamic;
+          $i2__1 = null as dynamic;
           $s1__1 = null as dynamic;
+          $s2__1 = null as dynamic;
           $i1__0 = $i1;
           $s1__0 = $s1;
           $i2__0 = $i2;
@@ -758,10 +753,10 @@ final class Stdlib__float {
       };
       $isortto = 
       (dynamic $srcofs, dynamic $dst, dynamic $dstofs, dynamic $len) : dynamic ==> {
-        $i = null as dynamic;
-        $e = null as dynamic;
-        $j = null as dynamic;
         $S_ = null as dynamic;
+        $e = null as dynamic;
+        $i = null as dynamic;
+        $j = null as dynamic;
         $R_ = (int) ($len + -1) as dynamic;
         $Q_ = 0 as dynamic;
         if (! ($R_ < 0)) {
@@ -871,9 +866,9 @@ final class Stdlib__float {
       $len = $call1($Stdlib_list[1], $l);
       $a = $caml_floatarray_create($len);
       $fill = (dynamic $i, dynamic $param) : dynamic ==> {
-        $param__1 = null as dynamic;
         $hd = null as dynamic;
         $i__1 = null as dynamic;
+        $param__1 = null as dynamic;
         $i__0 = $i;
         $param__0 = $param;
         for (;;) {
@@ -900,8 +895,8 @@ final class Stdlib__float {
       return $of_rev_list($l);
     };
     $map_to_array = (dynamic $f, dynamic $a) : dynamic ==> {
-      $i = null as dynamic;
       $F_ = null as dynamic;
+      $i = null as dynamic;
       $l = $a->count() - 1;
       if (0 === $l) {return Vector{0};}
       $r = $runtime["caml_make_vect"]($l, $call1($f, $a[1]));
@@ -919,8 +914,8 @@ final class Stdlib__float {
       return $r;
     };
     $map_from_array = (dynamic $f, dynamic $a) : dynamic ==> {
-      $i = null as dynamic;
       $C_ = null as dynamic;
+      $i = null as dynamic;
       $l = $a->count() - 1;
       $r = $caml_floatarray_create($l);
       $B_ = (int) ($l + -1) as dynamic;

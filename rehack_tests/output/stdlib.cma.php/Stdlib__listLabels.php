@@ -12,9 +12,6 @@ final class Stdlib__listLabels {
   public static function get() : Vector<dynamic> {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
-    
-    ;
-    
     $Stdlib_list = Stdlib__list::get();
     $length = $Stdlib_list[1];
     $compare_lengths = $Stdlib_list[2];

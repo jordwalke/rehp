@@ -13,9 +13,6 @@ final class Recursion {
     
     $nobug1 = new Ref();
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
-    
-    ;
-    
     $nobug1->contents = (dynamic $x) : dynamic ==> {
       return (int) (1 + $nobug1->contents($x));
     };
@@ -30,31 +27,37 @@ final class Recursion {
       return $sub->contents($x);
     };
     $bug = (dynamic $x) : dynamic ==> {
-      $sub = null as dynamic;
+      $sub = new Ref();
       if (0 === $x) {
-        $sub = (dynamic $x) : dynamic ==> {return (int) (1 + $sub($x));};
-        return $sub($x);
+        $sub->contents = (dynamic $x) : dynamic ==> {
+          return (int) (1 + $sub->contents($x));
+        };
+        return $sub->contents($x);
       }
       return 0;
     };
     $bug__0 = (dynamic $x) : dynamic ==> {
-      $sub = null as dynamic;
+      $sub = new Ref();
       if (0 === $x) {
-        $sub = (dynamic $x) : dynamic ==> {return (int) (1 + $sub($x));};
-        return $sub($x);
+        $sub->contents = (dynamic $x) : dynamic ==> {
+          return (int) (1 + $sub->contents($x));
+        };
+        return $sub->contents($x);
       }
       return 0;
     };
     $M = Vector{0, $bug__0} as dynamic;
     $bug2 = (dynamic $param) : dynamic ==> {
-      $sub = null as dynamic;
+      $sub = new Ref();
       $c_ = null as dynamic;
       $d_ = null as dynamic;
       $k = Vector{0, 0} as dynamic;
       $x = 0 as dynamic;
       for (;;) {
-        $sub = (dynamic $x) : dynamic ==> {return (int) (1 + $sub($x));};
-        $c_ = $sub($x);
+        $sub->contents = (dynamic $x) : dynamic ==> {
+          return (int) (1 + $sub->contents($x));
+        };
+        $c_ = $sub->contents($x);
         $k[1] = (int) ($k[1] + $c_);
         $d_ = (int) ($x + 1) as dynamic;
         if (10 !== $x) {$x = $d_;continue;}
@@ -62,15 +65,17 @@ final class Recursion {
       }
     };
     $bug3 = (dynamic $param) : dynamic ==> {
-      $sub = null as dynamic;
+      $sub = new Ref();
       $a_ = null as dynamic;
       $b_ = null as dynamic;
       $k = Vector{0, 0} as dynamic;
       $x = 0 as dynamic;
       for (;;) {
         if (0 === $x) {
-          $sub = (dynamic $x) : dynamic ==> {return (int) (1 + $sub($x));};
-          $a_ = $sub($x);
+          $sub->contents = (dynamic $x) : dynamic ==> {
+            return (int) (1 + $sub->contents($x));
+          };
+          $a_ = $sub->contents($x);
         }
         else {$a_ = 0 as dynamic;}
         $k[1] = (int) ($k[1] + $a_);

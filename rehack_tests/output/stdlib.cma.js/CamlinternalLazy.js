@@ -9,16 +9,16 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
-
-function call1(f, a0) {
-  return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
-}
-
 var caml_obj_set_tag = runtime["caml_obj_set_tag"];
 var caml_obj_tag = runtime["caml_obj_tag"];
 var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 var caml_wrap_thrown_exception_reraise = runtime
  ["caml_wrap_thrown_exception_reraise"];
+
+function call1(f, a0) {
+  return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
+}
+
 var cst_CamlinternalLazy_Undefined = runtime["caml_new_string"](
   "CamlinternalLazy.Undefined"
 );
@@ -32,11 +32,10 @@ var Undefined = [
 function raise_undefined(param) {throw caml_wrap_thrown_exception(Undefined);}
 
 function force_lazy_block(blk) {
-  var result;
   var closure = blk[1];
   blk[1] = raise_undefined;
   try {
-    result = call1(closure, 0);
+    var result = call1(closure, 0);
     blk[1] = result;
     caml_obj_set_tag(blk, Stdlib_obj[10]);
     return result;

@@ -53,9 +53,9 @@ final class CamlinternalOO {
     $initial_object_size = 2 as dynamic;
     $dummy_item = 0 as dynamic;
     $public_method_label = (dynamic $s) : dynamic ==> {
-      $i = null as dynamic;
       $aD_ = null as dynamic;
       $aE_ = null as dynamic;
+      $i = null as dynamic;
       $accu = Vector{0, 0} as dynamic;
       $aC_ = (int) ($runtime["caml_ml_string_length"]($s) + -1) as dynamic;
       $aB_ = 0 as dynamic;
@@ -107,8 +107,8 @@ final class CamlinternalOO {
     };
     $new_table = (dynamic $pub_labels) : dynamic ==> {
       $aA_ = null as dynamic;
-      $az_ = null as dynamic;
       $ay_ = null as dynamic;
+      $az_ = null as dynamic;
       $i = null as dynamic;
       $table_count[1] += 1;
       $len = $pub_labels->count() - 1;
@@ -144,8 +144,8 @@ final class CamlinternalOO {
       };
     };
     $resize = (dynamic $array, dynamic $new_size) : dynamic ==> {
-      $new_buck = null as dynamic;
       $at_ = null as dynamic;
+      $new_buck = null as dynamic;
       $old_size = $array[2]->count() - 1;
       $as_ = $old_size < $new_size ? 1 : (0);
       if ($as_) {
@@ -248,9 +248,9 @@ final class CamlinternalOO {
       $by_name = Vector{0, $Meths[1]} as dynamic;
       $by_label = Vector{0, $Labs[1]} as dynamic;
       $aa_ = (dynamic $met, dynamic $label) : dynamic ==> {
-        $ai_ = null as dynamic;
-        $ah_ = null as dynamic;
         $ag_ = null as dynamic;
+        $ah_ = null as dynamic;
+        $ai_ = null as dynamic;
         $by_name[1] = $call3($Meths[4], $met, $label, $by_name[1]);
         $af_ = $by_label[1];
         try {$ai_ = $call2($Labs[27], $label, $table[4]);$ah_ = $ai_;}
@@ -336,13 +336,13 @@ final class CamlinternalOO {
       return $runtime["caml_equal"]($arr, 0) ? Vector{0} : ($arr);
     };
     $new_methods_variables = (dynamic $table, dynamic $meths, dynamic $vals) : dynamic ==> {
-      $i = null as dynamic;
       $K_ = null as dynamic;
       $L_ = null as dynamic;
       $M_ = null as dynamic;
-      $i__0 = null as dynamic;
       $N_ = null as dynamic;
       $O_ = null as dynamic;
+      $i = null as dynamic;
+      $i__0 = null as dynamic;
       $meths__0 = $to_array($meths);
       $nmeths = $meths__0->count() - 1;
       $nvals = $vals->count() - 1;
@@ -352,11 +352,10 @@ final class CamlinternalOO {
       if (! ($H_ < 0)) {
         $i__0 = $G_;
         for (;;) {
-          $N_ =
-            $get_method_label(
-              $table,
-              $caml_check_bound($meths__0, $i__0)[$i__0 + 1]
-            );
+          $N_ = $get_method_label(
+            $table,
+            $caml_check_bound($meths__0, $i__0)[$i__0 + 1]
+          );
           $caml_check_bound($res, $i__0)[$i__0 + 1] = $N_;
           $O_ = (int) ($i__0 + 1) as dynamic;
           if ($H_ !== $i__0) {$i__0 = $O_;continue;}
@@ -477,8 +476,8 @@ final class CamlinternalOO {
       return $caml_set_oo_id($obj);
     };
     $iter_f = (dynamic $obj, dynamic $param) : dynamic ==> {
-      $param__1 = null as dynamic;
       $f = null as dynamic;
+      $param__1 = null as dynamic;
       $param__0 = $param;
       for (;;) {
         if ($param__0) {
@@ -549,38 +548,37 @@ final class CamlinternalOO {
       return $res;
     };
     $lookup_keys->contents = (dynamic $i, dynamic $keys, dynamic $tables) : dynamic ==> {
-      $lookup_key = null as dynamic;
       $key = null as dynamic;
+      $lookup_key = null as dynamic;
       if (0 <= $i) {
         $key = $caml_check_bound($keys, $i)[$i + 1];
-        $lookup_key =
-          (dynamic $tables) : dynamic ==> {
-            $tables_data = null as dynamic;
-            $next = null as dynamic;
-            $next__0 = null as dynamic;
-            $tables__0 = $tables;
-            for (;;) {
-              if ($get_key($tables__0) === $key) {
-                $tables_data = $get_data($tables__0);
-                if ($tables_data) {
-                  return $lookup_keys->contents(
-                    (int)
-                    ($i + -1),
-                    $keys,
-                    $tables_data
-                  );
-                }
-                throw $caml_wrap_thrown_exception(
-                        Vector{0, $Assert_failure, $g_}
-                      ) as \Throwable;
+        $lookup_key = (dynamic $tables) : dynamic ==> {
+          $next = null as dynamic;
+          $next__0 = null as dynamic;
+          $tables_data = null as dynamic;
+          $tables__0 = $tables;
+          for (;;) {
+            if ($get_key($tables__0) === $key) {
+              $tables_data = $get_data($tables__0);
+              if ($tables_data) {
+                return $lookup_keys->contents(
+                  (int)
+                  ($i + -1),
+                  $keys,
+                  $tables_data
+                );
               }
-              $next = $get_next($tables__0);
-              if ($next) {$tables__0 = $next;continue;}
-              $next__0 = Vector{0, $key, 0, 0} as dynamic;
-              $set_next($tables__0, $next__0);
-              return $build_path((int) ($i + -1), $keys, $next__0);
+              throw $caml_wrap_thrown_exception(
+                      Vector{0, $Assert_failure, $g_}
+                    ) as \Throwable;
             }
-          };
+            $next = $get_next($tables__0);
+            if ($next) {$tables__0 = $next;continue;}
+            $next__0 = Vector{0, $key, 0, 0} as dynamic;
+            $set_next($tables__0, $next__0);
+            return $build_path((int) ($i + -1), $keys, $next__0);
+          }
+        };
         return $lookup_key($tables);
       }
       return $tables;
@@ -710,8 +708,8 @@ final class CamlinternalOO {
       };
     };
     $new_cache = (dynamic $table) : dynamic ==> {
-      $n__0 = null as dynamic;
       $j_ = null as dynamic;
+      $n__0 = null as dynamic;
       $switch__0 = null as dynamic;
       $n = $new_method($table);
       if (0 === (int) ($n % 2)) {
@@ -730,62 +728,62 @@ final class CamlinternalOO {
       return $n__0;
     };
     $method_impl = (dynamic $table, dynamic $i, dynamic $arr) : dynamic ==> {
-      $x = null as dynamic;
-      $n = null as dynamic;
       $e = null as dynamic;
-      $n__0 = null as dynamic;
-      $n__1 = null as dynamic;
-      $n__2 = null as dynamic;
-      $f = null as dynamic;
-      $x__0 = null as dynamic;
-      $f__0 = null as dynamic;
-      $n__3 = null as dynamic;
-      $f__1 = null as dynamic;
       $e__0 = null as dynamic;
-      $n__4 = null as dynamic;
-      $f__2 = null as dynamic;
-      $n__5 = null as dynamic;
-      $f__3 = null as dynamic;
-      $x__1 = null as dynamic;
-      $y = null as dynamic;
-      $f__4 = null as dynamic;
-      $x__2 = null as dynamic;
-      $n__6 = null as dynamic;
-      $f__5 = null as dynamic;
-      $x__3 = null as dynamic;
       $e__1 = null as dynamic;
-      $n__7 = null as dynamic;
-      $f__6 = null as dynamic;
-      $x__4 = null as dynamic;
-      $n__8 = null as dynamic;
-      $f__7 = null as dynamic;
-      $n__9 = null as dynamic;
-      $x__5 = null as dynamic;
-      $f__8 = null as dynamic;
       $e__2 = null as dynamic;
-      $n__10 = null as dynamic;
-      $x__6 = null as dynamic;
-      $f__9 = null as dynamic;
-      $n__11 = null as dynamic;
-      $x__7 = null as dynamic;
-      $n__12 = null as dynamic;
-      $x__8 = null as dynamic;
-      $n__13 = null as dynamic;
-      $m = null as dynamic;
-      $n__14 = null as dynamic;
       $e__3 = null as dynamic;
+      $e__4 = null as dynamic;
+      $f = null as dynamic;
+      $f__0 = null as dynamic;
+      $f__1 = null as dynamic;
+      $f__2 = null as dynamic;
+      $f__3 = null as dynamic;
+      $f__4 = null as dynamic;
+      $f__5 = null as dynamic;
+      $f__6 = null as dynamic;
+      $f__7 = null as dynamic;
+      $f__8 = null as dynamic;
+      $f__9 = null as dynamic;
+      $m = null as dynamic;
       $m__0 = null as dynamic;
-      $n__15 = null as dynamic;
       $m__1 = null as dynamic;
       $m__2 = null as dynamic;
-      $x__9 = null as dynamic;
       $m__3 = null as dynamic;
-      $n__16 = null as dynamic;
       $m__4 = null as dynamic;
-      $e__4 = null as dynamic;
-      $n__17 = null as dynamic;
       $m__5 = null as dynamic;
+      $n = null as dynamic;
+      $n__0 = null as dynamic;
+      $n__1 = null as dynamic;
+      $n__10 = null as dynamic;
+      $n__11 = null as dynamic;
+      $n__12 = null as dynamic;
+      $n__13 = null as dynamic;
+      $n__14 = null as dynamic;
+      $n__15 = null as dynamic;
+      $n__16 = null as dynamic;
+      $n__17 = null as dynamic;
       $n__18 = null as dynamic;
+      $n__2 = null as dynamic;
+      $n__3 = null as dynamic;
+      $n__4 = null as dynamic;
+      $n__5 = null as dynamic;
+      $n__6 = null as dynamic;
+      $n__7 = null as dynamic;
+      $n__8 = null as dynamic;
+      $n__9 = null as dynamic;
+      $x = null as dynamic;
+      $x__0 = null as dynamic;
+      $x__1 = null as dynamic;
+      $x__2 = null as dynamic;
+      $x__3 = null as dynamic;
+      $x__4 = null as dynamic;
+      $x__5 = null as dynamic;
+      $x__6 = null as dynamic;
+      $x__7 = null as dynamic;
+      $x__8 = null as dynamic;
+      $x__9 = null as dynamic;
+      $y = null as dynamic;
       $next = (dynamic $param) : dynamic ==> {
         $i[1] += 1;
         $i_ = $i[1];
@@ -927,9 +925,9 @@ final class CamlinternalOO {
       return $clo;
     };
     $set_methods = (dynamic $table, dynamic $methods) : dynamic ==> {
+      $clo = null as dynamic;
       $h_ = null as dynamic;
       $label = null as dynamic;
-      $clo = null as dynamic;
       $len = $methods->count() - 1;
       $i = Vector{0, 0} as dynamic;
       for (;;) {

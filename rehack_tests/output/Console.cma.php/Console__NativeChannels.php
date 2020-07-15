@@ -12,9 +12,6 @@ final class Console__NativeChannels {
   public static function get() : Vector<dynamic> {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
-    
-    ;
-    
     $Console_NativeChannels = Vector{0} as dynamic;
     
     return($Console_NativeChannels);

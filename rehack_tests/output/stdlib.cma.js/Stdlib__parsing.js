@@ -9,6 +9,13 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
+var caml_check_bound = runtime["caml_check_bound"];
+var caml_fresh_oo_id = runtime["caml_fresh_oo_id"];
+var caml_make_vect = runtime["caml_make_vect"];
+var string = runtime["caml_new_string"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
+var caml_wrap_thrown_exception_reraise = runtime
+ ["caml_wrap_thrown_exception_reraise"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -26,13 +33,6 @@ function call5(f, a0, a1, a2, a3, a4) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
-var caml_check_bound = runtime["caml_check_bound"];
-var caml_fresh_oo_id = runtime["caml_fresh_oo_id"];
-var caml_make_vect = runtime["caml_make_vect"];
-var string = runtime["caml_new_string"];
-var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
-var caml_wrap_thrown_exception_reraise = runtime
- ["caml_wrap_thrown_exception_reraise"];
 var cst_syntax_error = string("syntax error");
 var cst_Stdlib_Parsing_YYexit = string("Stdlib.Parsing.YYexit");
 var cst_Stdlib_Parsing_Parse_error = string("Stdlib.Parsing.Parse_error");
@@ -89,68 +89,56 @@ function clear_parser(param) {
 var current_lookahead_fun = [0,function(param) {return 0;}];
 
 function yyparse(tables, start, lexer, lexbuf) {
-  var curr_char;
-  var v;
-  var i_;
   function loop(cmd, arg) {
-    var match;
-    var arg__1;
-    var k_;
-    var l_;
-    var arg__2;
-    var cmd__1;
-    var m_;
-    var n_;
-    var o_;
     var cmd__0 = cmd;
     var arg__0 = arg;
     for (; ; ) {
-      match = runtime["caml_parse_engine"](tables, env, cmd__0, arg__0);
+      var match = runtime["caml_parse_engine"](tables, env, cmd__0, arg__0);
       switch (match) {
         case 0:
-          arg__1 = call1(lexer, lexbuf);
+          var arg__1 = call1(lexer, lexbuf);
           env[9] = lexbuf[11];
           env[10] = lexbuf[12];
-          cmd__0 = 1;
-          arg__0 = arg__1;
+          var cmd__0 = 1;
+          var arg__0 = arg__1;
           continue;
         case 1:
           throw caml_wrap_thrown_exception(Parse_error);
         case 2:
           grow_stacks(0);
-          cmd__0 = 2;
-          arg__0 = 0;
+          var cmd__0 = 2;
+          var arg__0 = 0;
           continue;
         case 3:
           grow_stacks(0);
-          cmd__0 = 3;
-          arg__0 = 0;
+          var cmd__0 = 3;
+          var arg__0 = 0;
           continue;
         case 4:
           try {
-            m_ = env[13];
-            n_ = call1(caml_check_bound(tables[1], m_)[m_ + 1], env);
-            o_ = 4;
-            cmd__1 = o_;
-            arg__2 = n_;
+            var m_ = env[13];
+            var n_ = call1(caml_check_bound(tables[1], m_)[m_ + 1], env);
+            var o_ = 4;
+            var cmd__1 = o_;
+            var arg__2 = n_;
           }
           catch(p_) {
             p_ = runtime["caml_wrap_exception"](p_);
             if (p_ !== Parse_error) {
               throw caml_wrap_thrown_exception_reraise(p_);
             }
-            k_ = 0;
-            l_ = 5;
-            cmd__1 = l_;
-            arg__2 = k_;
+            var k_ = 0;
+            var l_ = 5;
+            var cmd__1 = l_;
+            var arg__2 = k_;
           }
-          cmd__0 = cmd__1;
-          arg__0 = arg__2;
+          var cmd__0 = cmd__1;
+          var arg__0 = arg__2;
           continue;
         default:
           call1(tables[14], cst_syntax_error);
-          cmd__0 = 5;
-          arg__0 = 0;
+          var cmd__0 = 5;
+          var arg__0 = 0;
           continue
         }
     }
@@ -165,10 +153,10 @@ function yyparse(tables, start, lexer, lexbuf) {
   env[6] = env[14] + 1 | 0;
   env[7] = start;
   env[10] = lexbuf[12];
-  try {i_ = loop(0, 0);return i_;}
+  try {var i_ = loop(0, 0);return i_;}
   catch(exn) {
     exn = runtime["caml_wrap_exception"](exn);
-    curr_char = env[7];
+    var curr_char = env[7];
     env[11] = init_asp;
     env[14] = init_sp;
     env[6] = init_stackbase;
@@ -176,12 +164,11 @@ function yyparse(tables, start, lexer, lexbuf) {
     env[7] = init_curr_char;
     env[8] = init_lval;
     env[16] = init_errflag;
-    if (exn[1] === YYexit) {v = exn[2];return v;}
+    if (exn[1] === YYexit) {var v = exn[2];return v;}
     current_lookahead_fun[1] =
       function(tok) {
-        var j_;
         if (call1(Stdlib_obj[1], tok)) {
-          j_ = runtime["caml_obj_tag"](tok);
+          var j_ = runtime["caml_obj_tag"](tok);
           return caml_check_bound(tables[3], j_)[j_ + 1] === curr_char ? 1 : 0;
         }
         return caml_check_bound(tables[2], tok)[tok + 1] === curr_char ? 1 : 0;
@@ -197,25 +184,19 @@ function peek_val(env, n) {
 
 function symbol_start_pos(param) {
   function loop(i) {
-    var e_;
-    var st;
-    var f_;
-    var en;
-    var i__1;
-    var g_;
     var i__0 = i;
     for (; ; ) {
       if (0 < i__0) {
-        e_ = (env[11] - i__0 | 0) + 1 | 0;
-        st = caml_check_bound(env[3], e_)[e_ + 1];
-        f_ = (env[11] - i__0 | 0) + 1 | 0;
-        en = caml_check_bound(env[4], f_)[f_ + 1];
+        var e_ = (env[11] - i__0 | 0) + 1 | 0;
+        var st = caml_check_bound(env[3], e_)[e_ + 1];
+        var f_ = (env[11] - i__0 | 0) + 1 | 0;
+        var en = caml_check_bound(env[4], f_)[f_ + 1];
         if (runtime["caml_notequal"](st, en)) {return st;}
-        i__1 = i__0 + -1 | 0;
-        i__0 = i__1;
+        var i__1 = i__0 + -1 | 0;
+        var i__0 = i__1;
         continue;
       }
-      g_ = env[11];
+      var g_ = env[11];
       return caml_check_bound(env[4], g_)[g_ + 1];
     }
   }

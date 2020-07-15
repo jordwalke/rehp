@@ -12,9 +12,6 @@ final class Stdlib__stringLabels {
   public static function get() : Vector<dynamic> {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
-    
-    ;
-    
     $Stdlib_string = Stdlib__string::get();
     $make = $Stdlib_string[1];
     $init = $Stdlib_string[2];

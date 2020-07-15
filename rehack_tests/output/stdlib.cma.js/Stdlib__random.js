@@ -9,6 +9,17 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
+var caml_check_bound = runtime["caml_check_bound"];
+var caml_greaterthan = runtime["caml_greaterthan"];
+var caml_int64_of_int32 = runtime["caml_int64_of_int32"];
+var caml_int64_or = runtime["caml_int64_or"];
+var caml_int64_shift_left = runtime["caml_int64_shift_left"];
+var caml_int64_sub = runtime["caml_int64_sub"];
+var caml_lessequal = runtime["caml_lessequal"];
+var caml_mod = runtime["caml_mod"];
+var string = runtime["caml_new_string"];
+var caml_string_get = runtime["caml_string_get"];
+var caml_sys_random_seed = runtime["caml_sys_random_seed"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -24,17 +35,6 @@ function call5(f, a0, a1, a2, a3, a4) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
-var caml_check_bound = runtime["caml_check_bound"];
-var caml_greaterthan = runtime["caml_greaterthan"];
-var caml_int64_of_int32 = runtime["caml_int64_of_int32"];
-var caml_int64_or = runtime["caml_int64_or"];
-var caml_int64_shift_left = runtime["caml_int64_shift_left"];
-var caml_int64_sub = runtime["caml_int64_sub"];
-var caml_lessequal = runtime["caml_lessequal"];
-var caml_mod = runtime["caml_mod"];
-var string = runtime["caml_new_string"];
-var caml_string_get = runtime["caml_string_get"];
-var caml_sys_random_seed = runtime["caml_sys_random_seed"];
 var cst_Random_int64 = string("Random.int64");
 var cst_Random_int32 = string("Random.int32");
 var cst_Random_int = string("Random.int");
@@ -116,17 +116,6 @@ function assign(st1, st2) {
 }
 
 function full_init(s, seed) {
-  var accu;
-  var g_;
-  var h_;
-  var i;
-  var j;
-  var k;
-  var i_;
-  var j_;
-  var k_;
-  var l_;
-  var m_;
   function combine(accu, x) {
     var q_ = call1(Stdlib_int[10], x);
     var r_ = call2(Stdlib[28], accu, q_);
@@ -143,23 +132,23 @@ function full_init(s, seed) {
   var i__0 = 0;
   for (; ; ) {
     caml_check_bound(s[1], i__0)[i__0 + 1] = i__0;
-    m_ = i__0 + 1 | 0;
-    if (54 !== i__0) {i__0 = m_;continue;}
-    accu = [0,cst_x];
-    h_ = 54 + call2(Stdlib[17], 55, l) | 0;
-    g_ = 0;
+    var m_ = i__0 + 1 | 0;
+    if (54 !== i__0) {var i__0 = m_;continue;}
+    var accu = [0,cst_x];
+    var h_ = 54 + call2(Stdlib[17], 55, l) | 0;
+    var g_ = 0;
     if (! (h_ < 0)) {
-      i = g_;
+      var i = g_;
       for (; ; ) {
-        j = i % 55 | 0;
-        k = caml_mod(i, l);
-        i_ = caml_check_bound(seed__0, k)[k + 1];
+        var j = i % 55 | 0;
+        var k = caml_mod(i, l);
+        var i_ = caml_check_bound(seed__0, k)[k + 1];
         accu[1] = combine(accu[1], i_);
-        j_ = extract(accu[1]);
-        k_ = (caml_check_bound(s[1], j)[j + 1] ^ j_) & 1073741823;
+        var j_ = extract(accu[1]);
+        var k_ = (caml_check_bound(s[1], j)[j + 1] ^ j_) & 1073741823;
         caml_check_bound(s[1], j)[j + 1] = k_;
-        l_ = i + 1 | 0;
-        if (h_ !== i) {i = l_;continue;}
+        var l_ = i + 1 | 0;
+        if (h_ !== i) {var i = l_;continue;}
         break;
       }
     }
@@ -192,11 +181,9 @@ function bits(s) {
 }
 
 function intaux(s, n) {
-  var v;
-  var r;
   for (; ; ) {
-    r = bits(s);
-    v = caml_mod(r, n);
+    var r = bits(s);
+    var v = caml_mod(r, n);
     if (((1073741823 - n | 0) + 1 | 0) < (r - v | 0)) {continue;}
     return v;
   }
@@ -208,15 +195,11 @@ function int__0(s, bound) {
 }
 
 function int32aux(s, n) {
-  var v;
-  var r;
-  var b2;
-  var b1;
   for (; ; ) {
-    b1 = bits(s);
-    b2 = (bits(s) & 1) << 30;
-    r = b1 | b2;
-    v = caml_mod(r, n);
+    var b1 = bits(s);
+    var b2 = (bits(s) & 1) << 30;
+    var r = b1 | b2;
+    var v = caml_mod(r, n);
     if (caml_greaterthan(r - v | 0, (Stdlib_int32[9] - n | 0) + 1 | 0)) {continue;}
     return v;
   }
@@ -229,17 +212,12 @@ function int32(s, bound) {
 }
 
 function int64aux(s, n) {
-  var v;
-  var r;
-  var b3;
-  var b2;
-  var b1;
   for (; ; ) {
-    b1 = caml_int64_of_int32(bits(s));
-    b2 = caml_int64_shift_left(caml_int64_of_int32(bits(s)), 30);
-    b3 = caml_int64_shift_left(caml_int64_of_int32(bits(s) & 7), 60);
-    r = caml_int64_or(b1, caml_int64_or(b2, b3));
-    v = runtime["caml_int64_mod"](r, n);
+    var b1 = caml_int64_of_int32(bits(s));
+    var b2 = caml_int64_shift_left(caml_int64_of_int32(bits(s)), 30);
+    var b3 = caml_int64_shift_left(caml_int64_of_int32(bits(s) & 7), 60);
+    var r = caml_int64_or(b1, caml_int64_or(b2, b3));
+    var v = runtime["caml_int64_mod"](r, n);
     if (
     caml_greaterthan(
       caml_int64_sub(r, v),

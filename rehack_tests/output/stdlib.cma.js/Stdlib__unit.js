@@ -9,9 +9,6 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
-
-;
-
 var cst = runtime["caml_new_string"]("()");
 
 function equal(param, b_) {return 1;}

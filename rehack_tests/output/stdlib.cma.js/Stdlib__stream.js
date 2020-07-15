@@ -9,6 +9,12 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
+var caml_bytes_unsafe_get = runtime["caml_bytes_unsafe_get"];
+var caml_fresh_oo_id = runtime["caml_fresh_oo_id"];
+var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
+var string = runtime["caml_new_string"];
+var caml_obj_tag = runtime["caml_obj_tag"];
+var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -26,12 +32,6 @@ function call4(f, a0, a1, a2, a3) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3]);
 }
 
-var caml_bytes_unsafe_get = runtime["caml_bytes_unsafe_get"];
-var caml_fresh_oo_id = runtime["caml_fresh_oo_id"];
-var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
-var string = runtime["caml_new_string"];
-var caml_obj_tag = runtime["caml_obj_tag"];
-var caml_wrap_thrown_exception = runtime["caml_wrap_thrown_exception"];
 var cst_count = string("{count = ");
 var cst_data = string("; data = ");
 var cst = string("}");
@@ -58,16 +58,12 @@ var Failure = [248,cst_Stdlib_Stream_Failure,caml_fresh_oo_id(0)];
 var Error = [248,cst_Stdlib_Stream_Error,caml_fresh_oo_id(0)];
 
 function count(param) {
-  var count;
-  var match;
-  if (param) {match = param[1];count = match[1];return count;}
+  if (param) {var match = param[1];var count = match[1];return count;}
   return 0;
 }
 
 function data(param) {
-  var data;
-  var match;
-  if (param) {match = param[1];data = match[2];return data;}
+  if (param) {var match = param[1];var data = match[2];return data;}
   return 0;
 }
 
@@ -78,63 +74,48 @@ function fill_buff(b) {
 }
 
 function get_data(count, d) {
-  var d2;
-  var d1;
-  var match;
-  var d11;
-  var a;
-  var f;
-  var q_;
-  var d__1;
-  var r_;
-  var s_;
-  var t_;
-  var a__0;
-  var match__0;
-  var a__1;
-  var b;
-  var r;
   var d__0 = d;
   for (; ; ) {
     if (! (typeof d__0 === "number")) {
       switch (d__0[0]) {
         case 1:
-          d2 = d__0[2];
-          d1 = d__0[1];
-          match = get_data(count, d1);
-          if (typeof match === "number") {d__0 = d2;continue;}
+          var d2 = d__0[2];
+          var d1 = d__0[1];
+          var match = get_data(count, d1);
+          if (typeof match === "number") {var d__0 = d2;continue;}
           else {
             if (0 === match[0]) {
-              d11 = match[2];
-              a = match[1];
+              var d11 = match[2];
+              var a = match[1];
               return [0,a,[1,d11,d2]];
             }
             throw caml_wrap_thrown_exception([0,Assert_failure,a_]);
           }
         case 2:
-          f = d__0[1];
-          q_ = caml_obj_tag(f);
-          d__1 =
-            250 === q_ ? f[1] : 246 === q_ ? call1(CamlinternalLazy[2], f) : f;
-          d__0 = d__1;
+          var f = d__0[1];
+          var q_ = caml_obj_tag(f);
+          var d__1 = 250 === q_ ?
+            f[1] :
+            246 === q_ ? call1(CamlinternalLazy[2], f) : f;
+          var d__0 = d__1;
           continue;
         case 3:
-          r_ = d__0[1];
-          s_ = r_[1];
+          var r_ = d__0[1];
+          var s_ = r_[1];
           if (s_) {
-            t_ = s_[1];
-            if (t_) {a__0 = t_[1];r_[1] = 0;return [0,a__0,d__0];}
+            var t_ = s_[1];
+            if (t_) {var a__0 = t_[1];r_[1] = 0;return [0,a__0,d__0];}
             return 0;
           }
-          match__0 = call1(r_[2], count);
-          if (match__0) {a__1 = match__0[1];return [0,a__1,d__0];}
+          var match__0 = call1(r_[2], count);
+          if (match__0) {var a__1 = match__0[1];return [0,a__1,d__0];}
           r_[1] = b_;
           return 0;
         case 4:
-          b = d__0[1];
+          var b = d__0[1];
           if (b[3] <= b[4]) {fill_buff(b);}
           if (0 === b[3]) {return 0;}
-          r = caml_bytes_unsafe_get(b[2], b[4]);
+          var r = caml_bytes_unsafe_get(b[2], b[4]);
           b[4] = b[4] + 1 | 0;
           return [0,r,d__0]
         }
@@ -144,48 +125,37 @@ function get_data(count, d) {
 }
 
 function peek_data(s) {
-  var b;
-  var x;
-  var a__1;
-  var p_;
-  var o_;
-  var n_;
-  var m_;
-  var f;
-  var a__0;
-  var d;
-  var a;
-  var l_;
   for (; ; ) {
-    l_ = s[2];
+    var l_ = s[2];
     if (typeof l_ === "number") return 0;
     else switch (l_[0]) {
       case 0:
-        a = l_[1];
+        var a = l_[1];
         return [0,a];
       case 1:
-        d = get_data(s[1], s[2]);
+        var d = get_data(s[1], s[2]);
         if (typeof d === "number") return 0;
         else {
-          if (0 === d[0]) {a__0 = d[1];s[2] = d;return [0,a__0];}
+          if (0 === d[0]) {var a__0 = d[1];s[2] = d;return [0,a__0];}
           throw caml_wrap_thrown_exception([0,Assert_failure,c_]);
         }
       case 2:
-        f = l_[1];
-        m_ = caml_obj_tag(f);
-        n_ =
-          250 === m_ ? f[1] : 246 === m_ ? call1(CamlinternalLazy[2], f) : f;
+        var f = l_[1];
+        var m_ = caml_obj_tag(f);
+        var n_ = 250 === m_ ?
+          f[1] :
+          246 === m_ ? call1(CamlinternalLazy[2], f) : f;
         s[2] = n_;
         continue;
       case 3:
-        o_ = l_[1];
-        p_ = o_[1];
-        if (p_) {a__1 = p_[1];return a__1;}
-        x = call1(o_[2], s[1]);
+        var o_ = l_[1];
+        var p_ = o_[1];
+        if (p_) {var a__1 = p_[1];return a__1;}
+        var x = call1(o_[2], s[1]);
         o_[1] = [0,x];
         return x;
       default:
-        b = l_[1];
+        var b = l_[1];
         if (b[3] <= b[4]) {fill_buff(b);}
         if (0 === b[3]) {s[2] = 0;return 0;}
         return [0,caml_bytes_unsafe_get(b[2], b[4])]
@@ -194,32 +164,26 @@ function peek_data(s) {
 }
 
 function peek(param) {
-  var s;
-  if (param) {s = param[1];return peek_data(s);}
+  if (param) {var s = param[1];return peek_data(s);}
   return 0;
 }
 
 function junk_data(s) {
-  var b;
-  var k_;
-  var d;
-  var match;
-  var j_;
   for (; ; ) {
-    j_ = s[2];
+    var j_ = s[2];
     if (! (typeof j_ === "number")) {
       switch (j_[0]) {
         case 0:
-          d = j_[2];
+          var d = j_[2];
           s[1] = s[1] + 1 | 0;
           s[2] = d;
           return 0;
         case 3:
-          k_ = j_[1];
+          var k_ = j_[1];
           if (k_[1]) {s[1] = s[1] + 1 | 0;k_[1] = 0;return 0;}
           break;
         case 4:
-          b = j_[1];
+          var b = j_[1];
           if (b[3] <= b[4]) {fill_buff(b);}
           if (0 === b[3]) {s[2] = 0;return 0;}
           s[1] = s[1] + 1 | 0;
@@ -227,34 +191,27 @@ function junk_data(s) {
           return 0
         }
     }
-    match = peek_data(s);
+    var match = peek_data(s);
     if (match) {continue;}
     return 0;
   }
 }
 
 function junk(param) {
-  var data;
-  if (param) {data = param[1];return junk_data(data);}
+  if (param) {var data = param[1];return junk_data(data);}
   return 0;
 }
 
 function nget_data(n, s) {
-  var al;
-  var d;
-  var k;
-  var match__0;
-  var a;
-  var match;
   if (0 < n) {
-    match = peek_data(s);
+    var match = peek_data(s);
     if (match) {
-      a = match[1];
+      var a = match[1];
       junk_data(s);
-      match__0 = nget_data(n + -1 | 0, s);
-      k = match__0[3];
-      d = match__0[2];
-      al = match__0[1];
+      var match__0 = nget_data(n + -1 | 0, s);
+      var k = match__0[3];
+      var d = match__0[2];
+      var al = match__0[1];
       return [0,[0,a,al],[0,a,d],k + 1 | 0];
     }
     return [0,0,s[2],0];
@@ -273,15 +230,13 @@ function npeek_data(n, s) {
 }
 
 function npeek(n, param) {
-  var d;
-  if (param) {d = param[1];return npeek_data(n, d);}
+  if (param) {var d = param[1];return npeek_data(n, d);}
   return 0;
 }
 
 function next(s) {
-  var a;
   var match = peek(s);
-  if (match) {a = match[1];junk(s);return a;}
+  if (match) {var a = match[1];junk(s);return a;}
   throw caml_wrap_thrown_exception(Failure);
 }
 
@@ -293,11 +248,9 @@ function empty(s) {
 
 function iter(f, strm) {
   function do_rec(param) {
-    var a;
-    var match;
     for (; ; ) {
-      match = peek(strm);
-      if (match) {a = match[1];junk(strm);call1(f, a);continue;}
+      var match = peek(strm);
+      if (match) {var a = match[1];junk(strm);call1(f, a);continue;}
       return 0;
     }
   }
@@ -399,26 +352,22 @@ function dump(f, s) {
 }
 
 function dump_data(f, param) {
-  var d1;
-  var d2;
-  var a;
-  var d;
   if (typeof param === "number") return call1(
     Stdlib[42],
     cst_Sempty
   );
   else switch (param[0]) {
     case 0:
-      d = param[2];
-      a = param[1];
+      var d = param[2];
+      var a = param[1];
       call1(Stdlib[42], cst_Scons);
       call1(f, a);
       call1(Stdlib[42], cst__0);
       dump_data(f, d);
       return call1(Stdlib[42], cst__1);
     case 1:
-      d2 = param[2];
-      d1 = param[1];
+      var d2 = param[2];
+      var d1 = param[1];
       call1(Stdlib[42], cst_Sapp);
       dump_data(f, d1);
       call1(Stdlib[42], cst__2);

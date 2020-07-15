@@ -9,6 +9,8 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
+var caml_format_int = runtime["caml_format_int"];
+var string = runtime["caml_new_string"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -18,8 +20,6 @@ function call2(f, a0, a1) {
   return f.length === 2 ? f(a0, a1) : runtime["caml_call_gen"](f, [a0,a1]);
 }
 
-var caml_format_int = runtime["caml_format_int"];
-var string = runtime["caml_new_string"];
 var cst_is_not_a_latin1_character = string(" is not a latin1 character");
 var cst_04X = string("%04X");
 var cst_U = string("U+");
@@ -68,12 +68,10 @@ function pred(u) {
 }
 
 function is_valid(i) {
-  var n_;
-  var o_;
   var l_ = 0 <= i ? 1 : 0;
   var m_ = l_ ? i <= 55295 ? 1 : 0 : l_;
-  if (m_) n_ = m_;
-  else {o_ = 57344 <= i ? 1 : 0;n_ = o_ ? i <= 1114111 ? 1 : 0 : o_;}
+  if (m_) var n_ = m_;
+  else {var o_ = 57344 <= i ? 1 : 0;var n_ = o_ ? i <= 1114111 ? 1 : 0 : o_;}
   return n_;
 }
 
@@ -88,8 +86,7 @@ function is_char(u) {return u < 256 ? 1 : 0;}
 function of_char(c) {return c;}
 
 function to_char(u) {
-  var j_;
-  if (255 < u) {j_ = err_not_latin1(u);return call1(Stdlib[1], j_);}
+  if (255 < u) {var j_ = err_not_latin1(u);return call1(Stdlib[1], j_);}
   return u;
 }
 

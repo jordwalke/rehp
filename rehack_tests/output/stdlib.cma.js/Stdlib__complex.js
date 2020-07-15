@@ -9,9 +9,6 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
-
-;
-
 var zero = [254,0,0];
 var one = [254,1,0];
 var i = [254,0,1];
@@ -30,11 +27,9 @@ function mul(x, y) {
 }
 
 function div(x, y) {
-  var d;
-  var r;
   if (Math.abs(y[2]) <= Math.abs(y[1])) {
-    r = y[2] / y[1];
-    d = y[1] + r * y[2];
+    var r = y[2] / y[1];
+    var d = y[1] + r * y[2];
     return [254,(x[1] + r * x[2]) / d,(x[2] - r * x[1]) / d];
   }
   var r__0 = y[1] / y[2];
@@ -47,12 +42,11 @@ function inv(x) {return div(one, x);}
 function norm2(x) {return x[1] * x[1] + x[2] * x[2];}
 
 function norm(x) {
-  var q;
   var r = Math.abs(x[1]);
   var i = Math.abs(x[2]);
   if (r == 0) {return i;}
   if (i == 0) {return r;}
-  if (i <= r) {q = i / r;return r * Math.sqrt(1 + q * q);}
+  if (i <= r) {var q = i / r;return r * Math.sqrt(1 + q * q);}
   var q__0 = r / i;
   return i * Math.sqrt(1 + q__0 * q__0);
 }
@@ -62,19 +56,17 @@ function arg(x) {return Math.atan2(x[2], x[1]);}
 function polar(n, a) {return [254,Math.cos(a) * n,Math.sin(a) * n];}
 
 function sqrt(x) {
-  var q__0;
-  var w;
-  var q;
   if (x[1] == 0) {if (x[2] == 0) {return a_;}}
   var r = Math.abs(x[1]);
   var i = Math.abs(x[2]);
   if (i <= r) {
-    q = i / r;
-    w = Math.sqrt(r) * Math.sqrt(0.5 * (1 + Math.sqrt(1 + q * q)));
+    var q = i / r;
+    var w = Math.sqrt(r) * Math.sqrt(0.5 * (1 + Math.sqrt(1 + q * q)));
   }
   else {
-    q__0 = r / i;
-    w = Math.sqrt(i) * Math.sqrt(0.5 * (q__0 + Math.sqrt(1 + q__0 * q__0)));
+    var q__0 = r / i;
+    var w = Math.sqrt(i) *
+      Math.sqrt(0.5 * (q__0 + Math.sqrt(1 + q__0 * q__0)));
   }
   if (0 <= x[1]) {return [254,w,0.5 * x[2] / w];}
   var w__0 = 0 <= x[2] ? w : - w;

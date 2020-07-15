@@ -103,8 +103,8 @@ final class Stdlib__digest {
       }
     };
     $from_hex = (dynamic $s) : dynamic ==> {
-      $b_ = null as dynamic;
       $a_ = null as dynamic;
+      $b_ = null as dynamic;
       if (32 !== $caml_ml_string_length($s)) {
         $call1($Stdlib[1], $cst_Digest_from_hex);
       }

@@ -9,9 +9,6 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
-
-;
-
 var Console = [0];
 
 module.exports = Console;

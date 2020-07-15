@@ -85,14 +85,14 @@ final class Console__ObjectPrinter {
       throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $a_}) as \Throwable;
     };
     $detectList = (dynamic $maxLength, dynamic $o) : dynamic ==> {
-      $tag = null as dynamic;
-      $match = null as dynamic;
-      $size = null as dynamic;
       $ab_ = null as dynamic;
       $ac_ = null as dynamic;
-      $o__1 = null as dynamic;
-      $maxLength__1 = null as dynamic;
       $ad_ = null as dynamic;
+      $match = null as dynamic;
+      $maxLength__1 = null as dynamic;
+      $o__1 = null as dynamic;
+      $size = null as dynamic;
+      $tag = null as dynamic;
       $maxLength__0 = $maxLength;
       $o__0 = $o;
       for (;;) {
@@ -130,9 +130,9 @@ final class Console__ObjectPrinter {
     $extractFields = (dynamic $maxNum, dynamic $o) : dynamic ==> {
       $extractFields = 
       (dynamic $maxNum, dynamic $fieldsSoFar, dynamic $numFields) : dynamic ==> {
-        $numFields__1 = null as dynamic;
         $fieldsSoFar__1 = null as dynamic;
         $maxNum__1 = null as dynamic;
+        $numFields__1 = null as dynamic;
         $maxNum__0 = $maxNum;
         $fieldsSoFar__0 = $fieldsSoFar;
         $numFields__0 = $numFields;
@@ -142,8 +142,11 @@ final class Console__ObjectPrinter {
           }
           if (0 === $numFields__0) {return Vector{0, 0, $fieldsSoFar__0};}
           $numFields__1 = (int) ($numFields__0 + -1) as dynamic;
-          $fieldsSoFar__1 =
-            Vector{0, $o[(int) ($numFields__0 + -1) + 1], $fieldsSoFar__0} as dynamic;
+          $fieldsSoFar__1 = Vector{
+            0,
+            $o[(int) ($numFields__0 + -1) + 1],
+            $fieldsSoFar__0
+          } as dynamic;
           $maxNum__1 = (int) ($maxNum__0 + -1) as dynamic;
           $maxNum__0 = $maxNum__1;
           $fieldsSoFar__0 = $fieldsSoFar__1;
@@ -209,14 +212,14 @@ final class Console__ObjectPrinter {
     };
     $printTreeShape = 
     (dynamic $pair, dynamic $self, dynamic $depth, dynamic $o) : dynamic ==> {
-      $truncationMsg = null as dynamic;
       $T_ = null as dynamic;
       $U_ = null as dynamic;
-      $truncationMsg__0 = null as dynamic;
       $V_ = null as dynamic;
       $W_ = null as dynamic;
       $X_ = null as dynamic;
       $Y_ = null as dynamic;
+      $truncationMsg = null as dynamic;
+      $truncationMsg__0 = null as dynamic;
       $right = $pair[2];
       $left = $pair[1];
       $match = $extractFields($maxLength[1], $o);
@@ -271,14 +274,14 @@ final class Console__ObjectPrinter {
       return $call2($Stdlib[28], $left, $S_);
     };
     $printListShape = (dynamic $self, dynamic $depth, dynamic $o) : dynamic ==> {
-      $truncationMsg = null as dynamic;
       $E_ = null as dynamic;
       $F_ = null as dynamic;
-      $truncationMsg__0 = null as dynamic;
       $G_ = null as dynamic;
       $H_ = null as dynamic;
       $I_ = null as dynamic;
       $J_ = null as dynamic;
+      $truncationMsg = null as dynamic;
+      $truncationMsg__0 = null as dynamic;
       $match = $extractList->contents($maxLength[1], $o);
       $lst = $match[2];
       $wasTruncated = $match[1];
@@ -331,8 +334,8 @@ final class Console__ObjectPrinter {
       return $call2($Stdlib[28], $cst__22, $D_);
     };
     $d_ = (dynamic $self, dynamic $opt, dynamic $o) : dynamic ==> {
-      $match = null as dynamic;
       $depth = null as dynamic;
+      $match = null as dynamic;
       $sth = null as dynamic;
       if ($opt) {
         $sth = $opt[1];

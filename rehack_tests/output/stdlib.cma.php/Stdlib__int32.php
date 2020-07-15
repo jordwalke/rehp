@@ -11,10 +11,10 @@ final class Stdlib__int32 {
   <<__Override, __Memoize>>
   public static function get() : Vector<dynamic> {
     
-    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $max_int__0 = null as dynamic;
-    $unsigned_to_int = null as dynamic;
     $move = null as dynamic;
+    $unsigned_to_int = null as dynamic;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $caml_int_compare = $runtime["caml_int_compare"];
     $caml_int_of_string = $runtime["caml_int_of_string"];
     $caml_mul = $runtime["caml_mul"];
@@ -46,24 +46,22 @@ final class Stdlib__int32 {
     
     if (32 === $a_) {
       $max_int__0 = $Stdlib[19];
-      $unsigned_to_int =
-        (dynamic $n) : dynamic ==> {
-          if (! (0 < $caml_int_compare(0, $n))) {
-            if (! (0 < $caml_int_compare($n, $max_int__0))) {return Vector{0, $n};}
-          }
-          return 0;
-        };
+      $unsigned_to_int = (dynamic $n) : dynamic ==> {
+        if (! (0 < $caml_int_compare(0, $n))) {
+          if (! (0 < $caml_int_compare($n, $max_int__0))) {return Vector{0, $n};}
+        }
+        return 0;
+      };
     }
     else {
       if (64 !== $a_) {
         throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $b_}) as \Throwable;
       }
       $move = $caml_int_of_string($cst_0x1_0000_0000);
-      $unsigned_to_int =
-        (dynamic $i) : dynamic ==> {
-          $i__0 = 0 <= $i ? $i : ((int) ($i + $move));
-          return Vector{0, $i__0};
-        };
+      $unsigned_to_int = (dynamic $i) : dynamic ==> {
+        $i__0 = 0 <= $i ? $i : ((int) ($i + $move));
+        return Vector{0, $i__0};
+      };
     }
     
     $to_string = (dynamic $n) : dynamic ==> {

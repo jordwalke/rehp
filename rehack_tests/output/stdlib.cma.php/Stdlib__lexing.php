@@ -57,16 +57,16 @@ final class Stdlib__lexing {
       return $result;
     };
     $lex_refill = (dynamic $read_fun, dynamic $aux_buffer, dynamic $lexbuf) : dynamic ==> {
-      $n = null as dynamic;
-      $s = null as dynamic;
-      $t = null as dynamic;
       $A_ = null as dynamic;
       $B_ = null as dynamic;
-      $i = null as dynamic;
-      $v = null as dynamic;
       $C_ = null as dynamic;
-      $newlen = null as dynamic;
+      $i = null as dynamic;
+      $n = null as dynamic;
       $newbuf = null as dynamic;
+      $newlen = null as dynamic;
+      $s = null as dynamic;
+      $t = null as dynamic;
+      $v = null as dynamic;
       $read = $call2(
         $read_fun,
         $aux_buffer,
@@ -90,13 +90,12 @@ final class Stdlib__lexing {
           );
         }
         else {
-          $newlen =
-            $call2(
-              $Stdlib[16],
-              (int)
-              (2 * $caml_ml_bytes_length($lexbuf[2])),
-              $Stdlib_sys[13]
-            );
+          $newlen = $call2(
+            $Stdlib[16],
+            (int)
+            (2 * $caml_ml_bytes_length($lexbuf[2])),
+            $Stdlib_sys[13]
+          );
           if ($newlen < (int) ((int) ($lexbuf[3] - $lexbuf[5]) + $n)) {
             $call1($Stdlib[2], $cst_Lexing_lex_refill_cannot_grow_buffer);
           }
@@ -139,8 +138,8 @@ final class Stdlib__lexing {
       return 0;
     };
     $from_function = (dynamic $opt, dynamic $f) : dynamic ==> {
-      $with_positions = null as dynamic;
       $sth = null as dynamic;
+      $with_positions = null as dynamic;
       if ($opt) {
         $sth = $opt[1];
         $with_positions = $sth;
@@ -183,8 +182,8 @@ final class Stdlib__lexing {
       );
     };
     $from_string = (dynamic $opt, dynamic $s) : dynamic ==> {
-      $with_positions = null as dynamic;
       $sth = null as dynamic;
+      $with_positions = null as dynamic;
       if ($opt) {
         $sth = $opt[1];
         $with_positions = $sth;

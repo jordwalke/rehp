@@ -9,9 +9,6 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
-var max_int__0;
-var unsigned_to_int;
-var move;
 var caml_int_compare = runtime["caml_int_compare"];
 var caml_int_of_string = runtime["caml_int_of_string"];
 var caml_mul = runtime["caml_mul"];
@@ -43,27 +40,27 @@ function lognot(n) {return n ^ -1;}
 var a_ = Stdlib_sys[10];
 
 if (32 === a_) {
-  max_int__0 = Stdlib[19];
-  unsigned_to_int =
-    function(n) {
-      if (! (0 < caml_int_compare(0, n))) {
-        if (! (0 < caml_int_compare(n, max_int__0))) {return [0,n];}
-      }
-      return 0;
-    };
+  var max_int__0 = Stdlib[19];
+  var unsigned_to_int = function(n) {
+    if (! (0 < caml_int_compare(0, n))) {
+      if (! (0 < caml_int_compare(n, max_int__0))) {return [0,n];}
+    }
+    return 0;
+  };
 }
 else {
   if (64 !== a_) {throw caml_wrap_thrown_exception([0,Assert_failure,b_]);}
-  move = caml_int_of_string(cst_0x1_0000_0000);
-  unsigned_to_int =
-    function(i) {var i__0 = 0 <= i ? i : i + move | 0;return [0,i__0];};
+  var move = caml_int_of_string(cst_0x1_0000_0000);
+  var unsigned_to_int = function(i) {
+    var i__0 = 0 <= i ? i : i + move | 0;
+    return [0,i__0];
+  };
 }
 
 function to_string(n) {return runtime["caml_format_int"](cst_d, n);}
 
 function of_string_opt(s) {
-  var c_;
-  try {c_ = [0,caml_int_of_string(s)];return c_;}
+  try {var c_ = [0,caml_int_of_string(s)];return c_;}
   catch(d_) {
     d_ = runtime["caml_wrap_exception"](d_);
     if (d_[1] === Stdlib[7]) {return 0;}

@@ -12,9 +12,6 @@ final class Stdlib__moreLabels {
   public static function get() : Vector<dynamic> {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
-    
-    ;
-    
     $Stdlib_set = Stdlib__set::get();
     $Stdlib_map = Stdlib__map::get();
     $Stdlib_hashtbl = Stdlib__hashtbl::get();

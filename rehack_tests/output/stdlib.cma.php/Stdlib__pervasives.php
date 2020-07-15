@@ -12,9 +12,6 @@ final class Stdlib__pervasives {
   public static function get() : Vector<dynamic> {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
-    
-    ;
-    
     $cst_Stdlib_Pervasives_Exit = $runtime["caml_new_string"]("Stdlib.Pervasives.Exit");
     $Stdlib = Stdlib::get();
     $invalid_arg = $Stdlib[1];

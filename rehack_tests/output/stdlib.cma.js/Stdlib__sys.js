@@ -33,8 +33,7 @@ var word_size = 32;
 var int_size = 32;
 
 function getenv_opt(s) {
-  var d_;
-  try {d_ = [0,runtime["caml_sys_getenv"](s)];return d_;}
+  try {var d_ = [0,runtime["caml_sys_getenv"](s)];return d_;}
   catch(e_) {
     e_ = runtime["caml_wrap_exception"](e_);
     if (e_ === Stdlib[8]) {return 0;}

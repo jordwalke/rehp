@@ -100,9 +100,9 @@ final class Stdlib__bigarray {
     $c_layout = 0 as dynamic;
     $fortran_layout = 1 as dynamic;
     $dims = (dynamic $a) : dynamic ==> {
-      $i = null as dynamic;
       $aa_ = null as dynamic;
       $ab_ = null as dynamic;
+      $i = null as dynamic;
       $n = $caml_ba_num_dims($a);
       $d = $runtime["caml_make_vect"]($n, 0);
       $Z_ = (int) ($n + -1) as dynamic;
@@ -164,8 +164,8 @@ final class Stdlib__bigarray {
         : ($caml_ba_slice($a, Vector{0, $n}));
     };
     $of_array = (dynamic $kind, dynamic $layout, dynamic $data) : dynamic ==> {
-      $i = null as dynamic;
       $K_ = null as dynamic;
+      $i = null as dynamic;
       $ba = $create__0($kind, $layout, $data->count() - 1);
       $ofs = 0 === $layout ? 0 : (1);
       $J_ = (int) ($data->count() - 1 + -1) as dynamic;
@@ -205,13 +205,13 @@ final class Stdlib__bigarray {
       return $caml_ba_slice($a, Vector{0, $n});
     };
     $of_array__0 = (dynamic $kind, dynamic $layout, dynamic $data) : dynamic ==> {
-      $i = null as dynamic;
-      $row = null as dynamic;
       $C_ = null as dynamic;
       $D_ = null as dynamic;
       $E_ = null as dynamic;
-      $j = null as dynamic;
       $F_ = null as dynamic;
+      $i = null as dynamic;
+      $j = null as dynamic;
+      $row = null as dynamic;
       $dim1 = $data->count() - 1;
       $dim2 = 0 === $dim1 ? 0 : ($caml_check_bound($data, 0)[1]->count() - 1);
       $ba = $create__1($kind, $layout, $dim1, $dim2);
@@ -282,17 +282,17 @@ final class Stdlib__bigarray {
       return $caml_ba_slice($a, Vector{0, $n});
     };
     $of_array__1 = (dynamic $kind, dynamic $layout, dynamic $data) : dynamic ==> {
+      $col = null as dynamic;
       $i = null as dynamic;
-      $row = null as dynamic;
+      $j = null as dynamic;
+      $k = null as dynamic;
       $q_ = null as dynamic;
       $r_ = null as dynamic;
+      $row = null as dynamic;
       $s_ = null as dynamic;
-      $j = null as dynamic;
-      $col = null as dynamic;
       $t_ = null as dynamic;
       $u_ = null as dynamic;
       $v_ = null as dynamic;
-      $k = null as dynamic;
       $w_ = null as dynamic;
       $dim1 = $data->count() - 1;
       $dim2 = 0 === $dim1 ? 0 : ($caml_check_bound($data, 0)[1]->count() - 1);

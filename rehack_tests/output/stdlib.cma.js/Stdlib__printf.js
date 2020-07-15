@@ -10,8 +10,6 @@
 
 var runtime = require("../runtime/runtime.js");
 
-;
-
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }

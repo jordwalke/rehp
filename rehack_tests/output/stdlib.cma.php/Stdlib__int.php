@@ -12,9 +12,6 @@ final class Stdlib__int {
   public static function get() : Vector<dynamic> {
     
     $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
-    
-    ;
-    
     $zero = 0 as dynamic;
     $one = 1 as dynamic;
     $minus_one = -1 as dynamic;

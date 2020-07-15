@@ -9,17 +9,6 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
-
-function call1(f, a0) {
-  return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
-}
-
-function call3(f, a0, a1, a2) {
-  return f.length === 3 ?
-    f(a0, a1, a2) :
-    runtime["caml_call_gen"](f, [a0,a1,a2]);
-}
-
 var caml_ba_change_layout = runtime["caml_ba_change_layout"];
 var caml_ba_create = runtime["caml_ba_create"];
 var caml_ba_dim_1 = runtime["caml_ba_dim_1"];
@@ -31,6 +20,17 @@ var caml_ba_slice = runtime["caml_ba_slice"];
 var caml_check_bound = runtime["caml_check_bound"];
 var caml_mul = runtime["caml_mul"];
 var string = runtime["caml_new_string"];
+
+function call1(f, a0) {
+  return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
+}
+
+function call3(f, a0, a1, a2) {
+  return f.length === 3 ?
+    f(a0, a1, a2) :
+    runtime["caml_call_gen"](f, [a0,a1,a2]);
+}
+
 var cst_Bigarray_array3_of_genarray = string("Bigarray.array3_of_genarray");
 var cst_Bigarray_array2_of_genarray = string("Bigarray.array2_of_genarray");
 var cst_Bigarray_array1_of_genarray = string("Bigarray.array1_of_genarray");
@@ -95,20 +95,17 @@ var c_layout = 0;
 var fortran_layout = 1;
 
 function dims(a) {
-  var i;
-  var aa_;
-  var ab_;
   var n = caml_ba_num_dims(a);
   var d = runtime["caml_make_vect"](n, 0);
   var Z_ = n + -1 | 0;
   var Y_ = 0;
   if (! (Z_ < 0)) {
-    i = Y_;
+    var i = Y_;
     for (; ; ) {
-      aa_ = runtime["caml_ba_dim"](a, i);
+      var aa_ = runtime["caml_ba_dim"](a, i);
       caml_check_bound(d, i)[i + 1] = aa_;
-      ab_ = i + 1 | 0;
-      if (Z_ !== i) {i = ab_;continue;}
+      var ab_ = i + 1 | 0;
+      if (Z_ !== i) {var i = ab_;continue;}
       break;
     }
   }
@@ -158,22 +155,20 @@ function slice(a, n) {
 }
 
 function of_array(kind, layout, data) {
-  var i;
-  var K_;
   var ba = create__0(kind, layout, data.length - 1);
   var ofs = 0 === layout ? 0 : 1;
   var J_ = data.length - 1 + -1 | 0;
   var I_ = 0;
   if (! (J_ < 0)) {
-    i = I_;
+    var i = I_;
     for (; ; ) {
       runtime["caml_ba_set_1"](
         ba,
         i + ofs | 0,
         caml_check_bound(data, i)[i + 1]
       );
-      K_ = i + 1 | 0;
-      if (J_ !== i) {i = K_;continue;}
+      var K_ = i + 1 | 0;
+      if (J_ !== i) {var i = K_;continue;}
       break;
     }
   }
@@ -195,13 +190,6 @@ function slice_left(a, n) {return caml_ba_slice(a, [0,n]);}
 function slice_right(a, n) {return caml_ba_slice(a, [0,n]);}
 
 function of_array__0(kind, layout, data) {
-  var i;
-  var row;
-  var C_;
-  var D_;
-  var E_;
-  var j;
-  var F_;
   var dim1 = data.length - 1;
   var dim2 = 0 === dim1 ? 0 : caml_check_bound(data, 0)[1].length - 1;
   var ba = create__1(kind, layout, dim1, dim2);
@@ -209,16 +197,16 @@ function of_array__0(kind, layout, data) {
   var B_ = dim1 + -1 | 0;
   var A_ = 0;
   if (! (B_ < 0)) {
-    i = A_;
+    var i = A_;
     for (; ; ) {
-      row = caml_check_bound(data, i)[i + 1];
+      var row = caml_check_bound(data, i)[i + 1];
       if (row.length - 1 !== dim2) {
         call1(Stdlib[1], cst_Bigarray_Array2_of_array_non_rectangular_data);
       }
-      D_ = dim2 + -1 | 0;
-      C_ = 0;
+      var D_ = dim2 + -1 | 0;
+      var C_ = 0;
       if (! (D_ < 0)) {
-        j = C_;
+        var j = C_;
         for (; ; ) {
           runtime["caml_ba_set_2"](
             ba,
@@ -226,13 +214,13 @@ function of_array__0(kind, layout, data) {
             j + ofs | 0,
             caml_check_bound(row, j)[j + 1]
           );
-          F_ = j + 1 | 0;
-          if (D_ !== j) {j = F_;continue;}
+          var F_ = j + 1 | 0;
+          if (D_ !== j) {var j = F_;continue;}
           break;
         }
       }
-      E_ = i + 1 | 0;
-      if (B_ !== i) {i = E_;continue;}
+      var E_ = i + 1 | 0;
+      if (B_ !== i) {var i = E_;continue;}
       break;
     }
   }
@@ -262,18 +250,6 @@ function slice_left_2(a, n) {return caml_ba_slice(a, [0,n]);}
 function slice_right_2(a, n) {return caml_ba_slice(a, [0,n]);}
 
 function of_array__1(kind, layout, data) {
-  var i;
-  var row;
-  var q_;
-  var r_;
-  var s_;
-  var j;
-  var col;
-  var t_;
-  var u_;
-  var v_;
-  var k;
-  var w_;
   var dim1 = data.length - 1;
   var dim2 = 0 === dim1 ? 0 : caml_check_bound(data, 0)[1].length - 1;
   var dim3 = 0 === dim2 ?
@@ -284,25 +260,25 @@ function of_array__1(kind, layout, data) {
   var p_ = dim1 + -1 | 0;
   var o_ = 0;
   if (! (p_ < 0)) {
-    i = o_;
+    var i = o_;
     for (; ; ) {
-      row = caml_check_bound(data, i)[i + 1];
+      var row = caml_check_bound(data, i)[i + 1];
       if (row.length - 1 !== dim2) {
         call1(Stdlib[1], cst_Bigarray_Array3_of_array_non_cubic_data);
       }
-      r_ = dim2 + -1 | 0;
-      q_ = 0;
+      var r_ = dim2 + -1 | 0;
+      var q_ = 0;
       if (! (r_ < 0)) {
-        j = q_;
+        var j = q_;
         for (; ; ) {
-          col = caml_check_bound(row, j)[j + 1];
+          var col = caml_check_bound(row, j)[j + 1];
           if (col.length - 1 !== dim3) {
             call1(Stdlib[1], cst_Bigarray_Array3_of_array_non_cubic_data__0);
           }
-          u_ = dim3 + -1 | 0;
-          t_ = 0;
+          var u_ = dim3 + -1 | 0;
+          var t_ = 0;
           if (! (u_ < 0)) {
-            k = t_;
+            var k = t_;
             for (; ; ) {
               runtime["caml_ba_set_3"](
                 ba,
@@ -311,18 +287,18 @@ function of_array__1(kind, layout, data) {
                 k + ofs | 0,
                 caml_check_bound(col, k)[k + 1]
               );
-              w_ = k + 1 | 0;
-              if (u_ !== k) {k = w_;continue;}
+              var w_ = k + 1 | 0;
+              if (u_ !== k) {var k = w_;continue;}
               break;
             }
           }
-          v_ = j + 1 | 0;
-          if (r_ !== j) {j = v_;continue;}
+          var v_ = j + 1 | 0;
+          if (r_ !== j) {var j = v_;continue;}
           break;
         }
       }
-      s_ = i + 1 | 0;
-      if (p_ !== i) {i = s_;continue;}
+      var s_ = i + 1 | 0;
+      if (p_ !== i) {var i = s_;continue;}
       break;
     }
   }

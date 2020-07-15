@@ -11,32 +11,32 @@ final class Stdlib__filename {
   <<__Override, __Memoize>>
   public static function get() : Vector<dynamic> {
     
-    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
-    $temp_dir_name = null as dynamic;
-    $temp_dir_name__0 = null as dynamic;
-    $dirname__2 = null as dynamic;
     $basename__2 = null as dynamic;
-    $quote__1 = null as dynamic;
-    $temp_dir_name__1 = null as dynamic;
-    $chop_suffix_opt__1 = null as dynamic;
     $check_suffix__1 = null as dynamic;
-    $is_implicit__1 = null as dynamic;
-    $is_relative__1 = null as dynamic;
-    $is_dir_sep__1 = null as dynamic;
-    $dir_sep__2 = null as dynamic;
-    $parent_dir_name__2 = null as dynamic;
+    $chop_suffix_opt__1 = null as dynamic;
     $current_dir_name__2 = null as dynamic;
+    $dir_sep__2 = null as dynamic;
+    $dirname__2 = null as dynamic;
     $e_ = null as dynamic;
     $f_ = null as dynamic;
     $g_ = null as dynamic;
     $h_ = null as dynamic;
     $i_ = null as dynamic;
+    $is_dir_sep__1 = null as dynamic;
+    $is_implicit__1 = null as dynamic;
+    $is_relative__1 = null as dynamic;
     $j_ = null as dynamic;
     $k_ = null as dynamic;
     $l_ = null as dynamic;
     $m_ = null as dynamic;
     $n_ = null as dynamic;
+    $parent_dir_name__2 = null as dynamic;
+    $quote__1 = null as dynamic;
     $switch__0 = null as dynamic;
+    $temp_dir_name = null as dynamic;
+    $temp_dir_name__0 = null as dynamic;
+    $temp_dir_name__1 = null as dynamic;
+    $runtime = (\Rehack\GlobalObject::get() as dynamic)->jsoo_runtime;
     $call1 = $runtime["caml_call1"];
     $call2 = $runtime["caml_call2"];
     $call3 = $runtime["caml_call3"];
@@ -96,9 +96,9 @@ final class Stdlib__filename {
       $string("%s%06x%s")
     } as dynamic;
     $generic_quote = (dynamic $quotequote, dynamic $s) : dynamic ==> {
-      $i = null as dynamic;
       $as_ = null as dynamic;
       $at_ = null as dynamic;
+      $i = null as dynamic;
       $l = $caml_ml_string_length($s);
       $b = $call1($Stdlib_buffer[1], (int) ($l + 20));
       $call2($Stdlib_buffer[10], $b, 39);
@@ -230,22 +230,20 @@ final class Stdlib__filename {
       $aj_ = $is_relative($n);
       if ($aj_) {
         $ak_ = $caml_ml_string_length($n) < 2 ? 1 : (0);
-        $al_ =
-          $ak_
-            ? $ak_
-            : ($caml_string_notequal(
-             $call3($Stdlib_string[4], $n, 0, 2),
-             $cst__2
-           ));
+        $al_ = $ak_
+          ? $ak_
+          : ($caml_string_notequal(
+           $call3($Stdlib_string[4], $n, 0, 2),
+           $cst__2
+         ));
         if ($al_) {
           $am_ = $caml_ml_string_length($n) < 3 ? 1 : (0);
-          $an_ =
-            $am_
-              ? $am_
-              : ($caml_string_notequal(
-               $call3($Stdlib_string[4], $n, 0, 3),
-               $cst__1
-             ));
+          $an_ = $am_
+            ? $am_
+            : ($caml_string_notequal(
+             $call3($Stdlib_string[4], $n, 0, 3),
+             $cst__1
+           ));
         }
         else {$an_ = $al_;}
       }
@@ -275,9 +273,13 @@ final class Stdlib__filename {
       $len_s = $caml_ml_string_length($suffix);
       $len_f = $caml_ml_string_length($filename);
       if ($len_s <= $len_f) {
-        $r =
-          $call3($Stdlib_string[4], $filename, (int) ($len_f - $len_s), $len_s
-          );
+        $r = $call3(
+          $Stdlib_string[4],
+          $filename,
+          (int)
+          ($len_f - $len_s),
+          $len_s
+        );
         return $caml_string_equal($r, $suffix)
           ? Vector{
            0,
@@ -351,40 +353,36 @@ final class Stdlib__filename {
       $L_ = $is_relative__0($n);
       if ($L_) {
         $M_ = $caml_ml_string_length($n) < 2 ? 1 : (0);
-        $N_ =
-          $M_
-            ? $M_
-            : ($caml_string_notequal(
-             $call3($Stdlib_string[4], $n, 0, 2),
-             $cst__7
-           ));
+        $N_ = $M_
+          ? $M_
+          : ($caml_string_notequal(
+           $call3($Stdlib_string[4], $n, 0, 2),
+           $cst__7
+         ));
         if ($N_) {
           $O_ = $caml_ml_string_length($n) < 2 ? 1 : (0);
-          $P_ =
-            $O_
-              ? $O_
-              : ($caml_string_notequal(
-               $call3($Stdlib_string[4], $n, 0, 2),
-               $cst__6
-             ));
+          $P_ = $O_
+            ? $O_
+            : ($caml_string_notequal(
+             $call3($Stdlib_string[4], $n, 0, 2),
+             $cst__6
+           ));
           if ($P_) {
             $Q_ = $caml_ml_string_length($n) < 3 ? 1 : (0);
-            $R_ =
-              $Q_
-                ? $Q_
-                : ($caml_string_notequal(
-                 $call3($Stdlib_string[4], $n, 0, 3),
-                 $cst__5
-               ));
+            $R_ = $Q_
+              ? $Q_
+              : ($caml_string_notequal(
+               $call3($Stdlib_string[4], $n, 0, 3),
+               $cst__5
+             ));
             if ($R_) {
               $S_ = $caml_ml_string_length($n) < 3 ? 1 : (0);
-              $T_ =
-                $S_
-                  ? $S_
-                  : ($caml_string_notequal(
-                   $call3($Stdlib_string[4], $n, 0, 3),
-                   $cst__4
-                 ));
+              $T_ = $S_
+                ? $S_
+                : ($caml_string_notequal(
+                 $call3($Stdlib_string[4], $n, 0, 3),
+                 $cst__4
+               ));
             }
             else {$T_ = $R_;}
           }
@@ -396,21 +394,20 @@ final class Stdlib__filename {
       return $T_;
     };
     $check_suffix__0 = (dynamic $name, dynamic $suff) : dynamic ==> {
-      $s = null as dynamic;
       $J_ = null as dynamic;
       $K_ = null as dynamic;
+      $s = null as dynamic;
       $I_ = $caml_ml_string_length($suff) <= $caml_ml_string_length($name)
         ? 1
         : (0);
       if ($I_) {
-        $s =
-          $call3(
-            $Stdlib_string[4],
-            $name,
-            (int)
-            ($caml_ml_string_length($name) - $caml_ml_string_length($suff)),
-            $caml_ml_string_length($suff)
-          );
+        $s = $call3(
+          $Stdlib_string[4],
+          $name,
+          (int)
+          ($caml_ml_string_length($name) - $caml_ml_string_length($suff)),
+          $caml_ml_string_length($suff)
+        );
         $J_ = $call1($Stdlib_string[30], $suff);
         $K_ = $caml_string_equal($call1($Stdlib_string[30], $s), $J_);
       }
@@ -418,14 +415,18 @@ final class Stdlib__filename {
       return $K_;
     };
     $chop_suffix_opt__0 = (dynamic $suffix, dynamic $filename) : dynamic ==> {
-      $r = null as dynamic;
       $H_ = null as dynamic;
+      $r = null as dynamic;
       $len_s = $caml_ml_string_length($suffix);
       $len_f = $caml_ml_string_length($filename);
       if ($len_s <= $len_f) {
-        $r =
-          $call3($Stdlib_string[4], $filename, (int) ($len_f - $len_s), $len_s
-          );
+        $r = $call3(
+          $Stdlib_string[4],
+          $filename,
+          (int)
+          ($len_f - $len_s),
+          $len_s
+        );
         $H_ = $call1($Stdlib_string[30], $suffix);
         return $caml_string_equal($call1($Stdlib_string[30], $r), $H_)
           ? Vector{
@@ -452,8 +453,8 @@ final class Stdlib__filename {
       $b = $call1($Stdlib_buffer[1], (int) ($l + 20));
       $call2($Stdlib_buffer[10], $b, 34);
       $add_bs = (dynamic $n) : dynamic ==> {
-        $j = null as dynamic;
         $F_ = null as dynamic;
+        $j = null as dynamic;
         $E_ = 1 as dynamic;
         if (! ($n < 1)) {
           $j = $E_;
@@ -467,12 +468,12 @@ final class Stdlib__filename {
         return 0;
       };
       $loop__0 = (dynamic $counter, dynamic $i) : dynamic ==> {
-        $c = null as dynamic;
         $C_ = null as dynamic;
         $D_ = null as dynamic;
-        $i__1 = null as dynamic;
+        $c = null as dynamic;
         $counter__0 = null as dynamic;
         $counter__1 = null as dynamic;
+        $i__1 = null as dynamic;
         $i__0 = $i;
         for (;;) {
           if ($i__0 === $l) {return $call2($Stdlib_buffer[10], $b, 34);}
@@ -506,12 +507,12 @@ final class Stdlib__filename {
         }
       };
       $loop_bs->contents = (dynamic $counter, dynamic $n, dynamic $i) : dynamic ==> {
-        $match = null as dynamic;
         $B_ = null as dynamic;
-        $i__1 = null as dynamic;
-        $n__1 = null as dynamic;
         $counter__0 = null as dynamic;
         $counter__1 = null as dynamic;
+        $i__1 = null as dynamic;
+        $match = null as dynamic;
+        $n__1 = null as dynamic;
         $n__0 = $n;
         $i__0 = $i;
         for (;;) {
@@ -552,8 +553,8 @@ final class Stdlib__filename {
       return $call1($Stdlib_buffer[2], $b);
     };
     $has_drive = (dynamic $s) : dynamic ==> {
-      $z_ = null as dynamic;
       $A_ = null as dynamic;
+      $z_ = null as dynamic;
       $is_letter = (dynamic $param) : dynamic ==> {
         $switch__0 = 91 <= $param
           ? 25 < $unsigned_right_shift_32((int) ($param + -97), 0) ? 0 : (1)
@@ -571,14 +572,13 @@ final class Stdlib__filename {
     $drive_and_path = (dynamic $s) : dynamic ==> {
       $x_ = null as dynamic;
       if ($has_drive($s)) {
-        $x_ =
-          $call3(
-            $Stdlib_string[4],
-            $s,
-            2,
-            (int)
-            ($caml_ml_string_length($s) + -2)
-          );
+        $x_ = $call3(
+          $Stdlib_string[4],
+          $s,
+          2,
+          (int)
+          ($caml_ml_string_length($s) + -2)
+        );
         return Vector{0, $call3($Stdlib_string[4], $s, 0, 2), $x_};
       }
       return Vector{0, $cst__9, $s};
@@ -620,42 +620,40 @@ final class Stdlib__filename {
         $switch__0 = 1 as dynamic;
       }
       else {
-        $e_ =
-          Vector{
-            0,
-            $current_dir_name__0,
-            $parent_dir_name__0,
-            $dir_sep__0,
-            $is_dir_sep__0,
-            $is_relative__0,
-            $is_implicit__0,
-            $check_suffix__0,
-            $chop_suffix_opt__0,
-            $temp_dir_name__0,
-            $quote__0,
-            $basename__0,
-            $dirname__0
-          } as dynamic;
-        $switch__0 = 0 as dynamic;
-      }
-    }
-    else {
-      $e_ =
-        Vector{
+        $e_ = Vector{
           0,
-          $current_dir_name__1,
-          $parent_dir_name__1,
-          $dir_sep__1,
+          $current_dir_name__0,
+          $parent_dir_name__0,
+          $dir_sep__0,
           $is_dir_sep__0,
           $is_relative__0,
           $is_implicit__0,
           $check_suffix__0,
           $chop_suffix_opt__0,
-          $temp_dir_name,
-          $quote,
-          $basename__1,
-          $dirname__1
+          $temp_dir_name__0,
+          $quote__0,
+          $basename__0,
+          $dirname__0
         } as dynamic;
+        $switch__0 = 0 as dynamic;
+      }
+    }
+    else {
+      $e_ = Vector{
+        0,
+        $current_dir_name__1,
+        $parent_dir_name__1,
+        $dir_sep__1,
+        $is_dir_sep__0,
+        $is_relative__0,
+        $is_implicit__0,
+        $check_suffix__0,
+        $chop_suffix_opt__0,
+        $temp_dir_name,
+        $quote,
+        $basename__1,
+        $dirname__1
+      } as dynamic;
       $switch__0 = 0 as dynamic;
     }
     
@@ -794,16 +792,16 @@ final class Stdlib__filename {
       return $current_temp_dir_name[1];
     };
     $temp_file = (dynamic $opt, dynamic $prefix, dynamic $suffix) : dynamic ==> {
-      $temp_dir = null as dynamic;
       $sth = null as dynamic;
+      $temp_dir = null as dynamic;
       if ($opt) {
         $sth = $opt[1];
         $temp_dir = $sth;
       }
       else {$temp_dir = $current_temp_dir_name[1];}
       $try_name = (dynamic $counter) : dynamic ==> {
-        $name = null as dynamic;
         $counter__1 = null as dynamic;
+        $name = null as dynamic;
         $counter__0 = $counter;
         for (;;) {
           $name = $temp_file_name($temp_dir, $prefix, $suffix);
@@ -831,12 +829,12 @@ final class Stdlib__filename {
     };
     $open_temp_file = 
     (dynamic $opt, dynamic $p_, dynamic $o_, dynamic $prefix, dynamic $suffix) : dynamic ==> {
-      $temp_dir = null as dynamic;
-      $sth__1 = null as dynamic;
-      $perms = null as dynamic;
-      $sth__0 = null as dynamic;
       $mode = null as dynamic;
+      $perms = null as dynamic;
       $sth = null as dynamic;
+      $sth__0 = null as dynamic;
+      $sth__1 = null as dynamic;
+      $temp_dir = null as dynamic;
       if ($opt) {
         $sth = $opt[1];
         $mode = $sth;
@@ -853,24 +851,23 @@ final class Stdlib__filename {
       }
       else {$temp_dir = $current_temp_dir_name[1];}
       $try_name = (dynamic $counter) : dynamic ==> {
-        $name = null as dynamic;
         $counter__1 = null as dynamic;
+        $name = null as dynamic;
         $q_ = null as dynamic;
         $counter__0 = $counter;
         for (;;) {
           $name = $temp_file_name($temp_dir, $prefix, $suffix);
           try {
-            $q_ =
-              Vector{
-                0,
-                $name,
-                $call3(
-                  $Stdlib[62],
-                  Vector{0, 1, Vector{0, 3, Vector{0, 5, $mode}}},
-                  $perms,
-                  $name
-                )
-              } as dynamic;
+            $q_ = Vector{
+              0,
+              $name,
+              $call3(
+                $Stdlib[62],
+                Vector{0, 1, Vector{0, 3, Vector{0, 5, $mode}}},
+                $perms,
+                $name
+              )
+            } as dynamic;
             return $q_;
           }
           catch(\Throwable $e) {

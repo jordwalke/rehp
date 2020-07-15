@@ -9,14 +9,14 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
+var caml_marshal_data_size = runtime["caml_marshal_data_size"];
+var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
+var string = runtime["caml_new_string"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
 }
 
-var caml_marshal_data_size = runtime["caml_marshal_data_size"];
-var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
-var string = runtime["caml_new_string"];
 var cst_Marshal_from_bytes = string("Marshal.from_bytes");
 var cst_Marshal_from_bytes__0 = string("Marshal.from_bytes");
 var cst_Marshal_data_size = string("Marshal.data_size");
@@ -50,10 +50,9 @@ function data_size(buff, ofs) {
 function total_size(buff, ofs) {return 20 + data_size(buff, ofs) | 0;}
 
 function from_bytes(buff, ofs) {
-  var len;
   if (0 <= ofs) {
     if (! ((caml_ml_bytes_length(buff) - 20 | 0) < ofs)) {
-      len = caml_marshal_data_size(buff, ofs);
+      var len = caml_marshal_data_size(buff, ofs);
       return (caml_ml_bytes_length(buff) - (20 + len | 0) | 0) < ofs ?
         call1(Stdlib[1], cst_Marshal_from_bytes__0) :
         runtime["caml_input_value_from_bytes"](buff, ofs);

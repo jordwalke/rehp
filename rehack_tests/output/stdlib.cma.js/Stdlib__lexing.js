@@ -9,6 +9,11 @@
 "use strict";
 
 var runtime = require("../runtime/runtime.js");
+var caml_bytes_get = runtime["caml_bytes_get"];
+var caml_check_bound = runtime["caml_check_bound"];
+var caml_create_bytes = runtime["caml_create_bytes"];
+var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
+var string = runtime["caml_new_string"];
 
 function call1(f, a0) {
   return f.length === 1 ? f(a0) : runtime["caml_call_gen"](f, [a0]);
@@ -36,11 +41,6 @@ function call5(f, a0, a1, a2, a3, a4) {
     runtime["caml_call_gen"](f, [a0,a1,a2,a3,a4]);
 }
 
-var caml_bytes_get = runtime["caml_bytes_get"];
-var caml_check_bound = runtime["caml_check_bound"];
-var caml_create_bytes = runtime["caml_create_bytes"];
-var caml_ml_bytes_length = runtime["caml_ml_bytes_length"];
-var string = runtime["caml_new_string"];
 var cst_Lexing_lex_refill_cannot_grow_buffer = string(
   "Lexing.lex_refill: cannot grow buffer"
 );
@@ -51,45 +51,33 @@ var Stdlib = require("./Stdlib.js");
 var Stdlib_sys = require("./Stdlib__sys.js");
 
 function engine(tbl, state, buf) {
-  var I_;
   var result = runtime["caml_lex_engine"](tbl, state, buf);
   var G_ = 0 <= result ? 1 : 0;
   var H_ = G_ ? buf[12] !== dummy_pos ? 1 : 0 : G_;
   if (H_) {
     buf[11] = buf[12];
-    I_ = buf[12];
+    var I_ = buf[12];
     buf[12] = [0,I_[1],I_[2],I_[3],buf[4] + buf[6] | 0];
   }
   return result;
 }
 
 function new_engine(tbl, state, buf) {
-  var F_;
   var result = runtime["caml_new_lex_engine"](tbl, state, buf);
   var D_ = 0 <= result ? 1 : 0;
   var E_ = D_ ? buf[12] !== dummy_pos ? 1 : 0 : D_;
   if (E_) {
     buf[11] = buf[12];
-    F_ = buf[12];
+    var F_ = buf[12];
     buf[12] = [0,F_[1],F_[2],F_[3],buf[4] + buf[6] | 0];
   }
   return result;
 }
 
 function lex_refill(read_fun, aux_buffer, lexbuf) {
-  var n;
-  var s;
-  var t;
-  var A_;
-  var B_;
-  var i;
-  var v;
-  var C_;
-  var newlen;
-  var newbuf;
   var read = call2(read_fun, aux_buffer, caml_ml_bytes_length(aux_buffer));
-  if (0 < read) n = read;
-  else {lexbuf[9] = 1;n = 0;}
+  if (0 < read) var n = read;
+  else {lexbuf[9] = 1;var n = 0;}
   if (caml_ml_bytes_length(lexbuf[2]) < (lexbuf[3] + n | 0)) {
     if (
       ((lexbuf[3] - lexbuf[5] | 0) + n | 0) <= caml_ml_bytes_length(lexbuf[2])
@@ -102,16 +90,15 @@ function lex_refill(read_fun, aux_buffer, lexbuf) {
       lexbuf[3] - lexbuf[5] | 0
     );
     else {
-      newlen =
-        call2(
-          Stdlib[16],
-          2 * caml_ml_bytes_length(lexbuf[2]) | 0,
-          Stdlib_sys[13]
-        );
+      var newlen = call2(
+        Stdlib[16],
+        2 * caml_ml_bytes_length(lexbuf[2]) | 0,
+        Stdlib_sys[13]
+      );
       if (newlen < ((lexbuf[3] - lexbuf[5] | 0) + n | 0)) {
         call1(Stdlib[2], cst_Lexing_lex_refill_cannot_grow_buffer);
       }
-      newbuf = caml_create_bytes(newlen);
+      var newbuf = caml_create_bytes(newlen);
       call5(
         Stdlib_bytes[11],
         lexbuf[2],
@@ -122,22 +109,22 @@ function lex_refill(read_fun, aux_buffer, lexbuf) {
       );
       lexbuf[2] = newbuf;
     }
-    s = lexbuf[5];
+    var s = lexbuf[5];
     lexbuf[4] = lexbuf[4] + s | 0;
     lexbuf[6] = lexbuf[6] - s | 0;
     lexbuf[5] = 0;
     lexbuf[7] = lexbuf[7] - s | 0;
     lexbuf[3] = lexbuf[3] - s | 0;
-    t = lexbuf[10];
-    B_ = t.length - 1 + -1 | 0;
-    A_ = 0;
+    var t = lexbuf[10];
+    var B_ = t.length - 1 + -1 | 0;
+    var A_ = 0;
     if (! (B_ < 0)) {
-      i = A_;
+      var i = A_;
       for (; ; ) {
-        v = caml_check_bound(t, i)[i + 1];
+        var v = caml_check_bound(t, i)[i + 1];
         if (0 <= v) {caml_check_bound(t, i)[i + 1] = v - s | 0;}
-        C_ = i + 1 | 0;
-        if (B_ !== i) {i = C_;continue;}
+        var C_ = i + 1 | 0;
+        if (B_ !== i) {var i = C_;continue;}
         break;
       }
     }
@@ -148,13 +135,11 @@ function lex_refill(read_fun, aux_buffer, lexbuf) {
 }
 
 function from_function(opt, f) {
-  var with_positions;
-  var sth;
   if (opt) {
-    sth = opt[1];
-    with_positions = sth;
+    var sth = opt[1];
+    var with_positions = sth;
   }
-  else with_positions = 1;
+  else var with_positions = 1;
   var n_ = with_positions ? zero_pos : dummy_pos;
   var o_ = with_positions ? zero_pos : dummy_pos;
   var p_ = [0];
@@ -192,13 +177,11 @@ function from_channel(with_positions, ic) {
 }
 
 function from_string(opt, s) {
-  var with_positions;
-  var sth;
   if (opt) {
-    sth = opt[1];
-    with_positions = sth;
+    var sth = opt[1];
+    var with_positions = sth;
   }
-  else with_positions = 1;
+  else var with_positions = 1;
   var c_ = with_positions ? zero_pos : dummy_pos;
   var d_ = with_positions ? zero_pos : dummy_pos;
   var e_ = [0];
@@ -240,9 +223,8 @@ function sub_lexeme(lexbuf, i1, i2) {
 }
 
 function sub_lexeme_opt(lexbuf, i1, i2) {
-  var len;
   if (0 <= i1) {
-    len = i2 - i1 | 0;
+    var len = i2 - i1 | 0;
     return [0,call3(Stdlib_bytes[8], lexbuf[2], i1, len)];
   }
   return 0;
@@ -267,14 +249,13 @@ function lexeme_start_p(lexbuf) {return lexbuf[11];}
 function lexeme_end_p(lexbuf) {return lexbuf[12];}
 
 function new_line(lexbuf) {
-  var b_;
   var lcp = lexbuf[12];
   var a_ = lcp !== dummy_pos ? 1 : 0;
   if (a_) {
     lexbuf[12] = [0,lcp[1],lcp[2] + 1 | 0,lcp[4],lcp[4]];
-    b_ = 0;
+    var b_ = 0;
   }
-  else b_ = a_;
+  else var b_ = a_;
   return b_;
 }
 

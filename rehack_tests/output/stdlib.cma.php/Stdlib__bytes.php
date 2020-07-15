@@ -80,8 +80,8 @@ final class Stdlib__bytes {
       return $s;
     };
     $init = (dynamic $n, dynamic $f) : dynamic ==> {
-      $i = null as dynamic;
       $aN_ = null as dynamic;
+      $i = null as dynamic;
       $s = $caml_create_bytes($n);
       $aM_ = (int) ($n + -1) as dynamic;
       $aL_ = 0 as dynamic;
@@ -135,11 +135,11 @@ final class Stdlib__bytes {
       return $switch__0 ? $call1($Stdlib[1], $cst_Bytes_extend) : ($c);
     };
     $extend = (dynamic $s, dynamic $left, dynamic $right) : dynamic ==> {
-      $srcoff = null as dynamic;
-      $dstoff = null as dynamic;
-      $srcoff__0 = null as dynamic;
       $aI_ = null as dynamic;
       $aJ_ = null as dynamic;
+      $dstoff = null as dynamic;
+      $srcoff = null as dynamic;
+      $srcoff__0 = null as dynamic;
       $len = $symbol($symbol($caml_ml_bytes_length($s), $left), $right);
       $r = $caml_create_bytes($len);
       if (0 <= $left) {
@@ -211,8 +211,8 @@ final class Stdlib__bytes {
       return $call1($Stdlib[1], $cst_String_blit_Bytes_blit_string);
     };
     $iter = (dynamic $f, dynamic $a) : dynamic ==> {
-      $i = null as dynamic;
       $aH_ = null as dynamic;
+      $i = null as dynamic;
       $aG_ = (int) ($caml_ml_bytes_length($a) + -1) as dynamic;
       $aF_ = 0 as dynamic;
       if (! ($aG_ < 0)) {
@@ -227,8 +227,8 @@ final class Stdlib__bytes {
       return 0;
     };
     $iteri = (dynamic $f, dynamic $a) : dynamic ==> {
-      $i = null as dynamic;
       $aE_ = null as dynamic;
+      $i = null as dynamic;
       $aD_ = (int) ($caml_ml_bytes_length($a) + -1) as dynamic;
       $aC_ = 0 as dynamic;
       if (! ($aD_ < 0)) {
@@ -256,12 +256,11 @@ final class Stdlib__bytes {
           $aA_ = $param__0[2];
           $aB_ = $param__0[1];
           if ($aA_) {
-            $acc__1 =
-              $ensure_ge(
-                (int)
-                ((int) ($caml_ml_bytes_length($aB_) + $seplen) + $acc__0),
-                $acc__0
-              );
+            $acc__1 = $ensure_ge(
+              (int)
+              ((int) ($caml_ml_bytes_length($aB_) + $seplen) + $acc__0),
+              $acc__0
+            );
             $acc__0 = $acc__1;
             $param__0 = $aA_;
             continue;
@@ -298,9 +297,8 @@ final class Stdlib__bytes {
               ($pos__0 + $caml_ml_bytes_length($az_)),
               $seplen
             );
-            $pos__1 =
-              (int)
-              ((int) ($pos__0 + $caml_ml_bytes_length($az_)) + $seplen) as dynamic;
+            $pos__1 = (int)
+            ((int) ($pos__0 + $caml_ml_bytes_length($az_)) + $seplen) as dynamic;
             $pos__0 = $pos__1;
             $param__0 = $ay_;
             continue;
@@ -361,14 +359,14 @@ final class Stdlib__bytes {
       }
     };
     $escaped = (dynamic $s) : dynamic ==> {
-      $i = null as dynamic;
-      $c = null as dynamic;
       $at_ = null as dynamic;
-      $i__0 = null as dynamic;
-      $match = null as dynamic;
       $au_ = null as dynamic;
       $av_ = null as dynamic;
       $aw_ = null as dynamic;
+      $c = null as dynamic;
+      $i = null as dynamic;
+      $i__0 = null as dynamic;
+      $match = null as dynamic;
       $switch__0 = null as dynamic;
       $switch__1 = null as dynamic;
       $switch__2 = null as dynamic;
@@ -395,8 +393,9 @@ final class Stdlib__bytes {
             if ($switch__1) {$av_ = 1 as dynamic;$switch__0 = 2 as dynamic;}
           }
           else {
-            $switch__0 =
-              11 <= $match ? 13 === $match ? 1 : (0) : (8 <= $match ? 1 : (0));
+            $switch__0 = 11 <= $match
+              ? 13 === $match ? 1 : (0)
+              : (8 <= $match ? 1 : (0));
           }
           switch($switch__0) {
             // FALLTHROUGH
@@ -517,8 +516,8 @@ final class Stdlib__bytes {
       return $s__0;
     };
     $map = (dynamic $f, dynamic $s) : dynamic ==> {
-      $i = null as dynamic;
       $ao_ = null as dynamic;
+      $i = null as dynamic;
       $l = $caml_ml_bytes_length($s);
       if (0 === $l) {return $s;}
       $r = $caml_create_bytes($l);
@@ -540,8 +539,8 @@ final class Stdlib__bytes {
       return $r;
     };
     $mapi = (dynamic $f, dynamic $s) : dynamic ==> {
-      $i = null as dynamic;
       $al_ = null as dynamic;
+      $i = null as dynamic;
       $l = $caml_ml_bytes_length($s);
       if (0 === $l) {return $s;}
       $r = $caml_create_bytes($l);

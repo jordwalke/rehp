@@ -26,8 +26,8 @@ final class Stdlib__spacetime {
       return $enabled ? $call1($f, 0) : (0);
     };
     $create = (dynamic $path) : dynamic ==> {
-      $t = null as dynamic;
       $channel = null as dynamic;
+      $t = null as dynamic;
       if ($caml_spacetime_enabled(0)) {
         $channel = $call1($Stdlib[60], $path);
         $t = Vector{0, $channel, 0} as dynamic;
