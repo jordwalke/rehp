@@ -16,6 +16,7 @@ type output = {
    * be bound by a higher containing term).
    */
   use: vars,
+  refs: vars,
   freeLabels: list(string),
 };
 

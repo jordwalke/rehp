@@ -71,6 +71,7 @@ final class Stdlib__genlex {
       $maybe_comment = new Ref();
       $maybe_end_comment = new Ref();
       $maybe_nested_comment = new Ref();
+      $string = new Ref();
       $kwd_table = $call2($Stdlib_hashtbl[1], 0, 17);
       $a_ = (dynamic $s) : dynamic ==> {
         return $call3($Stdlib_hashtbl[5], $kwd_table, $s, Vector{0, $s});

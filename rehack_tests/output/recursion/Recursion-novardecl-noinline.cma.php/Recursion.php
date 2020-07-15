@@ -27,6 +27,7 @@ final class Recursion {
       return $sub->contents($x);
     };
     $bug = (dynamic $x) : dynamic ==> {
+      $sub = new Ref();
       if (0 === $x) {
         $sub->contents = (dynamic $x) : dynamic ==> {
           return (int) (1 + $sub->contents($x));
@@ -47,6 +48,7 @@ final class Recursion {
     };
     $M = Vector{0, $bug__0} as dynamic;
     $bug2 = (dynamic $param) : dynamic ==> {
+      $sub = new Ref();
       $k = Vector{0, 0} as dynamic;
       $x = 0 as dynamic;
       for (;;) {
@@ -61,6 +63,7 @@ final class Recursion {
       }
     };
     $bug3 = (dynamic $param) : dynamic ==> {
+      $sub = new Ref();
       $k = Vector{0, 0} as dynamic;
       $x = 0 as dynamic;
       for (;;) {
