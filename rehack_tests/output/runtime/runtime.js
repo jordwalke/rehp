@@ -2500,6 +2500,16 @@ function caml_ba_uint8_get32(ba, i0) {
 
 function bigstring_to_array_buffer(bs) {return bs.data.buffer;}
 
+function caml_js_object_args() {
+  var o = {};
+  for (var i = 0; i < arguments.length; i += 2) {
+    var k = a[i];
+    var v = a[i + 1];
+    o[k.toString()] = v;
+  }
+  return o;
+}
+
 function caml_mod(x, y) {if (y == 0) {caml_raise_zero_divide();}return x % y;}
 
 function caml_obj_block(tag, size) {
@@ -3080,11 +3090,14 @@ var caml_output_val = function() {
         return this.chunk;
       }
     };
+  var hasIsArray = "isArray" in Array;
   return function(v) {
     var writer = new Writer();
     var stack = [];
     function extern_rec(v) {
-      if (v instanceof Array && v[0] === (v[0] | 0)) {
+      if (
+        (hasIsArray ? Array.isArray(v) : v instanceof Array) && v[0] === (v[0] | 0)
+      ) {
         if (v[0] == 255) {
           writer.write(8, 18);
           for (var i = 0; i < 3; i++) writer.write(8, "_j\0".charCodeAt(i));
@@ -5156,6 +5169,7 @@ joo_global_object.jsoo_runtime =
     caml_CamlinternalMod_update_mod: caml_CamlinternalMod_update_mod,
     caml_CamlinternalMod_init_mod: caml_CamlinternalMod_init_mod,
     caml_js_export_var: caml_js_export_var,
+    caml_js_object_args: caml_js_object_args,
     caml_js_object: caml_js_object,
     caml_pure_js_expr: caml_pure_js_expr,
     caml_js_raw_expr: caml_js_raw_expr,

@@ -71,6 +71,7 @@ final class Runtime {
          "caml_CamlinternalMod_init_mod"=>
          $caml_CamlinternalMod_init_mod->contents,
          "caml_js_export_var"=>$caml_js_export_var->contents,
+         "caml_js_object_args"=>$caml_js_object_args->contents,
          "caml_js_object"=>$caml_js_object->contents,
          "caml_pure_js_expr"=>$caml_pure_js_expr->contents,
          "caml_js_raw_expr"=>$caml_js_raw_expr->contents,
