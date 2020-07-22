@@ -16,17 +16,26 @@ module Expand = {
 
 let indent = {contents: 0};
 
-type vars = {
-  names: StringMap.t(int),
-  vars: Code.Var.Map.t(int),
-};
+type vars = Id.IdentSet.t;
+let emptyVars = Id.IdentSet.empty;
+let exists = Id.IdentSet.mem;
+let addVar = Id.IdentSet.add;
+let isEmpty = Id.IdentSet.is_empty;
+let mergeVars = Id.IdentSet.union;
+let remove = Id.IdentSet.diff;
+let getNames = vars =>
+  Id.IdentSet.fold(
+    (id, li) =>
+      switch (id) {
+      | Id.S({name, _}) => [name, ...li]
+      | V(_) => li
+      },
+    vars,
+    [],
+  );
 
 let debugVars = false;
-let string_of_vars = vars =>
-  String.concat(
-    ",",
-    List.map(e => fst(e), StringMap.bindings(vars.names)),
-  );
+let string_of_vars = vars => String.concat(",", getNames(vars));
 
 type continueKind =
   | NoContinue
@@ -209,86 +218,12 @@ let binopFromRehp = binop =>
   | FloatMod => Mod
   };
 
-let emptyVars = {names: StringMap.empty, vars: Code.Var.Map.empty};
 let emptyOutput = {
   dec: emptyVars,
   use: emptyVars,
   refs: emptyVars,
   freeLabels: [],
 };
-
-let exists = (vars, id) =>
-  switch (id) {
-  | Id.S({name: s, _}) => StringMap.mem(s, vars.names)
-  | V(v) => Code.Var.Map.mem(v, vars.vars)
-  };
-
-/*
- * It's become clear we're really using these as a set, not a map
- */
-let addVar = (varsAndNames, v) =>
-  if (exists(varsAndNames, v)) {
-    varsAndNames;
-  } else {
-    switch (v) {
-    | Id.S({name, _}) => {
-        vars: varsAndNames.vars,
-        names: StringMap.add(name, 1, varsAndNames.names),
-      }
-    | V(v) => {
-        names: varsAndNames.names,
-        vars: Code.Var.Map.add(v, 1, varsAndNames.vars),
-      }
-    };
-  };
-
-let mergeSum = (_k, count1, count2) =>
-  switch (count1, count2) {
-  | (None, None) => None /* Okay, what situation is this? */
-  | (Some(_), None) => Some(1)
-  | (None, Some(_)) => Some(1)
-  | (Some(_), Some(_)) => Some(1)
-  };
-
-let isEmpty = (vars: vars) =>
-  Code.Var.Map.is_empty(vars.vars) && StringMap.is_empty(vars.names);
-
-let mergeVars = (vars: vars, next: vars): vars => {
-  vars: Code.Var.Map.merge(mergeSum, vars.vars, next.vars),
-  names: StringMap.merge(mergeSum, vars.names, next.names),
-};
-
-/*
- * TODO: Always remove zerod out values.
- */
-let remove = (vars: vars, remove: vars): vars => {
-  vars:
-    Code.Var.Map.filter(
-      (k, _) => !Code.Var.Map.mem(k, remove.vars),
-      vars.vars,
-    ),
-  names:
-    StringMap.filter((k, _) => !StringMap.mem(k, remove.names), vars.names),
-};
-
-let intersect = (vars: vars, intersectWith: vars): vars => {
-  vars:
-    Code.Var.Map.filter(
-      (k, _) => Code.Var.Map.mem(k, intersectWith.vars),
-      vars.vars,
-    ),
-  names:
-    StringMap.filter(
-      (k, _) => StringMap.mem(k, intersectWith.names),
-      vars.names,
-    ),
-};
-
-let exists = (vars: vars, id) =>
-  switch (id) {
-  | Id.S({name: s, _}) => StringMap.mem(s, vars.names)
-  | V(v) => Code.Var.Map.mem(v, vars.vars)
-  };
 
 let mergeOutputs = (a, b) => {
   dec: mergeVars(a.dec, b.dec),
@@ -309,7 +244,7 @@ let createInitializer = name => (
   Loc.N,
 );
 
-let createRef = ((name, _)) => {
+let createRef = name => {
   let newRef = Php.ENew(EVar(Id.S({name: "Ref", var: None, loc: N})), None);
   (
     Php.EVar(Id.S({name: identStr(name), var: None, loc: N})),
@@ -481,10 +416,10 @@ let rec expression = (input, x) =>
   /* TODO: Come up with suitable alternative for PHP */
   | Rehp.EVar(Id.S({name: "undefined", _})) => (emptyOutput, Php.ENULL)
   | Rehp.EVar(v) =>
-    let output = {...emptyOutput, use: addVar(emptyVars, v)};
+    let output = {...emptyOutput, use: addVar(v, emptyVars)};
     (
       output,
-      if (exists(input.vars, v)) {
+      if (exists(v, input.vars)) {
         EVar(ident(input, v));
       } else {
         EDot(EVar(ident(input, v)), "contents");
@@ -492,7 +427,12 @@ let rec expression = (input, x) =>
     );
   | Rehp.EFun((idopt, params, body, nid)) =>
     /* New vars scoped to the body of function */
-    let paramVars = List.fold_left(~f=addVar, ~init=emptyVars, params);
+    let paramVars =
+      List.fold_left(
+        ~f=(vars, id) => addVar(id, vars),
+        ~init=emptyVars,
+        params,
+      );
     /*
      * Rehp intermediate representation assumes that EFun's identifier (which
      * is almost always omitted in practice) may only be available to the
@@ -517,8 +457,8 @@ let rec expression = (input, x) =>
 
     let bodyUsesFromOutsideIdents =
       List.map(
-        ~f=((k, _)) => Id.ident(identStr(~ref=false, k)),
-        StringMap.bindings(bodyUsesFromOutside.names),
+        ~f=k => Id.ident(identStr(~ref=false, k)),
+        getNames(bodyUsesFromOutside),
       );
 
     (
@@ -855,15 +795,15 @@ and foldVars =
     let (nextOutput, input, mapped) =
       switch (rhs) {
       | None =>
-        if (exists(output.use, id)) {
+        if (exists(id, output.use)) {
           let mapped = (
             Php.EVar(identMapped),
             Some((Php.EVar(identMapped), Loc.N)),
           );
           (output, input, mapped);
         } else {
-          let nextOutput = {...output, dec: addVar(output.dec, id)};
-          let input = {...input, vars: addVar(input.vars, id)};
+          let nextOutput = {...output, dec: addVar(id, output.dec)};
+          let input = {...input, vars: addVar(id, input.vars)};
           let mapped = (Php.EVar(identMapped), None);
           (nextOutput, input, mapped);
         }
@@ -877,12 +817,12 @@ and foldVars =
          * Ref since Hack does not allow variables to reference themselves
          * inside their own declaration.
          */
-        if (!exists(output.dec, id)
-            && (exists(output.use, id) || exists(rhsOutput.use, id))) {
+        if (!exists(id, output.dec)
+            && (exists(id, output.use) || exists(id, rhsOutput.use))) {
           let nextOutput = mergeOutputs(output, rhsOutput);
           let nextOutput = {
             ...nextOutput,
-            refs: addVar(nextOutput.refs, id),
+            refs: addVar(id, nextOutput.refs),
           };
           let dummy = (
             Php.EDot(EVar(identMapped), "contents"),
@@ -891,8 +831,8 @@ and foldVars =
           (nextOutput, input, dummy);
         } else {
           let nextOutput = mergeOutputs(output, rhsOutput);
-          let nextOutput = {...nextOutput, dec: addVar(nextOutput.dec, id)};
-          let input = {...input, vars: addVar(input.vars, id)};
+          let nextOutput = {...nextOutput, dec: addVar(id, nextOutput.dec)};
+          let input = {...input, vars: addVar(id, input.vars)};
           let mapped = (Php.EVar(identMapped), Some((rhsMapped, loc)));
           (nextOutput, input, mapped);
         };
@@ -1011,7 +951,7 @@ and statement = (output, input, x) => {
        */
       let identAndStatements = ((idnt, st)) => {
         let identMapped = ident(input, idnt);
-        let addedVars = addVar(emptyVars, idnt);
+        let addedVars = addVar(idnt, emptyVars);
         let augmentedInput = {
           vars: mergeVars(input.vars, addedVars),
           enclosedBy: input.enclosedBy,
@@ -1159,12 +1099,12 @@ and getTopLevelVars =
         switch (s) {
         | Rehp.Statement(Variable_statement(li)) =>
           List.fold_left(
-            ~f=(topLevelVars, (id, _)) => addVar(topLevelVars, id),
+            ~f=(topLevelVars, (id, _)) => addVar(id, topLevelVars),
             ~init=topLevelVars,
             li,
           )
         | Rehp.Function_declaration((id, _, _, _)) =>
-          addVar(topLevelVars, id)
+          addVar(id, topLevelVars)
         | _ => topLevelVars
         },
     ~init=emptyVars,
@@ -1194,11 +1134,9 @@ and sources = (output, input, x) => {
         let toHoist = remove(toHoist, topLevelVars);
         if (!isEmpty(toHoist)) {
           List.fold_left(
-            ~f=
-              (mappeds, (name, _)) =>
-                [createInitializer(name), ...mappeds],
+            ~f=(mappeds, name) => [createInitializer(name), ...mappeds],
             ~init=mappeds,
-            List.rev(StringMap.bindings(toHoist.names)),
+            getNames(toHoist),
           );
         } else {
           mappeds;
@@ -1218,9 +1156,9 @@ and sources = (output, input, x) => {
       mappeds,
     );
   } else {
-    let identsAndInits = StringMap.bindings(nextOutput.refs.names);
+    let identsAndInits = getNames(nextOutput.refs);
     let refs = List.map(~f=createRef, identsAndInits);
-    let refDecls = Php.Statement(Variable_statement(refs));
+    let refDecls = Php.Statement(Variable_statement(List.rev(refs)));
     /*
      * EFun will remove the used variables that are in dec.
      */

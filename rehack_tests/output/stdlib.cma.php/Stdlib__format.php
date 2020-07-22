@@ -153,6 +153,7 @@ final class Stdlib__format {
       $cO_ = null as dynamic;
       $length = null as dynamic;
       $match__0 = null as dynamic;
+      $size = null as dynamic;
       $match = $call1($Stdlib_queue[6], $state[28]);
       if ($match) {
         $match__0 = $match[1];
@@ -392,6 +393,7 @@ final class Stdlib__format {
       $match = null as dynamic;
       $match__0 = null as dynamic;
       $pending_count = null as dynamic;
+      $size = null as dynamic;
       $size__0 = null as dynamic;
       $token = null as dynamic;
       for (;;) {
@@ -442,6 +444,7 @@ final class Stdlib__format {
       $left_total = null as dynamic;
       $match__0 = null as dynamic;
       $queue_elem = null as dynamic;
+      $size = null as dynamic;
       $match = $call1($Stdlib_stack[7], $state[1]);
       if ($match) {
         $match__0 = $match[1];
@@ -487,6 +490,7 @@ final class Stdlib__format {
     };
     $pp_open_box_gen = (dynamic $state, dynamic $indent, dynamic $br_ty) : dynamic ==> {
       $elem = null as dynamic;
+      $size = null as dynamic;
       $state[14] = (int) ($state[14] + 1);
       if ($state[14] < $state[15]) {
         $size = $id((int) - $state[13]);
@@ -665,6 +669,7 @@ final class Stdlib__format {
     $pp_print_custom_break = (dynamic $state, dynamic $fits, dynamic $breaks) : dynamic ==> {
       $elem = null as dynamic;
       $length = null as dynamic;
+      $size = null as dynamic;
       $token = null as dynamic;
       $after = $fits[3];
       $width = $fits[2];
@@ -724,6 +729,7 @@ final class Stdlib__format {
     };
     $pp_print_tbreak = (dynamic $state, dynamic $width, dynamic $offset) : dynamic ==> {
       $elem = null as dynamic;
+      $size = null as dynamic;
       $cj_ = $state[14] < $state[15] ? 1 : (0);
       if ($cj_) {
         $size = $id((int) - $state[13]);
@@ -1433,6 +1439,7 @@ final class Stdlib__format {
       $p__6 = null as dynamic;
       $s = null as dynamic;
       $s__0 = null as dynamic;
+      $size = null as dynamic;
       $size__0 = null as dynamic;
       $switch__0 = null as dynamic;
       $switch__1 = null as dynamic;
@@ -1715,6 +1722,7 @@ final class Stdlib__format {
       $p__6 = null as dynamic;
       $s = null as dynamic;
       $s__0 = null as dynamic;
+      $size = null as dynamic;
       $size__0 = null as dynamic;
       $size__1 = null as dynamic;
       $switch__0 = null as dynamic;

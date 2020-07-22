@@ -3912,6 +3912,7 @@ final class CamlinternalFormat {
       $fmtty_rest__8 = null as dynamic;
       $fmtty_rest__9 = null as dynamic;
       $formatting_gen = null as dynamic;
+      $formatting_lit = null as dynamic;
       $iconv = null as dynamic;
       $iconv__0 = null as dynamic;
       $iconv__1 = null as dynamic;
@@ -5276,6 +5277,7 @@ final class CamlinternalFormat {
           $c3_ = null as dynamic;
           $i__1 = null as dynamic;
           $match = null as dynamic;
+          $switch__0 = null as dynamic;
           $i__0 = $i;
           for (;;) {
             if ($i__0 === $len) {return 0;}
@@ -8482,6 +8484,7 @@ final class CamlinternalFormat {
         $aB_ = null as dynamic;
         $az_ = null as dynamic;
         $fmt_rest = null as dynamic;
+        $formatting_lit = null as dynamic;
         $match = null as dynamic;
         $match__0 = null as dynamic;
         $match__2 = null as dynamic;
@@ -8839,6 +8842,7 @@ final class CamlinternalFormat {
       };
       $check_open_box->contents = (dynamic $fmt) : dynamic ==> {
         $ao_ = null as dynamic;
+        $str = null as dynamic;
         if (! $is_int($fmt) && 11 === $fmt[0]) {
           if ($is_int($fmt[2])) {
             $str = $fmt[1];

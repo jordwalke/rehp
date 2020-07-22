@@ -4,10 +4,7 @@
 
 /* Variables counts defined in scope. Maintain invariant that only holds
  * non-zero counts. */
-type vars = {
-  names: Stdlib.StringMap.t(int),
-  vars: Code.Var.Map.t(int),
-};
+type vars;
 
 type output = {
   dec: vars,
@@ -29,7 +26,7 @@ type input = {
   vars,
   enclosedBy,
 };
-let addVar: (vars, Id.t) => vars;
+let addVar: (Id.t, vars) => vars;
 let emptyVars: vars;
 let expression: (input, Rehp.expression) => (output, Php.expression);
 let statement: (output, input, Rehp.statement) => (output, Php.statement);

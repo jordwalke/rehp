@@ -458,6 +458,7 @@ final class Stdlib__arg {
                 }
                 $no_arg__0 = (dynamic $s, dynamic $follow) : dynamic ==> {
                   $no_arg = (dynamic $param) : dynamic ==> {
+                    $arg = null as dynamic;
                     if ($follow) {
                       $arg = $follow[1];
                       throw $caml_wrap_thrown_exception(
@@ -472,6 +473,7 @@ final class Stdlib__arg {
                 $get_arg__0 = (dynamic $s, dynamic $follow) : dynamic ==> {
                   $get_arg = (dynamic $param) : dynamic ==> {
                     $ac_ = null as dynamic;
+                    $arg = null as dynamic;
                     if ($follow) {$arg = $follow[1];return $arg;}
                     if ((int) ($current[1] + 1) < $argv[1]->count() - 1) {
                       $ac_ = (int) ($current[1] + 1) as dynamic;
@@ -500,6 +502,7 @@ final class Stdlib__arg {
                     $aa_ = null as dynamic;
                     $ab_ = null as dynamic;
                     $after = null as dynamic;
+                    $arg = null as dynamic;
                     $arg__0 = null as dynamic;
                     $arg__1 = null as dynamic;
                     $arg__2 = null as dynamic;
@@ -516,6 +519,7 @@ final class Stdlib__arg {
                     $f__4 = null as dynamic;
                     $f__5 = null as dynamic;
                     $f__6 = null as dynamic;
+                    $match = null as dynamic;
                     $match__0 = null as dynamic;
                     $match__1 = null as dynamic;
                     $match__2 = null as dynamic;

@@ -1294,6 +1294,7 @@ final class Stdlib__ephemeron {
           $fill = (dynamic $a, dynamic $i) : dynamic ==> {
             $i__1 = null as dynamic;
             $ki = null as dynamic;
+            $match = null as dynamic;
             $i__0 = $i;
             for (;;) {
               if (1 <= $i__0) {
