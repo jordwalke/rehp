@@ -256,6 +256,7 @@ final class Stdlib__stream {
       }
     };
     $junk = (dynamic $param) : dynamic ==> {
+      $data = null as dynamic;
       if ($param) {$data = $param[1];return $junk_data($data);}
       return 0;
     };

@@ -772,6 +772,7 @@ final class Stdlib__list {
     };
     $partition = (dynamic $p, dynamic $l) : dynamic ==> {
       $part = (dynamic $yes, dynamic $no, dynamic $param) : dynamic ==> {
+        $l = null as dynamic;
         $no__1 = null as dynamic;
         $v_ = null as dynamic;
         $x = null as dynamic;

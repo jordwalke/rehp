@@ -289,7 +289,7 @@ let output =
       ~source_map=?,
       ((rehp, module_export_metadatas), linkinfos),
     ) => {
-  let addOneStr = (env, name) => Php_from_rehp.addVar(env, Id.ident(name));
+  let addOneStr = (env, name) => Php_from_rehp.addVar(Id.ident(name), env);
 
   /* let missing = StringSet.diff(used, languageProvided); */
 

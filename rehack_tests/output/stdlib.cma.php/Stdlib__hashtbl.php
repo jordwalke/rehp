@@ -158,6 +158,9 @@ final class Stdlib__hashtbl {
         $data = $param[2];
         $next = $param[3];
         $loop = (dynamic $prec, dynamic $param) : dynamic ==> {
+          $data = null as dynamic;
+          $key = null as dynamic;
+          $next = null as dynamic;
           $r = null as dynamic;
           $prec__0 = $prec;
           $param__0 = $param;

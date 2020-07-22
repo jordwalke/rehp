@@ -353,7 +353,7 @@ final class Stdlib__genlex {
                     case 34:
                       $call1($Stdlib_stream[12], $strm);
                       $reset_buffer(0);
-                      return Vector{0, Vector{4, $string($strm)}};
+                      return Vector{0, Vector{4, $string->contents($strm)}};
                     // FALLTHROUGH
                     case 39:
                       $call1($Stdlib_stream[12], $strm);

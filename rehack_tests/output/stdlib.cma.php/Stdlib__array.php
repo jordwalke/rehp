@@ -302,6 +302,7 @@ final class Stdlib__array {
     };
     $of_list = (dynamic $l) : dynamic ==> {
       $a = null as dynamic;
+      $fill = null as dynamic;
       $hd = null as dynamic;
       $tl = null as dynamic;
       if ($l) {
@@ -309,6 +310,7 @@ final class Stdlib__array {
         $hd = $l[1];
         $a = $caml_make_vect($list_length(0, $l), $hd);
         $fill = (dynamic $i, dynamic $param) : dynamic ==> {
+          $hd = null as dynamic;
           $i__1 = null as dynamic;
           $param__1 = null as dynamic;
           $i__0 = $i;
@@ -767,6 +769,7 @@ final class Stdlib__array {
     };
     $of_rev_list = (dynamic $l) : dynamic ==> {
       $a = null as dynamic;
+      $fill = null as dynamic;
       $hd = null as dynamic;
       $len = null as dynamic;
       $tl = null as dynamic;
@@ -776,6 +779,7 @@ final class Stdlib__array {
         $len = $list_length(0, $l);
         $a = $caml_make_vect($len, $hd);
         $fill = (dynamic $i, dynamic $param) : dynamic ==> {
+          $hd = null as dynamic;
           $i__1 = null as dynamic;
           $param__1 = null as dynamic;
           $i__0 = $i;
