@@ -115,7 +115,10 @@ and from_expression = e =>
   | EAccess(e1, e2) =>
     Javascript.EAccess(from_expression(e1), from_expression(e2))
   | EStructAccess(e, i) =>
-    Javascript.EAccess(from_expression(e), Javascript.ENum(float_of_int(i)))
+    Javascript.EAccess(
+      from_expression(e),
+      Javascript.ENum(float_of_int(i)),
+    )
   | EArrAccess(e1, e2) =>
     Javascript.EAccess(from_expression(e1), from_expression(e2))
   | EVectlength(e) =>
@@ -146,6 +149,10 @@ and from_expression = e =>
   | EInt(i) => ENum(float_of_int(i))
   | EQuote(s) => EQuote(s)
   | ERegexp(s, sopt) => ERegexp(s, sopt)
+  | ECustomRequire(_) => failwith("ECustonRequire not supported for JS")
+  | ECustomRegister(_) => failwith("ECustonRegister not supported for JS")
+  | ERequire(_) => failwith("ERequire not supported for JS")
+  | ERuntime => failwith("ERuntime not supported for JS")
   }
 and from_statement = e =>
   switch (e) {
@@ -172,7 +179,7 @@ and from_statement = e =>
       },
     )
   | Rehp.Loop_statement(stmt, loc) =>
-    For_statement(Left(None), None, None, (from_statement(stmt), loc));
+    For_statement(Left(None), None, None, (from_statement(stmt), loc))
   | Rehp.Continue_statement(lbl, _depth) => Continue_statement(lbl)
   | Rehp.Break_statement(lbl) => Break_statement(lbl)
   | Rehp.Return_statement(eo) =>
@@ -180,11 +187,7 @@ and from_statement = e =>
   /* | With_statement of expression * statement */
   | Rehp.Labelled_statement(lbl, (stmt, loc)) =>
     Labelled_statement(lbl, (from_statement(stmt), loc))
-  | Rehp.Switch_statement(
-      e,
-      case_clause_list,
-      stmt_lst,
-    ) =>
+  | Rehp.Switch_statement(e, case_clause_list, stmt_lst) =>
     let e = from_expression(e);
     let case_clause_lst = from_case_clause_list(case_clause_list);
     /* Backward-compatible behavior, TODO: cleanup JS Ast and printing */

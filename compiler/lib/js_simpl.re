@@ -92,6 +92,10 @@ let rec enot_rec = e => {
         J.EUn(J.Not, e),
         1,
       )
+    | ECustomRequire(_) => failwith("ECustomRequire not supported for JS")
+    | ECustomRegister(_) => failwith("ECustonRegister not supported for JS")
+    | ERequire(_) => failwith("ERequire not supported for JS")
+    | ERuntime => failwith("ERuntime not supported for JS")
     };
 
   if (cost <= 1) {
@@ -383,4 +387,8 @@ let rec get_variable = acc =>
       a,
     )
   | J.EObj(l) =>
-    List.fold_left((acc, (_, e1)) => get_variable(acc, e1), acc, l);
+    List.fold_left((acc, (_, e1)) => get_variable(acc, e1), acc, l)
+  | ECustomRequire(_) => failwith("ECustomRequire not supported for JS")
+  | ECustomRegister(_) => failwith("ECustonRegister not supported for JS")
+  | ERequire(_) => failwith("ERequire not supported for JS")
+  | ERuntime => failwith("ERuntime not supported for JS");
