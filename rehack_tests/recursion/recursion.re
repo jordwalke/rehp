@@ -54,3 +54,20 @@ let bug3 = () => {
   };
   k;
 };
+
+let mutual_recursion1 = () => {
+  let rec f = () => f()
+  and g = () => f();
+  (f, g);
+};
+
+let mutual_recursion2 = () => {
+  let rec f2 = () => {
+    let f3 = () => {
+      f1();
+    };
+    f3;
+  }
+  and f1 = () => f1();
+  (f1, f2);
+};

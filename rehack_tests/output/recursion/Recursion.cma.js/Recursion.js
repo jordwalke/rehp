@@ -57,7 +57,29 @@ function bug3(param) {
   }
 }
 
-var Recursion = [0,nobug1,nobug2,bug,M,bug2,bug3];
+function mutual_recursion1(param) {
+  function f(param) {for (; ; ) continue;}
+  function g(param) {return f(0);}
+  return [0,f,g];
+}
+
+function mutual_recursion2(param) {
+  function f2(param) {function f3(param) {return f1(0);}return f3;}
+  function f1(param) {for (; ; ) continue;}
+  return [0,f1,f2];
+}
+
+var Recursion = [
+  0,
+  nobug1,
+  nobug2,
+  bug,
+  M,
+  bug2,
+  bug3,
+  mutual_recursion1,
+  mutual_recursion2
+];
 
 module.exports = Recursion;
 
@@ -68,6 +90,8 @@ module.exports = Recursion;
   M: any,
   bug2: (param: any) => any,
   bug3: (param: any) => any,
+  mutual_recursion1: (param: any) => any,
+  mutual_recursion2: (param: any) => any,
 }*/
 /** @type {{
   nobug1: (x: any) => any,
@@ -76,6 +100,8 @@ module.exports = Recursion;
   M: any,
   bug2: (param: any) => any,
   bug3: (param: any) => any,
+  mutual_recursion1: (param: any) => any,
+  mutual_recursion2: (param: any) => any,
 }} */
 module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.nobug1 = module.exports[1];
@@ -84,5 +110,7 @@ module.exports.bug = module.exports[3];
 module.exports.M = module.exports[4];
 module.exports.bug2 = module.exports[5];
 module.exports.bug3 = module.exports[6];
+module.exports.mutual_recursion1 = module.exports[7];
+module.exports.mutual_recursion2 = module.exports[8];
 
 /* Hashing disabled */

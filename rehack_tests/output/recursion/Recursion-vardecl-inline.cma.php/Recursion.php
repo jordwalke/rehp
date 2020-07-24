@@ -84,7 +84,31 @@ final class Recursion {
         return $k;
       }
     };
-    $Recursion = Vector{0, $nobug1->contents, $nobug2, $bug, $M, $bug2, $bug3} as dynamic;
+    $mutual_recursion1 = (dynamic $param) : dynamic ==> {
+      $f = (dynamic $param) : dynamic ==> {for (;;) {continue;}};
+      $g = (dynamic $param) : dynamic ==> {return $f(0);};
+      return Vector{0, $f, $g};
+    };
+    $mutual_recursion2 = (dynamic $param) : dynamic ==> {
+      $f1 = new Ref();
+      $f2 = (dynamic $param) : dynamic ==> {
+        $f3 = (dynamic $param) : dynamic ==> {return $f1->contents(0);};
+        return $f3;
+      };
+      $f1->contents = (dynamic $param) : dynamic ==> {for (;;) {continue;}};
+      return Vector{0, $f1->contents, $f2};
+    };
+    $Recursion = Vector{
+      0,
+      $nobug1->contents,
+      $nobug2,
+      $bug,
+      $M,
+      $bug2,
+      $bug3,
+      $mutual_recursion1,
+      $mutual_recursion2
+    } as dynamic;
     
     return($Recursion);
 
@@ -103,6 +127,12 @@ final class Recursion {
   }
   public static function bug3(dynamic $param): dynamic {
     return static::syncCall(__FUNCTION__, 6, $param);
+  }
+  public static function mutual_recursion1(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 7, $param);
+  }
+  public static function mutual_recursion2(dynamic $param): dynamic {
+    return static::syncCall(__FUNCTION__, 8, $param);
   }
 
 }
