@@ -257,4 +257,4 @@ final class MyLib {
   }
 
 }
-/*____hashes flags: 1314811087 bytecode: 90287558315 debug-data: 22114087654 primitives: 314532832*/
+/*____hashes flags: 1314811087 bytecode: 90287558315 debug-data: 22114087654 primitives: 314532832 rehp-hash-bust:v4*/

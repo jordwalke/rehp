@@ -90,10 +90,12 @@ echo "./rehack_tests/output/stringHelper.cmo.module.php"
 export OCAMLRUNPARAM=b && time js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/php-module-header.php" --backend php "${1}"/default/rehack_tests/strings/.strings.eobjs/byte/stringHelper.cmo -o ./rehack_tests/output/stringHelper.cmo.module.php
 
 # Custom library
+# Also test hash busting.
 echo "./rehack_tests/output/my-lib.cma.php"
 # NODE_PATH="${PWD}/rehack_tests/my-lib/my-lib.cma.js/:${PWD}/rehack_tests/output/stdlib.cma.js:${PWD}/runtime/rehack/js/" node -e 'require("MyLib")'
-export OCAMLRUNPARAM=b && time js_of_ocaml --use-hashing --keep-unit-names --enable excwrap --async-compilation-summary --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --backend php --custom-header "file:./rehack_tests/templates/php-module-header.php" "${1}"/default/rehack_tests/my-lib/MyLib.cma -o ./rehack_tests/output/my-lib.cma.php/
-export OCAMLRUNPARAM=b && time js_of_ocaml --use-hashing --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --backend js  --custom-header "file:./rehack_tests/templates/common-js-module-header.js" "${1}"/default/rehack_tests/my-lib/MyLib.cma -o ./rehack_tests/output/my-lib.cma.js/
+export REHP_HASH_BUST="v4" && time js_of_ocaml --use-hashing --keep-unit-names --enable excwrap --async-compilation-summary --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --backend php --custom-header "file:./rehack_tests/templates/php-module-header.php" "${1}"/default/rehack_tests/my-lib/MyLib.cma -o ./rehack_tests/output/my-lib.cma.php/
+export REHP_HASH_BUST="v4" && time js_of_ocaml --use-hashing --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --backend js  --custom-header "file:./rehack_tests/templates/common-js-module-header.js" "${1}"/default/rehack_tests/my-lib/MyLib.cma -o ./rehack_tests/output/my-lib.cma.js/
+unset REHP_HASH_BUST
 
 # Custom library
 echo "./rehack_tests/output/SeparateCompilation.cma.php"
