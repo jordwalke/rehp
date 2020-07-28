@@ -156,12 +156,7 @@ and statement =
   | Break_statement
   | Return_statement(option(expression))
   /* | With_statement of expression * statement */
-  | Switch_statement(
-      expression,
-      list(case_clause),
-      option(statement_list),
-      list(case_clause),
-    )
+  | Switch_statement(expression, list(case_clause), statement_list)
   | Throw_statement(expression)
   | Try_statement(block, option((Id.t, block)), option(block))
   | Debugger_statement

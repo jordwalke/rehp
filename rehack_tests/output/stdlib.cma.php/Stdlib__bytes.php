@@ -406,6 +406,8 @@ final class Stdlib__bytes {
             case 1:
               $av_ = 2 as dynamic;
               break;
+            // FALLTHROUGH
+            default:break;
             }
           $n[1] = (int) ($n[1] + $av_);
           $aw_ = (int) ($i__0 + 1) as dynamic;
@@ -506,6 +508,8 @@ final class Stdlib__bytes {
             case 2:
               $caml_bytes_unsafe_set($s__0, $n[1], $c);
               break;
+            // FALLTHROUGH
+            default:break;
             }
           $n[1] += 1;
           $at_ = (int) ($i + 1) as dynamic;

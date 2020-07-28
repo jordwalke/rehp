@@ -520,6 +520,8 @@ final class Stdlib__scanf {
           // FALLTHROUGH
           case 32:
             return 5;
+          // FALLTHROUGH
+          default:break;
           }
       }
       throw $caml_wrap_thrown_exception(Vector{0, $Assert_failure, $i_}) as \Throwable;
@@ -1195,6 +1197,8 @@ final class Stdlib__scanf {
             // FALLTHROUGH
             case 6:
               return 9;
+            // FALLTHROUGH
+            default:break;
             }
         }
       }
@@ -2390,6 +2394,8 @@ final class Stdlib__scanf {
                       $scan__2,
                       $token_string
                     );
+                  // FALLTHROUGH
+                  default:break;
                   }
               }
               $scan = (dynamic $width, dynamic $param, dynamic $ib) : dynamic ==> {

@@ -476,6 +476,8 @@ final class Stdlib__format {
                 return ((dynamic $cE_) : dynamic ==> {return 0;})($cB_);
               }
               return $ty;
+            // FALLTHROUGH
+            default:break;
             }
         }
         return 0;

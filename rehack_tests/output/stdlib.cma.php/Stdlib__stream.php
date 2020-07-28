@@ -143,6 +143,8 @@ final class Stdlib__stream {
               $r = $caml_bytes_unsafe_get($b[2], $b[4]);
               $b[4] = (int) ($b[4] + 1);
               return Vector{0, $r, $d__0};
+            // FALLTHROUGH
+            default:break;
             }
           if ($continue_label === "#") {continue;}
         }
@@ -248,6 +250,8 @@ final class Stdlib__stream {
               $s[1] = (int) ($s[1] + 1);
               $b[4] = (int) ($b[4] + 1);
               return 0;
+            // FALLTHROUGH
+            default:break;
             }
         }
         $match = $peek_data($s);
