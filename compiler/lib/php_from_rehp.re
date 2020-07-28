@@ -677,13 +677,9 @@ and forStatement = (output, input, (s, loc), label) => {
 and switchStatement = (output, input, e, l, def) => {
   let nextInput = {vars: input.vars, enclosedBy: Switch};
   let (eOutput, eMapped) = expression(nextInput, e);
-  /* Backward-compatible behavior, TODO: cleanup PHP Ast and printing */
-  let defo =
-    switch (def) {
-    | [] => None
-    | _ => Some(def)
-    };
-  let (dOutput, dMapped) = optOutput(statements(output, nextInput), defo);
+  /* Always add a default break to satisfy Hack */
+  let def = def == [] ? [(Rehp.Break_statement(None), Loc.N)] : def;
+  let (dOutput, dMapped) = statements(output, nextInput, def);
   let forEach = ((e, s)) => {
     let (eOutput, eMapped) = expression(nextInput, e);
     let (stmOutput, stmMapped) = statements(output, nextInput, s);
@@ -692,10 +688,7 @@ and switchStatement = (output, input, e, l, def) => {
   };
   let (lOutput, lMapped) = List.split(List.map(~f=forEach, l));
   let outs = mergeOutputList([eOutput, dOutput, ...lOutput]);
-  let switchNode = (
-    Php.Switch_statement(eMapped, lMapped, dMapped, []),
-    Loc.N,
-  );
+  let switchNode = (Php.Switch_statement(eMapped, lMapped, dMapped), Loc.N);
 
   let labels = List.filter(label => label != "", outs.freeLabels);
   let continueKind =

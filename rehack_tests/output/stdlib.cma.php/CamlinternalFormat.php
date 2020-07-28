@@ -4353,6 +4353,8 @@ final class CamlinternalFormat {
             $rest = $fmt[2];
             $ign = $fmt[1];
             return $type_ignored_param($ign, $rest, $match);
+          // FALLTHROUGH
+          default:break;
           }
       }
       throw $caml_wrap_thrown_exception($Type_mismatch) as \Throwable;
@@ -4722,6 +4724,8 @@ final class CamlinternalFormat {
               return Vector{0, Vector{14, $sub_fmtty_rest__26}, $fmt__13};
             }
             break;
+          // FALLTHROUGH
+          default:break;
           }
       }
       throw $caml_wrap_thrown_exception($Type_mismatch) as \Throwable;
@@ -7325,6 +7329,8 @@ final class CamlinternalFormat {
                   $str_ind__5 = (int) ($str_ind__0 + 1) as dynamic;
                   $str_ind__0 = $str_ind__5;
                   $continue_label = "#";break;
+                // FALLTHROUGH
+                default:break;
                 }
               if ($continue_label === "#") {continue;}
             }
@@ -8335,6 +8341,8 @@ final class CamlinternalFormat {
                   return $parse_literal($minus__0, $aD_);
                 }
                 break;
+              // FALLTHROUGH
+              default:break;
               }
           }
         }
@@ -8833,6 +8841,8 @@ final class CamlinternalFormat {
                 $match__9 = $parse((int) ($str_ind + 1), $end_ind);
                 $fmt_rest__9 = $match__9[1];
                 return Vector{0, Vector{17, 5, $fmt_rest__9}};
+              // FALLTHROUGH
+              default:break;
               }
           }
         }
@@ -9271,6 +9281,8 @@ final class CamlinternalFormat {
             // FALLTHROUGH
             case 32:
               return 1;
+            // FALLTHROUGH
+            default:break;
             }
         }
         return 0;
@@ -9437,6 +9449,8 @@ final class CamlinternalFormat {
                     $symb,
                     $cst__36
                   );
+                // FALLTHROUGH
+                default:break;
                 }
               if ($continue_label === "#") {continue;}
             }

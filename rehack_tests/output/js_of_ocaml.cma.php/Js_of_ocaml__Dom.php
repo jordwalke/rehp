@@ -135,6 +135,8 @@ final class Js_of_ocaml__Dom {
           // FALLTHROUGH
           case 3:
             return Vector{2, $e};
+          // FALLTHROUGH
+          default:break;
           }
       }
       return Vector{3, $e};

@@ -616,6 +616,8 @@ final class Stdlib__genlex {
                 case 6:
                   $call1($Stdlib_stream[12], $strm);
                   return 9;
+                // FALLTHROUGH
+                default:break;
                 }
             }
           }

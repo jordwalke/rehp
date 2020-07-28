@@ -2153,6 +2153,8 @@ final class Js_of_ocaml__Dom_html {
             // FALLTHROUGH
             case 34:
               return 81;
+            // FALLTHROUGH
+            default:break;
             }
         }
       }
@@ -2287,6 +2289,8 @@ final class Js_of_ocaml__Dom_html {
             // FALLTHROUGH
             case 214:
               return 50;
+            // FALLTHROUGH
+            default:break;
             }
         }
         else {
@@ -2405,6 +2409,8 @@ final class Js_of_ocaml__Dom_html {
             // FALLTHROUGH
             case 66:
               return 10;
+            // FALLTHROUGH
+            default:break;
             }
         }
       }
@@ -2733,6 +2739,8 @@ final class Js_of_ocaml__Dom_html {
             return $caml_string_notequal($tag, $cst_video__1)
               ? $other($e)
               : (Vector{60, $e});
+          // FALLTHROUGH
+          default:break;
           }
       }
       return $other($e);

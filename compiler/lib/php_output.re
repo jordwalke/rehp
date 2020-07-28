@@ -1489,7 +1489,7 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
       /* There MUST be a space between the return and its
          argument. A line return will not work */
       }
-    | Switch_statement(e, cc, def, cc') =>
+    | Switch_statement(e, cc, def) =>
       PP.start_group(f, 0);
       PP.start_group(f, 0);
       PP.string(f, "switch");
@@ -1529,22 +1529,17 @@ module Make = (D: {let source_map: option(Source_map.t);}) => {
             loop(last, xs);
           }
       );
-      loop(def == None && cc' == [], cc);
-      switch (def) {
-      | None => ()
-      | Some(def) =>
-        PP.string(f, "// FALLTHROUGH");
-        PP.break(f);
-        PP.start_group(f, 0);
-        PP.string(f, "default:");
-        PP.end_group(f);
-        PP.start_group(f, 2);
-        PP.break(f);
-        statement_list(~skip_last_semi=false, f, def);
-        PP.end_group(f);
-        PP.break(f);
-      };
-      loop(true, cc');
+      loop(false, cc);
+      PP.string(f, "// FALLTHROUGH");
+      PP.break(f);
+      PP.start_group(f, 0);
+      PP.string(f, "default:");
+      PP.end_group(f);
+      PP.start_group(f, 2);
+      PP.break(f);
+      statement_list(~skip_last_semi=false, f, def);
+      PP.end_group(f);
+      PP.break(f);
       PP.end_group(f);
       /* Final case handles break */
       /* PP.break(f); */
