@@ -37,7 +37,7 @@ type ('a, 'b, 'c, 'd, 'e) extra_hash_data =
 
 let empty_extra_hash_data =
   {args = []; imports = []; globals = []; primitives = []; reloc = []}
-  
+
 (**
  * Gets the project root for npm projects using commonly set environment
  * variables.  These ones are esy specific but we should add any other
@@ -69,7 +69,11 @@ let get_project_root () =
     let abs = rel_to_cwd_absolute fcp in
     if String.is_empty trimmed then None else Some abs
 
-  
+(* In case the user is not using a build system that will automatically remove
+   files (like if you are building in-place into a monorepo with checked in
+   artifacts, it is convenient to allow users to force libraries to recompile *)
+let user_hash_buster = Sys.getenv_opt "REHP_HASH_BUST"
+
 let compute_hashes
     custom_header_text
     {args; imports; globals; primitives; reloc}
@@ -119,7 +123,9 @@ let compute_hashes
       )
      *)
   in
-  String.concat ~sep:" " lines ^ "*/"
+  let user_hash =
+    match user_hash_buster with | None -> "" | Some h -> " rehp-hash-bust:" ^ h in
+  String.concat ~sep:" " lines ^ user_hash ^ "*/"
 
 let file_contains_hashes hashes_comment file =
   let file_contents = Fs.read_file (Fp.toString file) in
