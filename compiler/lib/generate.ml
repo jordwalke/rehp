@@ -227,6 +227,52 @@ module Share = struct
         ~init:count
         ~f:(fun acc x -> add_special_prim_if_exists x acc)
     in
+    (*
+
+
+        jsoo vs. rehp's exception wrapping differences:
+        -----------------------------------------------
+        Rehp ensures that that the improved_stacktrace flag will always provide
+        an opportunity for thrown exceptions to be wrapped regardless of if
+        traces are desired. Some language backends can only throw special
+        exception classes and those languages would require the improved_stacktrace
+        flag to wrap thrown exceptions, and the excwrap flag to unwrap them correctly
+        when caught.
+
+                       Operation | jsoo                         rehp
+        ----------------------------------------------------------------------------------------
+        Unwrap exceptions when   | caml_wrap_exception          caml_wrap_exception
+                they're caught   |
+        When flag excwrap        |
+        -------------------------+--------------------------------------------------------------
+        Wrap exceptions when     | nothing                      nothing
+        they're thrown with      |
+        !Flag.improved_stacktrace|
+        -------------------------+--------------------------------------------------------------
+        Wrap exceptions when     | nothing                      caml_wrap_thrown_exception_traceless
+        they're thrown with      |
+        Flag.improved_stacktrace |
+        'NoTrace'                |
+        -------------------------+--------------------------------------------------------------
+        Wrap exceptions when     | caml_exn_with_js_backtrace   caml_wrap_thrown_exception
+        they're thrown with      |
+        Flag.improved_stacktrace |
+        'Normal'                 |
+        -------------------------+--------------------------------------------------------------
+        Wrap exceptions when     | caml_exn_with_js_backtrace   caml_wrap_thrown_exception_reraise
+        they're thrown with      |
+        Flag.improved_stacktrace |
+        'Reraise'                |
+
+        - NoTrace, Normal, and ReRaise are determined by which primitive is
+         called to raise the exception (in the bytecode)
+
+        Rehp uses the `improved_stacktrace` flag to guarantee an opportunity to
+        *wrap* the exception if necessary, it's not really using that to
+        "improve the stacktrace". Arguably we could rename that jsoo argument
+        to be more accurate.
+
+     *)
     let count =
       List.fold_left
         [ "caml_wrap_thrown_exception_traceless"
