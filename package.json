@@ -37,7 +37,8 @@
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/HashBugReproduce/HashBugReproduce.cma"],
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/strings/strings.bc"],
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/calls/Calls.cma"],
-      [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/recursion/Recursion.cma"]
+      [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/recursion/Recursion.cma"],
+      [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/repro-nonexit/ReproNonexit.cma"]
     ],
     "build": [
       [ "refmterr", "dune", "build", "-p", "js_of_ocaml,js_of_ocaml-compiler,js_of_ocaml-lwt"]

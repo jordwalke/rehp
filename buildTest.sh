@@ -83,6 +83,13 @@ export OCAMLRUNPARAM=b && time refmterr js_of_ocaml --keep-unit-names --enable e
 echo "./rehack_tests/output/calls/Calls.cma.js"
 export OCAMLRUNPARAM=b && time refmterr js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/common-js-module-header.js" --backend js "${1}"/default/rehack_tests/calls/Calls.cma -o ./rehack_tests/output/calls/Calls.cma.js/
 
+# Repros a bug where modules with no exports do not exit from last loops as they should.
+echo "./rehack_tests/output/repro-nonexit/ReproNonexit.cma.php"
+export OCAMLRUNPARAM=b && time refmterr js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl --opt 3 --noinline --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/php-module-header.php" --backend php "${1}"/default/rehack_tests/repro-nonexit/ReproNonexit.cma -o ./rehack_tests/output/repro-nonexit/ReproNonexit.cma.php/
+# Repros a bug where modules with no exports do not exit from last loops as they should.
+echo "./rehack_tests/output/repro-nonexit/ReproNonexit.cma.js"
+export OCAMLRUNPARAM=b && time refmterr js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl --opt 3 --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/common-js-module-header.js" --backend js "${1}"/default/rehack_tests/repro-nonexit/ReproNonexit.cma -o ./rehack_tests/output/repro-nonexit/ReproNonexit.cma.js/
+
 # It's also possible to compile from a .cmo, which will also omit the runtime
 echo "./rehack_tests/output/hello_world.cmo.php"
 export OCAMLRUNPARAM=b && time js_of_ocaml --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl  --noinline --disable shortvar --pretty --backend php "${1}"/default/rehack_tests/hello_world/.hello_world.eobjs/byte/hello_world.cmo -o ./rehack_tests/output/hello_world.cmo.php
