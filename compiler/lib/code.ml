@@ -314,13 +314,12 @@ type program =
 
 (* Because OCaml's built in Hashtb hash only traverses to a certain depth
  * we have to do some outside traversal to get a complete hash. *)
-
 let hash_block block =
   Hashtbl.hash_param 256 256 block.params
   + Hashtbl.hash_param 256 256 block.handler
   + List.fold_left
       ~init:0
-      ~f:(fun cur itm -> cur + Hashtbl.hash_param 256 256 itm)
+      ~f:(fun cur itm -> (2 * (cur + Hashtbl.hash_param 256 256 itm)))
       block.body
   + Hashtbl.hash_param 256 256 block.branch
 

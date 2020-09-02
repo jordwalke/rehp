@@ -250,9 +250,7 @@ module IdentUtilities = struct
           (Ident.name v.ident :: table_contents_rec sz r rem)
 
   let table_contents_names_for_hashing sz (t : 'a Ident_.tbl) =
-    List.sort
-      ~cmp:(fun (i) (j) -> compare i j)
-      (table_contents_rec sz (Obj.magic (t : 'a Ident_.tbl) : 'a Ident_.tbl') [])
+      table_contents_rec sz (Obj.magic (t : 'a Ident_.tbl) : 'a Ident_.tbl') []
 end
 
 module Ident = struct
