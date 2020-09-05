@@ -25,4 +25,4 @@ module.exports = HashBugReproduce_Consumer;
 module.exports = ((module.exports /*:: : any*/) /*:: :Exports */);
 module.exports.getField = module.exports[1];
 
-/*____hashes flags: 589793685 bytecode: 7303456054 debug-data: 1066682977 primitives: 1058613066*/
+/*____hashes flags: 343193019 bytecode: 7303456054 debug-data: 1066682977 primitives: 1058613066*/

@@ -1608,4 +1608,4 @@ final class HashBugReproduce__SeparateCompilationHashTest {
   }
 
 }
-/*____hashes flags: 1314811087 bytecode: 729515992277 debug-data: 54564383401 primitives: 1058613066*/
+/*____hashes flags: 1068210421 bytecode: 729515992277 debug-data: 54564383401 primitives: 1058613066*/

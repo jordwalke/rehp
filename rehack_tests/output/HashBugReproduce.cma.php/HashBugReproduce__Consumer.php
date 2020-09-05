@@ -23,4 +23,4 @@ final class HashBugReproduce__Consumer {
   }
 
 }
-/*____hashes flags: 1314811087 bytecode: 7303456054 debug-data: 1066682977 primitives: 1058613066*/
+/*____hashes flags: 1068210421 bytecode: 7303456054 debug-data: 1066682977 primitives: 1058613066*/
