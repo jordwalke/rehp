@@ -153,6 +153,8 @@ module type Rehp_external_implementations = {};
 type runtime_getter = unit => Rehp.expression;
 
 module type Backend_implementation = {
+  /** Initialize backend with flags */
+  let init: option(string) => unit;
   /* module Rehp_external_implementations: Rehp_external_implementations; */
   let custom_module_registration:
     unit =>
@@ -201,7 +203,7 @@ type t = (module Backend_implementation);
 
 let current = ref(None);
 
-let set_backend = (backend: (module Backend_implementation)) => {
+let set_backend = (backend: (module Backend_implementation), opt_flags) => {
   if (current.contents !== None) {
     raise(
       Invalid_argument(
@@ -210,12 +212,18 @@ let set_backend = (backend: (module Backend_implementation)) => {
     );
   };
   module NewBackend = (val backend);
+  NewBackend.init(opt_flags);
   current := Some(backend);
   VarPrinter.add_reserved(StringSet.elements(NewBackend.keyword()));
   VarPrinter.add_reserved(StringSet.elements(NewBackend.provided()));
 };
 
 module Current: Backend_implementation = {
+  let init = opt_flags =>
+    switch (current^) {
+    | None => raise(Invalid_argument("Compiler backend not set"))
+    | Some((module CurrentBackend)) => CurrentBackend.init(opt_flags)
+    };
   let extension = () =>
     switch (current^) {
     | None => raise(Invalid_argument("Compiler backend not set"))

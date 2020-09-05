@@ -19,4 +19,4 @@ final class HashBugReproduce {
   }
 
 }
-/*____hashes flags: 1314811087 bytecode: 4165296732 debug-data: 129913994 primitives: 1058613066*/
+/*____hashes flags: 1068210421 bytecode: 4165296732 debug-data: 129913994 primitives: 1058613066*/

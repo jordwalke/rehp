@@ -45,6 +45,7 @@ type t =
   ; fs_output : string option
   ; fs_external : bool
   ; backend : Backend.t option
+  ; backend_flags : string option
   ; keep_unit_names : bool }
 
 (* TODO: Add these utilities into Fp.re *)
@@ -188,6 +189,13 @@ let options =
       & opt (some (enum backend)) None
       & info ["backend"] ~docs:backend_section ~doc)
   in
+  let backend_flags =
+    let doc = "Tweak backend with some specific flags." in
+    Arg.(
+      value
+      & opt (some string) None
+      & info ["backend-flags"] ~docs:backend_section ~doc)
+  in
   let build_t
       common
       set_param
@@ -200,6 +208,7 @@ let options =
       fs_files
       fs_output
       backend
+      backend_flags
       fs_external
       nocmis
       profile
@@ -299,6 +308,7 @@ let options =
       ; fs_files
       ; fs_output
       ; backend
+      ; backend_flags
       ; fs_external
       ; nocmis
       ; output_file
@@ -320,6 +330,7 @@ let options =
       $ fs_files
       $ fs_output
       $ backend
+      $ backend_flags
       $ fs_external
       $ nocmis
       $ profile

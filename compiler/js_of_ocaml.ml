@@ -218,6 +218,7 @@ let f
      ; input_file
      ; output_file
      ; backend
+     ; backend_flags
      ; params
      ; static_env
      ; dynlink
@@ -244,7 +245,7 @@ let f
     | None -> (module Backend_js : Backend.Backend_implementation)
     | Some be -> be
   in
-  Backend.set_backend backend;
+  Backend.set_backend backend backend_flags;
   let use_hashing = common.CommonArg.use_hashing in
   let custom_header = common.CommonArg.custom_header in
   let hide_compilation_summary = common.CommonArg.hide_compilation_summary in
