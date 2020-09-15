@@ -453,7 +453,7 @@ final class Stdlib__scanf {
       $switch__0 = null as dynamic;
       for (;;) {
         $c = $peek_char($ib);
-        $bs_ = 1 - $eof($ib);
+        $bs_ = ! $eof($ib);
         if ($bs_) {
           $bt_ = (int) ($c + -9) as dynamic;
           $switch__0 = 4 < $unsigned_right_shift_32($bt_, 0)
@@ -1483,7 +1483,7 @@ final class Stdlib__scanf {
           $c = $peek_char($ib);
           $aq_ = 0 < $i__0 ? 1 : (0);
           if ($aq_) {
-            $ar_ = 1 - $eof($ib);
+            $ar_ = ! $eof($ib);
             if ($ar_) {
               $as_ = $call2($CamlinternalFormat[1], $char_set, $c);
               $at_ = $as_ ? $c !== $stp ? 1 : (0) : ($as_);
@@ -1503,7 +1503,7 @@ final class Stdlib__scanf {
       if ($scan_indic) {
         $c = $scan_indic[1];
         $scan_chars($width, $c);
-        $ap_ = 1 - $eof($ib);
+        $ap_ = ! $eof($ib);
         if ($ap_) {
           $ci = $peek_char($ib);
           return $c === $ci

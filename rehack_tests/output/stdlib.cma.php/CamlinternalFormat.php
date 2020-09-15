@@ -886,7 +886,7 @@ final class CamlinternalFormat {
           if ($eM_) {
             $eN_ = $is_in_char_set($set, $before);
             $eO_ = $eN_ ? $is_in_char_set($set, $after) : ($eN_);
-            $eP_ = 1 - $eO_;
+            $eP_ = ! $eO_;
           }
           else {$eP_ = $eM_;}
           return $eP_;
@@ -7273,7 +7273,7 @@ final class CamlinternalFormat {
         $set_flag = (dynamic $str_ind, dynamic $flag) : dynamic ==> {
           $bo_ = null as dynamic;
           $bm_ = $flag[1];
-          $bn_ = $bm_ ? 1 - $legacy_behavior__0 : ($bm_);
+          $bn_ = $bm_ ? ! $legacy_behavior__0 : ($bm_);
           if ($bn_) {
             $bo_ = $caml_string_get($str, $str_ind);
             $call3($failwith_message($A_), $str, $str_ind, $bo_);
@@ -8196,23 +8196,23 @@ final class CamlinternalFormat {
             );
           }
         }
-        if (1 - $legacy_behavior__0) {
-          $aE_ = 1 - $plus_used[1];
+        if (! $legacy_behavior__0) {
+          $aE_ = ! $plus_used[1];
           $plus__0 = $aE_ ? $plus : ($aE_);
           if ($plus__0) {
             $incompatible_flag->contents($pct_ind, $str_ind, $symb, $cst__28);
           }
-          $aF_ = 1 - $hash_used[1];
+          $aF_ = ! $hash_used[1];
           $hash__0 = $aF_ ? $hash : ($aF_);
           if ($hash__0) {
             $incompatible_flag->contents($pct_ind, $str_ind, $symb, $cst__29);
           }
-          $aG_ = 1 - $space_used[1];
+          $aG_ = ! $space_used[1];
           $space__0 = $aG_ ? $space : ($aG_);
           if ($space__0) {
             $incompatible_flag->contents($pct_ind, $str_ind, $symb, $cst__30);
           }
-          $aH_ = 1 - $pad_used[1];
+          $aH_ = ! $pad_used[1];
           $aI_ = $aH_ ? $caml_notequal(Vector{0, $pad}, $I_) : ($aH_);
           if ($aI_) {
             $incompatible_flag->contents(
@@ -8222,7 +8222,7 @@ final class CamlinternalFormat {
               $cst_padding__0
             );
           }
-          $aJ_ = 1 - $prec_used[1];
+          $aJ_ = ! $prec_used[1];
           $aK_ = $aJ_ ? $caml_notequal(Vector{0, $prec}, $J_) : ($aJ_);
           if ($aK_) {
             $aL_ = $ign ? 95 : ($symb);
@@ -8238,7 +8238,7 @@ final class CamlinternalFormat {
             $incompatible_flag->contents($pct_ind, $str_ind, 95, $cst__31);
           }
         }
-        $aM_ = 1 - $ign_used[1];
+        $aM_ = ! $ign_used[1];
         $ign__0 = $aM_ ? $ign : ($aM_);
         if ($ign__0) {
           $switch__4 = 38 <= $symb
@@ -8445,7 +8445,7 @@ final class CamlinternalFormat {
         switch($padty) {
           // FALLTHROUGH
           case 0:
-            if (1 - $legacy_behavior__0) {
+            if (! $legacy_behavior__0) {
               $invalid_format_without((int) ($str_ind + -1), 45, $cst_padding);
             }
             return $parse_after_padding(

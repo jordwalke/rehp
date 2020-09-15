@@ -39,7 +39,7 @@ and from_unop = (unop, jsExpr) =>
   | Typeof => EUn(Javascript.Typeof, jsExpr)
   | Void => EUn(Javascript.Void, jsExpr)
   | Delete => EUn(Javascript.Delete, jsExpr)
-  | Bnot => EBin(Minus, ENum(1.0), jsExpr)
+  | Bnot => EUn(Javascript.Bnot, jsExpr)
   | IncrA => EUn(Javascript.IncrA, jsExpr)
   | DecrA => EUn(Javascript.DecrA, jsExpr)
   | IncrB => EUn(Javascript.IncrB, jsExpr)

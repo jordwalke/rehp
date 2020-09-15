@@ -36,11 +36,9 @@ final class Js_of_ocaml__Js {
     $bind = (dynamic $x, dynamic $f) : dynamic ==> {
       return $x == $null__0 ? $null__0 : ($call1($f, $x));
     };
-    $test = (dynamic $x) : dynamic ==> {
-      return 1 - ($x == $null__0 ? 1 : (0));
-    };
+    $test = (dynamic $x) : dynamic ==> {return ! ($x == $null__0 ? 1 : (0));};
     $iter = (dynamic $x, dynamic $f) : dynamic ==> {
-      $ak_ = 1 - ($x == $null__0 ? 1 : (0));
+      $ak_ = ! ($x == $null__0 ? 1 : (0));
       return $ak_ ? $call1($f, $x) : ($ak_);
     };
     $case__0 = (dynamic $x, dynamic $f, dynamic $g) : dynamic ==> {

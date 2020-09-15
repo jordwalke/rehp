@@ -190,7 +190,7 @@ function resize(indexfun, h) {
   if (al_) {
     var ndata = caml_make_vect(nsize, 0);
     var ndata_tail = caml_make_vect(nsize, 0);
-    var inplace = 1 - ongoing_traversal(h);
+    var inplace = ! ongoing_traversal(h);
     h[2] = ndata;
     var insert_bucket = function(cell) {
       var cell__0 = cell;
@@ -460,7 +460,7 @@ function iter(f, h) {
     }
   }
   var old_trav = ongoing_traversal(h);
-  if (1 - old_trav) {flip_ongoing_traversal(h);}
+  if (! old_trav) {flip_ongoing_traversal(h);}
   try {
     var d = h[2];
     var Y_ = d.length - 1 + -1 | 0;
@@ -474,7 +474,7 @@ function iter(f, h) {
         break;
       }
     }
-    var Z_ = 1 - old_trav;
+    var Z_ = ! old_trav;
     var aa_ = Z_ ? flip_ongoing_traversal(h) : Z_;
     return aa_;
   }
@@ -517,7 +517,7 @@ function filter_map_inplace_bucket(f, h, i, prec, slot) {
 function filter_map_inplace(f, h) {
   var d = h[2];
   var old_trav = ongoing_traversal(h);
-  if (1 - old_trav) {flip_ongoing_traversal(h);}
+  if (! old_trav) {flip_ongoing_traversal(h);}
   try {
     var U_ = d.length - 1 + -1 | 0;
     var T_ = 0;
@@ -560,7 +560,7 @@ function fold(f, h, init) {
     }
   }
   var old_trav = ongoing_traversal(h);
-  if (1 - old_trav) {flip_ongoing_traversal(h);}
+  if (! old_trav) {flip_ongoing_traversal(h);}
   try {
     var d = h[2];
     var accu = [0,init];
@@ -576,7 +576,7 @@ function fold(f, h, init) {
         break;
       }
     }
-    if (1 - old_trav) {flip_ongoing_traversal(h);}
+    if (! old_trav) {flip_ongoing_traversal(h);}
     var Q_ = accu[1];
     return Q_;
   }

@@ -118,7 +118,7 @@ function detectList(maxLength, o) {
 }
 
 function extractList(maxNum, o) {
-  if (0 === maxNum) {return [0,1 - (typeof o === "number"),0];}
+  if (0 === maxNum) {return [0,! (typeof o === "number"),0];}
   if (typeof o === "number") {return b_;}
   var match = extractList(maxNum + -1 | 0, o[2]);
   var rest = match[2];

@@ -678,7 +678,7 @@ final class Stdlib__arg {
                       // FALLTHROUGH
                       default:
                         $f__6 = $param[1];
-                        if (1 - $allow_expand) {
+                        if (! $allow_expand) {
                           throw $caml_wrap_thrown_exception(
                                   Vector{
                                     0,

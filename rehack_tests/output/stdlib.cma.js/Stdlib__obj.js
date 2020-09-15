@@ -33,7 +33,7 @@ var Stdlib = require("./Stdlib.js");
 var Stdlib_marshal = require("./Stdlib__marshal.js");
 var Stdlib_sys = require("./Stdlib__sys.js");
 
-function is_block(a) {return 1 - (typeof a === "number");}
+function is_block(a) {return ! (typeof a === "number");}
 
 function double_field(x, i) {return runtime["caml_array_get"](x, i);}
 
@@ -102,7 +102,7 @@ var max_ephe_length = Stdlib_sys[14] - 2 | 0;
 function create(l) {
   var s_ = 0 <= l ? 1 : 0;
   var t_ = s_ ? l <= max_ephe_length ? 1 : 0 : s_;
-  if (1 - t_) {call1(Stdlib[1], cst_Obj_Ephemeron_create);}
+  if (! t_) {call1(Stdlib[1], cst_Obj_Ephemeron_create);}
   return runtime["caml_ephe_create"](l);
 }
 
@@ -111,7 +111,7 @@ function length(x) {return x.length - 1 - 2 | 0;}
 function raise_if_invalid_offset(e, o, msg) {
   var p_ = 0 <= o ? 1 : 0;
   var q_ = p_ ? o < length(e) ? 1 : 0 : p_;
-  var r_ = 1 - q_;
+  var r_ = ! q_;
   return r_ ? call1(Stdlib[1], msg) : r_;
 }
 

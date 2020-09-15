@@ -76,7 +76,7 @@ function have_content(elt) {
     var ax_ = function(x) {
       return call1(caml_get_public_method(x, -66829956, 179), x);
     };
-    var ay_ = 1 - (function(t4, param) {return t4.disabled;}(elt, ax_) | 0);
+    var ay_ = ! (function(t4, param) {return t4.disabled;}(elt, ax_) | 0);
   }
   else var ay_ = aw_;
   return ay_;

@@ -182,7 +182,7 @@ final class Js_of_ocaml__Dom {
         $Y_ = $call1($Js_of_ocaml_Js[2], $e);
         if ($call1($Js_of_ocaml_Js[5][5], $Y_)) {
           $res = $call1($f, $e);
-          if (1 - (int) $res) {
+          if (! (int) $res) {
             $Z_ = (dynamic $x) : dynamic ==> {
               return $call1($caml_get_public_method($x, -408605495, 34), $x);
             };
@@ -194,7 +194,7 @@ final class Js_of_ocaml__Dom {
         }
         $e__0 = $window_event(0);
         $res__0 = $call1($f, $e__0);
-        if (1 - (int) $res__0) {
+        if (! (int) $res__0) {
           $aa_ = (dynamic $x) : dynamic ==> {
             return $call1($caml_get_public_method($x, 1049971873, 35), $x);
           };
@@ -213,7 +213,7 @@ final class Js_of_ocaml__Dom {
           $U_ = $call1($Js_of_ocaml_Js[2], $e);
           if ($call1($Js_of_ocaml_Js[5][5], $U_)) {
             $res = $call2($f, $this__0, $e);
-            if (1 - (int) $res) {
+            if (! (int) $res) {
               $V_ = (dynamic $x) : dynamic ==> {
                 return $call1($caml_get_public_method($x, -408605495, 36), $x);
               };
@@ -225,7 +225,7 @@ final class Js_of_ocaml__Dom {
           }
           $e__0 = $window_event(0);
           $res__0 = $call2($f, $this__0, $e__0);
-          if (1 - (int) $res__0) {
+          if (! (int) $res__0) {
             $W_ = (dynamic $x) : dynamic ==> {
               return $call1($caml_get_public_method($x, 1049971873, 37), $x);
             };

@@ -362,7 +362,7 @@ function set_size(state, ty) {
     if (! (typeof cA_ === "number")) {
       switch (cA_[0]) {
         case 3:
-          var cC_ = 1 - ty;
+          var cC_ = ! ty;
           if (cC_) {
             queue_elem[1] = id(state[13] + size | 0);
             var cD_ = call1(Stdlib_stack[5], state[1]);

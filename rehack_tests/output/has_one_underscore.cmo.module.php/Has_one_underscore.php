@@ -33,8 +33,8 @@ final class Has_one_underscore {
       }
       $b_ = -1 < $index ? 1 : (0);
       $c_ = $b_
-        ? 1 -
-         $call3($Stdlib_string[23], $id_or_token__0, (int) ($index + 1), 95)
+        ? !
+       $call3($Stdlib_string[23], $id_or_token__0, (int) ($index + 1), 95)
         : ($b_);
       return $c_;
     };

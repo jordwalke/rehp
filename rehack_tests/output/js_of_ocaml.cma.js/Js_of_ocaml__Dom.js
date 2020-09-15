@@ -166,7 +166,7 @@ function handler(f) {
     var Y_ = call1(Js_of_ocaml_Js[2], e);
     if (call1(Js_of_ocaml_Js[5][5], Y_)) {
       var res = call1(f, e);
-      if (1 - (res | 0)) {
+      if (! (res | 0)) {
         var Z_ = function(x) {
           return call1(caml_get_public_method(x, -408605495, 34), x);
         };
@@ -176,7 +176,7 @@ function handler(f) {
     }
     var e__0 = window_event(0);
     var res__0 = call1(f, e__0);
-    if (1 - (res__0 | 0)) {
+    if (! (res__0 | 0)) {
       var aa_ = function(x) {
         return call1(caml_get_public_method(x, 1049971873, 35), x);
       };
@@ -194,7 +194,7 @@ function full_handler(f) {
       var U_ = call1(Js_of_ocaml_Js[2], e);
       if (call1(Js_of_ocaml_Js[5][5], U_)) {
         var res = call2(f, this__0, e);
-        if (1 - (res | 0)) {
+        if (! (res | 0)) {
           var V_ = function(x) {
             return call1(caml_get_public_method(x, -408605495, 36), x);
           };
@@ -204,7 +204,7 @@ function full_handler(f) {
       }
       var e__0 = window_event(0);
       var res__0 = call2(f, this__0, e__0);
-      if (1 - (res__0 | 0)) {
+      if (! (res__0 | 0)) {
         var W_ = function(x) {
           return call1(caml_get_public_method(x, 1049971873, 37), x);
         };

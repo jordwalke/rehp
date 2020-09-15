@@ -27,7 +27,7 @@ final class Stdlib__fun {
       return $call2($f, $y, $x);
     };
     $negate = (dynamic $p, dynamic $v) : dynamic ==> {
-      return 1 - $call1($p, $v);
+      return ! $call1($p, $v);
     };
     $Finally_raised = Vector{
       248,

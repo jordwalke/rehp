@@ -30,7 +30,7 @@ final class Stdlib__bool {
     };
     $Stdlib_bool = Vector{
       0,
-      (dynamic $a_) : dynamic ==> {return 1 - $a_;},
+      (dynamic $a_) : dynamic ==> {return ! $a_;},
       $equal,
       $compare,
       $to_int,

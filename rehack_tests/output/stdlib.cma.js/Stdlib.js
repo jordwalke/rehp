@@ -442,7 +442,7 @@ function at_exit(f) {
   var f_already_ran = [0,0];
   exit_function[1] =
     function(param) {
-      if (1 - f_already_ran[1]) {f_already_ran[1] = 1;call1(f, 0);}
+      if (! f_already_ran[1]) {f_already_ran[1] = 1;call1(f, 0);}
       return call1(g, 0);
     };
   return 0;

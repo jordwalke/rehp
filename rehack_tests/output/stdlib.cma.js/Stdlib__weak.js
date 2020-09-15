@@ -54,7 +54,7 @@ var Stdlib_obj = require("./Stdlib__obj.js");
 function create(l) {
   var af_ = 0 <= l ? 1 : 0;
   var ag_ = af_ ? l <= Stdlib_obj[27][15] ? 1 : 0 : af_;
-  if (1 - ag_) {call1(Stdlib[1], cst_Weak_create);}
+  if (! ag_) {call1(Stdlib[1], cst_Weak_create);}
   return runtime["caml_weak_create"](l);
 }
 
@@ -63,7 +63,7 @@ function length(x) {return x.length - 1 - 2 | 0;}
 function raise_if_invalid_offset(e, o, msg) {
   var ac_ = 0 <= o ? 1 : 0;
   var ad_ = ac_ ? o < length(e) ? 1 : 0 : ac_;
-  var ae_ = 1 - ad_;
+  var ae_ = ! ad_;
   return ae_ ? call1(Stdlib[1], msg) : ae_;
 }
 
