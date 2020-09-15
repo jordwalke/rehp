@@ -30,7 +30,7 @@ function const__0(c, param) {return c;}
 
 function flip(f, x, y) {return call2(f, y, x);}
 
-function negate(p, v) {return 1 - call1(p, v);}
+function negate(p, v) {return ! call1(p, v);}
 
 var Finally_raised = [
   248,

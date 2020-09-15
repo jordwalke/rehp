@@ -694,7 +694,7 @@ function bprint_char_set(buf, char_set) {
       if (eM_) {
         var eN_ = is_in_char_set(set, before);
         var eO_ = eN_ ? is_in_char_set(set, after) : eN_;
-        var eP_ = 1 - eO_;
+        var eP_ = ! eO_;
       }
       else var eP_ = eM_;
       return eP_;
@@ -4692,7 +4692,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
     var hash = [0,0];
     function set_flag(str_ind, flag) {
       var bm_ = flag[1];
-      var bn_ = bm_ ? 1 - legacy_behavior__0 : bm_;
+      var bn_ = bm_ ? ! legacy_behavior__0 : bm_;
       if (bn_) {
         var bo_ = caml_string_get(str, str_ind);
         call3(failwith_message(A_), str, str_ind, bo_);
@@ -5243,20 +5243,20 @@ function fmt_ebb_of_string(legacy_behavior, str) {
         );
       }
     }
-    if (1 - legacy_behavior__0) {
-      var aE_ = 1 - plus_used[1];
+    if (! legacy_behavior__0) {
+      var aE_ = ! plus_used[1];
       var plus__0 = aE_ ? plus : aE_;
       if (plus__0) {incompatible_flag(pct_ind, str_ind, symb, cst__28);}
-      var aF_ = 1 - hash_used[1];
+      var aF_ = ! hash_used[1];
       var hash__0 = aF_ ? hash : aF_;
       if (hash__0) {incompatible_flag(pct_ind, str_ind, symb, cst__29);}
-      var aG_ = 1 - space_used[1];
+      var aG_ = ! space_used[1];
       var space__0 = aG_ ? space : aG_;
       if (space__0) {incompatible_flag(pct_ind, str_ind, symb, cst__30);}
-      var aH_ = 1 - pad_used[1];
+      var aH_ = ! pad_used[1];
       var aI_ = aH_ ? caml_notequal([0,pad], I_) : aH_;
       if (aI_) {incompatible_flag(pct_ind, str_ind, symb, cst_padding__0);}
-      var aJ_ = 1 - prec_used[1];
+      var aJ_ = ! prec_used[1];
       var aK_ = aJ_ ? caml_notequal([0,prec], J_) : aJ_;
       if (aK_) {
         var aL_ = ign ? 95 : symb;
@@ -5265,7 +5265,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
       var plus__1 = ign ? plus : ign;
       if (plus__1) {incompatible_flag(pct_ind, str_ind, 95, cst__31);}
     }
-    var aM_ = 1 - ign_used[1];
+    var aM_ = ! ign_used[1];
     var ign__0 = aM_ ? ign : aM_;
     if (ign__0) {
       var switch__4 = 38 <= symb ?
@@ -5442,7 +5442,7 @@ function fmt_ebb_of_string(legacy_behavior, str) {
     }
     switch (padty) {
       case 0:
-        if (1 - legacy_behavior__0) {
+        if (! legacy_behavior__0) {
           invalid_format_without(str_ind + -1 | 0, 45, cst_padding);
         }
         return parse_after_padding(

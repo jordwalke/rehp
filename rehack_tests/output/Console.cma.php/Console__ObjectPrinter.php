@@ -120,7 +120,7 @@ final class Console__ObjectPrinter {
       }
     };
     $extractList->contents = (dynamic $maxNum, dynamic $o) : dynamic ==> {
-      if (0 === $maxNum) {return Vector{0, 1 - $is_int($o), 0};}
+      if (0 === $maxNum) {return Vector{0, ! $is_int($o), 0};}
       if ($is_int($o)) {return $b_;}
       $match = $extractList->contents((int) ($maxNum + -1), $o[2]);
       $rest = $match[2];

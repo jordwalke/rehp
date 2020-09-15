@@ -459,7 +459,7 @@ final class Stdlib__format {
           switch($cA_[0]) {
             // FALLTHROUGH
             case 3:
-              $cC_ = 1 - $ty;
+              $cC_ = ! $ty;
               if ($cC_) {
                 $queue_elem[1] = $id((int) ($state[13] + $size));
                 $cD_ = $call1($Stdlib_stack[5], $state[1]);

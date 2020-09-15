@@ -82,9 +82,9 @@ final class Js_of_ocaml__Form {
         $ax_ = (dynamic $x) : dynamic ==> {
           return $call1($caml_get_public_method($x, -66829956, 179), $x);
         };
-        $ay_ = 1 -
-          (int)
-          ((dynamic $t4, dynamic $param) : dynamic ==> {return $t4->disabled;})($elt, $ax_);
+        $ay_ = !
+        (int)
+        ((dynamic $t4, dynamic $param) : dynamic ==> {return $t4->disabled;})($elt, $ax_);
       }
       else {$ay_ = $aw_;}
       return $ay_;

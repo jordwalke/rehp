@@ -483,7 +483,7 @@ final class Stdlib {
       $f_already_ran = Vector{0, 0} as dynamic;
       $exit_function[1] =
         (dynamic $param) : dynamic ==> {
-          if (1 - $f_already_ran[1]) {$f_already_ran[1] = 1;$call1($f, 0);}
+          if (! $f_already_ran[1]) {$f_already_ran[1] = 1;$call1($f, 0);}
           return $call1($g, 0);
         };
       return 0;

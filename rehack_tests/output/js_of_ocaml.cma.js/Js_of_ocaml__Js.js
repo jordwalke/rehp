@@ -40,10 +40,10 @@ function map(x, f) {return x == null__0 ? null__0 : return__0(call1(f, x));}
 
 function bind(x, f) {return x == null__0 ? null__0 : call1(f, x);}
 
-function test(x) {return 1 - (x == null__0 ? 1 : 0);}
+function test(x) {return ! (x == null__0 ? 1 : 0);}
 
 function iter(x, f) {
-  var ak_ = 1 - (x == null__0 ? 1 : 0);
+  var ak_ = ! (x == null__0 ? 1 : 0);
   return ak_ ? call1(f, x) : ak_;
 }
 

@@ -508,7 +508,7 @@ function parse_and_expand_argv_dynamic_aux(allow_expand, current, argv, speclist
                   }
                 default:
                   var f__6 = param[1];
-                  if (1 - allow_expand) {
+                  if (! allow_expand) {
                     throw caml_wrap_thrown_exception(
                             [
                               0,

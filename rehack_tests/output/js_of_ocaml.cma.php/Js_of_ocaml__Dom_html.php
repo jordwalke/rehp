@@ -1198,7 +1198,7 @@ final class Js_of_ocaml__Dom_html {
       $cl_ = ((dynamic $t52, dynamic $param) : dynamic ==> {
          return $t52->getContext;
        })($c, $ck_);
-      if (1 - $call1($Js_of_ocaml_Js[5][5], $cl_)) {
+      if (! $call1($Js_of_ocaml_Js[5][5], $cl_)) {
         throw $caml_wrap_thrown_exception($Canvas_not_available) as \Throwable;
       }
       return $c;

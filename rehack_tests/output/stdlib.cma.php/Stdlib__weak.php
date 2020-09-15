@@ -39,14 +39,14 @@ final class Stdlib__weak {
     $create = (dynamic $l) : dynamic ==> {
       $af_ = 0 <= $l ? 1 : (0);
       $ag_ = $af_ ? $l <= $Stdlib_obj[27][15] ? 1 : (0) : ($af_);
-      if (1 - $ag_) {$call1($Stdlib[1], $cst_Weak_create);}
+      if (! $ag_) {$call1($Stdlib[1], $cst_Weak_create);}
       return $runtime["caml_weak_create"]($l);
     };
     $length = (dynamic $x) : dynamic ==> {return (int) ($x->count() - 1 - 2);};
     $raise_if_invalid_offset = (dynamic $e, dynamic $o, dynamic $msg) : dynamic ==> {
       $ac_ = 0 <= $o ? 1 : (0);
       $ad_ = $ac_ ? $o < $length($e) ? 1 : (0) : ($ac_);
-      $ae_ = 1 - $ad_;
+      $ae_ = ! $ad_;
       return $ae_ ? $call1($Stdlib[1], $msg) : ($ae_);
     };
     $set = (dynamic $e, dynamic $o, dynamic $x) : dynamic ==> {

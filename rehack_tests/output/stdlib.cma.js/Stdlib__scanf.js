@@ -414,7 +414,7 @@ function character_mismatch(c, ci) {
 function skip_whites(ib) {
   for (; ; ) {
     var c = peek_char(ib);
-    var bs_ = 1 - eof(ib);
+    var bs_ = ! eof(ib);
     if (bs_) {
       var bt_ = c + -9 | 0;
       var switch__0 = 4 < bt_ >>> 0 ?
@@ -1233,7 +1233,7 @@ function scan_chars_in_char_set(char_set, scan_indic, width, ib) {
       var c = peek_char(ib);
       var aq_ = 0 < i__0 ? 1 : 0;
       if (aq_) {
-        var ar_ = 1 - eof(ib);
+        var ar_ = ! eof(ib);
         if (ar_) {
           var as_ = call2(CamlinternalFormat[1], char_set, c);
           var at_ = as_ ? c !== stp ? 1 : 0 : as_;
@@ -1253,7 +1253,7 @@ function scan_chars_in_char_set(char_set, scan_indic, width, ib) {
   if (scan_indic) {
     var c = scan_indic[1];
     scan_chars(width, c);
-    var ap_ = 1 - eof(ib);
+    var ap_ = ! eof(ib);
     if (ap_) {
       var ci = peek_char(ib);
       return c === ci ?

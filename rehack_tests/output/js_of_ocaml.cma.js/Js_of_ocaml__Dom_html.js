@@ -1085,7 +1085,7 @@ function createCanvas(doc) {
     return call1(caml_get_public_method(x, -388424711, 102), x);
   }
   var cl_ = function(t52, param) {return t52.getContext;}(c, ck_);
-  if (1 - call1(Js_of_ocaml_Js[5][5], cl_)) {
+  if (! call1(Js_of_ocaml_Js[5][5], cl_)) {
     throw caml_wrap_thrown_exception(Canvas_not_available);
   }
   return c;

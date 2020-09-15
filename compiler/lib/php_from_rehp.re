@@ -580,7 +580,7 @@ and unopFromRehp = (input, unop, rehpExpr) =>
     (outMapped, EUn(Delete, exprMapped));
   | Bnot =>
     let (outMapped, exprMapped) = expression(input, rehpExpr);
-    (outMapped, EBin(Minus, EInt(1), exprMapped));
+    (outMapped, Php.EUn(Php.Bnot, exprMapped));
   | IncrA =>
     let (outMapped, exprMapped) = expression(input, rehpExpr);
     (outMapped, EUn(IncrA, exprMapped));

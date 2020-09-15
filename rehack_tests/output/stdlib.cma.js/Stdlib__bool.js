@@ -25,7 +25,7 @@ function to_string(param) {return 0 === param ? cst_false : cst_true;}
 
 var Stdlib_bool = [
   0,
-  function(a_) {return 1 - a_;},
+  function(a_) {return ! a_;},
   equal,
   compare,
   to_int,

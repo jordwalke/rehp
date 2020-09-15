@@ -1628,7 +1628,7 @@ let rec translate_expr ctx queue loc _x e level : _ * J.statement_list =
                 J.ECall (prim, args, loc), prop, queue)
         | Not, [ x ] ->
             let (px, cx), queue = access_queue' ~ctx queue x in
-            J.EUn (J.Bnot, cx), px, queue
+            J.EUn (J.Not, cx), px, queue
         | Lt, [ x; y ] ->
             let (px, cx), queue = access_queue' ~ctx queue x in
             let (py, cy), queue = access_queue' ~ctx queue y in

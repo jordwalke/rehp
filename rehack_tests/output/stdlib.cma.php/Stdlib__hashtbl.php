@@ -219,7 +219,7 @@ final class Stdlib__hashtbl {
       if ($al_) {
         $ndata = $caml_make_vect($nsize, 0);
         $ndata_tail = $caml_make_vect($nsize, 0);
-        $inplace = 1 - $ongoing_traversal($h);
+        $inplace = ! $ongoing_traversal($h);
         $h[2] = $ndata;
         $insert_bucket = (dynamic $cell) : dynamic ==> {
           $cell__1 = null as dynamic;
@@ -544,7 +544,7 @@ final class Stdlib__hashtbl {
         }
       };
       $old_trav = $ongoing_traversal($h);
-      if (1 - $old_trav) {$flip_ongoing_traversal($h);}
+      if (! $old_trav) {$flip_ongoing_traversal($h);}
       try {
         $d = $h[2];
         $Y_ = (int) ($d->count() - 1 + -1) as dynamic;
@@ -558,7 +558,7 @@ final class Stdlib__hashtbl {
             break;
           }
         }
-        $Z_ = 1 - $old_trav;
+        $Z_ = ! $old_trav;
         $aa_ = $Z_ ? $flip_ongoing_traversal($h) : ($Z_);
         return $aa_;
       }
@@ -614,7 +614,7 @@ final class Stdlib__hashtbl {
       $i = null as dynamic;
       $d = $h[2];
       $old_trav = $ongoing_traversal($h);
-      if (1 - $old_trav) {$flip_ongoing_traversal($h);}
+      if (! $old_trav) {$flip_ongoing_traversal($h);}
       try {
         $U_ = (int) ($d->count() - 1 + -1) as dynamic;
         $T_ = 0 as dynamic;
@@ -675,7 +675,7 @@ final class Stdlib__hashtbl {
         }
       };
       $old_trav = $ongoing_traversal($h);
-      if (1 - $old_trav) {$flip_ongoing_traversal($h);}
+      if (! $old_trav) {$flip_ongoing_traversal($h);}
       try {
         $d = $h[2];
         $accu = Vector{0, $init} as dynamic;
@@ -691,7 +691,7 @@ final class Stdlib__hashtbl {
             break;
           }
         }
-        if (1 - $old_trav) {$flip_ongoing_traversal($h);}
+        if (! $old_trav) {$flip_ongoing_traversal($h);}
         $Q_ = $accu[1];
         return $Q_;
       }

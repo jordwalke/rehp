@@ -29,7 +29,7 @@ final class Stdlib__obj {
     $Stdlib = Stdlib::get();
     $Stdlib_marshal = Stdlib__marshal::get();
     $Stdlib_sys = Stdlib__sys::get();
-    $is_block = (dynamic $a) : dynamic ==> {return 1 - $is_int($a);};
+    $is_block = (dynamic $a) : dynamic ==> {return ! $is_int($a);};
     $double_field = (dynamic $x, dynamic $i) : dynamic ==> {
       return $runtime["caml_array_get"]($x, $i);
     };
@@ -101,14 +101,14 @@ final class Stdlib__obj {
     $create = (dynamic $l) : dynamic ==> {
       $s_ = 0 <= $l ? 1 : (0);
       $t_ = $s_ ? $l <= $max_ephe_length ? 1 : (0) : ($s_);
-      if (1 - $t_) {$call1($Stdlib[1], $cst_Obj_Ephemeron_create);}
+      if (! $t_) {$call1($Stdlib[1], $cst_Obj_Ephemeron_create);}
       return $runtime["caml_ephe_create"]($l);
     };
     $length = (dynamic $x) : dynamic ==> {return (int) ($x->count() - 1 - 2);};
     $raise_if_invalid_offset = (dynamic $e, dynamic $o, dynamic $msg) : dynamic ==> {
       $p_ = 0 <= $o ? 1 : (0);
       $q_ = $p_ ? $o < $length($e) ? 1 : (0) : ($p_);
-      $r_ = 1 - $q_;
+      $r_ = ! $q_;
       return $r_ ? $call1($Stdlib[1], $msg) : ($r_);
     };
     $get_key = (dynamic $e, dynamic $o) : dynamic ==> {
