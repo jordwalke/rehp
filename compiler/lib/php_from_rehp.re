@@ -553,6 +553,9 @@ and unopFromRehp = (input, unop, rehpExpr) =>
   | ToInt =>
     let (outMapped, exprMapped) = expression(input, rehpExpr);
     (outMapped, EUn(ToInt, exprMapped));
+  | IntToFloat =>
+    let (outMapped, exprMapped) = expression(input, rehpExpr);
+    (outMapped, exprMapped);
   | IntToString =>
     let (outMapped, exprMapped) = expression(input, rehpExpr);
     (outMapped, EUn(IntToString, exprMapped));

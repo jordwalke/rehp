@@ -1031,7 +1031,6 @@ let _ =
     ; "caml_int64_to_int", "caml_int64_to_int32"
     ; "caml_int64_of_nativeint", "caml_int64_of_int32"
     ; "caml_int64_to_nativeint", "caml_int64_to_int32"
-    ; "caml_float_of_int", "%identity"
     ; "caml_array_get_float", "caml_array_get"
     ; "caml_floatarray_get", "caml_array_get"
     ; "caml_array_get_addr", "caml_array_get"
@@ -1331,6 +1330,7 @@ let _ =
   );
   register_un_prim "caml_obj_dup" `Mutable (fun cx loc -> J.ECopy (cx, loc));
   register_un_prim "caml_int_of_float" `Pure (fun cx _loc -> (J.EUn (J.FloatToInt, cx)));
+  register_un_prim "caml_float_of_int" `Pure (fun cx _loc -> (J.EUn (J.IntToFloat, cx)));
   register_un_math_prim "caml_abs_float" "abs";
   register_un_math_prim "caml_acos_float" "acos";
   register_un_math_prim "caml_asin_float" "asin";

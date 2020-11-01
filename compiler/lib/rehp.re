@@ -119,6 +119,7 @@ and unop =
   | ToBool
   | IntToString
   | FloatToInt
+  | IntToFloat
   | Void /* Only for stubs */
   | Delete /* Only for stubs */
   | Bnot

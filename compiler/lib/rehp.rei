@@ -75,6 +75,7 @@ and unop =
   | ToBool
   | IntToString
   | FloatToInt
+  | IntToFloat
   | Void
   | Delete
   | Bnot
