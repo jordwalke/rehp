@@ -33,6 +33,7 @@ and from_unop = (unop, jsExpr) =>
   | ToBool
   | FloatToInt
   | ToInt => Expand.toInt(jsExpr)
+  | IntToFloat => jsExpr
   | IntToString => Expand.intToString(jsExpr)
   | FloatNeg
   | Neg => EUn(Javascript.Neg, jsExpr)
