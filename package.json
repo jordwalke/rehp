@@ -7,11 +7,12 @@
     "@opam/reason": "^3.4.0",
     "refmterr": "*",
     "@opam/dune": "*",
-    "@opam/ocaml-migrate-parsetree": "*",
+    "@opam/ocaml-migrate-parsetree": "1.4.0",
     "@opam/ppx_tools_versioned": "*",
     "@opam/uchar": "*",
     "@opam/cmdliner": "*",
-    "@opam/ppx_deriving": "*"
+    "@opam/ppx_deriving": "*",
+    "@opam/graphics": "*"
   },
   "peerDependencies": {
     "ocaml": "~4.6.0"
@@ -20,7 +21,7 @@
     "@opam/ocamlformat": "*",
     "@opam/merlin": "*",
     "@reason-native/console": "*",
-    "ocaml": " ~ 4.8.0",
+    "ocaml": "4.9.0",
     "@opam/ppx_expect": "*"
   },
   "resolutions": {
