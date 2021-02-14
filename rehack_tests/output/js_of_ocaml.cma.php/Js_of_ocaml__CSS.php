@@ -113,8 +113,9 @@ final class Js_of_ocaml__CSS {
     );
     $cst_is_not_a_valid_color = $string(" is not a valid color");
     $cst_is_out_of_valid_range = $string(" is out of valid range");
-    $partial = Vector{8, 0, 0, 0, Vector{12, 41, 0}} as dynamic;
+    $partial = Vector{8, Vector{0, 0, 0}, 0, 0, Vector{12, 41, 0}} as dynamic;
     $partial__0 = Vector{12, 41, 0} as dynamic;
+    $partial__1 = Vector{0, 0, 0} as dynamic;
     $cst_lightgrey__0 = $string("lightgrey");
     $cst_darkslategray__0 = $string("darkslategray");
     $cst_cornsilk__0 = $string("cornsilk");
@@ -415,24 +416,96 @@ final class Js_of_ocaml__CSS {
     $Stdlib_printf = Stdlib__printf::get();
     $Js_of_ocaml_Js = Js_of_ocaml__Js::get();
     $Stdlib_list = Stdlib__list::get();
-    $b2_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
-    $b3_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
-    $b4_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
-    $b5_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
-    $bO_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
-    $bP_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
-    $bQ_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
-    $bR_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
-    $bS_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
-    $bT_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
-    $bU_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
-    $bV_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
-    $bW_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
-    $bX_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
-    $bY_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
-    $bZ_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
-    $b0_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
-    $b1_ = Vector{0, Vector{8, 0, 0, 0, Vector{2, 0, 0}}, $string("%f%s")} as dynamic;
+    $b2_ = Vector{
+      0,
+      Vector{8, Vector{0, 0, 0}, 0, 0, Vector{2, 0, 0}},
+      $string("%f%s")
+    } as dynamic;
+    $b3_ = Vector{
+      0,
+      Vector{8, Vector{0, 0, 0}, 0, 0, Vector{2, 0, 0}},
+      $string("%f%s")
+    } as dynamic;
+    $b4_ = Vector{
+      0,
+      Vector{8, Vector{0, 0, 0}, 0, 0, Vector{2, 0, 0}},
+      $string("%f%s")
+    } as dynamic;
+    $b5_ = Vector{
+      0,
+      Vector{8, Vector{0, 0, 0}, 0, 0, Vector{2, 0, 0}},
+      $string("%f%s")
+    } as dynamic;
+    $bO_ = Vector{
+      0,
+      Vector{8, Vector{0, 0, 0}, 0, 0, Vector{2, 0, 0}},
+      $string("%f%s")
+    } as dynamic;
+    $bP_ = Vector{
+      0,
+      Vector{8, Vector{0, 0, 0}, 0, 0, Vector{2, 0, 0}},
+      $string("%f%s")
+    } as dynamic;
+    $bQ_ = Vector{
+      0,
+      Vector{8, Vector{0, 0, 0}, 0, 0, Vector{2, 0, 0}},
+      $string("%f%s")
+    } as dynamic;
+    $bR_ = Vector{
+      0,
+      Vector{8, Vector{0, 0, 0}, 0, 0, Vector{2, 0, 0}},
+      $string("%f%s")
+    } as dynamic;
+    $bS_ = Vector{
+      0,
+      Vector{8, Vector{0, 0, 0}, 0, 0, Vector{2, 0, 0}},
+      $string("%f%s")
+    } as dynamic;
+    $bT_ = Vector{
+      0,
+      Vector{8, Vector{0, 0, 0}, 0, 0, Vector{2, 0, 0}},
+      $string("%f%s")
+    } as dynamic;
+    $bU_ = Vector{
+      0,
+      Vector{8, Vector{0, 0, 0}, 0, 0, Vector{2, 0, 0}},
+      $string("%f%s")
+    } as dynamic;
+    $bV_ = Vector{
+      0,
+      Vector{8, Vector{0, 0, 0}, 0, 0, Vector{2, 0, 0}},
+      $string("%f%s")
+    } as dynamic;
+    $bW_ = Vector{
+      0,
+      Vector{8, Vector{0, 0, 0}, 0, 0, Vector{2, 0, 0}},
+      $string("%f%s")
+    } as dynamic;
+    $bX_ = Vector{
+      0,
+      Vector{8, Vector{0, 0, 0}, 0, 0, Vector{2, 0, 0}},
+      $string("%f%s")
+    } as dynamic;
+    $bY_ = Vector{
+      0,
+      Vector{8, Vector{0, 0, 0}, 0, 0, Vector{2, 0, 0}},
+      $string("%f%s")
+    } as dynamic;
+    $bZ_ = Vector{
+      0,
+      Vector{8, Vector{0, 0, 0}, 0, 0, Vector{2, 0, 0}},
+      $string("%f%s")
+    } as dynamic;
+    $b0_ = Vector{
+      0,
+      Vector{8, Vector{0, 0, 0}, 0, 0, Vector{2, 0, 0}},
+      $string("%f%s")
+    } as dynamic;
+    $b1_ = Vector{
+      0,
+      Vector{8, Vector{0, 0, 0}, 0, 0, Vector{2, 0, 0}},
+      $string("%f%s")
+    } as dynamic;
     $bN_ = $caml_list_of_js_array(
       varray[
         $string("aliceblue"),
@@ -688,7 +761,11 @@ final class Js_of_ocaml__CSS {
                   0,
                   0,
                   0,
-                  Vector{12, 44, Vector{8, 0, 0, 0, Vector{12, 41, 0}}}
+                  Vector{
+                    12,
+                    44,
+                    Vector{8, Vector{0, 0, 0}, 0, 0, Vector{12, 41, 0}}
+                  }
                 }
               }
             }
@@ -799,7 +876,7 @@ final class Js_of_ocaml__CSS {
                     Vector{
                       12,
                       37,
-                      Vector{12, 44, Vector{8, 0, 0, 0, $partial__0}}
+                      Vector{12, 44, Vector{8, $partial__1, 0, 0, $partial__0}}
                     }
                   }
                 }

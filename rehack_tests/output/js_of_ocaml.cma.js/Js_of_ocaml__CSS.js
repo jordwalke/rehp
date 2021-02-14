@@ -128,8 +128,9 @@ var cst_hsla_s_d_s_d_s_d_d_d = string(
 );
 var cst_is_not_a_valid_color = string(" is not a valid color");
 var cst_is_out_of_valid_range = string(" is out of valid range");
-var partial = [8,0,0,0,[12,41,0]];
+var partial = [8,[0,0,0],0,0,[12,41,0]];
 var partial__0 = [12,41,0];
+var partial__1 = [0,0,0];
 var cst_lightgrey__0 = string("lightgrey");
 var cst_darkslategray__0 = string("darkslategray");
 var cst_cornsilk__0 = string("cornsilk");
@@ -430,24 +431,24 @@ var Js_of_ocaml_Regexp = require("./Js_of_ocaml__Regexp.js");
 var Stdlib_printf = require("../stdlib.cma.js/Stdlib__printf.js");
 var Js_of_ocaml_Js = require("./Js_of_ocaml__Js.js");
 var Stdlib_list = require("../stdlib.cma.js/Stdlib__list.js");
-var b2_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var b3_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var b4_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var b5_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var bO_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var bP_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var bQ_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var bR_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var bS_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var bT_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var bU_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var bV_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var bW_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var bX_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var bY_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var bZ_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var b0_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
-var b1_ = [0,[8,0,0,0,[2,0,0]],string("%f%s")];
+var b2_ = [0,[8,[0,0,0],0,0,[2,0,0]],string("%f%s")];
+var b3_ = [0,[8,[0,0,0],0,0,[2,0,0]],string("%f%s")];
+var b4_ = [0,[8,[0,0,0],0,0,[2,0,0]],string("%f%s")];
+var b5_ = [0,[8,[0,0,0],0,0,[2,0,0]],string("%f%s")];
+var bO_ = [0,[8,[0,0,0],0,0,[2,0,0]],string("%f%s")];
+var bP_ = [0,[8,[0,0,0],0,0,[2,0,0]],string("%f%s")];
+var bQ_ = [0,[8,[0,0,0],0,0,[2,0,0]],string("%f%s")];
+var bR_ = [0,[8,[0,0,0],0,0,[2,0,0]],string("%f%s")];
+var bS_ = [0,[8,[0,0,0],0,0,[2,0,0]],string("%f%s")];
+var bT_ = [0,[8,[0,0,0],0,0,[2,0,0]],string("%f%s")];
+var bU_ = [0,[8,[0,0,0],0,0,[2,0,0]],string("%f%s")];
+var bV_ = [0,[8,[0,0,0],0,0,[2,0,0]],string("%f%s")];
+var bW_ = [0,[8,[0,0,0],0,0,[2,0,0]],string("%f%s")];
+var bX_ = [0,[8,[0,0,0],0,0,[2,0,0]],string("%f%s")];
+var bY_ = [0,[8,[0,0,0],0,0,[2,0,0]],string("%f%s")];
+var bZ_ = [0,[8,[0,0,0],0,0,[2,0,0]],string("%f%s")];
+var b0_ = [0,[8,[0,0,0],0,0,[2,0,0]],string("%f%s")];
+var b1_ = [0,[8,[0,0,0],0,0,[2,0,0]],string("%f%s")];
 var bN_ = caml_list_of_js_array(
   [
     string("aliceblue"),
@@ -629,7 +630,13 @@ var bI_ = [
   [
     11,
     string("rgba("),
-    [4,0,0,0,[12,44,[4,0,0,0,[12,44,[4,0,0,0,[12,44,[8,0,0,0,[12,41,0]]]]]]]]
+    [
+      4,
+      0,
+      0,
+      0,
+      [12,44,[4,0,0,0,[12,44,[4,0,0,0,[12,44,[8,[0,0,0],0,0,[12,41,0]]]]]]]
+    ]
   ],
   string("rgba(%d,%d,%d,%f)")
 ];
@@ -679,7 +686,11 @@ var bL_ = [
           0,
           0,
           0,
-          [12,37,[12,44,[4,0,0,0,[12,37,[12,44,[8,0,0,0,partial__0]]]]]]
+          [
+            12,
+            37,
+            [12,44,[4,0,0,0,[12,37,[12,44,[8,partial__1,0,0,partial__0]]]]]
+          ]
         ]
       ]
     ]

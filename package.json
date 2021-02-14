@@ -20,6 +20,7 @@
   "devDependencies": {
     "@opam/ocamlformat": "*",
     "@opam/merlin": "*",
+    "@opam/ocaml-lsp-server": "*",
     "@reason-native/console": "*",
     "ocaml": "4.9.0",
     "@opam/ppx_expect": "*"

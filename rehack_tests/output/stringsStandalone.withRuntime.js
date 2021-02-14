@@ -181,6 +181,8 @@ function print_newline(param) {
 
 function do_at_exit(param) {return flush_all(0);}
 
+runtime["caml_sys_executable_name"](0);
+
 caml_fresh_oo_id(0);
 
 function make(n, c) {
