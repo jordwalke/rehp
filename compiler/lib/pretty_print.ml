@@ -229,7 +229,9 @@ let to_out_channel ch =
     col = 0; line = 0; total = 0;
     compact = false; pending_space = None; last_char = None; needed_space = None;
     output = (fun s i l -> Buffer.add_substring buffer s i l);
-    finally = output_string ch;
+    finally = (fun s -> 
+      Buffer.clear buffer;
+      output_string ch s);
     get_accumulated_output = fun () -> Buffer.contents buffer;
   }
 
@@ -240,7 +242,9 @@ let to_buffer b =
     col = 0; line = 0; total = 0;
     compact = false; pending_space = None; last_char = None; needed_space = None;
     output = (fun s i l -> Buffer.add_substring buffer s i l);
-    finally = Buffer.add_string b;
+    finally = (fun s -> 
+      Buffer.clear buffer;
+      Buffer.add_string b s);
     get_accumulated_output = fun () -> Buffer.contents buffer;
   }
 
