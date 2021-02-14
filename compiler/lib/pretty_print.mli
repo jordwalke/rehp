@@ -45,3 +45,5 @@ val total : t -> int
 
 val set_compact : t -> bool -> unit
 val set_needed_space_function : t -> (char -> char -> bool) -> unit
+
+val post_process : t -> (string -> string) -> unit

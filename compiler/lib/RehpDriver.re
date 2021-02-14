@@ -624,6 +624,9 @@ let f =
     standalone
       ? augmentWithLinkInfoStandalone(~linkall, ~shouldExportRuntime)
       : augmentWithLinkInfoSeparate;
+  
+  let post_process_output () = 
+    Pretty_print.post_process(formatter, x => x);
 
   configure(formatter)
   >> specialize_js_once(~file?, ~projectRoot?, d)
@@ -644,7 +647,8 @@ let f =
   >> coloring
   >> check
   /* Print the transformed target langauge and include any linked stubs  */
-  >> outputter(formatter, ~custom_header, ~source_map?);
+  >> outputter(formatter, ~custom_header, ~source_map?)
+  >> post_process_output;
 };
 
 let profiles = [(1, o1), (2, o2), (3, o3)];

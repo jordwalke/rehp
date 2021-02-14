@@ -50,7 +50,9 @@ type t =
     mutable line : int;
     mutable col : int;
     mutable total : int;
-    output : string -> int -> int -> unit }
+    output : string -> int -> int -> unit;
+    finally : string -> unit;
+    get_accumulated_output: unit -> string }
 
 let spaces = String.make 80 ' '
 let output st (s : string) l =
@@ -221,19 +223,31 @@ let newline st =
   st.cur <- 0; st.l <- []; st.n <- 0; st.w <- 0
 
 let to_out_channel ch =
+  let buffer = Buffer.create 100 in
   { indent = 0; box_indent = 0; prev_indents = [];
     limit = 78; cur = 0; l = []; n = 0; w = 0;
     col = 0; line = 0; total = 0;
     compact = false; pending_space = None; last_char = None; needed_space = None;
-    output = output_substring ch
+    output = (fun s i l -> Buffer.add_substring buffer s i l);
+    finally = output_string ch;
+    get_accumulated_output = fun () -> Buffer.contents buffer;
   }
 
 let to_buffer b =
+  let buffer = Buffer.create 100 in
   { indent = 0; box_indent = 0; prev_indents = [];
     limit = 78; cur = 0; l = []; n = 0; w = 0;
     col = 0; line = 0; total = 0;
     compact = false; pending_space = None; last_char = None; needed_space = None;
-    output = fun s i l -> Buffer.add_substring b s i l }
+    output = (fun s i l -> Buffer.add_substring buffer s i l);
+    finally = Buffer.add_string b;
+    get_accumulated_output = fun () -> Buffer.contents buffer;
+  }
+
+let post_process t fn =
+  let str = t.get_accumulated_output () in
+  let processed_str = fn str in
+  t.finally processed_str
 
 let set_compact st v = st.compact <- v
 
