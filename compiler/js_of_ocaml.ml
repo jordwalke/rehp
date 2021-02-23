@@ -407,6 +407,7 @@ let f
                 ~dynlink
                 ~custom_header
                 ?source_map
+                ~post_process_fn:Js_of_ocaml_flow_pretty_printer.Util.pretty_print
                 fmt
                 one.debug
                 code);
@@ -420,6 +421,7 @@ let f
                   RehpDriver.f
                     ~file
                     ?projectRoot:(get_project_root())
+                    ~post_process_fn:Js_of_ocaml_flow_pretty_printer.Util.pretty_print
                     ~standalone
                     ?profile
                     ~custom_header

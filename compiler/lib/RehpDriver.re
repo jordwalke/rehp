@@ -606,6 +606,7 @@ let f =
       ~linkall=false,
       ~source_map=?,
       ~custom_header,
+      ~post_process_fn=?,
       formatter,
       d,
     ) => {
@@ -624,9 +625,13 @@ let f =
     standalone
       ? augmentWithLinkInfoStandalone(~linkall, ~shouldExportRuntime)
       : augmentWithLinkInfoSeparate;
-  
-  let post_process_output () = 
-    Pretty_print.post_process(formatter, x => x);
+
+  let post_process_output = () => {
+    switch (post_process_fn) {
+    | Some(fn) => Pretty_print.post_process(formatter, fn)
+    | None => ()
+    };
+  };
 
   configure(formatter)
   >> specialize_js_once(~file?, ~projectRoot?, d)
