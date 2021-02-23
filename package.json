@@ -3,6 +3,9 @@
   "version": "3.1.0",
   "dependencies": {
     "@opam/lwt": "*",
+    "@opam/lwt_ppx": "*",
+    "@opam/dtoa": "*",
+    "@esy-ocaml/flow-parser": "*",
     "@esy-ocaml/substs": "^0.0.1",
     "@opam/reason": "^3.4.0",
     "refmterr": "*",
@@ -27,12 +30,13 @@
   },
   "resolutions": {
     "dune": "2.1.0",
-    "@opam/merlin-extend": "0.4"
+    "@opam/merlin-extend": "0.4",
+    "@esy-ocaml/flow-parser": "ReasonIndia/flow-parser#6457b1d5c7e7a403bf57c452db39bf958bb3f6e2"
   },
   "optDependencies": {},
   "esy": {
     "buildDev": [
-      [ "refmterr", "dune", "build", "-p", "js_of_ocaml,js_of_ocaml-compiler,js_of_ocaml-ppx,js_of_ocaml-lwt,js_of_ocaml-ppx_deriving_json"],
+      [ "refmterr", "dune", "build", "-p", "js_of_ocaml,js_of_ocaml-compiler,js_of_ocaml-ppx,js_of_ocaml-lwt,js_of_ocaml-ppx_deriving_json,js_of_ocaml-flow_pretty_printer"],
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/hello_world/hello_world.bc"],
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/my-lib/MyLib.cma"],
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/SeparateCompilation/SeparateCompilation.cma"],

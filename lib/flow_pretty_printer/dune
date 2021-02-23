@@ -1,0 +1,5 @@
+(library
+  (name js_of_ocaml_flow_pretty_printer)
+  (public_name js_of_ocaml-flow_pretty_printer)
+  (libraries base dtoa lwt str unix  flow-parser)
+  (preprocess (pps lwt_ppx ppx_deriving.std)))
