@@ -30,7 +30,7 @@ let f:
     ~linkall: bool=?,
     ~source_map: (option(string), Source_map.t)=?,
     ~custom_header: Module_prep.parsed,
-    ~post_process_fn: string => string=?,
+    /* ~post_process_fn: string => string=?, */
     Pretty_print.t,
     Parse_bytecode.Debug.data,
     Code.program

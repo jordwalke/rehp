@@ -318,6 +318,11 @@ let output =
   };
 };
 
+let extra_pretty_print = ((), partially_formatted_output) =>
+  Js_of_ocaml_flow_pretty_printer.Util.pretty_print(
+    partially_formatted_output,
+  );
+
 /**
  * Primitive.exists only returns true if it was provided by the linker or
  * something that actually registers it with its arity/kind etc typically
