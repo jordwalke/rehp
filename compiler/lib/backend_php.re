@@ -341,6 +341,8 @@ let output =
   };
 };
 
+let extra_pretty_print = ((), partially_formatted_output) => partially_formatted_output;
+
 /**
  * In PHP or other backends, we aren't doing any intelligent detection of
  * which external bindings are linked in. So instead we keep a manual list of

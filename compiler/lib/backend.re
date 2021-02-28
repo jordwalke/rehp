@@ -195,6 +195,7 @@ module type Backend_implementation = {
       )
     ) =>
     unit;
+  let extra_pretty_print: (unit, string) => string;
 };
 
 type t = (module Backend_implementation);
@@ -281,5 +282,10 @@ module Current: Backend_implementation = {
     switch (current^) {
     | None => raise(Invalid_argument("Runtime setter not set"))
     | Some((module CurrentBackend)) => CurrentBackend.runtime_module_var()
+    };
+  let extra_pretty_print = () =>
+    switch (current^) {
+    | None => raise(Invalid_argument("Extra pretty printer not set"))
+    | Some((module CurrentBackend)) => CurrentBackend.extra_pretty_print()
     };
 };

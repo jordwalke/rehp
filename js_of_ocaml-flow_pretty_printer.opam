@@ -1,0 +1,14 @@
+opam-version: "2.0"
+maintainer:   "dev@ocsigen.org"
+authors:      "Esy team"
+bug-reports:  "https://github.com/ocsigen/js_of_ocaml/issues"
+homepage:     "http://ocsigen.org/js_of_ocaml"
+dev-repo:     "git+https://github.com/ocsigen/js_of_ocaml.git"
+
+name: "js_of_ocaml-flow_pretty_printer"
+
+build: [["dune" "build" "-p" name "-j" jobs]]
+
+depends: [
+  "ocaml" {= "4.10.2000"}
+]

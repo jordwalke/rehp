@@ -67,6 +67,11 @@ let prettiestJs =
   let doc = "Whether or not the pretty printing of Js should be extra pretty." in
   Arg.(value & flag & info ["prettiest-js"] ~doc)
 
+let flowPrettyJs =
+  (*TODO: change docs*)
+  let doc = "Whether or not the pretty printing of Js should be extra pretty." in
+  Arg.(value & flag & info ["flow-pretty-js"] ~doc)
+
 let debuginfo =
   let doc = "Output debug information." in
   Arg.(value & flag & info ["debuginfo"; "debug-info"] ~doc)
@@ -127,6 +132,7 @@ let t =
            disable
            pretty
            prettiestJs
+           flowPrettyJs
            debuginfo
            noinline
            quiet
@@ -138,6 +144,7 @@ let t =
            ->
         let enable = if pretty then "pretty" :: enable else enable in
         let enable = if prettiestJs then "prettiest-js" :: enable else enable in
+        let enable = if flowPrettyJs then "flow-pretty-js" :: enable else enable in
         let enable = if debuginfo then "debuginfo" :: enable else enable in
         let disable = if noinline then "inline" :: disable else disable in
         let disable_if_pretty name disable =
@@ -158,6 +165,7 @@ let t =
     $ disable
     $ pretty
     $ prettiestJs
+    $ flowPrettyJs
     $ debuginfo
     $ noinline
     $ is_quiet

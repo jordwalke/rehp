@@ -7,6 +7,7 @@
     (package js_of_ocaml-lwt)
     (package js_of_ocaml-tyxml)
     (package js_of_ocaml-toplevel)
+    (package js_of_ocaml-flow_pretty_printer)
     (package js_of_ocaml-ocamlbuild))
   (action (run
     %{dep:../tools/docgen/docgen.exe}

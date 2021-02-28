@@ -182,7 +182,6 @@ let start_group st n = if not st.compact then push st (Start_group n)
 let end_group st = if not st.compact then push st End_group
 
 (*
-
 let render l =
   let st = { indent = 0; box_indent = 0; prev_indents = [];
              limit = 78; cur = 0; l = []; n = 0; w = 0;
@@ -191,15 +190,12 @@ let render l =
   List.iter (fun e -> push st e) l;
   push st End_group;
   output_newline st
-
 let rec tree n =
   if n = 0 then [Text "Leaf"] else
   [Start_group 10; Text "Node.... ("] @ tree (n - 1) @
   [Text ","; Break (" ", 0)] @ tree (n - 1) @ [Text ")"; End_group]
-
 let _ =
 for i = 1 to 10 do render (tree i) done
-
 *)
 
 let total t = t.total
@@ -234,6 +230,14 @@ let to_buffer b =
     col = 0; line = 0; total = 0;
     compact = false; pending_space = None; last_char = None; needed_space = None;
     output = fun s i l -> Buffer.add_substring b s i l }
+
+let to_custom_channel ch = 
+  { indent = 0; box_indent = 0; prev_indents = [];
+    limit = 78; cur = 0; l = []; n = 0; w = 0;
+    col = 0; line = 0; total = 0;
+    compact = false; pending_space = None; last_char = None; needed_space = None;
+    output = Custom_channel.Channel.add_substring ch
+  }
 
 let set_compact st v = st.compact <- v
 

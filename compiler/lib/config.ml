@@ -46,6 +46,8 @@ module Flag = struct
 
   let prettiestJs = o ~name:"prettiest-js" ~default:false
 
+  let flowPrettyJs = o ~name:"flow-pretty-js" ~default:false
+
   let stable_var = o ~name:"stable_var" ~default:false
 
   let debuginfo = o ~name:"debuginfo" ~default:false

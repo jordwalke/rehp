@@ -3,15 +3,19 @@
   "version": "3.1.0",
   "dependencies": {
     "@opam/lwt": "*",
+    "@opam/lwt_ppx": "*",
+    "@opam/dtoa": "*",
+    "@esy-ocaml/flow-parser": "*",
     "@esy-ocaml/substs": "^0.0.1",
     "@opam/reason": "^3.4.0",
     "refmterr": "*",
     "@opam/dune": "*",
-    "@opam/ocaml-migrate-parsetree": "*",
+    "@opam/ocaml-migrate-parsetree": "1.4.0",
     "@opam/ppx_tools_versioned": "*",
     "@opam/uchar": "*",
     "@opam/cmdliner": "*",
-    "@opam/ppx_deriving": "*"
+    "@opam/ppx_deriving": "*",
+    "@opam/graphics": "*"
   },
   "peerDependencies": {
     "ocaml": "~4.6.0"
@@ -19,25 +23,28 @@
   "devDependencies": {
     "@opam/ocamlformat": "*",
     "@opam/merlin": "*",
+    "@opam/ocaml-lsp-server": "*",
     "@reason-native/console": "*",
-    "ocaml": " ~ 4.8.0",
+    "ocaml": "4.9.0",
     "@opam/ppx_expect": "*"
   },
   "resolutions": {
     "dune": "2.1.0",
-    "@opam/merlin-extend": "0.4"
+    "@opam/merlin-extend": "0.4",
+    "@esy-ocaml/flow-parser": "ReasonIndia/flow-parser#6457b1d5c7e7a403bf57c452db39bf958bb3f6e2"
   },
   "optDependencies": {},
   "esy": {
     "buildDev": [
-      [ "refmterr", "dune", "build", "-p", "js_of_ocaml,js_of_ocaml-compiler,js_of_ocaml-ppx,js_of_ocaml-lwt,js_of_ocaml-ppx_deriving_json"],
+      [ "refmterr", "dune", "build", "-p", "js_of_ocaml,js_of_ocaml-compiler,js_of_ocaml-ppx,js_of_ocaml-lwt,js_of_ocaml-ppx_deriving_json,js_of_ocaml-flow_pretty_printer"],
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/hello_world/hello_world.bc"],
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/my-lib/MyLib.cma"],
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/SeparateCompilation/SeparateCompilation.cma"],
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/HashBugReproduce/HashBugReproduce.cma"],
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/strings/strings.bc"],
       [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/calls/Calls.cma"],
-      [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/recursion/Recursion.cma"]
+      [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/recursion/Recursion.cma"],
+      [ "refmterr", "dune", "build", "--profile=release", "rehack_tests/flow_pretty_printing/MutualRecursion.cma"]
     ],
     "build": [
       [ "refmterr", "dune", "build", "-p", "js_of_ocaml,js_of_ocaml-compiler,js_of_ocaml-lwt"]

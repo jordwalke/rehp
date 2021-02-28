@@ -325,7 +325,7 @@ final class Js_of_ocaml__Js {
       return 0;
     };
     
-    $call1($Stdlib_printexc[8], $q_);
+    $call1($Stdlib_printexc[9], $q_);
     
     $r_ = (dynamic $e) : dynamic ==> {
       if (instance_of($e, $array_constructor)) {return 0;}
@@ -342,7 +342,7 @@ final class Js_of_ocaml__Js {
       };
     };
     
-    $call1($Stdlib_printexc[8], $r_);
+    $call1($Stdlib_printexc[9], $r_);
     
     $string_of_error = (dynamic $e) : dynamic ==> {
       $y_ = (dynamic $x) : dynamic ==> {

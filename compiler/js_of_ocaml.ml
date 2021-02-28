@@ -158,6 +158,13 @@ let gen_file file f =
   in
   try
     let ch = open_out_bin (Fp.toString f_tmp) in
+    let ch = Custom_channel.ActualChannel.of_out_channel ch in
+    let onBeforeWrite = match Config.Flag.flowPrettyJs () with
+      | true -> Some (Backend.Current.extra_pretty_print ())
+      | false -> None
+    in
+    let ch = Custom_channel.Channel.make ch ?onBeforeWrite () in
+    let close_out = Custom_channel.Channel.close in
     (try f ch
      with e ->
        close_out ch;
@@ -187,7 +194,7 @@ let ensure_file fp =
   then ()
   else
     gen_file fp (fun chan ->
-        let fmt = Pretty_print.to_out_channel chan in
+        let fmt = Pretty_print.to_custom_channel chan in
         Pretty_print.string fmt "true";
         Pretty_print.newline fmt)
 
@@ -372,7 +379,14 @@ let f
             ; env_instr () ]
         in
         let code = Code.prepend one.code instr in
-        let fmt = Pretty_print.to_out_channel stdout in
+
+        let ch = Custom_channel.ActualChannel.of_stdout stdout in
+        let onBeforeWrite = match Config.Flag.flowPrettyJs () with
+          | true -> Some (Backend.Current.extra_pretty_print ())
+          | false -> None
+        in
+        let ch = Custom_channel.Channel.make ch ?onBeforeWrite () in
+        let fmt = Pretty_print.to_custom_channel ch in
         RehpDriver.f
           ~standalone
           ?projectRoot:(get_project_root())
@@ -383,7 +397,8 @@ let f
           ?source_map
           fmt
           one.debug
-          code
+          code;
+        Custom_channel.Channel.close ch;
     | `Name file ->
         if file_needs_update use_hashing hashes_comment file
         then (
@@ -397,7 +412,7 @@ let f
                 List.concat [fs_instr1; pseudo_fs_init_instr (); env_instr ()]
               in
               let code = Code.prepend one.code instr in
-              let fmt = Pretty_print.to_out_channel chan in
+              let fmt = Pretty_print.to_custom_channel chan in
               RehpDriver.f
                 ~file
                 ?projectRoot:(get_project_root())
@@ -416,7 +431,7 @@ let f
               gen_file file (fun chan ->
                   let instr = fs_instr2 in
                   let code = Code.prepend Code.empty instr in
-                  let pfs_fmt = Pretty_print.to_out_channel chan in
+                  let pfs_fmt = Pretty_print.to_custom_channel chan in
                   RehpDriver.f
                     ~file
                     ?projectRoot:(get_project_root())

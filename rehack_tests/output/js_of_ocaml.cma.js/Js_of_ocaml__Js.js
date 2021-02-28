@@ -273,7 +273,7 @@ function q_(param) {
   return 0;
 }
 
-call1(Stdlib_printexc[8], q_);
+call1(Stdlib_printexc[9], q_);
 
 function r_(e) {
   if (e instanceof array_constructor) {return 0;}
@@ -284,7 +284,7 @@ function r_(e) {
   ];
 }
 
-call1(Stdlib_printexc[8], r_);
+call1(Stdlib_printexc[9], r_);
 
 function string_of_error(e) {
   function y_(x) {return call1(caml_get_public_method(x, 946786476, 22), x);}

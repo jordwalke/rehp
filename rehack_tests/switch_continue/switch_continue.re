@@ -74,7 +74,7 @@ let rec h0 = c => {
   | '_' => h0(c)
   | '{' => h0(c)
   | '(' => h0(c)
-  | '}' => raise(Not_found)
+  | '}' | _ => raise(Not_found)
   };
 };
 
