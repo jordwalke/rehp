@@ -46,6 +46,8 @@ module Flag : sig
 
   val prettiestJs : unit -> bool
 
+  val flowPrettyJs : unit -> bool
+
   val stable_var : unit -> bool
 
   val debuginfo : unit -> bool
