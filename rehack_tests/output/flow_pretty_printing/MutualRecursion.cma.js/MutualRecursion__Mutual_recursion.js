@@ -42,15 +42,15 @@ var MutualRecursion_Mutual_recursion = [0, is_even, is_odd];
 
 module.exports = MutualRecursion_Mutual_recursion;
 
-type Exports = {
+/*::type Exports = {
   is_even: (n: any) => any,
   is_odd: (n: any) => any,
-};
+}*/
 /** @type {{
   is_even: (n: any) => any,
   is_odd: (n: any) => any,
 }} */
-module.exports = ((module.exports: any): Exports);
+module.exports = module.exports /*:: : any*/ /*:: :Exports */;
 module.exports.is_even = module.exports[1];
 module.exports.is_odd = module.exports[2];
 

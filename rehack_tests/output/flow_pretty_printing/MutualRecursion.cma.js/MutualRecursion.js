@@ -7,9 +7,10 @@ var MutualRecursion = [0];
 
 module.exports = MutualRecursion;
 
-type Exports = {};
+/*::type Exports = {
+}*/
 /** @type {{
 }} */
-module.exports = ((module.exports: any): Exports);
+module.exports = module.exports /*:: : any*/ /*:: :Exports */;
 
 /* Hashing disabled */
