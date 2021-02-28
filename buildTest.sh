@@ -139,3 +139,7 @@ export OCAMLRUNPARAM=b && time refmterr js_of_ocaml --noinline --keep-unit-names
 # Tests recursive functions
 echo "./rehack_tests/output/recursion/Recursion.cma.js"
 export OCAMLRUNPARAM=b && time refmterr js_of_ocaml --enable vardecl --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl --disable shortvar --pretty --custom-header "file:./rehack_tests/templates/common-js-module-header.js" --backend js "${1}"/default/rehack_tests/recursion/Recursion.cma -o ./rehack_tests/output/recursion/Recursion.cma.js/
+
+# Tests mutually recursive functions
+echo "./rehack_tests/output/flow_pretty_printing/MutualRecursion.cma.js"
+export OCAMLRUNPARAM=b && time refmterr js_of_ocaml --enable vardecl --keep-unit-names --enable excwrap --enable wrapped-exceptions --disable simplify_ifdecl --disable shortvar --pretty --flow-pretty-js --custom-header "file:./rehack_tests/templates/common-js-module-header.js" --backend js "${1}"/default/rehack_tests/flow_pretty_printing/MutualRecursion.cma -o ./rehack_tests/output/flow_pretty_printing/MutualRecursion.cma.js/
