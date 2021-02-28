@@ -379,7 +379,14 @@ let f
             ; env_instr () ]
         in
         let code = Code.prepend one.code instr in
-        let fmt = Pretty_print.to_out_channel stdout in
+
+        let ch = Custom_channel.ActualChannel.of_stdout stdout in
+        let onBeforeWrite = match Config.Flag.flowPrettyJs () with
+          | true -> Some (Backend.Current.extra_pretty_print ())
+          | false -> None
+        in
+        let ch = Custom_channel.Channel.make ch ?onBeforeWrite () in
+        let fmt = Pretty_print.to_custom_channel ch in
         RehpDriver.f
           ~standalone
           ?projectRoot:(get_project_root())
@@ -390,7 +397,8 @@ let f
           ?source_map
           fmt
           one.debug
-          code
+          code;
+        Custom_channel.Channel.close ch;
     | `Name file ->
         if file_needs_update use_hashing hashes_comment file
         then (
