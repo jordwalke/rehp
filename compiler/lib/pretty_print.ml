@@ -50,9 +50,7 @@ type t =
     mutable line : int;
     mutable col : int;
     mutable total : int;
-    output : string -> int -> int -> unit;
-    finally : string -> unit;
-    get_accumulated_output: unit -> string }
+    output : string -> int -> int -> unit }
 
 let spaces = String.make 80 ' '
 let output st (s : string) l =
@@ -184,7 +182,6 @@ let start_group st n = if not st.compact then push st (Start_group n)
 let end_group st = if not st.compact then push st End_group
 
 (*
-
 let render l =
   let st = { indent = 0; box_indent = 0; prev_indents = [];
              limit = 78; cur = 0; l = []; n = 0; w = 0;
@@ -193,15 +190,12 @@ let render l =
   List.iter (fun e -> push st e) l;
   push st End_group;
   output_newline st
-
 let rec tree n =
   if n = 0 then [Text "Leaf"] else
   [Start_group 10; Text "Node.... ("] @ tree (n - 1) @
   [Text ","; Break (" ", 0)] @ tree (n - 1) @ [Text ")"; End_group]
-
 let _ =
 for i = 1 to 10 do render (tree i) done
-
 *)
 
 let total t = t.total
@@ -223,35 +217,27 @@ let newline st =
   st.cur <- 0; st.l <- []; st.n <- 0; st.w <- 0
 
 let to_out_channel ch =
-  let buffer = Buffer.create 100 in
   { indent = 0; box_indent = 0; prev_indents = [];
     limit = 78; cur = 0; l = []; n = 0; w = 0;
     col = 0; line = 0; total = 0;
     compact = false; pending_space = None; last_char = None; needed_space = None;
-    output = (fun s i l -> Buffer.add_substring buffer s i l);
-    finally = (fun s -> 
-      Buffer.clear buffer;
-      output_string ch s);
-    get_accumulated_output = fun () -> Buffer.contents buffer;
+    output = output_substring ch
   }
 
 let to_buffer b =
-  let buffer = Buffer.create 100 in
   { indent = 0; box_indent = 0; prev_indents = [];
     limit = 78; cur = 0; l = []; n = 0; w = 0;
     col = 0; line = 0; total = 0;
     compact = false; pending_space = None; last_char = None; needed_space = None;
-    output = (fun s i l -> Buffer.add_substring buffer s i l);
-    finally = (fun s -> 
-      Buffer.clear buffer;
-      Buffer.add_string b s);
-    get_accumulated_output = fun () -> Buffer.contents buffer;
-  }
+    output = fun s i l -> Buffer.add_substring b s i l }
 
-let post_process t fn =
-  let str = t.get_accumulated_output () in
-  let processed_str = fn str in
-  t.finally processed_str
+let to_custom_channel ch = 
+  { indent = 0; box_indent = 0; prev_indents = [];
+    limit = 78; cur = 0; l = []; n = 0; w = 0;
+    col = 0; line = 0; total = 0;
+    compact = false; pending_space = None; last_char = None; needed_space = None;
+    output = Custom_channel.Channel.add_substring ch
+  }
 
 let set_compact st v = st.compact <- v
 

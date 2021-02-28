@@ -40,10 +40,9 @@ val newline : t -> unit
 
 val to_out_channel : out_channel -> t
 val to_buffer : Buffer.t -> t
+val to_custom_channel : Custom_channel.Channel.t -> t
 val pos : t -> pos
 val total : t -> int
 
 val set_compact : t -> bool -> unit
 val set_needed_space_function : t -> (char -> char -> bool) -> unit
-
-val post_process : t -> (string -> string) -> unit
