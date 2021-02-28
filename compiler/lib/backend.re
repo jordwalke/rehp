@@ -283,7 +283,7 @@ module Current: Backend_implementation = {
     | None => raise(Invalid_argument("Runtime setter not set"))
     | Some((module CurrentBackend)) => CurrentBackend.runtime_module_var()
     };
-  let extra_pretty_print = partially_formatted_output =>
+  let extra_pretty_print = () =>
     switch (current^) {
     | None => raise(Invalid_argument("Extra pretty printer not set"))
     | Some((module CurrentBackend)) => CurrentBackend.extra_pretty_print()
