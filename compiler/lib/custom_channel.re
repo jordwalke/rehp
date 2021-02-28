@@ -1,9 +1,11 @@
 module ActualChannel = {
   type t =
     | OutChannel(out_channel)
+    | Stdout(out_channel)
     | Buffer(Buffer.t);
 
   let of_out_channel = oc => OutChannel(oc);
+  let of_stdout = so => Stdout(so);
   let of_buffer = b => Buffer(b);
 };
 
@@ -38,7 +40,19 @@ module Channel: CustomChannel = {
     |> (
       switch (t.channel) {
       | ActualChannel.OutChannel(oc) => output_string(oc)
+      | ActualChannel.Stdout(so) => output_string(so)
       | ActualChannel.Buffer(b) => Buffer.add_string(b)
+      }
+    )
+    |> (
+      () => {
+        // Cleanup
+        Buffer.clear(t.buffer);
+        switch (t.channel) {
+        | ActualChannel.OutChannel(oc) => close_out(oc)
+        | ActualChannel.Stdout(_)
+        | ActualChannel.Buffer(_) => ()
+        };
       }
     );
 };
